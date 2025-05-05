@@ -1,0 +1,61 @@
+/* Estilos para la página principal */
+.hero {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.slider-juego {
+    max-width: 800px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.slide {
+    width: 100%;
+    height: auto;
+}
+
+.btn-principal {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.btn-principal:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Animaciones */
+.titulo-animado {
+    animation: titulo-entrada 1.5s ease-out;
+}
+
+@keyframes titulo-entrada {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide {
+    animation: slide 10s infinite;
+}
+
+@keyframes slide {
+    0%, 100% {
+        opacity: 0;
+    }
+    20%, 80% {
+        opacity: 1;
+    }
+}

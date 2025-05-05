@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Juego - Batallas</title>
+
+        <link rel="stylesheet" href="css/base.css">
+        <link rel="stylesheet" href="css/battles.css">
+
+        <script src="js/battles.js"></script>
+    </head>
+
+    <body>
+        <header class="sticky-header">
+            <nav>
+                <ul class="menu">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="tutorial.html">Tutorial</a></li>
+                    <li><a href="battles.html">Batallas</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <h1>Reporte de Batallas</h1>
+
+            <section class="buscar-batalla">
+                <h2>Buscar batalla</h2>
+                <form id="form-buscar-batalla">
+                    <label for="numero-batalla">Número de batalla:</label>
+                    <input type="number" id="numero-batalla" name="numero-batalla" required>
+                    <button type="submit">Buscar</button>
+                </form>
+            </section>
+
+            <section class="resultado-batalla" id="resultado-batalla">
+                <!-- Aquí se cargará el contenido de la batalla mediante JavaScript -->
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <p>©Copyright 2023 - Todos los derechos reservados</p>
+        </footer>
+    </body>
+</html>
