@@ -46,12 +46,12 @@ public class Battle {
     // cuantifican las unidades actuales de cada grupo, tanto para el planeta, como para el
     // enemigo. El orden seria:
     // actualNumberUnitsPlanet[0] --> cazadores ligeros
-    // actualNumberUnitsPlanet[0] --> cazadores pesados
-    // actualNumberUnitsPlanet[0] --> Naves de battalla
-    // actualNumberUnitsPlanet[0] --> Acorazados
-    // actualNumberUnitsPlanet[0] --> Lanzamisiles
-    // actualNumberUnitsPlanet[0] --> Cañones de iones
-    // actualNumberUnitsPlanet[0] --> Cañones de Plasma
+    // actualNumberUnitsPlanet[1] --> cazadores pesados
+    // actualNumberUnitsPlanet[2] --> Naves de battalla
+    // actualNumberUnitsPlanet[3] --> Acorazados
+    // actualNumberUnitsPlanet[4] --> Lanzamisiles
+    // actualNumberUnitsPlanet[5] --> Cañones de iones
+    // actualNumberUnitsPlanet[6] --> Cañones de Plasma
 
     public void initInitialArmies() {
         initialArmies = new int[2][7];
@@ -74,11 +74,37 @@ public class Battle {
         resourcesLosses[1][2] = resourcesLosses[1][0] + 5 * resourcesLosses[1][1];
     }
 
-    public int fleetResourceCost(ArrayList<MilitaryUnit> army) {
+    public int fleetResourceCost(ArrayList<MilitaryUnit>[] army) {
         int cost = 0;
-        for (int i = 0; i < army.size(); i++) {
-            cost += army.get(i).getMetalCost();
+        for (int i = 0; i < army.length; i++) {
+            for (int j = 0; j < army[i].size(); j++) {
+                cost += army[i].get(j).getMetalCost();
+            }
         }
         return cost;
+    }
+
+    public int initialFleetNumber(ArrayList<MilitaryUnit>[] army) {
+        int total = 0;
+
+        for (int i = 0; i < army.length; i++) {
+            total += army[i].size();
+        }
+
+        return total;
+    }
+
+    public int remainderPercentageFleet(ArrayList<MilitaryUnit>[] army) {
+        // This method is only useful for the planet army.
+        int total = 0;
+        for (int i = 0; i < army.length; i++) {
+            total += army[i].size();
+        }
+        return (total * 100) / initialNumberUnitsPlanet;
+    }
+
+    public int getGroupDefender(ArrayList<MilitaryUnit>[] army) {
+        // I have to get the defender group of the army, 0-3 if enemy, 0-6 if planet. 
+        // Planet is always the one being attacked.
     }
 }
