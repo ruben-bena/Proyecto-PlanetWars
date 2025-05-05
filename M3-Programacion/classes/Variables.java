@@ -1,22 +1,23 @@
+package classes;
 
 interface MilitaryUnit {
     abstract int attack();
     // Nos devolverá el poder de ataque que tenga la unidad.
-    ● abstract void tekeDamage(int receivedDamage);
+    abstract void takeDamage(int receivedDamage);
     // Restará a nuestro blindaje el daño recibido por parámetro.
-    ● abstract int getActualArmor();
+    abstract int getActualArmor();
     // Nos devolverá el blindaje que tengamos actualmente, después de haber
     // recibido un ataque.
-    ● abstract int getMetalCost();
+    abstract int getMetalCost();
     // Nos devolverá el coste de Metal que tiene crear una nueva unidad.
-    ● abstract int getDeuteriumCost();
+    abstract int getDeuteriumCost();
     // Nos devolverá el coste de Deuterium que tiene crear una nueva unidad.
-    ● abstract int getChanceGeneratinWaste();
+    abstract int getChanceGeneratinWaste();
     // Nos la probabilidad de generar residuos al ser totalmente eliminada
     // (blindaje 0 o inferior).
-    ● abstract int getChanceAttackAgain();
+    abstract int getChanceAttackAgain();
     // Nos la probabilidad de generar volver a atacar.
-    ● abstract void resetArmor();
+    abstract void resetArmor();
     // Nos restablecerá nuestro blindaje a su valor original.
 }
 
@@ -52,11 +53,9 @@ public interface Variables {
     public final int METAL_COST_PLASMACANNON = 50000;
     // array units costs
     public final int[] METAL_COST_UNITS =
-    {METAL_COST_LIGTHHUNTER,METAL_COST_HEAVYHUNTER,METAL_COST_BATTLESHIP,METAL_COST_ARMOREDSHIP,METAL_COST_MISSILELAUNCHER,METAL_COST_IONCANNON,METAL_
-    COST_PLASMACANNON};
+    {METAL_COST_LIGTHHUNTER,METAL_COST_HEAVYHUNTER,METAL_COST_BATTLESHIP,METAL_COST_ARMOREDSHIP,METAL_COST_MISSILELAUNCHER,METAL_COST_IONCANNON,METAL_COST_PLASMACANNON};
     public final int[] DEUTERIUM_COST_UNITS =
-    {DEUTERIUM_COST_LIGTHHUNTER,DEUTERIUM_COST_HEAVYHUNTER,DEUTERIUM_COST_BATTLESHIP,DEUTERIUM_COST_ARMOREDSHIP,DEUTERIUM_COST_MISSILELAUNCHER,DEUTERI
-    UM_COST_IONCANNON,DEUTERIUM_COST_PLASMACANNON};
+    {DEUTERIUM_COST_LIGTHHUNTER,DEUTERIUM_COST_HEAVYHUNTER,DEUTERIUM_COST_BATTLESHIP,DEUTERIUM_COST_ARMOREDSHIP,DEUTERIUM_COST_MISSILELAUNCHER,DEUTERIUM_COST_IONCANNON,DEUTERIUM_COST_PLASMACANNON};
     // BASE DAMAGE SHIPS
     public final int BASE_DAMAGE_LIGTHHUNTER = 80;
     public final int BASE_DAMAGE_HEAVYHUNTER = 150;
@@ -96,14 +95,14 @@ public interface Variables {
     public final int PLUS_ATTACK_IONCANNON_BY_TECHNOLOGY = 5;
     public final int PLUS_ATTACK_PLASMACANNON_BY_TECHNOLOGY = 5;
     // fleet probability of generating waste
-    public final int CHANCE_GENERATNG_WASTE_LIGTHHUNTER = 55;
-    public final int CHANCE_GENERATNG_WASTE_HEAVYHUNTER = 65;
-    public final int CHANCE_GENERATNG_WASTE_BATTLESHIP = 80;
-    public final int CHANCE_GENERATNG_WASTE_ARMOREDSHIP = 90;
+    public final int CHANCE_GENERATING_WASTE_LIGTHHUNTER = 55;
+    public final int CHANCE_GENERATING_WASTE_HEAVYHUNTER = 65;
+    public final int CHANCE_GENERATING_WASTE_BATTLESHIP = 80;
+    public final int CHANCE_GENERATING_WASTE_ARMOREDSHIP = 90;
     // Defense probability of generating waste
-    public final int CHANCE_GENERATNG_WASTE_MISSILELAUNCHER = 55;
-    public final int CHANCE_GENERATNG_WASTE_IONCANNON = 65;
-    public final int CHANCE_GENERATNG_WASTE_PLASMACANNON = 75;
+    public final int CHANCE_GENERATING_WASTE_MISSILELAUNCHER = 55;
+    public final int CHANCE_GENERATING_WASTE_IONCANNON = 65;
+    public final int CHANCE_GENERATING_WASTE_PLASMACANNON = 75;
     // fleet chance to attack again
     public final int CHANCE_ATTACK_AGAIN_LIGTHHUNTER = 3;
     public final int CHANCE_ATTACK_AGAIN_HEAVYHUNTER = 7;
