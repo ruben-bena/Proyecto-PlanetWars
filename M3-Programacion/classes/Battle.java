@@ -25,7 +25,7 @@ public class Battle {
     private int[][] resourcesLosses;
     // array de dos filas y tres columnas, resourcesLosses[0] =
     // {perdidas metal planeta, perdidas deuterio planeta, perdidas metal planeta + 5*
-    // perdidas deuterio planeta}, resourcesLooses[1] lo mismo pero para el ejercito
+    // perdidas deuterio planeta}, resourcesLosses[1] lo mismo pero para el ejercito
     // enemigo.
     // Lo de multiplicar por 5 las pérdidas de deuterio, es debido al mayor valor de este
     // material. Para decidir el ganador, será que que tenga el numero menor en la tercera
@@ -53,6 +53,8 @@ public class Battle {
     // actualNumberUnitsPlanet[5] --> Cañones de iones
     // actualNumberUnitsPlanet[6] --> Cañones de Plasma
 
+    
+
     public void initInitialArmies() {
         initialArmies = new int[2][7];
         // 0 --> planet
@@ -63,6 +65,27 @@ public class Battle {
                 initialArmies[i][j] = 0;
             }
         }
+    }
+
+    public Battle(ArrayList<MilitaryUnit>[] planetArmy, ArrayList<MilitaryUnit>[] enemyArmy, ArrayList[][] armies,
+            String battleDevelopment, int[][] initialCostFleet, int initialNumberUnitsPlanet,
+            int initialNumberUnitsEnemy, int[] wasteMetalDeuterium, int[] enemyDrops, int[] planetDrops,
+            int[][] resourcesLosses, int[][] initialArmies, int[] actualNumberUnitsPlanet,
+            int[] actualNumberUnitsEnemy) {
+        this.planetArmy = planetArmy;
+        this.enemyArmy = enemyArmy;
+        this.armies = armies;
+        this.battleDevelopment = battleDevelopment;
+        this.initialCostFleet = initialCostFleet;
+        this.initialNumberUnitsPlanet = initialNumberUnitsPlanet;
+        this.initialNumberUnitsEnemy = initialNumberUnitsEnemy;
+        this.wasteMetalDeuterium = wasteMetalDeuterium;
+        this.enemyDrops = enemyDrops;
+        this.planetDrops = planetDrops;
+        this.resourcesLosses = resourcesLosses;
+        this.initialArmies = initialArmies;
+        this.actualNumberUnitsPlanet = actualNumberUnitsPlanet;
+        this.actualNumberUnitsEnemy = actualNumberUnitsEnemy;
     }
 
     public void updateResourceLoses() {
@@ -106,5 +129,50 @@ public class Battle {
     public int getGroupDefender(ArrayList<MilitaryUnit>[] army) {
         // I have to get the defender group of the army, 0-3 if enemy, 0-6 if planet. 
         // Planet is always the one being attacked.
+        // How can I differentiate if it's planet or enemy?
+        // Maybe it's not necessary to differentiate because it's chosen depending on the number of each army
+        // and the attacker doesn't have any from army 4 to 6
+
+        // This algorithm chooses one group randomly between the 7 groups depending on the number
+        int[] array = new int[7];
+        int totalSum = 0;
+        for(int i = 0; i < army.length; i++) {
+            array[i] = army[i].size();
+            totalSum += army[i].size();
+        }
+        int randomNumber = (int) (Math.random() * totalSum);
+
+        for(int i = 0; i < array.length; i++) {
+            int j = i;
+            int sum = 0;
+            while (j >= 0) {
+                sum += array[j];
+                j--;
+            }
+            if (sum >= randomNumber) {
+                return i;
+            }
+        }
+
+        // If it gets to this, it's an error.
+        return -1;
+    }
+
+    public int getPlanetGroupAttacker() {
+        // IDK if this is what it's asking?
+        return getGroupDefender(planetArmy);
+    }
+
+    public int getEnemyGroupAttacker() {
+        // IDK if this is what it's asking?
+        return getGroupDefender(enemyArmy);
+    }
+
+    public void resetArmyArmor() {
+        for (int i = 0; i < planetArmy.length; i++) {
+            for (int j = 0; j < planetArmy[i].size(); j++) {
+                planetArmy[i].get(j).resetArmor();
+            }
+        }
     }
 }

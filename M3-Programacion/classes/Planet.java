@@ -9,7 +9,7 @@ public class Planet {
     private int deuterium;
     private int upgradeDefenseTechnologyDeuteriumCost;
     private int upgradeAttackTechnologyDeuteriumCost;
-    private ArrayList<MilitaryUnit>[] army = new ArrayList[7];
+    private ArrayList<MilitaryUnit>[] army;
 
     // Army[0] → arrayList de Ligth Hunter
     // Army[1] → arrayList de Heavy Hunter
@@ -20,15 +20,14 @@ public class Planet {
     // Army[6] → arrayList de Plasma Cannon
 
     public Planet(int technologyDefense, int technologyAtack, int metal, int deuterium,
-            int upgradeDefenseTechnologyDeuteriumCost, int upgradeAttackTechnologyDeuteriumCost,
-            ArrayList<MilitaryUnit>[] army) {
+            int upgradeDefenseTechnologyDeuteriumCost, int upgradeAttackTechnologyDeuteriumCost) {
         this.technologyDefense = technologyDefense;
         this.technologyAttack = technologyAtack;
         this.metal = metal;
         this.deuterium = deuterium;
         this.upgradeDefenseTechnologyDeuteriumCost = upgradeDefenseTechnologyDeuteriumCost;
         this.upgradeAttackTechnologyDeuteriumCost = upgradeAttackTechnologyDeuteriumCost;
-        this.army = army;
+        this.army = new ArrayList[7];
     }
 
     public void upgradeTechnologyDefense() throws ResourceException {
@@ -228,4 +227,62 @@ public class Planet {
         System.out.println("Plasma Cannons: " + army[6].size());
         System.out.println("Total Army: " + (army[0].size() + army[1].size() + army[2].size() + army[3].size() + army[4].size() + army[5].size() + army[6].size()));
     }
+
+    public int getTechnologyDefense() {
+        return technologyDefense;
+    }
+
+    public void setTechnologyDefense(int technologyDefense) {
+        this.technologyDefense = technologyDefense;
+    }
+
+    public int getTechnologyAttack() {
+        return technologyAttack;
+    }
+
+    public void setTechnologyAttack(int technologyAttack) {
+        this.technologyAttack = technologyAttack;
+    }
+
+    public int getMetal() {
+        return metal;
+    }
+
+    public void setMetal(int metal) {
+        this.metal = metal;
+    }
+
+    public int getDeuterium() {
+        return deuterium;
+    }
+
+    public void setDeuterium(int deuterium) {
+        this.deuterium = deuterium;
+    }
+
+    public int getUpgradeDefenseTechnologyDeuteriumCost() {
+        return upgradeDefenseTechnologyDeuteriumCost;
+    }
+
+    public void setUpgradeDefenseTechnologyDeuteriumCost(int upgradeDefenseTechnologyDeuteriumCost) {
+        this.upgradeDefenseTechnologyDeuteriumCost = upgradeDefenseTechnologyDeuteriumCost;
+    }
+
+    public int getUpgradeAttackTechnologyDeuteriumCost() {
+        return upgradeAttackTechnologyDeuteriumCost;
+    }
+
+    public void setUpgradeAttackTechnologyDeuteriumCost(int upgradeAttackTechnologyDeuteriumCost) {
+        this.upgradeAttackTechnologyDeuteriumCost = upgradeAttackTechnologyDeuteriumCost;
+    }
+
+    public ArrayList<MilitaryUnit>[] getArmy() {
+        return army;
+    }
+
+    public void setArmy(ArrayList<MilitaryUnit>[] army) {
+        this.army = army;
+    }
+
+    
 }
