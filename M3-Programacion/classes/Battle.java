@@ -3,8 +3,8 @@ package classes;
 import java.util.ArrayList;
 
 public class Battle {
-    private ArrayList<MilitaryUnit>[] planetArmy; // → para almacenar la flota enemiga
-    private ArrayList<MilitaryUnit>[] enemyArmy; // → para almacenar la flota de nuestro planeta.
+    private ArrayList<MilitaryUnit>[] planetArmy; // → para almacenar la flota de nuestro planeta. 
+    private ArrayList<MilitaryUnit>[] enemyArmy; // → para almacenar la flota enemiga
     private ArrayList[][] armies; // que es un array de ArrayList de dos filas y siete columnas, donde almacenaremos nuestro ejército en la primera fila, y el ejército enemigo en la segunda fila;
     private String battleDevelopment; // Donde guardamos todo el desarrollo de la batalla paso a paso
     private int[][] initialCostFleet; // coste de metal deuterio de los ejercitos iniciales
@@ -53,41 +53,40 @@ public class Battle {
     // actualNumberUnitsPlanet[5] --> Cañones de iones
     // actualNumberUnitsPlanet[6] --> Cañones de Plasma
 
-    
+    public Battle(ArrayList<MilitaryUnit>[] planetArmy, ArrayList<MilitaryUnit>[] enemyArmy, ArrayList[][] armies) {
+        this.planetArmy = planetArmy;
+        this.enemyArmy = enemyArmy;
+        this.armies = armies;
+        this.initialNumberUnitsPlanet = initialFleetNumber(planetArmy);
+        this.initialNumberUnitsEnemy = initialFleetNumber(enemyArmy);
+        this.wasteMetalDeuterium = new int[2];
+        this.enemyDrops = new int[2];
+        this.planetDrops = new int[2];
+        initInitialArmies();
+        this.actualNumberUnitsPlanet = getArrayValuesFromArrayList(planetArmy);
+        this.actualNumberUnitsEnemy = getArrayValuesFromArrayList(enemyArmy);
+    }
+
 
     public void initInitialArmies() {
         initialArmies = new int[2][7];
         // 0 --> planet
         // 1 --> enemy
         // 0-7 --> Armies
+
+        // for (int i = 0; i < initialArmies.length; i++) {
+        //     for (int j = 0; j < initialArmies[i].length; j++) {
+        //         initialArmies[i][j] = 0;
+        //     }
+        // }
+
         for (int i = 0; i < initialArmies.length; i++) {
-            for (int j = 0; j < initialArmies[i].length; j++) {
-                initialArmies[i][j] = 0;
+                initialArmies[i] = getArrayValuesFromArrayList(armies[i]);
             }
         }
-    }
+    
 
-    public Battle(ArrayList<MilitaryUnit>[] planetArmy, ArrayList<MilitaryUnit>[] enemyArmy, ArrayList[][] armies,
-            String battleDevelopment, int[][] initialCostFleet, int initialNumberUnitsPlanet,
-            int initialNumberUnitsEnemy, int[] wasteMetalDeuterium, int[] enemyDrops, int[] planetDrops,
-            int[][] resourcesLosses, int[][] initialArmies, int[] actualNumberUnitsPlanet,
-            int[] actualNumberUnitsEnemy) {
-        this.planetArmy = planetArmy;
-        this.enemyArmy = enemyArmy;
-        this.armies = armies;
-        this.battleDevelopment = battleDevelopment;
-        this.initialCostFleet = initialCostFleet;
-        this.initialNumberUnitsPlanet = initialNumberUnitsPlanet;
-        this.initialNumberUnitsEnemy = initialNumberUnitsEnemy;
-        this.wasteMetalDeuterium = wasteMetalDeuterium;
-        this.enemyDrops = enemyDrops;
-        this.planetDrops = planetDrops;
-        this.resourcesLosses = resourcesLosses;
-        this.initialArmies = initialArmies;
-        this.actualNumberUnitsPlanet = actualNumberUnitsPlanet;
-        this.actualNumberUnitsEnemy = actualNumberUnitsEnemy;
-    }
-
+    
     public void updateResourceLoses() {
         resourcesLosses[0][0] = initialCostFleet[0][0] - planetDrops[0];
         resourcesLosses[0][1] = initialCostFleet[0][1] - planetDrops[1];
@@ -118,12 +117,15 @@ public class Battle {
     }
 
     public int remainderPercentageFleet(ArrayList<MilitaryUnit>[] army) {
-        // This method is only useful for the planet army.
         int total = 0;
         for (int i = 0; i < army.length; i++) {
             total += army[i].size();
         }
-        return (total * 100) / initialNumberUnitsPlanet;
+        if (army == armies[0]) {
+            return (total * 100) / initialNumberUnitsPlanet;
+        } else {
+            return (total * 100) / initialNumberUnitsEnemy;
+        }
     }
 
     public int getGroupDefender(ArrayList<MilitaryUnit>[] army) {
@@ -174,5 +176,22 @@ public class Battle {
                 planetArmy[i].get(j).resetArmor();
             }
         }
+    }
+
+    public int[] getArrayValuesFromArrayList(ArrayList[] array) {
+        int[] result = new int[array.length];
+
+        for(int i = 0; i < array.length; i++) {
+            result[i] = array[i].size();
+        }
+
+        return result;
+    }
+    public void announceCombat() {
+        enemyArmy = Main.createEnemyArmy();
+        System.out.println("NEW THREAT IS COMING");
+    }
+    public void combat() {
+
     }
 }

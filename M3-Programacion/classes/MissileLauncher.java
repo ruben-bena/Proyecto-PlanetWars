@@ -14,38 +14,31 @@ public class MissileLauncher extends Defense {
     }
 
     public void takeDamage(int receivedDamage) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'tekeDamage'");
     }
 
     public int getActualArmor() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getActualArmor'");
+        return getArmor();
     }
 
     public int getMetalCost() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getMetalCost'");
+        return Variables.METAL_COST_MISSILELAUNCHER;
     }
 
     public int getDeuteriumCost() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDeuteriumCost'");
+        return Variables.DEUTERIUM_COST_MISSILELAUNCHER;
     }
 
     public int getChanceGeneratinWaste() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getChanceGeneratinWaste'");
+        return Variables.CHANCE_GENERATING_WASTE_MISSILELAUNCHER;
     }
 
     public int getChanceAttackAgain() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getChanceAttackAgain'");
+        return Variables.CHANCE_ATTACK_AGAIN_MISSILELAUNCHER;
     }
 
     public void resetArmor() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'resetArmor'");
+        setArmor(getInitialArmor());
     }
     
 }
