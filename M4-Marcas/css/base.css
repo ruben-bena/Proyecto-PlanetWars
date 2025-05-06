@@ -1,4 +1,8 @@
 /* Estructura base para sticky footer */
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -7,18 +11,22 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    color: white;
 }
 
 .main-content {
     flex: 1;
     padding: 20px;
+    position: relative;
+    z-index: 1;
+    background-color: transparent;
 }
 
 /* Header y navegación */
 .sticky-header {
     position: sticky;
     top: 0;
-    background-color: #333;
+    background-color: rgba(30, 30, 40, 0.7);
     color: white;
     z-index: 100;
 }
@@ -35,17 +43,24 @@ body {
 }
 
 .menu a {
+    background-color: rgba(40, 40, 50);
     color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
     text-decoration: none;
 }
 
 .menu a:hover {
-    text-decoration: underline;
+    text-decoration: none;
+    background-color: rgba(50, 50, 60);
 }
 
 /* Footer */
 .site-footer {
-    background-color: #333;
+    background-color: transparent;
     color: white;
     text-align: center;
     padding: 15px 0;
@@ -62,4 +77,49 @@ body {
         padding: 10px;
         text-align: center;
     }
+}
+
+/* ==================== */
+/* |FONDO DE ESTRELLAS| */
+/* ==================== */
+#stars-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    background: linear-gradient(to bottom, #000000 0%, #0a0a1a 100%);
+}
+
+.star {
+    position: absolute;
+    background-color: white;
+    border-radius: 50%;
+    will-change: transform;
+    animation: twinkle 5s infinite ease-in-out;
+}
+
+.star.layer-1 {
+    width: 2px;
+    height: 2px;
+    opacity: 0.8;
+}
+
+.star.layer-2 {
+    width: 4px;
+    height: 4px;
+    opacity: 0.6;
+}
+
+.star.layer-3 {
+    width: 6px;
+    height: 6px;
+    opacity: 0.4;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 1; }
 }
