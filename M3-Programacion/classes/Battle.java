@@ -192,6 +192,10 @@ public class Battle {
         System.out.println("NEW THREAT IS COMING");
     }
     public void combat() {
-
+        
+        int startingArmy = (int) (Math.random() * 2);
+        while(remainderPercentageFleet(planetArmy) > 20 && remainderPercentageFleet(enemyArmy) > 20) {
+            ArrayList<MilitaryUnit> attacking_group = armies[startingArmy][0]; // Randomize it
+        }
     }
 }

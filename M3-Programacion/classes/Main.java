@@ -21,6 +21,8 @@ public class Main{
         armies[0] = planet.getArmy();
         armies[1] = enemyArmy;
 
+        
+
         Battle battle = new Battle(planet.getArmy(), enemyArmy, armies);
 
         // System.out.println("Enemy Attacket group = " + battle.getEnemyGroupAttacker());
@@ -39,7 +41,7 @@ public class Main{
             public void run() {
                 boolean isBattleAnnounced = false;
                 time.setMiliseconds(time.getMiliseconds() + time.getDeltaTime());
-               
+
                 if(time.getMiliseconds() > Time.secInMs) { // Every second
                     time.setSeconds(time.getSeconds() + 1);
                     time.setTotalSeconds(time.getTotalSeconds() + 1);
@@ -66,17 +68,17 @@ public class Main{
 
                     System.out.println("A minute has passed");
                 }
-                if (time.getMinutes() % 1 == 0 && time.getSeconds() == 0 && time.getMiliseconds() == 0 && !isBattleAnnounced) { // Every 3 minutes
-                    battle.announceCombat();
-                    isBattleAnnounced = true;
-                }
+                // if (time.getMinutes() % 1 == 0 && time.getSeconds() == 0 && time.getMiliseconds() == 0 && !isBattleAnnounced) { // Every 3 minutes
+                //     battle.announceCombat();
+                //     isBattleAnnounced = true;
+                // }
 
             }
         };
 
         // The problem with timers and why idk how to implement it it's because
         // variables declared outside of the timer on main are not accessible in the timer
-
+        
 
         // One option is to have multiple timers for everything
         // Another option is to figure out how to do it with one timer and checking time conditions in that one.
@@ -86,7 +88,26 @@ public class Main{
         timer.schedule(tick, 0, time.getDeltaTime());
         //////////////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////////////
+        TimerTask countdownBattleTimerTask = new TimerTask() {
+            public void run() {
+                System.out.println("Battle has started!");
+                battle.combat();
+            }
+        };
 
+        TimerTask threatTimer = new TimerTask() {
+            public void run() {
+                if (!planet.isActiveThreat()) {
+                    battle.announceCombat();
+                    planet.setActiveThreat(true);
+
+                    timer.schedule(countdownBattleTimerTask, Time.countdownBattleTime);
+                }
+                
+            }
+        };
+        
+        timer.schedule(threatTimer, 0, Time.secInMs * 180);
 
         // I could do a method inside the Time class that executes an order after a certain time using the current time and doing the sum with the desired wait time
         
@@ -305,6 +326,7 @@ class Time {
     private int deltaTime;
 
     static int secInMs = 1000;
+    static int countdownBattleTime = secInMs * 60;
 
 
     public Time() {

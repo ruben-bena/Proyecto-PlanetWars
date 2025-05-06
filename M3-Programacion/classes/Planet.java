@@ -9,6 +9,7 @@ public class Planet {
     private int deuterium;
     private int upgradeDefenseTechnologyDeuteriumCost;
     private int upgradeAttackTechnologyDeuteriumCost;
+    private boolean isActiveThreat;
     private ArrayList<MilitaryUnit>[] army;
 
     // Army[0] → arrayList de Ligth Hunter
@@ -28,6 +29,7 @@ public class Planet {
         this.upgradeDefenseTechnologyDeuteriumCost = upgradeDefenseTechnologyDeuteriumCost;
         this.upgradeAttackTechnologyDeuteriumCost = upgradeAttackTechnologyDeuteriumCost;
         this.army = new ArrayList[7];
+        this.isActiveThreat = false;
         for(int i = 0; i < army.length; i++) {
             army[i] = new ArrayList<MilitaryUnit>();
         }
@@ -293,5 +295,14 @@ public class Planet {
         this.army = army;
     }
 
+    public boolean isActiveThreat() {
+        return isActiveThreat;
+    }
+
+    public void setActiveThreat(boolean isActiveThreat) {
+        this.isActiveThreat = isActiveThreat;
+    }
+
+    
     
 }
