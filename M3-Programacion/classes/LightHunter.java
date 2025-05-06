@@ -49,4 +49,11 @@ public class LightHunter extends Ship implements MilitaryUnit {
         setArmor(getInitialArmor());
     }
 
+    @Override
+    public String toString() {
+        return "LightHunter []";
+    }
+
+    
+
 }
