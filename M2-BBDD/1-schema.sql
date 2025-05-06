@@ -64,7 +64,7 @@ CREATE TABLE Enemy_army
         enemy_army_id NUMBER
                       GENERATED ALWAYS AS IDENTITY START WITH 1
                       PRIMARY KEY,
-        num_battle NUMBER NOT NULL,
+        num_battle    NUMBER NOT NULL,
 
         -- rest
         light_hunter_threat    NUMBER,
@@ -77,6 +77,28 @@ CREATE TABLE Enemy_army
         armored_ship_destroyed NUMBER,
 
         CONSTRAINT fk_battle_stats_num_battle
+            FOREIGN KEY (num_battle)
+            REFERENCES Battle_stats (num_battle)
+            ON DELETE CASCADE
+    );
+
+CREATE TABLE Planet_battle_defense
+    (
+        -- pk, fk
+        planet_battle_defense_id NUMBER
+                                 GENERATED ALWAYS AS IDENTITY START WITH 1
+                                 PRIMARY KEY,
+        num_battle NUMBER,
+
+        -- rest
+        missile_launcher_built NUMBER,
+        missile_launcher_destroyed NUMBER,
+        ion_cannon_built NUMBER,
+        ion_cannon_destroyed NUMBER,
+        plasma_canon_built NUMBER,
+        plasma_canon_destroyed NUMBER,
+
+        CONSTRAINT fk_planet_battle_defense_battle_stats
             FOREIGN KEY (num_battle)
             REFERENCES Battle_stats (num_battle)
             ON DELETE CASCADE
