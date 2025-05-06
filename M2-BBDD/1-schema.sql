@@ -103,3 +103,27 @@ CREATE TABLE Planet_battle_defense
             REFERENCES Battle_stats (num_battle)
             ON DELETE CASCADE
     );
+
+CREATE TABLE Planet_battle_army
+    (
+        -- pk, fk
+        planet_battle_army_id NUMBER
+                              GENERATED ALWAYS AS IDENTITY START WITH 1
+                              PRIMARY KEY,
+        num_battle    NUMBER NOT NULL,
+
+        -- rest
+        light_hunter_threat    NUMBER,
+        light_hunter_destroyed NUMBER,
+        heavy_hunter_threat    NUMBER,
+        heavy_hunter_destroyed NUMBER,
+        battleship_threat      NUMBER,
+        battleship_destroyed   NUMBER,
+        armored_ship_threat    NUMBER,
+        armored_ship_destroyed NUMBER,
+
+        CONSTRAINT fk_battle_battle_army_battle_stats
+            FOREIGN KEY (num_battle)
+            REFERENCES Battle_stats (num_battle)
+            ON DELETE CASCADE
+    )
