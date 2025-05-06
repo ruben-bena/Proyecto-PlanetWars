@@ -19,32 +19,33 @@ public class IonCannon extends Defense {
 
     public int getActualArmor() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getActualArmor'");
+        return getArmor();
     }
 
     public int getMetalCost() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getMetalCost'");
+        return Variables.METAL_COST_IONCANNON;
     }
 
     public int getDeuteriumCost() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDeuteriumCost'");
+        return Variables.DEUTERIUM_COST_IONCANNON;
     }
 
     public int getChanceGeneratinWaste() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getChanceGeneratinWaste'");
+        return Variables.CHANCE_GENERATING_WASTE_IONCANNON;
     }
 
     public int getChanceAttackAgain() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getChanceAttackAgain'");
+        return Variables.CHANCE_ATTACK_AGAIN_IONCANNON;
     }
 
     public void resetArmor() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'resetArmor'");
+        setArmor(Variables.ARMOR_ARMOREDSHIP);
+
     }
 
 }

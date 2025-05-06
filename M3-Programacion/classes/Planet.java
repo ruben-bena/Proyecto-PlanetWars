@@ -28,6 +28,9 @@ public class Planet {
         this.upgradeDefenseTechnologyDeuteriumCost = upgradeDefenseTechnologyDeuteriumCost;
         this.upgradeAttackTechnologyDeuteriumCost = upgradeAttackTechnologyDeuteriumCost;
         this.army = new ArrayList[7];
+        for(int i = 0; i < army.length; i++) {
+            army[i] = new ArrayList<MilitaryUnit>();
+        }
     }
 
     public void upgradeTechnologyDefense() throws ResourceException {
@@ -211,21 +214,27 @@ public class Planet {
     }
 
     public void printStats() {
+        System.out.println("\n\nPlanet Stats: \n");
         System.out.println("Technology Defense: " + technologyDefense);
         System.out.println("Technology Attack: " + technologyAttack);
+
+        System.out.println("\nRESOURCES\n");
         System.out.println("Metal: " + metal);
         System.out.println("Deuterium: " + deuterium);
-        System.out.println("Upgrade Defense Technology Deuterium Cost: " + upgradeDefenseTechnologyDeuteriumCost);
-        System.out.println("Upgrade Attack Technology Deuterium Cost: " + upgradeAttackTechnologyDeuteriumCost);
         
+        System.out.println("\nFLEET\n");
         System.out.println("Light Hunters: " + army[0].size());
         System.out.println("Heavy Hunters: " + army[1].size());
         System.out.println("Battle Ships: " + army[2].size());
         System.out.println("Armored Ships: " + army[3].size());
+
+        System.out.println("\nDEFENSES\n");
         System.out.println("Missile Launchers: " + army[4].size());
         System.out.println("Ion Cannons: " + army[5].size());
         System.out.println("Plasma Cannons: " + army[6].size());
+        System.out.println();
         System.out.println("Total Army: " + (army[0].size() + army[1].size() + army[2].size() + army[3].size() + army[4].size() + army[5].size() + army[6].size()));
+        System.out.println();
     }
 
     public int getTechnologyDefense() {
