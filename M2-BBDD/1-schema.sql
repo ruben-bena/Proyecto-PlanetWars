@@ -2,7 +2,7 @@ CREATE TABLE Planet_stats
     (
         -- pk
         planet_id NUMBER 
-                  GENERATED ALWAYS AS IDENTITY START WITH 1 -- se genera el id automáticamente y no se puede elegir a mano (ALWAYS != BY DEFAULT)
+                  GENERATED ALWAYS AS IDENTITY START WITH 1
                   PRIMARY KEY,
 
         -- planet data
@@ -29,7 +29,7 @@ CREATE TABLE Battle_stats
     (
         -- pk, fk
         num_battle NUMBER
-                   GENERATED ALWAYS AS IDENTITY START WITH 1 -- se genera el id automáticamente y no se puede elegir a mano (ALWAYS != BY DEFAULT)
+                   GENERATED ALWAYS AS IDENTITY START WITH 1
                    PRIMARY KEY,
         planet_id  NUMBER,
 
@@ -45,7 +45,7 @@ CREATE TABLE Battle_log
     (
         -- pk, fk
         num_line   NUMBER
-                   GENERATED ALWAYS AS IDENTITY START WITH 1 -- se genera el id automáticamente y no se puede elegir a mano (ALWAYS != BY DEFAULT)
+                   GENERATED ALWAYS AS IDENTITY START WITH 1
                    PRIMARY KEY,
         planet_id  NUMBER,
         num_battle NUMBER,
@@ -60,8 +60,10 @@ CREATE TABLE Battle_log
 
 CREATE TABLE Enemy_army
     (
-        -- fk
-        planet_id  NUMBER NOT NULL,
+        -- pk, fk
+        enemy_army_id NUMBER
+                      GENERATED ALWAYS AS IDENTITY START WITH 1
+                      PRIMARY KEY,
         num_battle NUMBER NOT NULL,
 
         -- rest
@@ -74,10 +76,8 @@ CREATE TABLE Enemy_army
         armored_ship_threat    NUMBER,
         armored_ship_destroyed NUMBER,
 
-        CONSTRAINT pk_enemy_army
-            PRIMARY KEY (planet_id, num_battle),
-
-        CONSTRAINT fk_enemy_army_battle_stats
-            FOREIGN KEY (planet_id, num_battle)
-            REFERENCES Battle_stats (planet_id, num_battle)
+        CONSTRAINT fk_battle_stats_num_battle
+            FOREIGN KEY (num_battle)
+            REFERENCES Battle_stats (num_battle)
+            ON DELETE CASCADE
     );
