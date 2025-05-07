@@ -56,7 +56,14 @@ public class Battle {
     public Battle(ArrayList<MilitaryUnit>[] planetArmy, ArrayList<MilitaryUnit>[] enemyArmy, ArrayList[][] armies) {
         this.planetArmy = planetArmy;
         this.enemyArmy = enemyArmy;
-        this.armies = armies;
+        this.armies = new ArrayList[2][7];
+        
+        for (int i = 0; i < armies.length; i++) {
+            for (int j = 0; j < armies[i].length; j++) {
+                this.armies[i][j] = new ArrayList<MilitaryUnit>() ;
+                this.armies[i][j] = armies[i][j];
+            }
+        }
         this.initialNumberUnitsPlanet = initialFleetNumber(planetArmy);
         this.initialNumberUnitsEnemy = initialFleetNumber(enemyArmy);
         this.wasteMetalDeuterium = new int[2];
@@ -192,10 +199,46 @@ public class Battle {
         System.out.println("NEW THREAT IS COMING");
     }
     public void combat() {
+        // Selecting randomly who starts the combat
+        int attackingArmy = (int) (Math.random() * 2);
+        int defendingArmy = 1;
+
+        if(attackingArmy == 1) {
+            defendingArmy = 0;
+        }
+
+        int attacking_group;
+        int defending_group;
         
-        int startingArmy = (int) (Math.random() * 2);
         while(remainderPercentageFleet(planetArmy) > 20 && remainderPercentageFleet(enemyArmy) > 20) {
-            ArrayList<MilitaryUnit> attacking_group = armies[startingArmy][0]; // Randomize it
+            // Selecting attacking group for the army starting the fight
+            if (attackingArmy == 1) {
+                attacking_group = getPlanetGroupAttacker();
+            } else {
+                attacking_group = getEnemyGroupAttacker();
+            }
+            // Selecting random attacking unit from selected group
+            int indexAttackingUnit = (int) (Math.random() * armies[attackingArmy][attacking_group].size());
+            MilitaryUnit attackingUnit = (MilitaryUnit) (armies[attackingArmy][attacking_group].get((indexAttackingUnit)));
+
+            // Selecting defending group
+            defending_group = getGroupDefender(armies[defendingArmy]);
+            int indexDefendingUnit = (int) (Math.random() * armies[attackingArmy][defending_group].size());
+            MilitaryUnit defendingUnit = (MilitaryUnit) (armies[attackingArmy][defending_group].get(indexDefendingUnit));
+
+            // Making them fight
+            // Applying damage
+            defendingUnit.takeDamage(attackingUnit.attack());
+            // Checking if it's destroyed
+            if(defendingUnit.getActualArmor() <= 0) {
+                armies[defendingArmy][defending_group].remove(defendingUnit); // This is just removing it from the ArrayList in armies, not in planetArmy or enemyArmy
+
+                if (planetArmy == armies[defendingArmy]) { // Removing it from the actual ArrayList too, this seems not practical at all.
+                    planetArmy[defending_group].remove(defendingUnit);
+                } else {
+                    enemyArmy[defending_group].remove(defendingUnit);
+                }
+            }
         }
     }
 }
