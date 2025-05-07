@@ -11,7 +11,10 @@ public class Database  {
         String url = "jdbc:oracle:thin:@//localhost:1521/freepdb1";
         String username = "planetWars";
         String pass = "planetWars";
-        new Database(url, username, pass);
+        Database db = new Database(url, username, pass);
+        System.out.println(db.isClosed());
+        db.close();
+        System.out.println(db.isClosed());
     }
 
     public Database(String url, String username, String pass) {
