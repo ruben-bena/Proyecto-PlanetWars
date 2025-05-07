@@ -1,0 +1,8 @@
+{
+    "java.project.sourcePaths": [
+        "M3-Programacion"
+    ],
+    "java.project.referencedLibraries": [
+        "ojdbc17.jar"
+    ]
+}
