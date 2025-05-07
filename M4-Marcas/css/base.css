@@ -1,9 +1,10 @@
-/* Estructura base para sticky footer */
+/* Evitar desbordamiento horizontal */
 * {
     box-sizing: border-box;
 }
 
-body {
+/* Estilo general de las paginas*/
+.body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -12,6 +13,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
     color: white;
+    position:relative;
 }
 
 .main-content {
@@ -22,41 +24,71 @@ body {
     background-color: transparent;
 }
 
-/* Header y navegación */
+/* Header */
 .sticky-header {
     position: sticky;
     top: 0;
     background-color: rgba(30, 30, 40, 0.7);
     color: white;
     z-index: 100;
-}
-
-.menu {
     display: flex;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+    justify-content: center;
 }
+    /*Menu general*/
+    .menu {
+        display: flex;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 1;
+        max-width: 1200px;
+    }
+    .menu li {
+        padding: 15px;
+    }
 
-.menu li {
-    padding: 15px;
-}
 
-.menu a {
-    background-color: rgba(40, 40, 50);
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    text-decoration: none;
-}
+    /*Estilo enlaces*/
+    .menu a {
+        background-color: rgba(40, 40, 50);
+        color: white;
+        padding: 10px 25px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: bold;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
+    .menu a:not(.menu-icon-container):hover {
+        text-decoration: none;
+        background-color: rgba(50, 50, 60);
+        transform: scale(1.1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
 
-.menu a:hover {
-    text-decoration: none;
-    background-color: rgba(50, 50, 60);
-}
+    /*Estilo para el contenedor del icono*/
+    .menu-icon-container > a {
+        background-color: transparent !important;
+        padding: 0 !important;
+    }
+
+    /* Estilo para el icono */
+    .menu-icon {
+        width: 70px;
+        height: 70px;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+        display: block;
+    }
+    .menu-icon:hover {
+        transform: scale(1.1);
+    }
+
 
 /* Footer */
 .site-footer {
@@ -65,18 +97,6 @@ body {
     text-align: center;
     padding: 15px 0;
     margin-top: auto;
-}
-
-/* Estilos responsive */
-@media (max-width: 768px) {
-    .menu {
-        flex-direction: column;
-    }
-    
-    .menu li {
-        padding: 10px;
-        text-align: center;
-    }
 }
 
 /* ==================== */
@@ -91,6 +111,8 @@ body {
     z-index: -1;
     overflow: hidden;
     background: linear-gradient(to bottom, #000000 0%, #0a0a1a 100%);
+    min-height: 100vh;
+    z-index: -3;
 }
 
 .star {
@@ -99,6 +121,7 @@ body {
     border-radius: 50%;
     will-change: transform;
     animation: twinkle 5s infinite ease-in-out;
+    z-index: -2;
 }
 
 .star.layer-1 {
@@ -122,4 +145,61 @@ body {
 @keyframes twinkle {
     0%, 100% { opacity: 0.2; }
     50% { opacity: 1; }
+}
+
+/* ==================== */
+/* PLANETAS Y ANILLOS MEJORADOS */
+/* ==================== */
+.planet {
+    position: absolute;
+    border-radius: 50%;
+    will-change: transform;
+    z-index: -1;
+    opacity: 1;
+    box-shadow: 
+        inset -20px -20px 40px rgba(0, 0, 0, 0.8),
+        0 0 40px rgba(255, 255, 255, 0.4);
+    transition: transform 0.8s cubic-bezier(0.17, 0.67, 0.21, 0.99);
+}
+
+/* Anillos realistas */
+.planet-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 12px solid;
+    border-color: rgba(210, 210, 230, 0.9);
+    box-shadow: 
+        0 0 25px rgba(255, 255, 255, 0.7),
+        inset 0 0 15px rgba(255, 255, 255, 0.5);
+    transform: rotate(15deg);
+    z-index: -2;
+    pointer-events: none;
+    background-color: transparent;
+}
+
+/* Detalle interior del anillo */
+.planet-ring::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    right: -12px;
+    bottom: -12px;
+    border-radius: 50%;
+    border: 6px solid rgba(255, 255, 255, 0.4);
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+/* Efecto de brillo mejorado */
+.planet::after {
+    content: '';
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    width: 25%;
+    height: 25%;
+    background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 70%);
+    border-radius: 50%;
+    filter: blur(2px);
+    z-index: 1;
 }

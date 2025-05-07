@@ -1,85 +1,215 @@
-// Fondo de estrellas con efecto parallax
-document.addEventListener('DOMContentLoaded', function() {
-    // Crear contenedor de estrellas si no existe
+// Función para obtener la altura del documento de manera eficiente
+function getDocumentHeight() {
+    return Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.offsetHeight
+    );
+}
+
+// Función para calcular la densidad de elementos
+function calculateDensity() {
+    const docHeight = getDocumentHeight();
+    const viewportHeight = window.innerHeight;
+    const densityFactor = Math.max(1, docHeight / viewportHeight);
+    
+    return {
+        stars: Math.floor(200 * densityFactor),
+        planets: Math.floor(2 + densityFactor)
+    };
+}
+
+// Configuraciones reutilizables
+const STAR_LAYERS = [
+    { size: 2, opacity: 0.8 },
+    { size: 4, opacity: 0.6 },
+    { size: 6, opacity: 0.4 }
+];
+
+const PLANET_COLORS = [
+    { main: '#4a6fa5', shadow: '#1a2a4a', ring: 'rgba(210, 210, 230, 0.9)' },
+    { main: '#c45c3e', shadow: '#5e2c20', ring: 'rgba(230, 180, 150, 0.9)' },
+    { main: '#7a4a82', shadow: '#3a2342', ring: 'rgba(200, 180, 220, 0.9)' },
+    { main: '#4a8f5e', shadow: '#1e4a2a', ring: 'rgba(180, 230, 200, 0.9)' },
+    { main: '#d4a55e', shadow: '#7a4a20', ring: 'rgba(240, 220, 180, 0.9)' }
+];
+
+// Función para generar estrellas optimizada
+function generateStars() {
+    const container = document.getElementById('stars-container');
+    const { stars: starCount } = calculateDensity();
+    const docHeight = getDocumentHeight();
+    
+    // Limpiar estrellas existentes de manera eficiente
+    const existingStars = container.querySelectorAll('.star');
+    if (existingStars.length > 0) {
+        existingStars.forEach(star => star.remove());
+    }
+    
+    // Fragmento de documento para mejor rendimiento
+    const fragment = document.createDocumentFragment();
+    
+    for (let i = 0; i < starCount; i++) {
+        const layerIndex = Math.floor(Math.random() * 3);
+        const layer = STAR_LAYERS[layerIndex];
+        const star = document.createElement('div');
+        
+        star.className = `star layer-${layerIndex + 1}`;
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * docHeight}px`;
+        star.style.width = `${layer.size}px`;
+        star.style.height = `${layer.size}px`;
+        star.style.opacity = layer.opacity;
+        star.style.animationDelay = `${Math.random() * 5}s`;
+        star.style.animationDuration = `${3 + Math.random() * 7}s`;
+        star.setAttribute('data-layer', layerIndex + 1);
+        
+        fragment.appendChild(star);
+    }
+    
+    container.appendChild(fragment);
+}
+
+// Función para generar planetas optimizada
+function generatePlanets() {
+    const container = document.getElementById('stars-container');
+    const { planets: planetCount } = calculateDensity();
+    const docHeight = getDocumentHeight();
+    
+    // Limpiar planetas existentes
+    container.querySelectorAll('.planet, .planet-ring').forEach(el => el.remove());
+    
+    const fragment = document.createDocumentFragment();
+    
+    for (let i = 0; i < planetCount; i++) {
+        const size = Math.floor(Math.random() * 120) + 80;
+        const colorSet = PLANET_COLORS[Math.floor(Math.random() * PLANET_COLORS.length)];
+        const hasRing = Math.random() > 0.6;
+        const xPos = Math.random() * 70 + 5;
+        const yPos = Math.random() * docHeight;
+        
+        const planet = document.createElement('div');
+        planet.className = `planet planet-${i+1}`;
+        planet.style.width = `${size}px`;
+        planet.style.height = `${size}px`;
+        planet.style.left = `${xPos}%`;
+        planet.style.top = `${yPos}px`;
+        planet.style.background = `radial-gradient(circle at 25% 25%, ${colorSet.main}, ${colorSet.shadow} 75%)`;
+        planet.setAttribute('data-layer', i + 3);
+        planet.setAttribute('data-original-y', (yPos / 100) * window.innerHeight);
+        
+        if (hasRing) {
+            const ringSize = size * (1.5 + Math.random() * 0.5);
+            const ringThickness = size * (0.1 + Math.random() * 0.05);
+            
+            const ring = document.createElement('div');
+            ring.className = 'planet-ring';
+            ring.style.width = `${ringSize}px`;
+            ring.style.height = `${ringThickness}px`;
+            ring.style.borderWidth = `${ringThickness/2}px`;
+            ring.style.borderColor = colorSet.ring;
+            ring.style.top = `${(size - ringThickness)/2}px`;
+            ring.style.left = `${(size - ringSize)/2}px`;
+            ring.style.transform = `rotate(${Math.random() * 360}deg)`;
+            planet.appendChild(ring);
+        }
+        
+        fragment.appendChild(planet);
+    }
+    
+    container.appendChild(fragment);
+}
+
+// Efecto de parallax optimizado con throttling
+let lastScrollTime = 0;
+function parallaxEffect() {
+    const now = Date.now();
+    if (now - lastScrollTime < 16) return; // ~60fps
+    lastScrollTime = now;
+    
+    const scrollPosition = window.scrollY;
+    
+    // Mover estrellas
+    document.querySelectorAll('.star').forEach(star => {
+        const layer = parseInt(star.getAttribute('data-layer'));
+        star.style.transform = `translateY(-${scrollPosition * layer * 0.15}px)`;
+    });
+    
+    // Mover planetas
+    document.querySelectorAll('.planet').forEach(planet => {
+        const layer = parseInt(planet.getAttribute('data-layer'));
+        const originalY = parseFloat(planet.getAttribute('data-original-y'));
+        
+        if (!isNaN(layer) && !isNaN(originalY)) {
+            const yOffset = scrollPosition * layer * 0.08;
+            const xOffset = Math.sin(scrollPosition * 0.0005 * layer) * 20;
+            planet.style.transform = `translate(calc(-50% + ${xOffset}px), -${yOffset}px)`;
+        }
+    });
+}
+
+// Observador de altura optimizado
+let lastHeight = 0;
+let heightCheckTimeout;
+function checkDocumentHeight() {
+    clearTimeout(heightCheckTimeout);
+    
+    heightCheckTimeout = setTimeout(() => {
+        const currentHeight = getDocumentHeight();
+        if (Math.abs(currentHeight - lastHeight) > window.innerHeight * 0.5) {
+            lastHeight = currentHeight;
+            generateStars();
+            generatePlanets();
+        }
+        checkDocumentHeight();
+    }, 200); // Verificar cada 200ms en lugar de en cada frame
+}
+
+// Inicialización optimizada
+function initSpaceEffects() {
     if (!document.getElementById('stars-container')) {
         const starsContainer = document.createElement('div');
         starsContainer.id = 'stars-container';
         document.body.insertBefore(starsContainer, document.body.firstChild);
-        
-        // Generar estrellas
-        generateStars();
     }
     
-    // Efecto parallax con scroll
-    window.addEventListener('scroll', parallaxEffect);
+    generateStars();
+    generatePlanets();
     
-    // Para que el efecto funcione al cargar la página
-    window.dispatchEvent(new Event('scroll'));
-});
-
-function generateStars() {
-    const container = document.getElementById('stars-container');
-    const starCount = 400; // Total de estrellas
-    
-    // Limpiar contenedor primero
-    container.innerHTML = '';
-    
-    // Crear estrellas en posiciones aleatorias
-    for (let i = 0; i < starCount; i++) {
-        const star = document.createElement('div');
-        const layer = Math.floor(Math.random() * 3) + 1; // Capa aleatoria (1, 2 o 3)
-        
-        star.classList.add('star', `layer-${layer}`);
-        
-        // Posición aleatoria
-        const xPos = Math.random() * 100;
-        const yPos = Math.random() * 100;
-        
-        // Tamaño y opacidad basados en la capa
-        let size, opacity;
-        switch(layer) {
-            case 1:
-                size = 2;
-                opacity = 0.8;
-                break;
-            case 2:
-                size = 4;
-                opacity = 0.6;
-                break;
-            case 3:
-                size = 6;
-                opacity = 0.4;
-                break;
-        }
-        
-        // Posicionar la estrella
-        star.style.left = `${xPos}%`;
-        star.style.top = `${yPos}%`;
-        star.style.width = `${size}px`;
-        star.style.height = `${size}px`;
-        star.style.opacity = opacity;
-        
-        // Animación de parpadeo aleatoria
-        star.style.animationDelay = `${Math.random() * 5}s`;
-        star.style.animationDuration = `${3 + Math.random() * 7}s`;
-        
-        // Almacenar la capa como atributo para el parallax
-        star.setAttribute('data-layer', layer);
-        
-        container.appendChild(star);
-    }
-}
-
-function parallaxEffect() {
-    const scrollPosition = window.scrollY;
-    const stars = document.querySelectorAll('.star');
-    
-    stars.forEach(star => {
-        const layer = parseInt(star.getAttribute('data-layer'));
-        const speed = layer * 0.15; // Ajusta la velocidad según la capa
-        
-        // Mover las estrellas a diferente velocidad según su capa
-        const yOffset = scrollPosition * speed;
-        star.style.transform = `translateY(-${yOffset}px)`;
+    // Event listeners con debouncing
+    window.addEventListener('scroll', () => {
+        requestAnimationFrame(parallaxEffect);
     });
+    
+    const resizeHandler = debounce(() => {
+        document.querySelectorAll('.planet').forEach(planet => {
+            const rect = planet.getBoundingClientRect();
+            planet.setAttribute('data-original-y', rect.top + window.scrollY);
+        });
+        generateStars();
+        generatePlanets();
+    }, 100);
+    
+    window.addEventListener('resize', resizeHandler);
+    
+    // Iniciar observador de altura
+    lastHeight = getDocumentHeight();
+    checkDocumentHeight();
+    
+    // Disparar evento scroll inicial
+    window.dispatchEvent(new Event('scroll'));
 }
+
+// Función debounce para optimización
+function debounce(func, wait) {
+    let timeout;
+    return function() {
+        const context = this, args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(context, args), wait);
+    };
+}
+
+// Iniciar cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', initSpaceEffects);
