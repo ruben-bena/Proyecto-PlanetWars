@@ -242,6 +242,24 @@ public class Battle {
     }
     public void announceCombat() {
         enemyArmy = Main.createEnemyArmy();
+        this.armies = new ArrayList[2][7];
+        
+        for (int i = 0; i < armies.length; i++) {
+            for (int j = 0; j < armies[i].length; j++) {
+                this.armies[i][j] = new ArrayList<MilitaryUnit>() ;
+                this.armies[i][j] = armies[i][j];
+            }
+        }
+        initialNumberUnitsPlanet = initialFleetNumber(planetArmy);
+        initialNumberUnitsEnemy = initialFleetNumber(enemyArmy);
+        battleDevelopment = "";
+        wasteMetalDeuterium = new int[2];
+        enemyDrops = new int[2];
+        planetDrops = new int[2];
+        initInitialArmies();
+        actualNumberUnitsPlanet = getArrayValuesFromArrayList(planetArmy);
+        actualNumberUnitsEnemy = getArrayValuesFromArrayList(enemyArmy);
+
         System.out.println("NEW THREAT IS COMING");
     }
     public void combat() {

@@ -69,10 +69,6 @@ public class Main{
 
                     System.out.println("A minute has passed");
                 }
-                // if (time.getMinutes() % 1 == 0 && time.getSeconds() == 0 && time.getMiliseconds() == 0 && !isBattleAnnounced) { // Every 3 minutes
-                //     battle.announceCombat();
-                //     isBattleAnnounced = true;
-                // }
 
             }
         };
@@ -92,7 +88,7 @@ public class Main{
         TimerTask countdownBattleTimerTask = new TimerTask() {
             public void run() {
                 System.out.println("Battle has started!");
-                battle.combat();
+                
             }
         };
 
@@ -102,13 +98,13 @@ public class Main{
                     battle.announceCombat();
                     planet.setActiveThreat(true);
 
-                    timer.schedule(countdownBattleTimerTask, Time.countdownBattleTime);
+                    timer.schedule(new TimerTaskBattleClass(battle, planet), Time.countdownBattleTime);
                 }
                 
             }
         };
         
-        timer.schedule(threatTimer, 0, Time.secInMs * 180);
+        timer.schedule(threatTimer, Time.timeBetweenBattles, Time.timeBetweenBattles);
 
         // I could do a method inside the Time class that executes an order after a certain time using the current time and doing the sum with the desired wait time
 
@@ -125,15 +121,6 @@ public class Main{
                 2) Build
                 3) Upgrade Technology
                 4) View Battle Reports
-                0) Exit 
-                """;
-        } else {
-            menu = """
-                1) View Planet Stats
-                2) Build
-                3) Upgrade Technology
-                4) View Battle Reports
-                5) View Current Threat
                 0) Exit 
                 """;
         }
@@ -341,6 +328,8 @@ public class Main{
         System.out.println("NEW THREAT IS COMING");
 
     }
+
+    
 }
 
 class Time {
@@ -352,6 +341,7 @@ class Time {
 
     static int secInMs = 1000;
     static int countdownBattleTime = secInMs * 10;
+    static int timeBetweenBattles = secInMs * 20;
 
 
     public Time() {
@@ -403,4 +393,21 @@ class Time {
     }
 
     
+}
+
+class TimerTaskBattleClass extends TimerTask {
+    private Battle battle;
+    private Planet planet;
+
+    TimerTaskBattleClass(Battle battle, Planet planet) {
+        this.battle = battle;
+        this.planet = planet;
+    }
+    @Override
+    public void run() {
+        battle.combat();
+        planet.setActiveThreat(false);
+            
+    }
+
 }
