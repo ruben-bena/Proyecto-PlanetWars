@@ -95,12 +95,18 @@ public class Battle {
 
     
     public void updateResourceLoses() {
-        resourcesLosses[0][0] = initialCostFleet[0][0] - planetDrops[0];
-        resourcesLosses[0][1] = initialCostFleet[0][1] - planetDrops[1];
-        resourcesLosses[1][0] = initialCostFleet[1][0] - enemyDrops[0];
-        resourcesLosses[1][1] = initialCostFleet[1][1] - enemyDrops[1];
+        resourcesLosses[0][0] = initialCostFleet[0][0] + planetDrops[0];
+        resourcesLosses[0][1] = initialCostFleet[0][1] + planetDrops[1];
+        resourcesLosses[1][0] = initialCostFleet[1][0] + enemyDrops[0];
+        resourcesLosses[1][1] = initialCostFleet[1][1] + enemyDrops[1];
         resourcesLosses[0][2] = resourcesLosses[0][0] + 5 * resourcesLosses[0][1];
         resourcesLosses[1][2] = resourcesLosses[1][0] + 5 * resourcesLosses[1][1];
+        System.out.println("Initial cost fleet planet metal = " + initialCostFleet[0][0]);
+        System.out.println("Initial cost fleet planet deut = " + initialCostFleet[0][1]);
+        System.out.println("Initial cost fleet enemy metal = " + initialCostFleet[1][0]);
+        System.out.println("Initial cost fleet enemy deut = " + initialCostFleet[1][1]);
+        System.out.println("Losses by planet = " + resourcesLosses[0][2]);
+        System.out.println("Losses by enemy = " + resourcesLosses[1][2]);
     }
 
     public int fleetResourceCost(ArrayList<MilitaryUnit>[] army) {
@@ -187,7 +193,7 @@ public class Battle {
         System.out.println("Total sum group pick function = " + totalSum);
         do {
             randMultiplier = (float) Math.random();
-        } while(randMultiplier < 0.02);
+        } while(randMultiplier < 0.04);
         
         System.out.println("Random multiplier = " + randMultiplier);
         System.out.println("Random number mult result int = " + (int) (randMultiplier * totalSum));
@@ -262,7 +268,7 @@ public class Battle {
         initialCostFleet[0][0] = getMetalCostOfArmy(planetArmy);
         initialCostFleet[0][1] = getDeuteriumCostOfArmy(planetArmy);
         initialCostFleet[1][0] = getMetalCostOfArmy(enemyArmy);
-        initialCostFleet[1][1] = getMetalCostOfArmy(enemyArmy);
+        initialCostFleet[1][1] = getDeuteriumCostOfArmy(enemyArmy);
 
 
         System.out.println("NEW THREAT IS COMING");
@@ -470,7 +476,7 @@ public class Battle {
         return total;
     }
 
-    public int getWinner() { // This is not giving the correct winner I think, if it's not this, then something else, but something is giving the wrong winner.
+    public int getWinner() {
         if (resourcesLosses[0][2] < resourcesLosses[1][2]) {
             return 0;
         } else {

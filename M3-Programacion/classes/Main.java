@@ -9,7 +9,7 @@ public class Main{
     public static void main(String[] args) throws ResourceException {
         
         Planet planet = new Planet(0, 0, 200000, 40000, 3000, 3000);
-        planet.newLightHunter(110);
+        planet.newLightHunter(4);
         planet.newHeavyHunter(2);
         planet.newIonCannon(3);
         planet.newArmoredShip(5);
@@ -22,7 +22,7 @@ public class Main{
         armies[0] = planet.getArmy();
         armies[1] = enemyArmy;
 
-        
+        // TODO I should add a "elligible for combat" mechanic, for instance if planet doesn't have any MilitaryUnits, to not be threatened.
 
         // Battle battle = new Battle(planet.getArmy(), enemyArmy, armies);
 
