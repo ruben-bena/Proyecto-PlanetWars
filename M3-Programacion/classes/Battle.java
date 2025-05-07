@@ -177,16 +177,25 @@ public class Battle {
         // How can I differentiate if it's planet or enemy?
         // Maybe it's not necessary to differentiate because it's chosen depending on the number of each army
         // and the attacker doesn't have any from army 4 to 6
-
+        float randMultiplier;
         // This algorithm chooses one group randomly between the 7 groups depending on the number
         int[] array = new int[7];
         int totalSum = 0;
         for(int i = 0; i < army.length; i++) {
-            array[i] = army[i].size();
-            totalSum += army[i].size();
+            array[i] = army[i].size() * 20; // These *20 values are necessary to avoid unwanted 0 values when calculating the randomNumber
+            totalSum += army[i].size() * 20; // These *20 values are necessary to avoid unwanted 0 values when calculating the randomNumber
         }
-        int randomNumber = (int) (Math.random() * totalSum);
+        System.out.println("Total sum group pick function = " + totalSum);
+        do {
+            randMultiplier = (float) Math.random();
+        } while(randMultiplier < 0.01);
+        
+        System.out.println("Random multiplier = " + randMultiplier);
+        System.out.println("Random number mult result int = " + (int) (randMultiplier * totalSum));
+        System.out.println("Random number mult result float = " + (float) (randMultiplier * totalSum));
+        int randomNumber = (int) (randMultiplier * totalSum);
 
+        System.out.println("Random number group pick function = " + randomNumber);
         for(int i = 0; i < array.length; i++) {
             int j = i;
             int sum = 0;
@@ -195,6 +204,7 @@ public class Battle {
                 j--;
             }
             if (sum >= randomNumber) {
+                System.out.println("Result group picked = " + i);
                 return i;
             }
         }
@@ -203,7 +213,7 @@ public class Battle {
         return -1;
     }
 
-    public int getPlanetGroupAttacker() {
+    public int getPlanetGroupAttacker() { // This is giving problems
         // IDK if this is what it's asking?
         return getGroupDefender(planetArmy);
     }
@@ -248,14 +258,18 @@ public class Battle {
         int defending_group;
         String attackerStr;
         String defenderStr;
-        boolean isAttackingAgain = true; // Variable to check if it gets to attack again in the same turn
+        boolean isAttackingAgain; // Variable to check if it gets to attack again in the same turn
         
         System.out.println("Initial fleet number Planet = " + initialFleetNumber(planetArmy));
         // System.out.println(remainderPercentageFleetPlanet() > 20 && remainderPercentageFleetEnemy() > 20);
-        while(remainderPercentageFleetPlanet() > 20 && remainderPercentageFleetEnemy() > 20) {
+        while(remainderPercentageFleetPlanet() > 20 && remainderPercentageFleetEnemy() > 20) { ///////////////////////////////////////////////////////
             // System.out.println("Percentage Planet army = " + remainderPercentageFleet(armies[0]));
             // System.out.println("Percentage Enemy army = " + remainderPercentageFleet(armies[1]));
+            isAttackingAgain = true;
             // Selecting attacking group for the army starting the fight
+
+            
+
             if (attackingArmy == 0) {
                 attacking_group = getPlanetGroupAttacker();
                 attackerStr = "Planet";
@@ -267,28 +281,56 @@ public class Battle {
             }
 
             System.out.println("bbbbbbbbbbbbbbb");
-            while(isAttackingAgain) {
+            while(isAttackingAgain && (remainderPercentageFleetPlanet() > 20 && remainderPercentageFleetEnemy() > 20)) {
+                int indexAttackingUnit;
+                int indexDefendingUnit;
                 System.out.println("cccccccccccccc");
                 System.out.println(attackerStr + " attacks");
                 // Selecting random attacking unit from selected group
                 System.out.println("Attacking group = " + attacking_group);
-                
-                System.out.println("Attacking group size = " + armies[attackingArmy][attacking_group].size());
-                int indexAttackingUnit = (int) (Math.random() * armies[attackingArmy][attacking_group].size());
-                System.out.println("Attacking unit index = " + indexAttackingUnit);
-                MilitaryUnit attackingUnit = (MilitaryUnit) (armies[attackingArmy][attacking_group].get((indexAttackingUnit)));
+                MilitaryUnit attackingUnit;
 
+                // DISPLAYING BATTLE INFO FOR DEBUGGING
+                for(int i = 0; i < planetArmy.length; i++) {
+                    System.out.println("Planet Units " + i + ": " + planetArmy[i].size());
+                    System.out.println("Enemy Units " + i + ": " + enemyArmy[i].size());
+                }
+                //
+                if (attackingArmy == 0) {
+                    System.out.println("Attacking group size = " + planetArmy[attacking_group].size());
+                    indexAttackingUnit = (int) (Math.random() * planetArmy[attacking_group].size());
+                    attackingUnit = (MilitaryUnit) (planetArmy[attacking_group].get((indexAttackingUnit)));
+                } else {
+                    System.out.println("Attacking group size = " + enemyArmy[attacking_group].size());
+                    indexAttackingUnit = (int) (Math.random() * enemyArmy[attacking_group].size());
+                    attackingUnit = (MilitaryUnit) (enemyArmy[attacking_group].get((indexAttackingUnit)));
+                }
+                
+                System.out.println("Attacking unit index = " + indexAttackingUnit);
+                
+                MilitaryUnit defendingUnit;
                 // Selecting defending group
-                defending_group = getGroupDefender(armies[defendingArmy]);
+                if (defendingArmy == 0) {
+                    defending_group = getGroupDefender(planetArmy);
+                    indexDefendingUnit = (int) (Math.random() * planetArmy[defending_group].size());
+                    System.out.println("Defending unit index = " + indexDefendingUnit);
+                    defendingUnit = (MilitaryUnit) (planetArmy[defending_group].get(indexDefendingUnit));
+                    System.out.println("defending group size = " + planetArmy[defending_group].size());
+                } else {
+                    defending_group = getGroupDefender(enemyArmy);
+                    indexDefendingUnit = (int) (Math.random() * enemyArmy[defending_group].size());
+                    System.out.println("Defending unit index = " + indexDefendingUnit);
+                    defendingUnit = (MilitaryUnit) (enemyArmy[defending_group].get(indexDefendingUnit));
+                    System.out.println("defending group size = " + enemyArmy[defending_group].size());
+                }
+                
                 System.out.println("Defending group = " + defending_group);
-                System.out.println("defending group size = " + armies[attackingArmy][defending_group].size());
-                int indexDefendingUnit = (int) (Math.random() * armies[attackingArmy][defending_group].size());
-                System.out.println("Defending unit index = " + indexDefendingUnit);
-                MilitaryUnit defendingUnit = (MilitaryUnit) (armies[attackingArmy][defending_group].get(indexDefendingUnit));
+                
+                
 
                 // Making them fight
                 // Applying damage
-                battleDevelopment += attackerStr + " attacks " + defenderStr + "\n" + defendingUnit.getName() + " receives " + attackingUnit.attack() + " dmg.\n";
+                battleDevelopment += attackerStr + " attacks " + defenderStr + "\n" + defendingUnit.getName() + " receives " + attackingUnit.attack() + " dmg.\n\n";
                 defendingUnit.takeDamage(attackingUnit.attack());
                 // Checking if it's destroyed
                 if(defendingUnit.getActualArmor() <= 0) {
@@ -310,7 +352,7 @@ public class Battle {
                     // Removing from arrays
                     armies[defendingArmy][defending_group].remove(defendingUnit); // This is just removing it from the ArrayList in armies, not in planetArmy or enemyArmy
 
-                    if (planetArmy == armies[defendingArmy]) { // Removing it from the actual ArrayList too, this seems not practical at all.
+                    if (defendingArmy == 0) { // Removing it from the actual ArrayList too, this seems not practical at all.
                         planetArmy[defending_group].remove(defendingUnit);
                     } else {
                         enemyArmy[defending_group].remove(defendingUnit);
@@ -320,12 +362,14 @@ public class Battle {
                 // If it's not destroyed / or after destroying it
 
                 // If it attacks again
-                if( (int) (Math.random() * 100) <= attackingUnit.getChanceAttackAgain()) {
+                if( (int) (Math.random() * 100) <= attackingUnit.getChanceAttackAgain() && (remainderPercentageFleetPlanet() > 20 && remainderPercentageFleetEnemy() > 20)) {
                     System.out.println("attacks again");
                     battleDevelopment += attackerStr + " gets to attack again!\n";
                     isAttackingAgain = true;
                 } else { // if it doesn't attack again
-                    battleDevelopment += "--------------------------------------------\nTURN OVER, SWITCHING ROLES\n------------------------------------------\n\n";
+                    if (remainderPercentageFleetPlanet() > 20 && remainderPercentageFleetEnemy() > 20){
+                        battleDevelopment += "--------------------------------------------\nTURN OVER, SWITCHING ROLES\n--------------------------------------------\n\n";
+                    }
                     isAttackingAgain = false;
                     
                     // Switching the turns

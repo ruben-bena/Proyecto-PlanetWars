@@ -9,9 +9,10 @@ public class Main{
     public static void main(String[] args) throws ResourceException {
         
         Planet planet = new Planet(0, 0, 200000, 40000, 3000, 3000);
-        planet.newLightHunter(4);
+        planet.newLightHunter(110);
         planet.newHeavyHunter(2);
         planet.newIonCannon(3);
+        planet.newArmoredShip(5);
 
         ArrayList<MilitaryUnit>[] enemyArmy = createEnemyArmy();
         // ArrayList<MilitaryUnit>[] enemyArmy;
