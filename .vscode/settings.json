@@ -1,6 +1,7 @@
 {
     "java.project.sourcePaths": [
-        "M3-Programacion"
+        "M3-Programacion",
+        "Wallet_GPR65DX8TG9BAU0O"
     ],
     "java.project.referencedLibraries": [
         "ojdbc17.jar"
