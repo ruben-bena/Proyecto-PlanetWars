@@ -1,6 +1,8 @@
 package classes;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Battle {
     private ArrayList<MilitaryUnit>[] planetArmy; // → para almacenar la flota de nuestro planeta. 
@@ -8,7 +10,7 @@ public class Battle {
     private ArrayList[][] armies; // que es un array de ArrayList de dos filas y siete columnas, donde almacenaremos nuestro ejército en la primera fila, y el ejército enemigo en la segunda fila;
     private String battleDevelopment; // Donde guardamos todo el desarrollo de la batalla paso a paso
     private int[][] initialCostFleet; // coste de metal deuterio de los ejercitos iniciales
-    // initialCostFleet = [[metal][deuterio],[metal][deuterio]]; // donde initialCostFleet[0]costes unidades del planeta , initialCostFleet[1] costes unidades enemigas. Lo necesitamos para saber las pérdidas en materiales de cada flota.
+    // initialCostFleet = [[metal][deuterio],[metal][deuterio]]; // donde initialCostFleet[0] costes unidades del planeta , initialCostFleet[1] costes unidades enemigas. Lo necesitamos para saber las pérdidas en materiales de cada flota.
 
     private int initialNumberUnitsPlanet, initialNumberUnitsEnemy;
     // La batalla se
@@ -53,26 +55,23 @@ public class Battle {
     // actualNumberUnitsPlanet[5] --> Cañones de iones
     // actualNumberUnitsPlanet[6] --> Cañones de Plasma
 
-    public Battle(ArrayList<MilitaryUnit>[] planetArmy, ArrayList<MilitaryUnit>[] enemyArmy, ArrayList[][] armies) {
-        this.planetArmy = planetArmy;
-        this.enemyArmy = enemyArmy;
-        this.armies = new ArrayList[2][7];
-        
-        for (int i = 0; i < armies.length; i++) {
-            for (int j = 0; j < armies[i].length; j++) {
-                this.armies[i][j] = new ArrayList<MilitaryUnit>() ;
-                this.armies[i][j] = armies[i][j];
+    public Battle(Planet planet) {
+        this.planetArmy = planet.getArmy();
+        this.enemyArmy = Main.createEnemyArmy();
+        this.initialCostFleet = new int[2][2];
+        this.resourcesLosses = new int[2][3];
+        announceCombat();
+        TimerTask task = new TimerTask() {
+            public void run() {
+                combat();
+                planet.setActiveThreat(false);
+                
             }
-        }
-        this.initialNumberUnitsPlanet = initialFleetNumber(planetArmy);
-        this.initialNumberUnitsEnemy = initialFleetNumber(enemyArmy);
-        this.battleDevelopment = "";
-        this.wasteMetalDeuterium = new int[2];
-        this.enemyDrops = new int[2];
-        this.planetDrops = new int[2];
-        initInitialArmies();
-        this.actualNumberUnitsPlanet = getArrayValuesFromArrayList(planetArmy);
-        this.actualNumberUnitsEnemy = getArrayValuesFromArrayList(enemyArmy);
+        };
+        Timer timer = new Timer();
+
+        timer.schedule(task, Time.countdownBattleTime);
+        
     }
 
 
@@ -188,7 +187,7 @@ public class Battle {
         System.out.println("Total sum group pick function = " + totalSum);
         do {
             randMultiplier = (float) Math.random();
-        } while(randMultiplier < 0.01);
+        } while(randMultiplier < 0.02);
         
         System.out.println("Random multiplier = " + randMultiplier);
         System.out.println("Random number mult result int = " + (int) (randMultiplier * totalSum));
@@ -259,6 +258,12 @@ public class Battle {
         initInitialArmies();
         actualNumberUnitsPlanet = getArrayValuesFromArrayList(planetArmy);
         actualNumberUnitsEnemy = getArrayValuesFromArrayList(enemyArmy);
+
+        initialCostFleet[0][0] = getMetalCostOfArmy(planetArmy);
+        initialCostFleet[0][1] = getDeuteriumCostOfArmy(planetArmy);
+        initialCostFleet[1][0] = getMetalCostOfArmy(enemyArmy);
+        initialCostFleet[1][1] = getMetalCostOfArmy(enemyArmy);
+
 
         System.out.println("NEW THREAT IS COMING");
     }
@@ -366,6 +371,15 @@ public class Battle {
                         battleDevelopment += defendingUnit.getDeuteriumCost() * Variables.PERCENTATGE_WASTE / 100 + " deuterium has been generated\n";
                     }
 
+                    // Adding it to planetDrops and enemyDrops
+                    if (defendingArmy == 0) { //I'm assuming the 0 is for metal and 1 is for deuterium
+                        planetDrops[0] += defendingUnit.getMetalCost();
+                        planetDrops[1] += defendingUnit.getDeuteriumCost();
+                    } else {
+                        enemyDrops[0] += defendingUnit.getMetalCost();
+                        enemyDrops[1] += defendingUnit.getDeuteriumCost();
+                    }
+
 
                     // Removing from arrays
                     armies[defendingArmy][defending_group].remove(defendingUnit); // This is just removing it from the ArrayList in armies, not in planetArmy or enemyArmy
@@ -375,6 +389,8 @@ public class Battle {
                     } else {
                         enemyArmy[defending_group].remove(defendingUnit);
                     }
+
+                    
                 }
 
                 // If it's not destroyed / or after destroying it
@@ -401,8 +417,10 @@ public class Battle {
         
         }
         // After the combat is over
+        updateResourceLoses();
+
         battleDevelopment += "\n\n------------------- COMBAT RESULTS -----------------------\n\n";
-        if (remainderPercentageFleet(planetArmy) > 20) {
+        if (getWinner() == 0) {
             winner = "Planet";
         } else {
             winner = "Invader";
@@ -421,5 +439,42 @@ public class Battle {
         System.out.println("Battle Ships = " + enemyArmy[2].size());
         System.out.println("Armored Ships = " + enemyArmy[3].size());
         System.out.println();
+    }
+
+    public int getCostOfGroup(ArrayList<MilitaryUnit> group) {
+        int total = 0;
+
+        for (int i = 0; i < group.size(); i++) {
+            total += group.get(i).getMetalCost();
+        }
+        return total;
+    }
+
+    public int getMetalCostOfArmy(ArrayList<MilitaryUnit>[] army) {
+        int total = 0;
+        for (int i = 0; i < army.length; i++) {
+            for(int j = 0; i < army[i].size(); i++) {
+                total += army[i].get(j).getMetalCost();
+            }
+        }
+        return total;
+    }
+
+    public int getDeuteriumCostOfArmy(ArrayList<MilitaryUnit>[] army) {
+        int total = 0;
+        for (int i = 0; i < army.length; i++) {
+            for(int j = 0; i < army[i].size(); i++) {
+                total += army[i].get(j).getDeuteriumCost();
+            }
+        }
+        return total;
+    }
+
+    public int getWinner() { // This is not giving the correct winner I think, if it's not this, then something else, but something is giving the wrong winner.
+        if (resourcesLosses[0][2] < resourcesLosses[1][2]) {
+            return 0;
+        } else {
+            return 1;
+        }
     }
 }

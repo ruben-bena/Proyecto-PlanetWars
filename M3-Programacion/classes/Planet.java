@@ -11,6 +11,7 @@ public class Planet {
     private int upgradeAttackTechnologyDeuteriumCost;
     private boolean isActiveThreat;
     private ArrayList<MilitaryUnit>[] army;
+    private Battle currentThreat;
 
     // Army[0] → arrayList de Ligth Hunter
     // Army[1] → arrayList de Heavy Hunter
@@ -301,6 +302,14 @@ public class Planet {
 
     public void setActiveThreat(boolean isActiveThreat) {
         this.isActiveThreat = isActiveThreat;
+    }
+
+    public void setCurrentThreat(Battle battle) {
+        this.currentThreat = battle;
+    }
+
+    public Battle getCurrentThreat() {
+        return this.currentThreat;
     }
 
     

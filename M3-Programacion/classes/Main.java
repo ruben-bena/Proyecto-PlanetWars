@@ -24,7 +24,7 @@ public class Main{
 
         
 
-        Battle battle = new Battle(planet.getArmy(), enemyArmy, armies);
+        // Battle battle = new Battle(planet.getArmy(), enemyArmy, armies);
 
         // System.out.println("Enemy Attacket group = " + battle.getEnemyGroupAttacker());
         // System.out.println("Planet Attacker group = " + battle.getPlanetGroupAttacker());
@@ -63,7 +63,7 @@ public class Main{
 
                     if(isBattleAnnounced) { // This doesn't work for some reason
                         System.out.println("COMBAT HAS BEGUN");
-                        battle.combat();
+                        // battle.combat();
                         isBattleAnnounced = false;
                     }
 
@@ -95,10 +95,11 @@ public class Main{
         TimerTask threatTimer = new TimerTask() {
             public void run() {
                 if (!planet.isActiveThreat()) {
-                    battle.announceCombat();
+                    // battle.announceCombat();
+                    planet.setCurrentThreat(new Battle(planet));
                     planet.setActiveThreat(true);
 
-                    timer.schedule(new TimerTaskBattleClass(battle, planet), Time.countdownBattleTime);
+                    // timer.schedule(new TimerTaskBattleClass(battle, planet), Time.countdownBattleTime);
                 }
                 
             }
@@ -205,7 +206,7 @@ public class Main{
                     break;
                 case 5:
                     if(planet.isActiveThreat()) {
-                        battle.printEnemyStats();
+                        planet.getCurrentThreat().printEnemyStats();
                     }
                     break;
                 default:
