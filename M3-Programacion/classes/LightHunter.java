@@ -54,6 +54,9 @@ public class LightHunter extends Ship implements MilitaryUnit {
         return "LightHunter []";
     }
 
-    
+    public String getName() {
+        return "Light Hunter";
+    }
+
 
 }

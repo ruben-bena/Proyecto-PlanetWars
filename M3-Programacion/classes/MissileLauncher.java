@@ -40,5 +40,9 @@ public class MissileLauncher extends Defense {
     public void resetArmor() {
         setArmor(getInitialArmor());
     }
-    
+
+    public String getName() {
+        return "Missile Launcher";
+    }
+
 }

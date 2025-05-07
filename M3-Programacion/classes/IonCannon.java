@@ -48,4 +48,8 @@ public class IonCannon extends Defense {
 
     }
 
+    public String getName() {
+        return "Ion Cannon";
+    }
+
 }

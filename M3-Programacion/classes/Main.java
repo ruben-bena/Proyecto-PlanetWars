@@ -110,7 +110,7 @@ public class Main{
         timer.schedule(threatTimer, 0, Time.secInMs * 180);
 
         // I could do a method inside the Time class that executes an order after a certain time using the current time and doing the sum with the desired wait time
-        
+
         String menu = """
                 1) View Planet Stats
                 2) Build
@@ -118,6 +118,24 @@ public class Main{
                 4) View Battle Reports
                 0) Exit 
                 """;
+        if (planet.isActiveThreat()) {
+            menu = """
+                1) View Planet Stats
+                2) Build
+                3) Upgrade Technology
+                4) View Battle Reports
+                0) Exit 
+                """;
+        } else {
+            menu = """
+                1) View Planet Stats
+                2) Build
+                3) Upgrade Technology
+                4) View Battle Reports
+                5) View Current Threat
+                0) Exit 
+                """;
+        }
         
         String buildMenu = """
                 1) Build Light Hunter
@@ -166,6 +184,7 @@ public class Main{
                             planet.newArmoredShip(amount);
                             break;
                         case 5:
+                            
                             break;
 
                         default:
@@ -195,6 +214,11 @@ public class Main{
                 
                 case 4:
                     System.out.println("View Battle Reports");
+                    break;
+                case 5:
+                    if(planet.isActiveThreat()) {
+                        battle.printEnemyStats();
+                    }
                     break;
                 default:
                     break;
@@ -326,7 +350,7 @@ class Time {
     private int deltaTime;
 
     static int secInMs = 1000;
-    static int countdownBattleTime = secInMs * 60;
+    static int countdownBattleTime = secInMs * 10;
 
 
     public Time() {

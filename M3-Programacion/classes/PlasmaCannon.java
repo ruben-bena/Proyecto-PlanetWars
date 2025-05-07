@@ -40,4 +40,8 @@ public class PlasmaCannon extends Defense {
         setArmor(getInitialArmor());
     }
 
+    public String getName() {
+        return "Plasma Cannon";
+    }
+
 }
