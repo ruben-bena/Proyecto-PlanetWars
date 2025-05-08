@@ -8,9 +8,12 @@ public class Database  {
     private Connection conn;
 
     public static void main(String[] args) {
-        String url = "jdbc:oracle:thin:@//localhost:1521/freepdb1";
-        String username = "planetWars";
-        String pass = "planetWars";
+        // String url = "jdbc:oracle:thin:@//localhost:1521/freepdb1"; // Local VM Oracle ddbb
+
+        // The part that comes after '@' is given by the DDBB
+        String url = "jdbc:oracle:thin:@(description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.eu-madrid-1.oraclecloud.com))(connect_data=(service_name=g0afc8dfb9e8980_planetwars_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))";
+        String username = "admin";
+        String pass = "PlanetWars12";
         Database db = new Database(url, username, pass);
         System.out.println(db.isClosed());
         db.close();

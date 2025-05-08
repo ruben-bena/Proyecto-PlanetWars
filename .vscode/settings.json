@@ -3,6 +3,6 @@
         "M3-Programacion"
     ],
     "java.project.referencedLibraries": [
-        "ojdbc17.jar"
+        "ojdbc10.jar"
     ]
 }
