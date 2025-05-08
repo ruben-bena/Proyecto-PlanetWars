@@ -6,12 +6,12 @@ CREATE TABLE Planet_stats
                   PRIMARY KEY,
 
         -- planet data
-        name                      VARCHAR2( 30 ) NOT NULL,
+        name                      VARCHAR2( 30 )  NOT NULL,
         resource_metal_amount     NUMBER( 12, 0 ) NOT NULL,
         resource_deuterion_amount NUMBER( 12, 0 ) NOT NULL,
-        technology_defense_level  NUMBER( 3,0 ) NOT NULL,
-        technology_attack_level   NUMBER( 3,0 ) NOT NULL,
-        battles_counter           NUMBER( 3,0 ) NOT NULL,
+        technology_defense_level  NUMBER( 3,0 )   NOT NULL,
+        technology_attack_level   NUMBER( 3,0 )   NOT NULL,
+        battles_counter           NUMBER( 3,0 )   NOT NULL,
 
         -- defense units
         missile_launcher_remaining NUMBER( 5,0 ) NOT NULL,
@@ -47,10 +47,10 @@ CREATE TABLE Battle_log
         num_line   NUMBER
                    GENERATED ALWAYS AS IDENTITY START WITH 1
                    PRIMARY KEY,
-        planet_id  NUMBER,
-        num_battle NUMBER,
+        planet_id  NUMBER NOT NULL,
+        num_battle NUMBER NOT NULL,
 
-        log_entry VARCHAR2(4000),
+        log_entry VARCHAR2(4000) NOT NULL,
 
         CONSTRAINT fk_battle_log_battle_stats
             FOREIGN KEY ( num_battle )
@@ -67,14 +67,14 @@ CREATE TABLE Enemy_army
         num_battle    NUMBER NOT NULL,
 
         -- rest
-        light_hunter_threat    NUMBER,
-        light_hunter_destroyed NUMBER,
-        heavy_hunter_threat    NUMBER,
-        heavy_hunter_destroyed NUMBER,
-        battleship_threat      NUMBER,
-        battleship_destroyed   NUMBER,
-        armored_ship_threat    NUMBER,
-        armored_ship_destroyed NUMBER,
+        light_hunter_threat    NUMBER NOT NULL,
+        light_hunter_destroyed NUMBER NOT NULL,
+        heavy_hunter_threat    NUMBER NOT NULL,
+        heavy_hunter_destroyed NUMBER NOT NULL,
+        battleship_threat      NUMBER NOT NULL,
+        battleship_destroyed   NUMBER NOT NULL,
+        armored_ship_threat    NUMBER NOT NULL,
+        armored_ship_destroyed NUMBER NOT NULL,
 
         CONSTRAINT fk_battle_stats_num_battle
             FOREIGN KEY (num_battle)
@@ -91,12 +91,12 @@ CREATE TABLE Planet_battle_defense
         num_battle NUMBER,
 
         -- rest
-        missile_launcher_built NUMBER,
-        missile_launcher_destroyed NUMBER,
-        ion_cannon_built NUMBER,
-        ion_cannon_destroyed NUMBER,
-        plasma_canon_built NUMBER,
-        plasma_canon_destroyed NUMBER,
+        missile_launcher_built     NUMBER NOT NULL,
+        missile_launcher_destroyed NUMBER NOT NULL,
+        ion_cannon_built           NUMBER NOT NULL,
+        ion_cannon_destroyed       NUMBER NOT NULL,
+        plasma_canon_built         NUMBER NOT NULL,
+        plasma_canon_destroyed     NUMBER NOT NULL,
 
         CONSTRAINT fk_planet_battle_defense_battle_stats
             FOREIGN KEY (num_battle)
@@ -113,14 +113,14 @@ CREATE TABLE Planet_battle_army
         num_battle    NUMBER NOT NULL,
 
         -- rest
-        light_hunter_threat    NUMBER,
-        light_hunter_destroyed NUMBER,
-        heavy_hunter_threat    NUMBER,
-        heavy_hunter_destroyed NUMBER,
-        battleship_threat      NUMBER,
-        battleship_destroyed   NUMBER,
-        armored_ship_threat    NUMBER,
-        armored_ship_destroyed NUMBER,
+        light_hunter_threat    NUMBER NOT NULL,
+        light_hunter_destroyed NUMBER NOT NULL,
+        heavy_hunter_threat    NUMBER NOT NULL,
+        heavy_hunter_destroyed NUMBER NOT NULL,
+        battleship_threat      NUMBER NOT NULL,
+        battleship_destroyed   NUMBER NOT NULL,
+        armored_ship_threat    NUMBER NOT NULL,
+        armored_ship_destroyed NUMBER NOT NULL,
 
         CONSTRAINT fk_battle_battle_army_battle_stats
             FOREIGN KEY (num_battle)
