@@ -8,13 +8,12 @@ public class Database  {
     private Connection conn;
 
     public static void main(String[] args) {
-        // String url = "jdbc:oracle:thin:@//localhost:1521/freepdb1";
-        String basePath = System.getProperty("user.dir"); // Obtiene la ruta al directorio base del proyecto
-        String walletPath = basePath + "/Wallet_GPR65DX8TG9BAU0O"; // Ruta relativa al wallet dentro del proyecto
-        System.out.println(walletPath);
-        String url = "jdbc:oracle:thin:@gpr65dx8tg9bau0o_high?TNS_ADMIN=" + walletPath;
-        String username = "ADMIN";
-        String pass = "PlanetWarsMolaMogollon1";
+        // String url = "jdbc:oracle:thin:@//localhost:1521/freepdb1"; // Local VM Oracle ddbb
+
+        // The part that comes after '@' is given by the DDBB
+        String url = "jdbc:oracle:thin:@(description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.eu-madrid-1.oraclecloud.com))(connect_data=(service_name=g0afc8dfb9e8980_planetwars_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))";
+        String username = "admin";
+        String pass = "PlanetWars12";
         Database db = new Database(url, username, pass);
         System.out.println(db.isClosed());
         db.close();
