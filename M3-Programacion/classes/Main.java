@@ -23,6 +23,7 @@ public class Main{
         armies[1] = enemyArmy;
 
         // TODO I should add a "elligible for combat" mechanic, for instance if planet doesn't have any MilitaryUnits, to not be threatened.
+        // TODO add the view battle reports functionality
 
         // Battle battle = new Battle(planet.getArmy(), enemyArmy, armies);
 
@@ -203,6 +204,12 @@ public class Main{
                 
                 case 4:
                     System.out.println("View Battle Reports");
+                    for(int j = 0; j < planet.getBattleReports().length; j++) {
+                        if(planet.getBattleReports()[j] != null) {
+                            System.out.println(j+ ") Battle N-" + j);
+                        }
+                    }
+                    System.out.println(planet.getBattleReport(scanner.nextInt()));
                     break;
                 case 5:
                     if(planet.isActiveThreat()) {

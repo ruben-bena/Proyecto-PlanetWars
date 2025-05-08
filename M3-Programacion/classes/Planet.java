@@ -12,6 +12,7 @@ public class Planet {
     private boolean isActiveThreat;
     private ArrayList<MilitaryUnit>[] army;
     private Battle currentThreat;
+    private String[] battleReports;
 
     // Army[0] → arrayList de Ligth Hunter
     // Army[1] → arrayList de Heavy Hunter
@@ -31,6 +32,7 @@ public class Planet {
         this.upgradeAttackTechnologyDeuteriumCost = upgradeAttackTechnologyDeuteriumCost;
         this.army = new ArrayList[7];
         this.isActiveThreat = false;
+        this.battleReports = new String[5];
         for(int i = 0; i < army.length; i++) {
             army[i] = new ArrayList<MilitaryUnit>();
         }
@@ -312,6 +314,33 @@ public class Planet {
         return this.currentThreat;
     }
 
-    
+    public void addBattleReport(String report) {
+        // pos 0 is the newest report, 5 is the oldest, 5 gets replaced by 4 when a new one is added
+        // for(int i = 0; i < battleReports.length; i++) {
+        //     if(battleReports[i] == null) {
+        //         battleReports[i] = report;
+        //     }
+
+        //     if(battleReports[i] != null) {
+                
+        //     }
+        // }
+
+        // Moving all one position
+        for(int i = battleReports.length - 1; i > 0; i--) {
+            System.out.println("Report = " + i);
+            battleReports[i] = battleReports[i-1];
+        }
+
+        battleReports[0] = report;
+    }
+
+    public String[] getBattleReports() {
+        return battleReports;
+    }
+
+    public String getBattleReport(int n) {
+        return battleReports[n];
+    }
     
 }
