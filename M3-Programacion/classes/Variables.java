@@ -19,6 +19,7 @@ interface MilitaryUnit {
     // Nos la probabilidad de generar volver a atacar.
     abstract void resetArmor();
     // Nos restablecerá nuestro blindaje a su valor original.
+    abstract String getName();
 }
 
 public interface Variables {

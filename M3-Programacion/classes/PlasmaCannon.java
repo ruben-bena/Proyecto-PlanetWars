@@ -9,11 +9,14 @@ public class PlasmaCannon extends Defense {
     }
     
     public int attack() {
-        throw new UnsupportedOperationException("Unimplemented method 'attack'");
+        return getBaseDamage();
     }
 
     public void takeDamage(int receivedDamage) {
-        throw new UnsupportedOperationException("Unimplemented method 'tekeDamage'");
+        setArmor(getArmor() - receivedDamage);
+        if (getArmor() < 0) {
+            setArmor(0);
+        }
     }
 
     public int getActualArmor() {
@@ -38,6 +41,10 @@ public class PlasmaCannon extends Defense {
 
     public void resetArmor() {
         setArmor(getInitialArmor());
+    }
+
+    public String getName() {
+        return "Plasma Cannon";
     }
 
 }

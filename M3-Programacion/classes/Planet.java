@@ -9,7 +9,11 @@ public class Planet {
     private int deuterium;
     private int upgradeDefenseTechnologyDeuteriumCost;
     private int upgradeAttackTechnologyDeuteriumCost;
+    private boolean isActiveThreat;
     private ArrayList<MilitaryUnit>[] army;
+    private Battle currentThreat;
+    private String[] battleReports;
+    private int nBattles;
 
     // Army[0] → arrayList de Ligth Hunter
     // Army[1] → arrayList de Heavy Hunter
@@ -28,9 +32,12 @@ public class Planet {
         this.upgradeDefenseTechnologyDeuteriumCost = upgradeDefenseTechnologyDeuteriumCost;
         this.upgradeAttackTechnologyDeuteriumCost = upgradeAttackTechnologyDeuteriumCost;
         this.army = new ArrayList[7];
+        this.isActiveThreat = false;
+        this.battleReports = new String[5];
         for(int i = 0; i < army.length; i++) {
             army[i] = new ArrayList<MilitaryUnit>();
         }
+        this.nBattles = 0;
     }
 
     public void upgradeTechnologyDefense() throws ResourceException {
@@ -58,16 +65,19 @@ public class Planet {
     }
     public void newLightHunter(int n) throws ResourceException {
         // First it tries to use deuterium, if you don't have enough, it tries to use metal
+        int armor = Variables.ARMOR_LIGTHHUNTER + (getTechnologyDefense() * Variables.PLUS_ARMOR_LIGTHHUNTER_BY_TECHNOLOGY) * (Variables.ARMOR_LIGTHHUNTER/100);
+        int damage = Variables.BASE_DAMAGE_LIGTHHUNTER + (getTechnologyAttack() * Variables.PLUS_ATTACK_LIGTHHUNTER_BY_TECHNOLOGY) * (Variables.BASE_DAMAGE_LIGTHHUNTER/100);
+        // System.out.println(armor);
         for(int i=0; i<n; i++) {
             if(Variables.DEUTERIUM_COST_LIGTHHUNTER < deuterium) {
                 deuterium -= Variables.DEUTERIUM_COST_LIGTHHUNTER;
-                army[0].add(new LightHunter());
+                army[0].add(new LightHunter(armor, damage));
                 continue;
 
             }
             else if(Variables.METAL_COST_LIGTHHUNTER < metal) {
                 metal -= Variables.METAL_COST_LIGTHHUNTER;
-                army[0].add(new LightHunter());
+                army[0].add(new LightHunter(armor, damage));
                 continue;
 
             }
@@ -80,16 +90,18 @@ public class Planet {
     }
     public void newHeavyHunter(int n) throws ResourceException {
         // First it tries to use deuterium, if you don't have enough, it tries to use metal
+        int armor = Variables.ARMOR_HEAVYHUNTER + (getTechnologyDefense() * Variables.PLUS_ARMOR_HEAVYHUNTER_BY_TECHNOLOGY) * (Variables.ARMOR_HEAVYHUNTER/100);
+        int damage = Variables.BASE_DAMAGE_HEAVYHUNTER + (getTechnologyAttack() * Variables.PLUS_ATTACK_HEAVYHUNTER_BY_TECHNOLOGY) * (Variables.BASE_DAMAGE_HEAVYHUNTER/100);
         for(int i=0; i<n; i++) {
             if(Variables.DEUTERIUM_COST_HEAVYHUNTER < deuterium) {
                 deuterium -= Variables.DEUTERIUM_COST_HEAVYHUNTER;
-                army[1].add(new HeavyHunter());
+                army[1].add(new HeavyHunter(armor, damage));
                 continue;
 
             }
             else if(Variables.DEUTERIUM_COST_HEAVYHUNTER < metal) {
                 metal -= Variables.DEUTERIUM_COST_HEAVYHUNTER;
-                army[1].add(new HeavyHunter());
+                army[1].add(new HeavyHunter(armor, damage));
                 continue;
 
             }
@@ -102,16 +114,19 @@ public class Planet {
     }
     public void newBattleShip(int n) throws ResourceException {
         // First it tries to use deuterium, if you don't have enough, it tries to use metal
+        int armor = Variables.ARMOR_BATTLESHIP + (getTechnologyDefense() * Variables.PLUS_ARMOR_BATTLESHIP_BY_TECHNOLOGY) * (Variables.ARMOR_BATTLESHIP/100);
+        int damage = Variables.BASE_DAMAGE_BATTLESHIP + (getTechnologyAttack() * Variables.PLUS_ATTACK_BATTLESHIP_BY_TECHNOLOGY) * (Variables.BASE_DAMAGE_BATTLESHIP/100);
+        
         for(int i=0; i<n; i++) {
             if(Variables.DEUTERIUM_COST_BATTLESHIP < deuterium) {
                 deuterium -= Variables.DEUTERIUM_COST_BATTLESHIP;
-                army[2].add(new BattleShip());
+                army[2].add(new BattleShip(armor, damage));
                 continue;
 
             }
             else if(Variables.METAL_COST_BATTLESHIP < metal) {
                 metal -= Variables.METAL_COST_BATTLESHIP;
-                army[2].add(new BattleShip());
+                army[2].add(new BattleShip(armor, damage));
                 continue;
 
             }
@@ -124,16 +139,19 @@ public class Planet {
     }
     public void newArmoredShip(int n) throws ResourceException {
         // First it tries to use deuterium, if you don't have enough, it tries to use metal
+        int armor = Variables.ARMOR_ARMOREDSHIP + (getTechnologyDefense() * Variables.PLUS_ARMOR_ARMOREDSHIP_BY_TECHNOLOGY) * (Variables.ARMOR_ARMOREDSHIP/100);
+        int damage = Variables.BASE_DAMAGE_ARMOREDSHIP + (getTechnologyAttack() * Variables.PLUS_ATTACK_ARMOREDSHIP_BY_TECHNOLOGY) * (Variables.BASE_DAMAGE_ARMOREDSHIP/100);
+
         for(int i=0; i<n; i++) {
             if(Variables.DEUTERIUM_COST_ARMOREDSHIP < deuterium) {
                 deuterium -= Variables.DEUTERIUM_COST_ARMOREDSHIP;
-                army[3].add(new ArmoredShip());
+                army[3].add(new ArmoredShip(armor, damage));
                 continue;
 
             }
             else if(Variables.METAL_COST_ARMOREDSHIP < metal) {
                 metal -= Variables.METAL_COST_ARMOREDSHIP;
-                army[3].add(new ArmoredShip());
+                army[3].add(new ArmoredShip(armor, damage));
                 continue;
 
             }
@@ -146,17 +164,19 @@ public class Planet {
     }   
     public void newMissileLauncher(int n) throws ResourceException {
         // First it tries to use deuterium, if you don't have enough, it tries to use metal
+        int armor = Variables.ARMOR_MISSILELAUNCHER + (getTechnologyDefense() * Variables.PLUS_ARMOR_MISSILELAUNCHER_BY_TECHNOLOGY) * (Variables.ARMOR_MISSILELAUNCHER/100);
+        int damage = Variables.BASE_DAMAGE_MISSILELAUNCHER + (getTechnologyAttack() * Variables.PLUS_ATTACK_MISSILELAUNCHER_BY_TECHNOLOGY) * (Variables.BASE_DAMAGE_MISSILELAUNCHER/100);
+
         for(int i=0; i<n; i++) {
             if(Variables.DEUTERIUM_COST_MISSILELAUNCHER < deuterium) {
                 deuterium -= Variables.DEUTERIUM_COST_MISSILELAUNCHER;
-                // IDK if the variables should be calculated here or not? is this for the player or the attacker?
-                army[4].add(new MissileLauncher(Variables.ARMOR_MISSILELAUNCHER, Variables.BASE_DAMAGE_MISSILELAUNCHER));
+                army[4].add(new MissileLauncher(armor, damage));
                 continue;
 
             }
             else if(Variables.METAL_COST_MISSILELAUNCHER < metal) {
                 metal -= Variables.METAL_COST_MISSILELAUNCHER;
-                army[4].add(new MissileLauncher(Variables.ARMOR_MISSILELAUNCHER, Variables.BASE_DAMAGE_MISSILELAUNCHER));   
+                army[4].add(new MissileLauncher(armor, damage));   
                 continue;
 
             }
@@ -169,16 +189,19 @@ public class Planet {
     }
     public void newIonCannon(int n) throws ResourceException {
         // First it tries to use deuterium, if you don't have enough, it tries to use metal
+        int armor = Variables.ARMOR_IONCANNON + (getTechnologyDefense() * Variables.PLUS_ARMOR_IONCANNON_BY_TECHNOLOGY) * (Variables.ARMOR_IONCANNON/100);
+        int damage = Variables.BASE_DAMAGE_IONCANNON + (getTechnologyAttack() * Variables.PLUS_ATTACK_IONCANNON_BY_TECHNOLOGY) * (Variables.BASE_DAMAGE_IONCANNON/100);
+
         for(int i=0; i<n; i++) {
             if(Variables.DEUTERIUM_COST_IONCANNON < deuterium) {
                 deuterium -= Variables.DEUTERIUM_COST_IONCANNON;
-                army[5].add(new IonCannon(Variables.ARMOR_IONCANNON, Variables.BASE_DAMAGE_IONCANNON));
+                army[5].add(new IonCannon(armor, damage));
                 continue;
 
             }
             else if(Variables.METAL_COST_IONCANNON < metal) {
                 metal -= Variables.METAL_COST_IONCANNON;
-                army[5].add(new IonCannon(Variables.ARMOR_IONCANNON, Variables.BASE_DAMAGE_IONCANNON));
+                army[5].add(new IonCannon(armor, damage));
                 continue;
 
             }
@@ -192,16 +215,19 @@ public class Planet {
     }
     public void newPlasmaCannon(int n) throws ResourceException {
         // First it tries to use deuterium, if you don't have enough, it tries to use metal
+        int armor = Variables.ARMOR_PLASMACANNON + (getTechnologyDefense() * Variables.PLUS_ARMOR_PLASMACANNON_BY_TECHNOLOGY) * (Variables.ARMOR_PLASMACANNON/100);
+        int damage = Variables.BASE_DAMAGE_PLASMACANNON + (getTechnologyAttack() * Variables.PLUS_ATTACK_PLASMACANNON_BY_TECHNOLOGY) * (Variables.BASE_DAMAGE_PLASMACANNON/100);
+
         for(int i=0; i<n; i++) {
             if(Variables.DEUTERIUM_COST_PLASMACANNON < deuterium) {
                 deuterium -= Variables.DEUTERIUM_COST_PLASMACANNON;
-                army[6].add(new PlasmaCannon(Variables.ARMOR_PLASMACANNON, Variables.BASE_DAMAGE_PLASMACANNON));
+                army[6].add(new PlasmaCannon(armor, damage));
                 continue;
 
             }
             else if(Variables.METAL_COST_PLASMACANNON < metal) {
                 metal -= Variables.METAL_COST_PLASMACANNON;
-                army[6].add(new PlasmaCannon(Variables.ARMOR_PLASMACANNON, Variables.BASE_DAMAGE_PLASMACANNON));
+                army[6].add(new PlasmaCannon(armor, damage));
                 continue;
 
             }
@@ -293,5 +319,47 @@ public class Planet {
         this.army = army;
     }
 
+    public boolean isActiveThreat() {
+        return isActiveThreat;
+    }
+
+    public void setActiveThreat(boolean isActiveThreat) {
+        this.isActiveThreat = isActiveThreat;
+    }
+
+    public void setCurrentThreat(Battle battle) {
+        this.currentThreat = battle;
+    }
+
+    public Battle getCurrentThreat() {
+        return this.currentThreat;
+    }
+
+    public void addBattleReport(String report) {
+
+        // Moving all one position
+        for(int i = battleReports.length - 1; i > 0; i--) {
+            System.out.println("Report = " + i);
+            battleReports[i] = battleReports[i-1];
+        }
+
+        battleReports[0] = report;
+    }
+
+    public String[] getBattleReports() {
+        return battleReports;
+    }
+
+    public String getBattleReport(int n) {
+        return battleReports[n];
+    }
+
+    public void setNBattles(int n) {
+        nBattles = n;
+    } 
+
+    public int getNBattles() {
+        return nBattles;
+    }
     
 }
