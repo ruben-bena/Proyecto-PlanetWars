@@ -9,7 +9,7 @@ import java.util.TimerTask;
 
 public class Main{
     public static void main(String[] args) throws ResourceException {
-        new MainScreen();
+        
         
         Planet planet = new Planet(1, 1, 200000, 40000, 3000, 3000);
         planet.newLightHunter(4);
@@ -19,6 +19,7 @@ public class Main{
 
         // TODO I should add a "elligible for combat" mechanic, for instance if planet doesn't have any MilitaryUnits, to not be threatened.
 
+        new MainScreen(planet);
 
         Timer timer = new Timer();
         
@@ -33,8 +34,16 @@ public class Main{
                 
             }
         };
+
+        TimerTask resourceTask = new TimerTask() {
+            public void run() {
+                planet.setMetal(planet.getMetal() + 2000);
+                planet.setDeuterium(planet.getDeuterium() + 200);
+            }
+        };
         
         timer.schedule(threatTimer, Time.timeBetweenBattles, Time.timeBetweenBattles);
+        timer.schedule(resourceTask, Time.timeBetweenResources, Time.timeBetweenResources);
 
         String menu = """
                 1) View Planet Stats
@@ -285,6 +294,7 @@ class Time {
     static int secInMs = 1000;
     static int countdownBattleTime = secInMs * 10;
     static int timeBetweenBattles = secInMs * 20;
+    static int timeBetweenResources = secInMs * 10;
 
 
     public Time() {
