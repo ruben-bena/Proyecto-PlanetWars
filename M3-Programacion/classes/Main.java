@@ -8,107 +8,30 @@ import java.util.TimerTask;
 public class Main{
     public static void main(String[] args) throws ResourceException {
         
-        Planet planet = new Planet(0, 0, 200000, 40000, 3000, 3000);
+        Planet planet = new Planet(1, 1, 200000, 40000, 3000, 3000);
         planet.newLightHunter(4);
         planet.newHeavyHunter(2);
         planet.newIonCannon(3);
         planet.newArmoredShip(5);
 
-        ArrayList<MilitaryUnit>[] enemyArmy = createEnemyArmy();
-        // ArrayList<MilitaryUnit>[] enemyArmy;
-
-        ArrayList[][] armies = new ArrayList[2][7];
-        
-        armies[0] = planet.getArmy();
-        armies[1] = enemyArmy;
-
         // TODO I should add a "elligible for combat" mechanic, for instance if planet doesn't have any MilitaryUnits, to not be threatened.
-        // TODO add the view battle reports functionality
-
-        // Battle battle = new Battle(planet.getArmy(), enemyArmy, armies);
-
-        // System.out.println("Enemy Attacket group = " + battle.getEnemyGroupAttacker());
-        // System.out.println("Planet Attacker group = " + battle.getPlanetGroupAttacker());
-        // System.out.println("Planet army number = " + battle.initialFleetNumber(planetArmy));
-        // System.out.println("Enemy army number = " + battle.initialFleetNumber(enemyArmy));
-        // System.out.println("Planet army cost = " + battle.fleetResourceCost(planetArmy));
-        // System.out.println("Enemy army cost = " + battle.fleetResourceCost(enemyArmy));
 
 
-        Time time = new Time();
-        
         Timer timer = new Timer();
-        TimerTask tick = new TimerTask() {
-            
-            public void run() {
-                boolean isBattleAnnounced = false;
-                time.setMiliseconds(time.getMiliseconds() + time.getDeltaTime());
-
-                if(time.getMiliseconds() > Time.secInMs) { // Every second
-                    time.setSeconds(time.getSeconds() + 1);
-                    time.setTotalSeconds(time.getTotalSeconds() + 1);
-                    // System.out.println(time.getTotalSeconds() + " seconds.");
-                    time.setMiliseconds(0);
-                }
-
-                
-                if(0 == time.getSeconds()%10 && time.getSeconds() != 0 && time.getMiliseconds() == 0) { // Every 10 seconds
-                    // System.out.println("10 seconds have passed");
-                    planet.setMetal(planet.getMetal() + 1000);
-                    // System.out.println("1000 metal added.");
-                }
-
-                if (time.getSeconds() % 60 == 0 && time.getSeconds() != 0 && time.getMiliseconds() == 0) { // Every minute
-                    time.setMinutes(time.getMinutes()+1);
-                    time.setSeconds(0);
-
-                    if(isBattleAnnounced) { // This doesn't work for some reason
-                        System.out.println("COMBAT HAS BEGUN");
-                        // battle.combat();
-                        isBattleAnnounced = false;
-                    }
-
-                    System.out.println("A minute has passed");
-                }
-
-            }
-        };
-
-        // The problem with timers and why idk how to implement it it's because
-        // variables declared outside of the timer on main are not accessible in the timer
         
-
-        // One option is to have multiple timers for everything
-        // Another option is to figure out how to do it with one timer and checking time conditions in that one.
-
-        //////////////////////////////////////////////////////////////////////
-        /// MAIN TIMER ///////////////////////////////////////////////////////
-        timer.schedule(tick, 0, time.getDeltaTime());
-        //////////////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////////////
-        TimerTask countdownBattleTimerTask = new TimerTask() {
-            public void run() {
-                System.out.println("Battle has started!");
-                
-            }
-        };
 
         TimerTask threatTimer = new TimerTask() {
             public void run() {
                 if (!planet.isActiveThreat()) {
-                    // battle.announceCombat();
                     planet.setCurrentThreat(new Battle(planet));
                     planet.setActiveThreat(true);
 
-                    // timer.schedule(new TimerTaskBattleClass(battle, planet), Time.countdownBattleTime);
                 }
                 
             }
         };
         
         timer.schedule(threatTimer, Time.timeBetweenBattles, Time.timeBetweenBattles);
-
-        // I could do a method inside the Time class that executes an order after a certain time using the current time and doing the sum with the desired wait time
 
         String menu = """
                 1) View Planet Stats
@@ -117,15 +40,6 @@ public class Main{
                 4) View Battle Reports
                 0) Exit 
                 """;
-        if (planet.isActiveThreat()) {
-            menu = """
-                1) View Planet Stats
-                2) Build
-                3) Upgrade Technology
-                4) View Battle Reports
-                0) Exit 
-                """;
-        }
         
         String buildMenu = """
                 1) Build Light Hunter
@@ -134,9 +48,27 @@ public class Main{
                 4) Build Armored Ship
                 5) Go back
                 """;
+
         Scanner scanner = new Scanner(System.in);
 
         for(int i = 0; i < 100; i++){
+            if (planet.isActiveThreat()) {
+                menu = """
+                    1) View Planet Stats
+                    2) Build
+                    3) Upgrade Technology
+                    4) View Battle Reports
+                    0) Exit 
+                    """;
+            } else {
+                menu = """
+                1) View Planet Stats
+                2) Build
+                3) Upgrade Technology
+                4) View Battle Reports
+                0) Exit 
+                """;
+            }
             System.out.println(menu);
             int choice = scanner.nextInt();
 
@@ -227,7 +159,7 @@ public class Main{
     }
 
 
-    public static ArrayList<MilitaryUnit>[] createEnemyArmy() {
+    public static ArrayList<MilitaryUnit>[] createEnemyArmy(Planet planet) {
         ArrayList<MilitaryUnit>[] army = new ArrayList[7];
         // Enemy doesn't have defenses so the army array won't go past index 3.
         // Create the army
@@ -238,8 +170,8 @@ public class Main{
         }
         ////////
 
-        int metalInitialResources = 300000;
-        int deuteriumInitialResources = 4000;
+        int metalInitialResources = 300000 + 20000 * planet.getNBattles(); // This way it gets progressively harder
+        int deuteriumInitialResources = 4000 + 300 * planet.getNBattles();
         int option = -1;
 
         // light hunter [0]
@@ -332,7 +264,7 @@ public class Main{
     }
 
     public void announceCombat(ArrayList<MilitaryUnit>[] enemyArmy) {
-        enemyArmy = createEnemyArmy();
+        // enemyArmy = createEnemyArmy();
         System.out.println("NEW THREAT IS COMING");
 
     }
@@ -403,19 +335,3 @@ class Time {
     
 }
 
-class TimerTaskBattleClass extends TimerTask {
-    private Battle battle;
-    private Planet planet;
-
-    TimerTaskBattleClass(Battle battle, Planet planet) {
-        this.battle = battle;
-        this.planet = planet;
-    }
-    @Override
-    public void run() {
-        battle.combat();
-        planet.setActiveThreat(false);
-            
-    }
-
-}

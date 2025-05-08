@@ -57,7 +57,7 @@ public class Battle {
 
     public Battle(Planet planet) {
         this.planetArmy = planet.getArmy();
-        this.enemyArmy = Main.createEnemyArmy();
+        this.enemyArmy = Main.createEnemyArmy(planet);
         this.initialCostFleet = new int[2][2];
         this.resourcesLosses = new int[2][3];
         announceCombat();
@@ -66,6 +66,7 @@ public class Battle {
                 combat();
                 planet.addBattleReport(battleDevelopment);
                 planet.setActiveThreat(false);
+                planet.setNBattles(planet.getNBattles() + 1);
                 
             }
         };
@@ -129,16 +130,16 @@ public class Battle {
         for (int i = 0; i < army.length; i++) {
             total += army[i].size();
         }
-        System.out.println("Total amount alive = " + total);
+        // System.out.println("Total amount alive = " + total);
 
         if (army.equals(armies[0])) {
-            System.out.println("initialNumberUnitsPlanet = " + initialNumberUnitsPlanet);
-            System.out.println("percentage planet army remaining = " + (total * 100) / initialNumberUnitsPlanet);
+            // System.out.println("initialNumberUnitsPlanet = " + initialNumberUnitsPlanet);
+            // System.out.println("percentage planet army remaining = " + (total * 100) / initialNumberUnitsPlanet);
             return (total * 100) / initialNumberUnitsPlanet;
 
         } else {
-            System.out.println("initialNumberUnitsEnemy = " + initialNumberUnitsEnemy);
-            System.out.println("percentage enemy army remaining = " + (total * 100) / initialNumberUnitsEnemy);
+            // System.out.println("initialNumberUnitsEnemy = " + initialNumberUnitsEnemy);
+            // System.out.println("percentage enemy army remaining = " + (total * 100) / initialNumberUnitsEnemy);
             return (total * 100) / initialNumberUnitsEnemy;
         }
     }
@@ -238,7 +239,7 @@ public class Battle {
         return result;
     }
     public void announceCombat() {
-        enemyArmy = Main.createEnemyArmy();
+        // enemyArmy = Main.createEnemyArmy();
         this.armies = new ArrayList[2][7];
         
         for (int i = 0; i < armies.length; i++) {
@@ -281,7 +282,7 @@ public class Battle {
         String defenderStr;
         boolean isAttackingAgain; // Variable to check if it gets to attack again in the same turn
         
-        System.out.println("Initial fleet number Planet = " + initialFleetNumber(planetArmy));
+        // System.out.println("Initial fleet number Planet = " + initialFleetNumber(planetArmy));
         // System.out.println(remainderPercentageFleetPlanet() > 20 && remainderPercentageFleetEnemy() > 20);
         while(remainderPercentageFleetPlanet() > 20 && remainderPercentageFleetEnemy() > 20) { ///////////////////////////////////////////////////////
             // System.out.println("Percentage Planet army = " + remainderPercentageFleet(armies[0]));
@@ -306,7 +307,7 @@ public class Battle {
                 int indexDefendingUnit;
                 // System.out.println(attackerStr + " attacks");
                 // Selecting random attacking unit from selected group
-                System.out.println("Attacking group = " + attacking_group);
+                // System.out.println("Attacking group = " + attacking_group);
                 MilitaryUnit attackingUnit;
 
                 // DISPLAYING BATTLE INFO FOR DEBUGGING
