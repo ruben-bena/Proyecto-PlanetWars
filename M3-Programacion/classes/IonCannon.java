@@ -8,13 +8,14 @@ public class IonCannon extends Defense {
         setBaseDamage(baseDamage);
     }
     public int attack() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'attack'");
+        return getBaseDamage();
     }
 
     public void takeDamage(int receivedDamage) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'tekeDamage'");
+        setArmor(getArmor() - receivedDamage);
+        if (getArmor() < 0) {
+            setArmor(0);
+        }
     }
 
     public int getActualArmor() {
@@ -46,6 +47,10 @@ public class IonCannon extends Defense {
         // TODO Auto-generated method stub
         setArmor(Variables.ARMOR_ARMOREDSHIP);
 
+    }
+
+    public String getName() {
+        return "Ion Cannon";
     }
 
 }

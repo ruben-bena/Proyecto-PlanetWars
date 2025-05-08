@@ -49,5 +49,8 @@ public class BattleShip extends Ship implements MilitaryUnit {
         setArmor(getInitialArmor());
     }
 
+    public String getName() {
+        return "Battle Ship";
+    }
 
 }

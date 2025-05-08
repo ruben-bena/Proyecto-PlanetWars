@@ -49,4 +49,9 @@ public class HeavyHunter extends Ship implements MilitaryUnit {
         setArmor(getInitialArmor());
     }
 
+    public String getName() {
+        return "Heavy Hunter";
+    }
+
+
 }

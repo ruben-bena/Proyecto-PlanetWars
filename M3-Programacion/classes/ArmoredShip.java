@@ -49,5 +49,9 @@ public class ArmoredShip extends Ship implements MilitaryUnit {
         setArmor(getInitialArmor());
     }
 
+    public String getName() {
+        return "Armored Ship";
+    }
+
 
 }
