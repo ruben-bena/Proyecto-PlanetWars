@@ -45,6 +45,7 @@ public class Battle {
     // pérdidas.
     private int[] actualNumberUnitsPlanet;
     private int[] actualNumberUnitsEnemy; 
+    private boolean hasCombatStarted;
     // arrays que
     // cuantifican las unidades actuales de cada grupo, tanto para el planeta, como para el
     // enemigo. El orden seria:
@@ -56,18 +57,26 @@ public class Battle {
     // actualNumberUnitsPlanet[5] --> Cañones de iones
     // actualNumberUnitsPlanet[6] --> Cañones de Plasma
 
-    public Battle(Planet planet) {
+    private MilitaryUnit currentAttacking;
+    private MilitaryUnit currentDefending;
+    private int attackingArmy;
+
+    public Battle(Planet planet, MainPanel mp) {
         this.planetArmy = planet.getArmy();
         this.enemyArmy = Main.createEnemyArmy(planet);
         this.initialCostFleet = new int[2][2];
         this.resourcesLosses = new int[2][3];
+        this.hasCombatStarted = false;
         announceCombat();
         TimerTask task = new TimerTask() {
             public void run() {
-                combat(planet);
+                combat(planet, mp);
                 planet.addBattleReport(battleDevelopment);
                 planet.setActiveThreat(false);
+                hasCombatStarted = false; // This is instantaneous so it's not visible if I set it to false right away
+
                 planet.setNBattles(planet.getNBattles() + 1);
+                mp.getMiddlePanel().changeScreenToDefaultScene();
                 
             }
         };
@@ -189,7 +198,7 @@ public class Battle {
         // System.out.println("Total sum group pick function = " + totalSum);
         do {
             randMultiplier = (float) Math.random();
-        } while(randMultiplier < 0.04);
+        } while(randMultiplier < 0.1);
         
         // System.out.println("Random multiplier = " + randMultiplier);
         // System.out.println("Random number mult result int = " + (int) (randMultiplier * totalSum));
@@ -268,11 +277,20 @@ public class Battle {
         System.out.println("NEW THREAT IS COMING");
     }
     public void combat(Planet planet, MainPanel mainPanel) {
+        MiddlePanel screen = mainPanel.getMiddlePanel();
         if(planet.isActiveThreat()){
-            mainPanel.getMiddlePanel();
+            hasCombatStarted = true;
+            
+            
+            //Change the screen
+            screen.changeScreenToBattleScene();
+
+            ///////////////////
+
+            
             String winner = "";
             // Selecting randomly who starts the combat
-            int attackingArmy = (int) (Math.random() * 2);
+            attackingArmy = (int) (Math.random() * 2);
             int defendingArmy = 1;
 
             if(attackingArmy == 1) {
@@ -330,7 +348,8 @@ public class Battle {
                     }
                     
                     // System.out.println("Attacking unit index = " + indexAttackingUnit);
-                    
+                    currentAttacking = attackingUnit;
+
                     MilitaryUnit defendingUnit;
                     // Selecting defending group
                     if (defendingArmy == 0) {
@@ -347,6 +366,7 @@ public class Battle {
                         // System.out.println("defending group size = " + enemyArmy[defending_group].size());
                     }
                     
+                    currentDefending = defendingUnit;
                     // System.out.println("Defending group = " + defending_group);
                     
                     
@@ -410,6 +430,19 @@ public class Battle {
                         int var = attackingArmy;
                         attackingArmy = defendingArmy;
                         defendingArmy = var;
+                    }
+
+                    try {
+                        if (attackingArmy == 0) {
+                        mainPanel.getMiddlePanel().paintCurrentBattleState(this, attackingUnit, defendingUnit);
+                    } else {
+                        mainPanel.getMiddlePanel().paintCurrentBattleState(this, defendingUnit, attackingUnit);
+                    }
+                        
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
                     }
 
             }
@@ -483,4 +516,18 @@ public class Battle {
                 return 1;
             }
     }
+
+
+        public boolean isHasCombatStarted() {
+            return hasCombatStarted;
+        }
+
+
+        public int getAttackingArmy() {
+            return attackingArmy;
+        }
+
+        
+
+    
 }

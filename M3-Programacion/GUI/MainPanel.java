@@ -46,7 +46,7 @@ public class MainPanel extends JPanel {
         leftPanel = new LeftPanel(planet);
         rightPanel = new RightPanel();
         bottomPanel = new BottomPanel(planet);
-        middlePanel = new MiddlePanel();
+        middlePanel = new MiddlePanel(planet);
         
         middlePanel.setBackground(Color.MAGENTA);
 

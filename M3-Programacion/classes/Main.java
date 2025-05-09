@@ -19,7 +19,7 @@ public class Main{
 
         // TODO I should add a "elligible for combat" mechanic, for instance if planet doesn't have any MilitaryUnits, to not be threatened.
 
-        new MainScreen(planet);
+        MainScreen ms = new MainScreen(planet);
 
         Timer timer = new Timer();
         
@@ -27,7 +27,7 @@ public class Main{
         TimerTask threatTimer = new TimerTask() {
             public void run() {
                 if (!planet.isActiveThreat()) {
-                    planet.setCurrentThreat(new Battle(planet));
+                    planet.setCurrentThreat(new Battle(planet, ms.getMainPanel()));
                     planet.setActiveThreat(true);
                     
 

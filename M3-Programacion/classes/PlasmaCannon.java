@@ -1,5 +1,10 @@
 package classes;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 public class PlasmaCannon extends Defense {
@@ -50,10 +55,22 @@ public class PlasmaCannon extends Defense {
         return "Plasma Cannon";
     }
 
-    public static ImageIcon getImg() {
+    public ImageIcon getImg() {
         return img;
     }
 
+    public static ImageIcon getImgIcon() {
+        return img;
+    }
     
+    public BufferedImage getBufferedImage() {
+        try {
+            return ImageIO.read(new File("./M3-Programacion/GUI/images/plasma_cannon.png"));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }

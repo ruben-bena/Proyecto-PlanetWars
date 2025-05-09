@@ -1,11 +1,16 @@
 package classes;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 public class LightHunter extends Ship implements MilitaryUnit {
     private static ImageIcon img = new ImageIcon("./M3-Programacion/GUI/images/lightHunter.png");
+
     public LightHunter(int armor, int baseDamage) { // Apparently this gets calculated beforehand.
         setArmor(armor);
         setInitialArmor(armor);
@@ -62,8 +67,22 @@ public class LightHunter extends Ship implements MilitaryUnit {
         return "Light Hunter";
     }
 
-    public static ImageIcon getImg() {
+    public ImageIcon getImg() {
         return img;
+    }
+
+    public static ImageIcon getImgIcon() {
+        return img;
+    }
+
+    public BufferedImage getBufferedImage() {
+        try {
+            return ImageIO.read(new File("./M3-Programacion/GUI/images/lightHunter.png"));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
     }
 
     
