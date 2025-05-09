@@ -424,7 +424,7 @@ public class Battle {
             winner = "Planet";
             battleDevelopment += "Planet collects " + wasteMetalDeuterium[0] + " metal and " + wasteMetalDeuterium[1] + " deuterium";
             planet.setMetal(planet.getMetal() + wasteMetalDeuterium[0]);
-            planet.setDeuterium(planet.getDeuterium() + wasteMetalDeuterium[0]);
+            planet.setDeuterium(planet.getDeuterium() + wasteMetalDeuterium[1]);
         } else {
             winner = "Invader";
         }
