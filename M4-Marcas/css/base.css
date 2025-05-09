@@ -4,7 +4,7 @@
 }
 
 /* Estilo general de las paginas*/
-.body {
+body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -13,7 +13,7 @@
     flex-direction: column;
     min-height: 100vh;
     color: white;
-    position:relative;
+    position: relative;
 }
 
 .main-content {
@@ -34,61 +34,71 @@
     display: flex;
     justify-content: center;
 }
-    /*Menu general*/
-    .menu {
-        display: flex;
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-        align-items: center;
-        justify-content: center;
-        flex-grow: 1;
-        max-width: 1200px;
-    }
-    .menu li {
-        padding: 15px;
-    }
 
+/* Menu general - Versión desktop */
+.menu {
+    display: flex;
+    list-style-type: none;
+    padding: 10px 0;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    max-width: 1200px;
+}
 
-    /*Estilo enlaces*/
-    .menu a {
-        background-color: rgba(40, 40, 50);
-        color: white;
-        padding: 10px 25px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 18px;
-        font-weight: bold;
-        text-decoration: none;
-        transition: all 0.3s ease;
-        display: inline-block;
-    }
-    .menu a:not(.menu-icon-container):hover {
-        text-decoration: none;
-        background-color: rgba(50, 50, 60);
-        transform: scale(1.1);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
+.menu li {
+    padding: 10px;
+}
 
-    /*Estilo para el contenedor del icono*/
-    .menu-icon-container > a {
-        background-color: transparent !important;
-        padding: 0 !important;
-    }
+/* Estilo enlaces */
+.menu a {
+    background-color: rgba(40, 40, 50);
+    color: white;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
 
-    /* Estilo para el icono */
-    .menu-icon {
-        width: 70px;
-        height: 70px;
-        object-fit: contain;
-        transition: transform 0.3s ease;
-        display: block;
-    }
-    .menu-icon:hover {
-        transform: scale(1.1);
-    }
+.menu a:not(.menu-icon):hover {
+    text-decoration: none;
+    background-color: rgba(50, 50, 60);
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
+/* Estilo para el contenedor del icono */
+.menu-icon-container{
+    display: block;
+    background:  transparent !important;
+    padding: 0 !important;
+}
+.menu-icon-container > a {
+    background: transparent !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+}
+
+/* Estilo para el icono */
+.menu-icon {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    display: block;
+    background-color: transparent !important;
+    padding: 0 !important;
+}
+
+.menu-icon:hover {
+    transform: scale(1.1);
+}
 
 /* Footer */
 .site-footer {
@@ -97,6 +107,111 @@
     text-align: center;
     padding: 15px 0;
     margin-top: auto;
+}
+
+/* ==================== */
+/* VERSIÓN RESPONSIVE   */
+/* ==================== */
+
+/* Menú hamburguesa para móviles */
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+    padding: 15px;
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    z-index: 1000;
+    background-color: rgba(40, 40, 50, 0.7);
+    border-radius: 5px;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background: white;
+    margin: 5px 0;
+    transition: all 0.3s ease;
+}
+
+/* Estilos cuando el menú está activo */
+.menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+.menu.active {
+    left: 0;
+}
+
+/* Estilos responsive */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    /* Menú desplegable */
+    .menu {
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        height: 100vh;
+        background-color: rgba(30, 30, 40, 0.95);
+        padding-top: 0px;
+        transition: all 0.5s ease;
+        justify-content: flex-start;
+        align-items: stretch;
+        z-index: 999;
+    }
+
+    .menu-icon-container {
+        position: relative;
+           
+        z-index: 1001;
+    }
+    
+    /* Ajustar tamaño del icono en móvil */
+    .menu-icon {
+        width: 100px;
+        height: 100px;
+    }
+    
+    /* Botones ocupando todo el ancho */
+    .menu a {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        text-align: left;
+        padding: 12px 20px !important;
+        margin: 0;
+    }
+    
+    /* Eliminar transformación en hover para móviles */
+    .menu a:not(.menu-icon):hover {
+        transform: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .menu a {
+        padding: 8px 15px;
+        font-size: 16px;
+    }
+    
+    .menu-icon {
+        width: 70px;
+        height: 70px;
+    }
 }
 
 /* ==================== */
