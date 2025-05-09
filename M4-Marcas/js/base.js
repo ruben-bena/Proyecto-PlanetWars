@@ -1,4 +1,8 @@
-// Función para obtener la altura del documento de manera eficiente
+/* ================== */
+/* |SPACE BACKGROUND| */
+/* ================== */
+
+// Get the document height
 function getDocumentHeight() {
     return Math.max(
         document.body.scrollHeight,
@@ -8,7 +12,7 @@ function getDocumentHeight() {
     );
 }
 
-// Función para calcular la densidad de elementos
+// Calculate density based on document height
 function calculateDensity() {
     const docHeight = getDocumentHeight();
     const viewportHeight = window.innerHeight;
@@ -20,36 +24,28 @@ function calculateDensity() {
     };
 }
 
-// Configuraciones reutilizables
+// Stars layers with different sizes and opacities
 const STAR_LAYERS = [
     { size: 2, opacity: 0.8 },
     { size: 4, opacity: 0.6 },
     { size: 6, opacity: 0.4 }
 ];
 
-const PLANET_COLORS = [
-    { main: '#4a6fa5', shadow: '#1a2a4a', ring: 'rgba(210, 210, 230, 0.9)' },
-    { main: '#c45c3e', shadow: '#5e2c20', ring: 'rgba(230, 180, 150, 0.9)' },
-    { main: '#7a4a82', shadow: '#3a2342', ring: 'rgba(200, 180, 220, 0.9)' },
-    { main: '#4a8f5e', shadow: '#1e4a2a', ring: 'rgba(180, 230, 200, 0.9)' },
-    { main: '#d4a55e', shadow: '#7a4a20', ring: 'rgba(240, 220, 180, 0.9)' }
-];
-
-// Función para generar estrellas optimizada
+// Generate stars and clear existing ones when the window is resized
 function generateStars() {
     const container = document.getElementById('stars-container');
     const { stars: starCount } = calculateDensity();
     const docHeight = getDocumentHeight();
     
-    // Limpiar estrellas existentes de manera eficiente
+    // Clear existing stars becouse of the resizing of the window
     const existingStars = container.querySelectorAll('.star');
     if (existingStars.length > 0) {
         existingStars.forEach(star => star.remove());
     }
     
-    // Fragmento de documento para mejor rendimiento
+    // Create a document fragment to get better performance
     const fragment = document.createDocumentFragment();
-    
+
     for (let i = 0; i < starCount; i++) {
         const layerIndex = Math.floor(Math.random() * 3);
         const layer = STAR_LAYERS[layerIndex];
@@ -70,6 +66,16 @@ function generateStars() {
     
     container.appendChild(fragment);
 }
+
+
+// Planet colors, shadows and rings
+const PLANET_COLORS = [
+    { main: '#4a6fa5', shadow: '#1a2a4a', ring: 'rgba(210, 210, 230, 0.9)' },
+    { main: '#c45c3e', shadow: '#5e2c20', ring: 'rgba(230, 180, 150, 0.9)' },
+    { main: '#7a4a82', shadow: '#3a2342', ring: 'rgba(200, 180, 220, 0.9)' },
+    { main: '#4a8f5e', shadow: '#1e4a2a', ring: 'rgba(180, 230, 200, 0.9)' },
+    { main: '#d4a55e', shadow: '#7a4a20', ring: 'rgba(240, 220, 180, 0.9)' }
+];
 
 // Función para generar planetas optimizada
 function generatePlanets() {
@@ -215,7 +221,10 @@ function debounce(func, wait) {
 document.addEventListener('DOMContentLoaded', initSpaceEffects);
 
 
-// Menu movil
+
+/* ================= */
+/* |SMARTPHONE MENU| */
+/* ================= */
 document.addEventListener('DOMContentLoaded', function() {
     const menuToggle = document.querySelector('.menu-toggle');
     const menu = document.querySelector('.menu');

@@ -1,9 +1,12 @@
-/* Evitar desbordamiento horizontal */
+/* ============= */
+/* |BASE STYLES| */
+/* ============= */
+/* Avoid horizontal overflow */
 * {
     box-sizing: border-box;
 }
 
-/* Estilo general de las paginas*/
+/* Body style*/
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -16,14 +19,11 @@ body {
     position: relative;
 }
 
-.main-content {
-    flex: 1;
-    padding: 20px;
-    position: relative;
-    z-index: 1;
-    background-color: transparent;
-}
 
+
+/* ======== */
+/* |HEADER| */
+/* ======== */
 /* Header */
 .sticky-header {
     position: sticky;
@@ -35,7 +35,7 @@ body {
     justify-content: center;
 }
 
-/* Menu general - Versión desktop */
+/* Menu */
 .menu {
     display: flex;
     list-style-type: none;
@@ -46,12 +46,11 @@ body {
     flex-grow: 1;
     max-width: 1200px;
 }
-
 .menu li {
     padding: 10px;
 }
 
-/* Estilo enlaces */
+/* Menu links*/
 .menu a {
     background-color: rgba(40, 40, 50);
     color: white;
@@ -65,7 +64,6 @@ body {
     transition: all 0.3s ease;
     display: inline-block;
 }
-
 .menu a:not(.menu-icon):hover {
     text-decoration: none;
     background-color: rgba(50, 50, 60);
@@ -73,7 +71,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Estilo para el contenedor del icono */
+/* Menu icon container */
 .menu-icon-container{
     display: block;
     background:  transparent !important;
@@ -85,7 +83,7 @@ body {
     box-shadow: none !important;
 }
 
-/* Estilo para el icono */
+/* Menu icon */
 .menu-icon {
     width: 90px;
     height: 90px;
@@ -95,12 +93,28 @@ body {
     background-color: transparent !important;
     padding: 0 !important;
 }
-
 .menu-icon:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
-/* Footer */
+
+
+/* ====== */
+/* |MAIN| */
+/* ====== */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+    background-color: transparent;
+}
+
+
+
+/* ======== */
+/* |FOOTER| */
+/* ======== */
 .site-footer {
     background-color: transparent;
     color: white;
@@ -109,11 +123,12 @@ body {
     margin-top: auto;
 }
 
-/* ==================== */
-/* VERSIÓN RESPONSIVE   */
-/* ==================== */
 
-/* Menú hamburguesa para móviles */
+
+/* ============ */
+/* |RESPONSIVE| */
+/* ============ */
+/* Menu button */
 .menu-toggle {
     display: none;
     cursor: pointer;
@@ -125,7 +140,6 @@ body {
     background-color: rgba(40, 40, 50, 0.7);
     border-radius: 5px;
 }
-
 .menu-toggle span {
     display: block;
     width: 30px;
@@ -135,30 +149,30 @@ body {
     transition: all 0.3s ease;
 }
 
-/* Estilos cuando el menú está activo */
+/* Active menu button */
 .menu-toggle.active span:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
 }
-
 .menu-toggle.active span:nth-child(2) {
     opacity: 0;
 }
-
 .menu-toggle.active span:nth-child(3) {
     transform: rotate(-45deg) translate(7px, -6px);
 }
 
+/* Menu position*/
 .menu.active {
-    left: 0;
+    left: 0px;
 }
 
-/* Estilos responsive */
+/* 768px width */
 @media (max-width: 768px) {
+
     .menu-toggle {
         display: block;
     }
 
-    /* Menú desplegable */
+    /* Menu */
     .menu {
         flex-direction: column;
         position: fixed;
@@ -173,6 +187,7 @@ body {
         align-items: stretch;
         z-index: 999;
     }
+
 
     .menu-icon-container {
         position: relative;
@@ -196,27 +211,33 @@ body {
         margin: 0;
     }
     
-    /* Eliminar transformación en hover para móviles */
-    .menu a:not(.menu-icon):hover {
+    /* Delete hover on smartphones */
+    .menu a:hover {
         transform: none;
     }
 }
 
+/* 480px width */
 @media (max-width: 480px) {
+    /* Menu buttons size*/
     .menu a {
         padding: 8px 15px;
         font-size: 16px;
     }
     
+    /* Menu icon size */
     .menu-icon {
         width: 70px;
         height: 70px;
     }
 }
 
-/* ==================== */
-/* |FONDO DE ESTRELLAS| */
-/* ==================== */
+
+
+/* ================== */
+/* |SPACE BACKGROUND| */
+/* ================== */
+/* Stars */
 #stars-container {
     position: fixed;
     top: 0;
@@ -229,7 +250,6 @@ body {
     min-height: 100vh;
     z-index: -3;
 }
-
 .star {
     position: absolute;
     background-color: white;
@@ -239,32 +259,30 @@ body {
     z-index: -2;
 }
 
+/* Star layers */
 .star.layer-1 {
     width: 2px;
     height: 2px;
     opacity: 0.8;
 }
-
 .star.layer-2 {
     width: 4px;
     height: 4px;
     opacity: 0.6;
 }
-
 .star.layer-3 {
     width: 6px;
     height: 6px;
     opacity: 0.4;
 }
 
+/* Star twinkle */
 @keyframes twinkle {
     0%, 100% { opacity: 0.2; }
     50% { opacity: 1; }
 }
 
-/* ==================== */
-/* PLANETAS Y ANILLOS MEJORADOS */
-/* ==================== */
+/* Planets */
 .planet {
     position: absolute;
     border-radius: 50%;
@@ -277,7 +295,7 @@ body {
     transition: transform 0.8s cubic-bezier(0.17, 0.67, 0.21, 0.99);
 }
 
-/* Anillos realistas */
+/* Planet rings */
 .planet-ring {
     position: absolute;
     border-radius: 50%;
@@ -291,8 +309,6 @@ body {
     pointer-events: none;
     background-color: transparent;
 }
-
-/* Detalle interior del anillo */
 .planet-ring::before {
     content: '';
     position: absolute;
@@ -305,7 +321,7 @@ body {
     box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.3);
 }
 
-/* Efecto de brillo mejorado */
+/* Planet bright */
 .planet::after {
     content: '';
     position: absolute;
