@@ -123,10 +123,10 @@ class MainPanel extends JPanel {
             mainPanel.add(imagePanel);
 
             // buttonsPanel
-            // TODO: Define class that manages the events
             // TODO: Define events for the buttons
             // TODO: Implement those events as methods of the class GameSettingsPanel
             // TODO: Define each button method
+            // TODO: Add button that pauses the game
             buttonsPanel = new JPanel();
             buttonsPanel.setLayout(new GridLayout(4,1));
             buttonsPanel.setPreferredSize(new Dimension(Integer.MAX_VALUE, 300));
@@ -157,20 +157,40 @@ class MainPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getActionCommand().equals("New Game")) {
-                    System.out.println("New Game pressed");   
+                    System.out.println("New Game pressed");
+                    newGameEvent();   
                 }
                 if (e.getActionCommand().equals("Battle Report")) {
                     System.out.println("Battle Report pressed");
+                    battleReportEvent();
                 }
                 if (e.getActionCommand().equals("Settings")) {
                     System.out.println("Settings pressed");
+                    settingsEvent();
                 }
                 if (e.getActionCommand().equals("Exit")) {
                     System.out.println("Exit pressed");
+                    exitEvent();
                 }
             }
 
         }
+    }
+
+    public void newGameEvent() {
+        
+    }
+
+    public void battleReportEvent() {
+
+    }
+
+    public void settingsEvent() {
+
+    }
+
+    public void exitEvent() {
+
     }
 
     class BottomPanel extends JPanel {
