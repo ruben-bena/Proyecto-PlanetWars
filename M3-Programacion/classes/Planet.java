@@ -331,5 +331,33 @@ public class Planet {
     public int getNBattles() {
         return nBattles;
     }
+
+    public void newGame() throws ResourceException {
+        setActiveThreat(false);
+        setDeuterium(40000);
+        setMetal(200000);
+        setNBattles(0);
+        setTechnologyAttack(1);
+        setTechnologyDefense(1);
+        setCurrentThreat(null);
+        upgradeDefenseTechnologyDeuteriumCost = 3000;
+        upgradeAttackTechnologyDeuteriumCost = 3000;
+        battleReports = new String[5];
+
+        army = new ArrayList[7];
+        for(int i = 0; i < army.length; i++) {
+            army[i] = new ArrayList<MilitaryUnit>();
+        }
+
+        generateDefaultArmy();
+
+    }
+
+    public void generateDefaultArmy() throws ResourceException {
+        newLightHunter(4);
+        newHeavyHunter(2);
+        newIonCannon(3);
+        newArmoredShip(1);
+    }
     
 }

@@ -267,6 +267,7 @@ public class Battle {
         System.out.println("NEW THREAT IS COMING");
     }
     public void combat(Planet planet) {
+        if(planet.isActiveThreat()){
         String winner = "";
         // Selecting randomly who starts the combat
         int attackingArmy = (int) (Math.random() * 2);
@@ -431,7 +432,7 @@ public class Battle {
 
         battleDevelopment += winner + " wins!";
         // System.out.println(battleDevelopment);
-
+    }
         return;
     }
 

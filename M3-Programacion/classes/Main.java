@@ -29,6 +29,7 @@ public class Main{
                 if (!planet.isActiveThreat()) {
                     planet.setCurrentThreat(new Battle(planet));
                     planet.setActiveThreat(true);
+                    
 
                 }
                 
@@ -39,6 +40,7 @@ public class Main{
             public void run() {
                 planet.setMetal(planet.getMetal() + 2000);
                 planet.setDeuterium(planet.getDeuterium() + 200);
+                
             }
         };
         
@@ -160,6 +162,9 @@ public class Main{
                         planet.getCurrentThreat().printEnemyStats();
                     }
                     break;
+                case 6:
+                    // newGame(planet, threatTimer, resourceTask, timer);
+                    break;
                 default:
                     break;
             }
@@ -169,7 +174,13 @@ public class Main{
 
 
     }
-
+    // public static void newGame(Planet planet, TimerTask threatTask, TimerTask resourceTask, Timer timer) {
+    //     planet = new Planet(1, 1, 300000, 40000, 3000, 3000);
+    //     threatTask.cancel();
+    //     resourceTask.cancel();
+    //     timer.schedule(resourceTask, Time.timeBetweenResources, Time.timeBetweenResources);
+    //     timer.schedule(threatTask, Time.timeBetweenBattles, Time.timeBetweenBattles);
+    // }
 
     public static ArrayList<MilitaryUnit>[] createEnemyArmy(Planet planet) {
         ArrayList<MilitaryUnit>[] army = new ArrayList[7];
