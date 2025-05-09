@@ -9,13 +9,11 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 
 public class MainScreen extends JFrame {
     
@@ -49,7 +47,7 @@ public class MainScreen extends JFrame {
 
 class MainPanel extends JPanel {
     private LeftPanel leftPanel;
-    private RightPanel rightPanel;
+    private GameSettingsPanel rightPanel;
     private BottomPanel bottomPanel;
     private MiddlePanel middlePanel;
 
@@ -58,7 +56,7 @@ class MainPanel extends JPanel {
         setLayout(new BorderLayout());
         
         leftPanel = new LeftPanel();
-        rightPanel = new RightPanel();
+        rightPanel = new GameSettingsPanel();
         bottomPanel = new BottomPanel();
         middlePanel = new MiddlePanel();
 
@@ -95,11 +93,13 @@ class MainPanel extends JPanel {
         }
     }
 
-    class RightPanel extends JPanel {
-        private JPanel mainPanel, panel1, panel2;
+    class GameSettingsPanel extends JPanel {
+        private JPanel mainPanel, imagePanel, buttonsPanel;
+        private JButton newGameButton, battleReportButton, settingsButton, exitButton;
 
-        RightPanel() {
+        GameSettingsPanel() {
 
+            // GameSettingsPanel
             setSize(new Dimension(200,200));
             setPreferredSize(new Dimension(200,200));
             setLayout(new BorderLayout());
@@ -107,14 +107,24 @@ class MainPanel extends JPanel {
             add(new PaddingPanel(), BorderLayout.WEST);
             add(new PaddingPanel(), BorderLayout.EAST);
             
-    
+            // mainPanel --> Contains the subpanels for image and buttons.
             mainPanel = new JPanel();
-            panel1 = new JPanel();
-            panel2 = new JPanel();
-    
             mainPanel.setBackground(Color.GREEN);
-    
+            mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
             add(mainPanel);
+
+            // imagePanel
+            // TODO: Add image
+            imagePanel = new JPanel();
+            imagePanel.setBackground(Color.RED);
+            mainPanel.add(imagePanel);
+
+            // buttonsPanel
+            // TODO: Add buttons
+            // TODO: Define events for the buttons
+            buttonsPanel = new JPanel();
+            buttonsPanel.setBackground(Color.YELLOW);
+            mainPanel.add(buttonsPanel);
         }
     }
 
