@@ -190,7 +190,11 @@ class MainPanel extends JPanel {
     }
 
     public void exitEvent() {
-
+        // Window window = SwingUtilities.getWindowAncestor(this);
+        // if (window != null) {
+        //     window.dispose();
+        // }
+        
     }
 
     class BottomPanel extends JPanel {
