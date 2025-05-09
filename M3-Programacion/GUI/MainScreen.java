@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -123,7 +124,23 @@ class MainPanel extends JPanel {
             // TODO: Add buttons
             // TODO: Define events for the buttons
             buttonsPanel = new JPanel();
+            buttonsPanel.setLayout(new GridLayout(4,1));
+            buttonsPanel.setPreferredSize(new Dimension(Integer.MAX_VALUE, 300));
+            buttonsPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 300));
+
+            newGameButton = new JButton("New Game");
+            buttonsPanel.add(newGameButton);
+
+            battleReportButton = new JButton("Battle Report");
+            buttonsPanel.add(battleReportButton);
+            
+            settingsButton = new JButton("Settings");
+            buttonsPanel.add(settingsButton);
+
+            exitButton = new JButton("Exit");
+            buttonsPanel.add(exitButton);
             buttonsPanel.setBackground(Color.YELLOW);
+
             mainPanel.add(buttonsPanel);
         }
     }
