@@ -6,6 +6,7 @@ import java.sql.SQLException;
 // This class manages the connection to the DDBB and pass Connection object to the other database classes
 public class Database  {
     private Connection conn;
+    // TODO: Add all table objects as attributes of this class
 
     public static void main(String[] args) {
 
@@ -59,4 +60,10 @@ public class Database  {
 			return true;
 		}
     }
+
+    public Connection getConnection() {
+        return conn;
+    }
+
+    // TODO: Add some algorithm that checks changes in game and saves data in DDBB "automatically"
 }
