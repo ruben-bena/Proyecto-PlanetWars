@@ -1,4 +1,5 @@
 package classes;
+import GUI.*;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -266,219 +267,220 @@ public class Battle {
 
         System.out.println("NEW THREAT IS COMING");
     }
-    public void combat(Planet planet) {
+    public void combat(Planet planet, MainPanel mainPanel) {
         if(planet.isActiveThreat()){
-        String winner = "";
-        // Selecting randomly who starts the combat
-        int attackingArmy = (int) (Math.random() * 2);
-        int defendingArmy = 1;
+            mainPanel.getMiddlePanel();
+            String winner = "";
+            // Selecting randomly who starts the combat
+            int attackingArmy = (int) (Math.random() * 2);
+            int defendingArmy = 1;
 
-        if(attackingArmy == 1) {
-            defendingArmy = 0;
-        }
+            if(attackingArmy == 1) {
+                defendingArmy = 0;
+            }
 
-        int attacking_group;
-        int defending_group;
-        String attackerStr;
-        String defenderStr;
-        boolean isAttackingAgain; // Variable to check if it gets to attack again in the same turn
-        
-        // System.out.println("Initial fleet number Planet = " + initialFleetNumber(planetArmy));
-        // System.out.println(remainderPercentageFleetPlanet() > 20 && remainderPercentageFleetEnemy() > 20);
-        while(remainderPercentageFleetPlanet() > 20 && remainderPercentageFleetEnemy() > 20) { ///////////////////////////////////////////////////////
-            // System.out.println("Percentage Planet army = " + remainderPercentageFleet(armies[0]));
-            // System.out.println("Percentage Enemy army = " + remainderPercentageFleet(armies[1]));
-            isAttackingAgain = true;
-            // Selecting attacking group for the army starting the fight
+            int attacking_group;
+            int defending_group;
+            String attackerStr;
+            String defenderStr;
+            boolean isAttackingAgain; // Variable to check if it gets to attack again in the same turn
+            
+            // System.out.println("Initial fleet number Planet = " + initialFleetNumber(planetArmy));
+            // System.out.println(remainderPercentageFleetPlanet() > 20 && remainderPercentageFleetEnemy() > 20);
+            while(remainderPercentageFleetPlanet() > 20 && remainderPercentageFleetEnemy() > 20) { ///////////////////////////////////////////////////////
+                // System.out.println("Percentage Planet army = " + remainderPercentageFleet(armies[0]));
+                // System.out.println("Percentage Enemy army = " + remainderPercentageFleet(armies[1]));
+                isAttackingAgain = true;
+                // Selecting attacking group for the army starting the fight
+
+                
+
+                if (attackingArmy == 0) {
+                    attacking_group = getPlanetGroupAttacker();
+                    attackerStr = "Planet";
+                    defenderStr = "Enemy";
+                } else {
+                    attacking_group = getEnemyGroupAttacker();
+                    attackerStr = "Enemy";
+                    defenderStr = "Planet";
+                }
+
+                while(isAttackingAgain && (remainderPercentageFleetPlanet() > 20 && remainderPercentageFleetEnemy() > 20)) {
+                    int indexAttackingUnit;
+                    int indexDefendingUnit;
+                    // System.out.println(attackerStr + " attacks");
+                    // Selecting random attacking unit from selected group
+                    // System.out.println("Attacking group = " + attacking_group);
+                    MilitaryUnit attackingUnit;
+
+                    // DISPLAYING BATTLE INFO FOR DEBUGGING
+                    // for(int i = 0; i < planetArmy.length; i++) {
+                    //     System.out.println("Planet Units " + i + ": " + planetArmy[i].size());
+                    //     System.out.println("Enemy Units " + i + ": " + enemyArmy[i].size());
+                    // }
+                    //
+                    if (attackingArmy == 0) {
+                        // System.out.println("Attacking group size = " + planetArmy[attacking_group].size());
+                        indexAttackingUnit = (int) (Math.random() * planetArmy[attacking_group].size());
+                        attackingUnit = (MilitaryUnit) (planetArmy[attacking_group].get((indexAttackingUnit)));
+                    } else {
+                        // System.out.println("Attacking group size = " + enemyArmy[attacking_group].size());
+                        indexAttackingUnit = (int) (Math.random() * enemyArmy[attacking_group].size());
+                        attackingUnit = (MilitaryUnit) (enemyArmy[attacking_group].get((indexAttackingUnit)));
+                    }
+                    
+                    // System.out.println("Attacking unit index = " + indexAttackingUnit);
+                    
+                    MilitaryUnit defendingUnit;
+                    // Selecting defending group
+                    if (defendingArmy == 0) {
+                        defending_group = getGroupDefender(planetArmy);
+                        indexDefendingUnit = (int) (Math.random() * planetArmy[defending_group].size());
+                        // System.out.println("Defending unit index = " + indexDefendingUnit);
+                        defendingUnit = (MilitaryUnit) (planetArmy[defending_group].get(indexDefendingUnit));
+                        // System.out.println("defending group size = " + planetArmy[defending_group].size());
+                    } else {
+                        defending_group = getGroupDefender(enemyArmy);
+                        indexDefendingUnit = (int) (Math.random() * enemyArmy[defending_group].size());
+                        // System.out.println("Defending unit index = " + indexDefendingUnit);
+                        defendingUnit = (MilitaryUnit) (enemyArmy[defending_group].get(indexDefendingUnit));
+                        // System.out.println("defending group size = " + enemyArmy[defending_group].size());
+                    }
+                    
+                    // System.out.println("Defending group = " + defending_group);
+                    
+                    
+
+                    // Making them fight
+                    // Applying damage
+                    battleDevelopment += attackerStr + " attacks " + defenderStr + "\n" + defendingUnit.getName() + " receives " + attackingUnit.attack() + " dmg.\n\n";
+                    defendingUnit.takeDamage(attackingUnit.attack());
+                    // Checking if it's destroyed
+                    if(defendingUnit.getActualArmor() <= 0) {
+                        battleDevelopment += defendingUnit.getName() + " has " + defendingUnit.getActualArmor() + ", it gets destroyed.\n";
+
+                        // Before elmininating it, cheking if waste gets generated
+                        boolean isGeneratingWaste = false;
+                        if (Math.random()*100 <= defendingUnit.getChanceGeneratinWaste()) {
+                            isGeneratingWaste = true;
+                        }
+                        if(isGeneratingWaste) {
+                            wasteMetalDeuterium[0] += defendingUnit.getMetalCost() * Variables.PERCENTATGE_WASTE / 100;
+                            wasteMetalDeuterium[1] += defendingUnit.getDeuteriumCost() * Variables.PERCENTATGE_WASTE / 100;
+                            battleDevelopment += defendingUnit.getMetalCost() * Variables.PERCENTATGE_WASTE / 100 + " metal waste has been generated\n";
+                            battleDevelopment += defendingUnit.getDeuteriumCost() * Variables.PERCENTATGE_WASTE / 100 + " deuterium has been generated\n";
+                        }
+
+                        // Adding it to planetDrops and enemyDrops
+                        if (defendingArmy == 0) { //I'm assuming the 0 is for metal and 1 is for deuterium
+                            planetDrops[0] += defendingUnit.getMetalCost();
+                            planetDrops[1] += defendingUnit.getDeuteriumCost();
+                        } else {
+                            enemyDrops[0] += defendingUnit.getMetalCost();
+                            enemyDrops[1] += defendingUnit.getDeuteriumCost();
+                        }
+
+
+                        // Removing from arrays
+                        armies[defendingArmy][defending_group].remove(defendingUnit); // This is just removing it from the ArrayList in armies, not in planetArmy or enemyArmy
+
+                        if (defendingArmy == 0) { // Removing it from the actual ArrayList too, this seems not practical at all.
+                            planetArmy[defending_group].remove(defendingUnit);
+                        } else {
+                            enemyArmy[defending_group].remove(defendingUnit);
+                        }
+
+                        
+                    }
+
+                    // If it's not destroyed / or after destroying it
+
+                    // If it attacks again
+                    if( (int) (Math.random() * 100) <= attackingUnit.getChanceAttackAgain() && (remainderPercentageFleetPlanet() > 20 && remainderPercentageFleetEnemy() > 20)) {
+                        // System.out.println("attacks again");
+                        battleDevelopment += attackerStr + " gets to attack again!\n";
+                        isAttackingAgain = true;
+                    } else { // if it doesn't attack again
+                        if (remainderPercentageFleetPlanet() > 20 && remainderPercentageFleetEnemy() > 20){
+                            battleDevelopment += "--------------------------------------------\nTURN OVER, SWITCHING ROLES\n--------------------------------------------\n\n";
+                        }
+                        isAttackingAgain = false;
+                        
+                        // Switching the turns
+                        int var = attackingArmy;
+                        attackingArmy = defendingArmy;
+                        defendingArmy = var;
+                    }
+
+            }
 
             
+            }
+            // After the combat is over
+            updateResourceLoses();
 
-            if (attackingArmy == 0) {
-                attacking_group = getPlanetGroupAttacker();
-                attackerStr = "Planet";
-                defenderStr = "Enemy";
+            battleDevelopment += "\n\n------------------- COMBAT RESULTS -----------------------\n";
+            battleDevelopment += "Resources lost by Planet: " + resourcesLosses[0][2] + "\n";
+            battleDevelopment += "Resources lost by Enemy: " + resourcesLosses[1][2] + "\n\n";
+
+            if (getWinner() == 0) {
+                winner = "Planet";
+                battleDevelopment += "Planet collects " + wasteMetalDeuterium[0] + " metal and " + wasteMetalDeuterium[1] + " deuterium";
+                planet.setMetal(planet.getMetal() + wasteMetalDeuterium[0]);
+                planet.setDeuterium(planet.getDeuterium() + wasteMetalDeuterium[1]);
             } else {
-                attacking_group = getEnemyGroupAttacker();
-                attackerStr = "Enemy";
-                defenderStr = "Planet";
+                winner = "Invader";
             }
 
-            while(isAttackingAgain && (remainderPercentageFleetPlanet() > 20 && remainderPercentageFleetEnemy() > 20)) {
-                int indexAttackingUnit;
-                int indexDefendingUnit;
-                // System.out.println(attackerStr + " attacks");
-                // Selecting random attacking unit from selected group
-                // System.out.println("Attacking group = " + attacking_group);
-                MilitaryUnit attackingUnit;
-
-                // DISPLAYING BATTLE INFO FOR DEBUGGING
-                // for(int i = 0; i < planetArmy.length; i++) {
-                //     System.out.println("Planet Units " + i + ": " + planetArmy[i].size());
-                //     System.out.println("Enemy Units " + i + ": " + enemyArmy[i].size());
-                // }
-                //
-                if (attackingArmy == 0) {
-                    // System.out.println("Attacking group size = " + planetArmy[attacking_group].size());
-                    indexAttackingUnit = (int) (Math.random() * planetArmy[attacking_group].size());
-                    attackingUnit = (MilitaryUnit) (planetArmy[attacking_group].get((indexAttackingUnit)));
-                } else {
-                    // System.out.println("Attacking group size = " + enemyArmy[attacking_group].size());
-                    indexAttackingUnit = (int) (Math.random() * enemyArmy[attacking_group].size());
-                    attackingUnit = (MilitaryUnit) (enemyArmy[attacking_group].get((indexAttackingUnit)));
-                }
-                
-                // System.out.println("Attacking unit index = " + indexAttackingUnit);
-                
-                MilitaryUnit defendingUnit;
-                // Selecting defending group
-                if (defendingArmy == 0) {
-                    defending_group = getGroupDefender(planetArmy);
-                    indexDefendingUnit = (int) (Math.random() * planetArmy[defending_group].size());
-                    // System.out.println("Defending unit index = " + indexDefendingUnit);
-                    defendingUnit = (MilitaryUnit) (planetArmy[defending_group].get(indexDefendingUnit));
-                    // System.out.println("defending group size = " + planetArmy[defending_group].size());
-                } else {
-                    defending_group = getGroupDefender(enemyArmy);
-                    indexDefendingUnit = (int) (Math.random() * enemyArmy[defending_group].size());
-                    // System.out.println("Defending unit index = " + indexDefendingUnit);
-                    defendingUnit = (MilitaryUnit) (enemyArmy[defending_group].get(indexDefendingUnit));
-                    // System.out.println("defending group size = " + enemyArmy[defending_group].size());
-                }
-                
-                // System.out.println("Defending group = " + defending_group);
-                
-                
-
-                // Making them fight
-                // Applying damage
-                battleDevelopment += attackerStr + " attacks " + defenderStr + "\n" + defendingUnit.getName() + " receives " + attackingUnit.attack() + " dmg.\n\n";
-                defendingUnit.takeDamage(attackingUnit.attack());
-                // Checking if it's destroyed
-                if(defendingUnit.getActualArmor() <= 0) {
-                    battleDevelopment += defendingUnit.getName() + " has " + defendingUnit.getActualArmor() + ", it gets destroyed.\n";
-
-                    // Before elmininating it, cheking if waste gets generated
-                    boolean isGeneratingWaste = false;
-                    if (Math.random()*100 <= defendingUnit.getChanceGeneratinWaste()) {
-                        isGeneratingWaste = true;
-                    }
-                    if(isGeneratingWaste) {
-                        wasteMetalDeuterium[0] += defendingUnit.getMetalCost() * Variables.PERCENTATGE_WASTE / 100;
-                        wasteMetalDeuterium[1] += defendingUnit.getDeuteriumCost() * Variables.PERCENTATGE_WASTE / 100;
-                        battleDevelopment += defendingUnit.getMetalCost() * Variables.PERCENTATGE_WASTE / 100 + " metal waste has been generated\n";
-                        battleDevelopment += defendingUnit.getDeuteriumCost() * Variables.PERCENTATGE_WASTE / 100 + " deuterium has been generated\n";
-                    }
-
-                    // Adding it to planetDrops and enemyDrops
-                    if (defendingArmy == 0) { //I'm assuming the 0 is for metal and 1 is for deuterium
-                        planetDrops[0] += defendingUnit.getMetalCost();
-                        planetDrops[1] += defendingUnit.getDeuteriumCost();
-                    } else {
-                        enemyDrops[0] += defendingUnit.getMetalCost();
-                        enemyDrops[1] += defendingUnit.getDeuteriumCost();
-                    }
-
-
-                    // Removing from arrays
-                    armies[defendingArmy][defending_group].remove(defendingUnit); // This is just removing it from the ArrayList in armies, not in planetArmy or enemyArmy
-
-                    if (defendingArmy == 0) { // Removing it from the actual ArrayList too, this seems not practical at all.
-                        planetArmy[defending_group].remove(defendingUnit);
-                    } else {
-                        enemyArmy[defending_group].remove(defendingUnit);
-                    }
-
-                    
-                }
-
-                // If it's not destroyed / or after destroying it
-
-                // If it attacks again
-                if( (int) (Math.random() * 100) <= attackingUnit.getChanceAttackAgain() && (remainderPercentageFleetPlanet() > 20 && remainderPercentageFleetEnemy() > 20)) {
-                    // System.out.println("attacks again");
-                    battleDevelopment += attackerStr + " gets to attack again!\n";
-                    isAttackingAgain = true;
-                } else { // if it doesn't attack again
-                    if (remainderPercentageFleetPlanet() > 20 && remainderPercentageFleetEnemy() > 20){
-                        battleDevelopment += "--------------------------------------------\nTURN OVER, SWITCHING ROLES\n--------------------------------------------\n\n";
-                    }
-                    isAttackingAgain = false;
-                    
-                    // Switching the turns
-                    int var = attackingArmy;
-                    attackingArmy = defendingArmy;
-                    defendingArmy = var;
-                }
-
+            battleDevelopment += winner + " wins!";
+            // System.out.println(battleDevelopment);
+        }
+            return;
         }
 
-        
-        }
-        // After the combat is over
-        updateResourceLoses();
-
-        battleDevelopment += "\n\n------------------- COMBAT RESULTS -----------------------\n";
-        battleDevelopment += "Resources lost by Planet: " + resourcesLosses[0][2] + "\n";
-        battleDevelopment += "Resources lost by Enemy: " + resourcesLosses[1][2] + "\n\n";
-
-        if (getWinner() == 0) {
-            winner = "Planet";
-            battleDevelopment += "Planet collects " + wasteMetalDeuterium[0] + " metal and " + wasteMetalDeuterium[1] + " deuterium";
-            planet.setMetal(planet.getMetal() + wasteMetalDeuterium[0]);
-            planet.setDeuterium(planet.getDeuterium() + wasteMetalDeuterium[1]);
-        } else {
-            winner = "Invader";
+        public void printEnemyStats() {
+            System.out.println("\nCURRENT THREAT\n");
+            System.out.println("Light Hunters = " + enemyArmy[0].size());
+            System.out.println("Heavy Hunters = " + enemyArmy[1].size());
+            System.out.println("Battle Ships = " + enemyArmy[2].size());
+            System.out.println("Armored Ships = " + enemyArmy[3].size());
+            System.out.println();
         }
 
-        battleDevelopment += winner + " wins!";
-        // System.out.println(battleDevelopment);
-    }
-        return;
-    }
+        public int getCostOfGroup(ArrayList<MilitaryUnit> group) {
+            int total = 0;
 
-    public void printEnemyStats() {
-        System.out.println("\nCURRENT THREAT\n");
-        System.out.println("Light Hunters = " + enemyArmy[0].size());
-        System.out.println("Heavy Hunters = " + enemyArmy[1].size());
-        System.out.println("Battle Ships = " + enemyArmy[2].size());
-        System.out.println("Armored Ships = " + enemyArmy[3].size());
-        System.out.println();
-    }
-
-    public int getCostOfGroup(ArrayList<MilitaryUnit> group) {
-        int total = 0;
-
-        for (int i = 0; i < group.size(); i++) {
-            total += group.get(i).getMetalCost();
-        }
-        return total;
-    }
-
-    public int getMetalCostOfArmy(ArrayList<MilitaryUnit>[] army) {
-        int total = 0;
-        for (int i = 0; i < army.length; i++) {
-            for(int j = 0; i < army[i].size(); i++) {
-                total += army[i].get(j).getMetalCost();
+            for (int i = 0; i < group.size(); i++) {
+                total += group.get(i).getMetalCost();
             }
+            return total;
         }
-        return total;
-    }
 
-    public int getDeuteriumCostOfArmy(ArrayList<MilitaryUnit>[] army) {
-        int total = 0;
-        for (int i = 0; i < army.length; i++) {
-            for(int j = 0; i < army[i].size(); i++) {
-                total += army[i].get(j).getDeuteriumCost();
+        public int getMetalCostOfArmy(ArrayList<MilitaryUnit>[] army) {
+            int total = 0;
+            for (int i = 0; i < army.length; i++) {
+                for(int j = 0; i < army[i].size(); i++) {
+                    total += army[i].get(j).getMetalCost();
+                }
             }
+            return total;
         }
-        return total;
-    }
 
-    public int getWinner() {
-        if (resourcesLosses[0][2] < resourcesLosses[1][2]) {
-            return 0;
-        } else {
-            return 1;
+        public int getDeuteriumCostOfArmy(ArrayList<MilitaryUnit>[] army) {
+            int total = 0;
+            for (int i = 0; i < army.length; i++) {
+                for(int j = 0; i < army[i].size(); i++) {
+                    total += army[i].get(j).getDeuteriumCost();
+                }
+            }
+            return total;
         }
+
+        public int getWinner() {
+            if (resourcesLosses[0][2] < resourcesLosses[1][2]) {
+                return 0;
+            } else {
+                return 1;
+            }
     }
 }
