@@ -370,8 +370,7 @@ class MainPanel extends JPanel {
             add(new PaddingPanel(), BorderLayout.SOUTH);
     
             mainPanel = new JPanel();
-            panel1 = new JPanel();
-            panel2 = new JPanel();
+            
     
             mainPanel.setBackground(Color.WHITE);
     

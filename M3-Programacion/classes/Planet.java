@@ -69,13 +69,8 @@ public class Planet {
         int damage = Variables.BASE_DAMAGE_LIGTHHUNTER + (getTechnologyAttack() * Variables.PLUS_ATTACK_LIGTHHUNTER_BY_TECHNOLOGY) * (Variables.BASE_DAMAGE_LIGTHHUNTER/100);
         // System.out.println(armor);
         for(int i=0; i<n; i++) {
-            if(Variables.DEUTERIUM_COST_LIGTHHUNTER < deuterium) {
+            if(Variables.DEUTERIUM_COST_LIGTHHUNTER < deuterium || Variables.METAL_COST_LIGTHHUNTER < metal) {
                 deuterium -= Variables.DEUTERIUM_COST_LIGTHHUNTER;
-                army[0].add(new LightHunter(armor, damage));
-                continue;
-
-            }
-            else if(Variables.METAL_COST_LIGTHHUNTER < metal) {
                 metal -= Variables.METAL_COST_LIGTHHUNTER;
                 army[0].add(new LightHunter(armor, damage));
                 continue;
@@ -93,18 +88,14 @@ public class Planet {
         int armor = Variables.ARMOR_HEAVYHUNTER + (getTechnologyDefense() * Variables.PLUS_ARMOR_HEAVYHUNTER_BY_TECHNOLOGY) * (Variables.ARMOR_HEAVYHUNTER/100);
         int damage = Variables.BASE_DAMAGE_HEAVYHUNTER + (getTechnologyAttack() * Variables.PLUS_ATTACK_HEAVYHUNTER_BY_TECHNOLOGY) * (Variables.BASE_DAMAGE_HEAVYHUNTER/100);
         for(int i=0; i<n; i++) {
-            if(Variables.DEUTERIUM_COST_HEAVYHUNTER < deuterium) {
+            if(Variables.DEUTERIUM_COST_HEAVYHUNTER < deuterium && Variables.METAL_COST_HEAVYHUNTER < metal) {
                 deuterium -= Variables.DEUTERIUM_COST_HEAVYHUNTER;
-                army[1].add(new HeavyHunter(armor, damage));
-                continue;
-
-            }
-            else if(Variables.DEUTERIUM_COST_HEAVYHUNTER < metal) {
                 metal -= Variables.DEUTERIUM_COST_HEAVYHUNTER;
                 army[1].add(new HeavyHunter(armor, damage));
                 continue;
 
             }
+            
             else {
                 System.out.println("Added " + i + " Heavy Hunters");
                 throw new ResourceException("You don't have enough resources to add more Heavy Hunters");
@@ -118,13 +109,8 @@ public class Planet {
         int damage = Variables.BASE_DAMAGE_BATTLESHIP + (getTechnologyAttack() * Variables.PLUS_ATTACK_BATTLESHIP_BY_TECHNOLOGY) * (Variables.BASE_DAMAGE_BATTLESHIP/100);
         
         for(int i=0; i<n; i++) {
-            if(Variables.DEUTERIUM_COST_BATTLESHIP < deuterium) {
+            if(Variables.DEUTERIUM_COST_BATTLESHIP < deuterium && Variables.METAL_COST_BATTLESHIP < metal) {
                 deuterium -= Variables.DEUTERIUM_COST_BATTLESHIP;
-                army[2].add(new BattleShip(armor, damage));
-                continue;
-
-            }
-            else if(Variables.METAL_COST_BATTLESHIP < metal) {
                 metal -= Variables.METAL_COST_BATTLESHIP;
                 army[2].add(new BattleShip(armor, damage));
                 continue;
@@ -143,18 +129,14 @@ public class Planet {
         int damage = Variables.BASE_DAMAGE_ARMOREDSHIP + (getTechnologyAttack() * Variables.PLUS_ATTACK_ARMOREDSHIP_BY_TECHNOLOGY) * (Variables.BASE_DAMAGE_ARMOREDSHIP/100);
 
         for(int i=0; i<n; i++) {
-            if(Variables.DEUTERIUM_COST_ARMOREDSHIP < deuterium) {
+            if(Variables.DEUTERIUM_COST_ARMOREDSHIP < deuterium && Variables.METAL_COST_ARMOREDSHIP < metal) {
                 deuterium -= Variables.DEUTERIUM_COST_ARMOREDSHIP;
-                army[3].add(new ArmoredShip(armor, damage));
-                continue;
-
-            }
-            else if(Variables.METAL_COST_ARMOREDSHIP < metal) {
                 metal -= Variables.METAL_COST_ARMOREDSHIP;
                 army[3].add(new ArmoredShip(armor, damage));
                 continue;
 
             }
+            
             else {
                 System.out.println("Added " + i + " Armored Ships");
                 throw new ResourceException("You don't have enough resources to add more Armored Ships");
@@ -168,18 +150,14 @@ public class Planet {
         int damage = Variables.BASE_DAMAGE_MISSILELAUNCHER + (getTechnologyAttack() * Variables.PLUS_ATTACK_MISSILELAUNCHER_BY_TECHNOLOGY) * (Variables.BASE_DAMAGE_MISSILELAUNCHER/100);
 
         for(int i=0; i<n; i++) {
-            if(Variables.DEUTERIUM_COST_MISSILELAUNCHER < deuterium) {
+            if(Variables.DEUTERIUM_COST_MISSILELAUNCHER < deuterium && Variables.METAL_COST_MISSILELAUNCHER < metal) {
                 deuterium -= Variables.DEUTERIUM_COST_MISSILELAUNCHER;
+                metal -= Variables.METAL_COST_MISSILELAUNCHER;
                 army[4].add(new MissileLauncher(armor, damage));
                 continue;
 
             }
-            else if(Variables.METAL_COST_MISSILELAUNCHER < metal) {
-                metal -= Variables.METAL_COST_MISSILELAUNCHER;
-                army[4].add(new MissileLauncher(armor, damage));   
-                continue;
-
-            }
+            
             else {
                 System.out.println("Added " + i + " Missile Launchers");
                 throw new ResourceException("You don't have enough resources to add more Missile Launchers");
@@ -193,18 +171,14 @@ public class Planet {
         int damage = Variables.BASE_DAMAGE_IONCANNON + (getTechnologyAttack() * Variables.PLUS_ATTACK_IONCANNON_BY_TECHNOLOGY) * (Variables.BASE_DAMAGE_IONCANNON/100);
 
         for(int i=0; i<n; i++) {
-            if(Variables.DEUTERIUM_COST_IONCANNON < deuterium) {
+            if(Variables.DEUTERIUM_COST_IONCANNON < deuterium && Variables.METAL_COST_IONCANNON < metal) {
                 deuterium -= Variables.DEUTERIUM_COST_IONCANNON;
-                army[5].add(new IonCannon(armor, damage));
-                continue;
-
-            }
-            else if(Variables.METAL_COST_IONCANNON < metal) {
                 metal -= Variables.METAL_COST_IONCANNON;
                 army[5].add(new IonCannon(armor, damage));
                 continue;
 
             }
+
             else {
                 System.out.println("Added " + i + " Ion Cannons");
                 throw new ResourceException("You don't have enough resources to add more Ion Cannons");
@@ -219,18 +193,14 @@ public class Planet {
         int damage = Variables.BASE_DAMAGE_PLASMACANNON + (getTechnologyAttack() * Variables.PLUS_ATTACK_PLASMACANNON_BY_TECHNOLOGY) * (Variables.BASE_DAMAGE_PLASMACANNON/100);
 
         for(int i=0; i<n; i++) {
-            if(Variables.DEUTERIUM_COST_PLASMACANNON < deuterium) {
+            if(Variables.DEUTERIUM_COST_PLASMACANNON < deuterium && Variables.METAL_COST_PLASMACANNON < metal) {
                 deuterium -= Variables.DEUTERIUM_COST_PLASMACANNON;
-                army[6].add(new PlasmaCannon(armor, damage));
-                continue;
-
-            }
-            else if(Variables.METAL_COST_PLASMACANNON < metal) {
                 metal -= Variables.METAL_COST_PLASMACANNON;
                 army[6].add(new PlasmaCannon(armor, damage));
                 continue;
 
             }
+
             else {
                 System.out.println("Added " + i + " Plasma Cannons");
                 throw new ResourceException("You don't have enough resources to add more Plasma Cannons");

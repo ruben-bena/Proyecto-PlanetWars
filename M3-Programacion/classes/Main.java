@@ -15,7 +15,7 @@ public class Main{
         planet.newLightHunter(4);
         planet.newHeavyHunter(2);
         planet.newIonCannon(3);
-        planet.newArmoredShip(5);
+        planet.newArmoredShip(1);
 
         // TODO I should add a "elligible for combat" mechanic, for instance if planet doesn't have any MilitaryUnits, to not be threatened.
 
@@ -191,7 +191,7 @@ public class Main{
         // battle ship [2]
         // Armored ship [3]
 
-        while(metalInitialResources > Variables.METAL_COST_LIGTHHUNTER || deuteriumInitialResources > Variables.DEUTERIUM_COST_LIGTHHUNTER) {
+        while(metalInitialResources > Variables.METAL_COST_LIGTHHUNTER && deuteriumInitialResources > Variables.DEUTERIUM_COST_LIGTHHUNTER) {
             int[] array = new int[4];
 
                 array[0] = 35;
@@ -216,57 +216,35 @@ public class Main{
                     }
                 }
 
-            if (metalInitialResources > Variables.METAL_COST_LIGTHHUNTER) {
+            if (metalInitialResources > Variables.METAL_COST_LIGTHHUNTER && deuteriumInitialResources > Variables.DEUTERIUM_COST_LIGTHHUNTER) {
                 
                 switch (option) {
                     case 0: // Light hunters
                         army[0].add(new LightHunter());
                         metalInitialResources -= Variables.METAL_COST_LIGTHHUNTER;
-                        break;
-
-                    case 1: // Heavy hunters
-                        army[1].add(new HeavyHunter());
-                        metalInitialResources -= Variables.METAL_COST_HEAVYHUNTER;
-                        break;
-
-                    case 2: // Battle Ship
-                        army[2].add(new BattleShip());
-                        metalInitialResources -= Variables.METAL_COST_BATTLESHIP;
-                        break;
-                    
-                    case 3: // Armored Ship
-                        army[3].add(new ArmoredShip());
-                        metalInitialResources -= Variables.METAL_COST_ARMOREDSHIP;
-                        break;
-                
-                    default:
-                        System.out.println("Error: Option = " + option);
-                        break;
-                }
-            } else if (deuteriumInitialResources > Variables.DEUTERIUM_COST_LIGTHHUNTER) {
-                switch (option) {
-                    case 0: // Light hunters
-                        army[0].add(new LightHunter());
                         deuteriumInitialResources -= Variables.DEUTERIUM_COST_LIGTHHUNTER;
                         break;
 
                     case 1: // Heavy hunters
                         army[1].add(new HeavyHunter());
+                        metalInitialResources -= Variables.METAL_COST_HEAVYHUNTER;
                         deuteriumInitialResources -= Variables.DEUTERIUM_COST_HEAVYHUNTER;
                         break;
 
                     case 2: // Battle Ship
                         army[2].add(new BattleShip());
+                        metalInitialResources -= Variables.METAL_COST_BATTLESHIP;
                         deuteriumInitialResources -= Variables.DEUTERIUM_COST_BATTLESHIP;
                         break;
                     
                     case 3: // Armored Ship
                         army[3].add(new ArmoredShip());
+                        metalInitialResources -= Variables.METAL_COST_ARMOREDSHIP;
                         deuteriumInitialResources -= Variables.DEUTERIUM_COST_ARMOREDSHIP;
                         break;
                 
                     default:
-                    System.out.println("Error: Option = " + option);
+                        System.out.println("Error: Option = " + option);
                         break;
                 }
             }
