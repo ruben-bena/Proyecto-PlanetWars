@@ -63,7 +63,7 @@ public class Battle {
         announceCombat();
         TimerTask task = new TimerTask() {
             public void run() {
-                combat();
+                combat(planet);
                 planet.addBattleReport(battleDevelopment);
                 planet.setActiveThreat(false);
                 planet.setNBattles(planet.getNBattles() + 1);
@@ -266,7 +266,7 @@ public class Battle {
 
         System.out.println("NEW THREAT IS COMING");
     }
-    public void combat() {
+    public void combat(Planet planet) {
         String winner = "";
         // Selecting randomly who starts the combat
         int attackingArmy = (int) (Math.random() * 2);
@@ -422,6 +422,9 @@ public class Battle {
 
         if (getWinner() == 0) {
             winner = "Planet";
+            battleDevelopment += "Planet collects " + wasteMetalDeuterium[0] + " metal and " + wasteMetalDeuterium[1] + " deuterium";
+            planet.setMetal(planet.getMetal() + wasteMetalDeuterium[0]);
+            planet.setDeuterium(planet.getDeuterium() + wasteMetalDeuterium[0]);
         } else {
             winner = "Invader";
         }
