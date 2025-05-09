@@ -69,7 +69,7 @@ public class Planet {
         int damage = Variables.BASE_DAMAGE_LIGTHHUNTER + (getTechnologyAttack() * Variables.PLUS_ATTACK_LIGTHHUNTER_BY_TECHNOLOGY) * (Variables.BASE_DAMAGE_LIGTHHUNTER/100);
         // System.out.println(armor);
         for(int i=0; i<n; i++) {
-            if(Variables.DEUTERIUM_COST_LIGTHHUNTER < deuterium || Variables.METAL_COST_LIGTHHUNTER < metal) {
+            if(Variables.DEUTERIUM_COST_LIGTHHUNTER < deuterium && Variables.METAL_COST_LIGTHHUNTER < metal) {
                 deuterium -= Variables.DEUTERIUM_COST_LIGTHHUNTER;
                 metal -= Variables.METAL_COST_LIGTHHUNTER;
                 army[0].add(new LightHunter(armor, damage));
@@ -90,7 +90,7 @@ public class Planet {
         for(int i=0; i<n; i++) {
             if(Variables.DEUTERIUM_COST_HEAVYHUNTER < deuterium && Variables.METAL_COST_HEAVYHUNTER < metal) {
                 deuterium -= Variables.DEUTERIUM_COST_HEAVYHUNTER;
-                metal -= Variables.DEUTERIUM_COST_HEAVYHUNTER;
+                metal -= Variables.METAL_COST_HEAVYHUNTER;
                 army[1].add(new HeavyHunter(armor, damage));
                 continue;
 

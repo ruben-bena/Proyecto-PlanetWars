@@ -1,6 +1,9 @@
 package classes;
 
+import javax.swing.ImageIcon;
+
 public class HeavyHunter extends Ship implements MilitaryUnit {
+    private static ImageIcon img = new ImageIcon("./M3-Programacion/GUI/images/heavyHunter.png");
 
     public HeavyHunter(int armor, int baseDamage) { // Apparently this gets calculated beforehand.
         setArmor(armor);
@@ -13,6 +16,8 @@ public class HeavyHunter extends Ship implements MilitaryUnit {
         setInitialArmor(Variables.ARMOR_HEAVYHUNTER);
         setBaseDamage(Variables.BASE_DAMAGE_HEAVYHUNTER);
     }
+
+    
 
     public int attack() {
         return getBaseDamage();
@@ -53,5 +58,7 @@ public class HeavyHunter extends Ship implements MilitaryUnit {
         return "Heavy Hunter";
     }
 
-
+    public static ImageIcon getImg() {
+        return img;
+    }
 }

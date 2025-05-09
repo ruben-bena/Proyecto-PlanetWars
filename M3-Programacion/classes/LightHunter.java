@@ -1,7 +1,11 @@
 package classes;
 
-public class LightHunter extends Ship implements MilitaryUnit {
+import java.awt.Image;
 
+import javax.swing.ImageIcon;
+
+public class LightHunter extends Ship implements MilitaryUnit {
+    private static ImageIcon img = new ImageIcon("./M3-Programacion/GUI/images/lightHunter.png");
     public LightHunter(int armor, int baseDamage) { // Apparently this gets calculated beforehand.
         setArmor(armor);
         setInitialArmor(armor);
@@ -58,5 +62,9 @@ public class LightHunter extends Ship implements MilitaryUnit {
         return "Light Hunter";
     }
 
+    public static ImageIcon getImg() {
+        return img;
+    }
 
+    
 }

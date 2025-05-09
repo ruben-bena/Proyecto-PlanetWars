@@ -28,6 +28,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.border.Border;
 
 public class MainScreen extends JFrame {
     
@@ -357,7 +358,14 @@ class MainPanel extends JPanel {
     }
 
     class BottomPanel extends JPanel {
-        private JPanel mainPanel, panel1, panel2;
+        private JPanel mainPanel, shopPanel, lightHunterPanel, heavyHunterPanel, battleShipPanel, armoredShipPanel, missileLauncherPanel, 
+        ionCannonPanel, plasmaCannonPanel, lightHunterNamePanel, heavyHunterNamePanel, battleShipNamePanel, armoredShipNamePanel,
+        lightHunterCostPanel, heavyHunterCostPanel, battleShipCostPanel, armoredShipCostPanel;
+        private JButton buyLightHunterButton, buyHeavyHunterButton, buyBattleShipButton, buyArmoredShipButton;
+        private JLabel lightHunterNameLabel, heavyHunterNameLabel, battleShipNameLabel, armoredShipNameLabel;
+        private JLabel lightHunterPriceMetalLabel, lightHunterPriceDeuteriumLabel, heavyHunterPriceMetalLabel, heavyHunterPriceDeuteriumLabel,
+        battleShipPriceMetalLabel, battleShipPriceDeuteriumLabel, armoredShipPriceMetalLabel, armoredShipPriceDeuteriumLabel;
+        private ImageIcon deuteriumIcon, metalIcon;
 
         BottomPanel(Planet planet) {
             setSize(new Dimension(200,200));
@@ -368,13 +376,216 @@ class MainPanel extends JPanel {
             add(new PaddingPanel(), BorderLayout.WEST);
             add(new PaddingPanel(), BorderLayout.EAST);
             add(new PaddingPanel(), BorderLayout.SOUTH);
-    
-            mainPanel = new JPanel();
+
+            deuteriumIcon = new ImageIcon("./M3-Programacion/GUI/images/redstone.png");
+            Image redstoneIconScaled = deuteriumIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+            Image redstoneImageScaledTiny = redstoneIconScaled.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+
+            metalIcon = new ImageIcon("./M3-Programacion/GUI/images/iron_ingot.png");
+            Image metalIconScaled = metalIcon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+            Image metalImageScaledTiny = metalIconScaled.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
             
-    
+            mainPanel = new JPanel();
+            mainPanel.setLayout(new BorderLayout());
+            shopPanel = new JPanel();
+            shopPanel.setLayout(new GridLayout(1,7));
+            shopPanel.setBackground(Color.pink);
+
+            //LightHunters panel
+            lightHunterPanel = new JPanel();
+            lightHunterPanel.setLayout(new BorderLayout());
+            lightHunterPanel.setBackground(Color.GREEN);
+
+            buyLightHunterButton = new JButton("buyLightHunter");
+            buyLightHunterButton.setBackground(Color.white);
+            buyLightHunterButton.setIcon(new ImageIcon(LightHunter.getImg().getImage().getScaledInstance(70, 100, Image.SCALE_SMOOTH)));
+            buyLightHunterButton.setFont(new Font("Arial", 1, 0));
+            buyLightHunterButton.setSize(30, 30);
+            buyLightHunterButton.setPreferredSize(new Dimension(getWidth(),getHeight()));
+            buyLightHunterButton.addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        planet.newLightHunter(1);;
+                    } catch (ResourceException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+                }
+                
+            });
+            lightHunterNamePanel = new JPanel();
+            lightHunterNameLabel = new JLabel("Light Hunter - " + planet.getArmy()[0].size());
+            
+            lightHunterNameLabel.setFont(new Font("Arial", 1, 20));
+
+            lightHunterNamePanel.add(lightHunterNameLabel);
+
+            lightHunterPanel.add(lightHunterNamePanel, BorderLayout.NORTH);
+            lightHunterPanel.add(buyLightHunterButton, BorderLayout.CENTER);
+
+            lightHunterCostPanel = new JPanel();
+            
+            lightHunterCostPanel.add(new JLabel(new ImageIcon(metalImageScaledTiny)));
+            lightHunterPriceMetalLabel = new JLabel("" + Variables.METAL_COST_LIGTHHUNTER);
+            lightHunterPriceMetalLabel.setFont(new Font("Arial", 1, 20));
+            lightHunterCostPanel.add(lightHunterPriceMetalLabel);
+            lightHunterCostPanel.add(new JLabel(new ImageIcon(redstoneImageScaledTiny)));
+            lightHunterPriceDeuteriumLabel = new JLabel("" + Variables.DEUTERIUM_COST_LIGTHHUNTER);
+            lightHunterPriceDeuteriumLabel.setFont(new Font("Arial", 1, 20));
+            lightHunterCostPanel.add(lightHunterPriceDeuteriumLabel);
+
+            lightHunterPanel.add(lightHunterCostPanel, BorderLayout.SOUTH);
+
+            shopPanel.add(lightHunterPanel);
+
+            //HeavyHuntersPanel
+            heavyHunterPanel = new JPanel();
+            heavyHunterPanel.setLayout(new BorderLayout());
+            heavyHunterPanel.setBackground(Color.BLACK);
+
+            buyHeavyHunterButton = new JButton("buyLightHunter");
+            buyHeavyHunterButton.setBackground(Color.white);
+            buyHeavyHunterButton.setIcon(new ImageIcon(HeavyHunter.getImg().getImage().getScaledInstance(70, 100, Image.SCALE_SMOOTH)));
+            buyHeavyHunterButton.setFont(new Font("Arial", 1, 0));
+            buyHeavyHunterButton.setSize(30, 30);
+            buyHeavyHunterButton.setPreferredSize(new Dimension(getWidth(),getHeight()));
+            buyHeavyHunterButton.addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        planet.newHeavyHunter(1);;
+                    } catch (ResourceException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+                }
+                
+            });
+            heavyHunterNamePanel = new JPanel();
+            heavyHunterNameLabel = new JLabel("Heavy Hunter - " + planet.getArmy()[1].size());
+            
+            heavyHunterNameLabel.setFont(new Font("Arial", 1, 20));
+
+            heavyHunterNamePanel.add(heavyHunterNameLabel);
+
+            heavyHunterPanel.add(heavyHunterNamePanel, BorderLayout.NORTH);
+            heavyHunterPanel.add(buyHeavyHunterButton, BorderLayout.CENTER);
+
+            heavyHunterCostPanel = new JPanel();
+            
+            heavyHunterCostPanel.add(new JLabel(new ImageIcon(metalImageScaledTiny)));
+            heavyHunterPriceMetalLabel = new JLabel("" + Variables.METAL_COST_HEAVYHUNTER);
+            heavyHunterPriceMetalLabel.setFont(new Font("Arial", 1, 20));
+            heavyHunterCostPanel.add(heavyHunterPriceMetalLabel);
+            heavyHunterCostPanel.add(new JLabel(new ImageIcon(redstoneImageScaledTiny)));
+            heavyHunterPriceDeuteriumLabel = new JLabel("" + Variables.DEUTERIUM_COST_HEAVYHUNTER);
+            heavyHunterPriceDeuteriumLabel.setFont(new Font("Arial", 1, 20));
+            heavyHunterCostPanel.add(heavyHunterPriceDeuteriumLabel);
+
+            heavyHunterPanel.add(heavyHunterCostPanel, BorderLayout.SOUTH);
+
+
+            shopPanel.add(heavyHunterPanel);
+
+
+
+
+
+            //battleShip panel
+            battleShipPanel = new JPanel();
+            battleShipPanel.setBackground(Color.ORANGE);
+
+            battleShipPanel.setLayout(new BorderLayout());
+            battleShipPanel.setBackground(Color.BLACK);
+
+            buyBattleShipButton = new JButton("buyBattleShip");
+            buyBattleShipButton.setBackground(Color.white);
+            buyBattleShipButton.setIcon(new ImageIcon(BattleShip.getImg().getImage().getScaledInstance(70, 100, Image.SCALE_SMOOTH)));
+            buyBattleShipButton.setFont(new Font("Arial", 1, 0));
+            buyBattleShipButton.setSize(30, 30);
+            buyBattleShipButton.setPreferredSize(new Dimension(getWidth(),getHeight()));
+            buyBattleShipButton.addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        planet.newBattleShip(1);;
+                    } catch (ResourceException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+                }
+                
+            });
+            battleShipNamePanel = new JPanel();
+            battleShipNameLabel = new JLabel("Battle Ship - " + planet.getArmy()[2].size());
+            
+            battleShipNameLabel.setFont(new Font("Arial", 1, 20));
+
+            battleShipNamePanel.add(battleShipNameLabel);
+
+            battleShipPanel.add(battleShipNamePanel, BorderLayout.NORTH);
+            battleShipPanel.add(buyBattleShipButton, BorderLayout.CENTER);
+
+            battleShipCostPanel = new JPanel();
+            
+            battleShipCostPanel.add(new JLabel(new ImageIcon(metalImageScaledTiny)));
+            battleShipPriceMetalLabel = new JLabel("" + Variables.METAL_COST_BATTLESHIP);
+            battleShipPriceMetalLabel.setFont(new Font("Arial", 1, 20));
+            battleShipCostPanel.add(battleShipPriceMetalLabel);
+            battleShipCostPanel.add(new JLabel(new ImageIcon(redstoneImageScaledTiny)));
+            battleShipPriceDeuteriumLabel = new JLabel("" + Variables.DEUTERIUM_COST_BATTLESHIP);
+            battleShipPriceDeuteriumLabel.setFont(new Font("Arial", 1, 20));
+            battleShipCostPanel.add(battleShipPriceDeuteriumLabel);
+
+            battleShipPanel.add(battleShipCostPanel, BorderLayout.SOUTH);
+            
+
+            shopPanel.add(battleShipPanel);
+
+            shopPanel.add(battleShipPanel);
+
+            //armoredShip panel
+            armoredShipPanel = new JPanel();
+            armoredShipPanel.setBackground(Color.CYAN);
+            shopPanel.add(armoredShipPanel);
+
+            //missileLauncher panel
+            missileLauncherPanel = new JPanel();
+            missileLauncherPanel.setBackground(Color.RED);
+            shopPanel.add(missileLauncherPanel);
+
+            //ionCannon panel
+            ionCannonPanel = new JPanel();
+            ionCannonPanel.setBackground(Color.YELLOW);
+            shopPanel.add(ionCannonPanel);
+
+            //plasmaCannon panel
+            plasmaCannonPanel = new JPanel();
+            plasmaCannonPanel.setBackground(Color.WHITE);
+            shopPanel.add(plasmaCannonPanel);
+
+
+            // Adding the panel shopPanel, which is as big as the panel itself.
+            mainPanel.add(shopPanel, BorderLayout.CENTER);
             mainPanel.setBackground(Color.WHITE);
     
             add(mainPanel);
+        }
+
+        public JLabel getHeavyHunterNameLabel() {
+            return heavyHunterNameLabel;
+        }
+
+        public JLabel getLightHunterNameLabel() {
+            return lightHunterNameLabel;
+        }
+
+        public JLabel getBattleShipNameLabel() {
+            return battleShipNameLabel;
         }
     }
 
@@ -437,6 +648,10 @@ class MainPanel extends JPanel {
         leftPanel.getTechAttackLvlCost().setText("" + planet.getUpgradeAttackTechnologyDeuteriumCost());
         leftPanel.getTechDefenseLvlAmountTextArea().setText("" + planet.getTechnologyDefense());
         leftPanel.getTechDefenseLvlCost().setText("" + planet.getUpgradeDefenseTechnologyDeuteriumCost());
+
+        bottomPanel.getLightHunterNameLabel().setText("Light Hunter - " + planet.getArmy()[0].size());
+        bottomPanel.getHeavyHunterNameLabel().setText("Heavy Hunter - " + planet.getArmy()[1].size());
+        bottomPanel.getBattleShipNameLabel().setText("Battle Ship- " + planet.getArmy()[2].size());
     }
 }
 

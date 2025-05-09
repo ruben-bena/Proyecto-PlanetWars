@@ -1,7 +1,9 @@
 package classes;
 
-public class BattleShip extends Ship implements MilitaryUnit {
+import javax.swing.ImageIcon;
 
+public class BattleShip extends Ship implements MilitaryUnit {
+    private static ImageIcon img = new ImageIcon("./M3-Programacion/GUI/images/battleShip.png");
     public BattleShip(int armor, int baseDamage) { // Apparently this gets calculated beforehand.
         setArmor(armor);
         setInitialArmor(armor);
@@ -53,4 +55,9 @@ public class BattleShip extends Ship implements MilitaryUnit {
         return "Battle Ship";
     }
 
+    public static ImageIcon getImg() {
+        return img;
+    }
+
+    
 }
