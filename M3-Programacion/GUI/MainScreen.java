@@ -7,6 +7,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -121,27 +123,53 @@ class MainPanel extends JPanel {
             mainPanel.add(imagePanel);
 
             // buttonsPanel
-            // TODO: Add buttons
+            // TODO: Define class that manages the events
             // TODO: Define events for the buttons
+            // TODO: Implement those events as methods of the class GameSettingsPanel
+            // TODO: Define each button method
             buttonsPanel = new JPanel();
             buttonsPanel.setLayout(new GridLayout(4,1));
             buttonsPanel.setPreferredSize(new Dimension(Integer.MAX_VALUE, 300));
             buttonsPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 300));
+            buttonsPanel.setBackground(Color.YELLOW);
 
             newGameButton = new JButton("New Game");
             buttonsPanel.add(newGameButton);
+            newGameButton.addActionListener(new ButtonEvents());
 
             battleReportButton = new JButton("Battle Report");
             buttonsPanel.add(battleReportButton);
+            battleReportButton.addActionListener(new ButtonEvents());
             
             settingsButton = new JButton("Settings");
             buttonsPanel.add(settingsButton);
+            settingsButton.addActionListener(new ButtonEvents());
 
             exitButton = new JButton("Exit");
             buttonsPanel.add(exitButton);
-            buttonsPanel.setBackground(Color.YELLOW);
+            exitButton.addActionListener(new ButtonEvents());
 
             mainPanel.add(buttonsPanel);
+        }
+
+        class ButtonEvents implements ActionListener {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getActionCommand().equals("New Game")) {
+                    System.out.println("New Game pressed");   
+                }
+                if (e.getActionCommand().equals("Battle Report")) {
+                    System.out.println("Battle Report pressed");
+                }
+                if (e.getActionCommand().equals("Settings")) {
+                    System.out.println("Settings pressed");
+                }
+                if (e.getActionCommand().equals("Exit")) {
+                    System.out.println("Exit pressed");
+                }
+            }
+
         }
     }
 
