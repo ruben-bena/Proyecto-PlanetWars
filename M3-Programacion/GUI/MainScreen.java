@@ -15,8 +15,11 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 public class MainScreen extends JFrame {
     
@@ -190,11 +193,45 @@ class MainPanel extends JPanel {
     }
 
     public void exitEvent() {
-        // Window window = SwingUtilities.getWindowAncestor(this);
-        // if (window != null) {
-        //     window.dispose();
-        // }
-        
+        // TODO: Improve the visuals of the new window (layout, etc.)
+        // exitWindow
+        JDialog exitWindow = new JDialog(SwingUtilities.getWindowAncestor(this), "Exit");
+        exitWindow.setResizable(false);
+        exitWindow.setLocationRelativeTo(null);
+        exitWindow.setSize(500, 300);
+        exitWindow.getContentPane().setLayout(new BoxLayout(exitWindow.getContentPane(), BoxLayout.Y_AXIS));
+
+        // exitLabel
+        JLabel exitLabel = new JLabel("Are you sure you want to exit?");
+        exitWindow.add(exitLabel);
+
+        // exitButtonsPanel
+        JPanel exitButtonsPanel = new JPanel();
+        exitWindow.add(exitButtonsPanel);
+
+        JButton confirmExitButton = new JButton("Yes");
+        exitButtonsPanel.add(confirmExitButton);
+        confirmExitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Yes pressed");
+                // TODO: Call a method that ends the program safely
+            }
+        });
+
+        JButton cancelExitButton = new JButton("No");
+        exitButtonsPanel.add(cancelExitButton);
+        cancelExitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("No pressed");
+                exitWindow.dispose();
+            }
+        });
+
+        // System.exit(0);
+
+        exitWindow.setVisible(true);
     }
 
     class BottomPanel extends JPanel {
