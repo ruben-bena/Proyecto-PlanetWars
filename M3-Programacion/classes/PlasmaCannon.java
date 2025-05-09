@@ -3,7 +3,7 @@ package classes;
 import javax.swing.ImageIcon;
 
 public class PlasmaCannon extends Defense {
-    private static ImageIcon img = new ImageIcon("./M3-Programacion/GUI/images/missile_launcher.png");
+    private static ImageIcon img = new ImageIcon("./M3-Programacion/GUI/images/plasma_cannon.png");
 
     public PlasmaCannon(int armor, int baseDamage) {
         setArmor(armor);

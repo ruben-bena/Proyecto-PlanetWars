@@ -100,10 +100,11 @@ class MainPanel extends JPanel {
 
     class LeftPanel extends JPanel implements ActionListener{
         private JPanel mainPanel, rotatingEarthPanel, infoPanel, metalTextPanel, metalResourcePanel, deuteriumTextPanel, deuteriumResourcePanel, technologyPanel,
-        techAttackPanel, techDefensePanel, technologyTextPanel;
+        techAttackPanel, techDefensePanel, technologyTextPanel, resourcesTextPanel;
         private ImageIcon rotatingEarthIcon, metalIcon, deuteriumIcon, techDefenseIcon, techAttackIcon, plusIcon;
         private JLabel rotatingEarthLabel, metalTextLabel, deuteriumTextLabel, metalImageLabel, deuteriumImageLabel, metalAmountLabel, 
-        deuteriumAmountLabel, technologyTextLabel, techAttackImgLabel, techDefenseImgLabel, techAttackLvlCost, techDefenseLvlCost, techAttackLvlUpLabel;
+        deuteriumAmountLabel, technologyTextLabel, techAttackImgLabel, techDefenseImgLabel, techAttackLvlCost, techDefenseLvlCost, techAttackLvlUpLabel,
+        resourcesTextLabel;
         private String metalStr, deuteriumStr;
         private JButton lvlUpAttackButton, lvlUpDefenseButton;
         private JTextArea techAttackLvlAmountTextArea, techDefenseLvlAmountTextArea;
@@ -117,7 +118,7 @@ class MainPanel extends JPanel {
             add(new PaddingPanel(), BorderLayout.EAST);
 
             mainPanel = new JPanel();
-            mainPanel.setBackground(Color.orange);
+            // mainPanel.setBackground(Color.orange);
             // mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
             mainPanel.setLayout(new GridLayout(4,1));
 
@@ -130,23 +131,26 @@ class MainPanel extends JPanel {
 
             // Making the panel that has the rotating Earth in it
             rotatingEarthPanel = new JPanel();
-            rotatingEarthPanel.setBackground(Color.orange);
+            // rotatingEarthPanel.setBackground(Color.orange);
             rotatingEarthPanel.setLayout(new BorderLayout());
             
-            rotatingEarthPanel.add(new PaddingPanel(Color.ORANGE, new Dimension(getWidth()/5/2,0)), BorderLayout.WEST);
-            rotatingEarthPanel.add(new PaddingPanel(Color.ORANGE, new Dimension(0,20/2)), BorderLayout.NORTH);
+            rotatingEarthPanel.add(new PaddingPanel(new Color(50,50,50), new Dimension(getWidth()/5/2+5,0)), BorderLayout.WEST);
+            rotatingEarthPanel.add(new PaddingPanel(new Color(50,50,50), new Dimension(0,10)), BorderLayout.NORTH);
+            rotatingEarthPanel.setBackground(new Color(50,50,50));
             rotatingEarthPanel.add(rotatingEarthLabel);
 
             // Making the info panel
             infoPanel = new JPanel();
             infoPanel.setLayout(new GridLayout(4,1));
 
-            metalTextLabel = new JLabel("Resources");
-            metalTextLabel.setFont(new Font("Arial", 1, 24));
+            resourcesTextLabel = new JLabel("Resources");
+            resourcesTextLabel.setFont(new Font("Arial", 1, 24));
+            resourcesTextLabel.setForeground(Color.WHITE);
 
-            metalTextPanel = new JPanel();
-            // metalTextLabel.setBackground(Color.MAGENTA);
-            metalTextPanel.add(metalTextLabel);
+            resourcesTextPanel = new JPanel();
+            resourcesTextPanel.setBackground(new Color(30,30,30));
+            // resourcesTextLabel.setBackground(Color.MAGENTA);
+            resourcesTextPanel.add(resourcesTextLabel);
 
             metalResourcePanel = new JPanel();
   
@@ -174,19 +178,23 @@ class MainPanel extends JPanel {
             deuteriumResourcePanel.add(deuteriumImageLabel);
             deuteriumResourcePanel.add(deuteriumTextLabel);
             
-            infoPanel.add(metalTextPanel);
+            infoPanel.add(resourcesTextPanel);
             infoPanel.add(metalResourcePanel);
             infoPanel.add(deuteriumResourcePanel);
-            infoPanel.add(new PaddingPanel(Color.magenta)); // Simply to differentiate panels
+            // infoPanel.add(new PaddingPanel(Color.magenta)); // Simply to differentiate panels
 
             // Making the technology lvls Panel
             technologyPanel = new JPanel();
             technologyPanel.setLayout(new GridLayout(3,1));
 
             technologyTextPanel = new JPanel();
+            technologyTextPanel.setBackground(new Color(50,50,50));
 
             technologyTextLabel = new JLabel("Technology");
-            technologyTextLabel.setFont(new Font("Arial", 1, 20));
+            technologyTextLabel.setFont(new Font("Arial", 1, 24));
+            technologyTextLabel.setForeground(Color.WHITE);
+
+            
             technologyTextPanel.add(technologyTextLabel);
             technologyPanel.add(technologyTextPanel);
 
@@ -275,14 +283,9 @@ class MainPanel extends JPanel {
             
             technologyPanel.add(techAttackPanel);
             technologyPanel.add(techDefensePanel);
-            
-
-
-
 
 
             // Adding everything in order
-
             mainPanel.add(rotatingEarthPanel);
             mainPanel.add(infoPanel);
             mainPanel.add(technologyPanel);
@@ -717,7 +720,7 @@ class MainPanel extends JPanel {
 
             buyPlasmaCannonButton = new JButton("buyPlasmaCannon");
             buyPlasmaCannonButton.setBackground(Color.white);
-            buyPlasmaCannonButton.setIcon(new ImageIcon(PlasmaCannon.getImg().getImage().getScaledInstance(130, 80, Image.SCALE_SMOOTH)));
+            buyPlasmaCannonButton.setIcon(new ImageIcon(PlasmaCannon.getImg().getImage().getScaledInstance(90, 80, Image.SCALE_SMOOTH)));
             buyPlasmaCannonButton.setFont(new Font("Arial", 1, 0));
             buyPlasmaCannonButton.setSize(30, 30);
             buyPlasmaCannonButton.setPreferredSize(new Dimension(getWidth(),getHeight()));
