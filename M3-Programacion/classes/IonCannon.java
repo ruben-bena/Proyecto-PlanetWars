@@ -1,7 +1,9 @@
 package classes;
 
-public class IonCannon extends Defense {
+import javax.swing.ImageIcon;
 
+public class IonCannon extends Defense {
+    private static ImageIcon img = new ImageIcon("./M3-Programacion/GUI/images/lightHunter.png");
     public IonCannon(int armor, int baseDamage) {
         setArmor(armor);
         setInitialArmor(armor);
@@ -52,5 +54,11 @@ public class IonCannon extends Defense {
     public String getName() {
         return "Ion Cannon";
     }
+    
+    public static ImageIcon getImg() {
+        return img;
+    }
+
+    
 
 }

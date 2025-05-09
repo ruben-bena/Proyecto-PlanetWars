@@ -1,6 +1,9 @@
 package classes;
 
+import javax.swing.ImageIcon;
+
 public class MissileLauncher extends Defense {
+    private static ImageIcon img = new ImageIcon("./M3-Programacion/GUI/images/missile_launcher.png");
 
     public MissileLauncher(int armor, int baseDamage) {
         setArmor(armor);
@@ -47,4 +50,8 @@ public class MissileLauncher extends Defense {
         return "Missile Launcher";
     }
 
+    public static ImageIcon getImg() {
+        return img;
+    }
+    
 }
