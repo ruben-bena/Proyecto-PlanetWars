@@ -11,6 +11,8 @@ import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -21,9 +23,11 @@ import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 public class MainScreen extends JFrame {
     
@@ -71,7 +75,7 @@ class MainPanel extends JPanel {
         
         leftPanel = new LeftPanel(planet);
         rightPanel = new RightPanel();
-        bottomPanel = new BottomPanel();
+        bottomPanel = new BottomPanel(planet);
         middlePanel = new MiddlePanel();
         
         middlePanel.setBackground(Color.MAGENTA);
@@ -93,15 +97,19 @@ class MainPanel extends JPanel {
         setVisible(true);
     }
 
-    class LeftPanel extends JPanel {
-        private JPanel mainPanel, rotatingEarthPanel, infoPanel, metalTextPanel, metalResourcePanel, deuteriumTextPanel, deuteriumResourcePanel;
-        private ImageIcon rotatingEarthIcon, metalIcon, deuteriumIcon;
-        private JLabel rotatingEarthLabel, metalTextLabel, deuteriumTextLabel, metalImageLabel, deuteriumImageLabel, metalAmountLabel, deuteriumAmountLabel;
+    class LeftPanel extends JPanel implements ActionListener{
+        private JPanel mainPanel, rotatingEarthPanel, infoPanel, metalTextPanel, metalResourcePanel, deuteriumTextPanel, deuteriumResourcePanel, technologyPanel,
+        techAttackPanel, techDefensePanel, technologyTextPanel;
+        private ImageIcon rotatingEarthIcon, metalIcon, deuteriumIcon, techDefenseIcon, techAttackIcon, plusIcon;
+        private JLabel rotatingEarthLabel, metalTextLabel, deuteriumTextLabel, metalImageLabel, deuteriumImageLabel, metalAmountLabel, 
+        deuteriumAmountLabel, technologyTextLabel, techAttackImgLabel, techDefenseImgLabel, techAttackLvlCost, techDefenseLvlCost, techAttackLvlUpLabel;
         private String metalStr, deuteriumStr;
+        private JButton lvlUpAttackButton, lvlUpDefenseButton;
+        private JTextArea techAttackLvlAmountTextArea, techDefenseLvlAmountTextArea;
     
         LeftPanel(Planet planet) {
-            setSize(new Dimension(200,200));
-            setPreferredSize(new Dimension(200,200));
+            setSize(new Dimension(230,230));
+            setPreferredSize(new Dimension(230,230));
             setLayout(new BorderLayout());
             add(new PaddingPanel(), BorderLayout.NORTH);
             add(new PaddingPanel(), BorderLayout.WEST);
@@ -132,10 +140,11 @@ class MainPanel extends JPanel {
             infoPanel = new JPanel();
             infoPanel.setLayout(new GridLayout(4,1));
 
-            metalTextLabel = new JLabel("Metal");
+            metalTextLabel = new JLabel("Resources");
             metalTextLabel.setFont(new Font("Arial", 1, 24));
 
             metalTextPanel = new JPanel();
+            // metalTextLabel.setBackground(Color.MAGENTA);
             metalTextPanel.add(metalTextLabel);
 
             metalResourcePanel = new JPanel();
@@ -153,12 +162,6 @@ class MainPanel extends JPanel {
 
             deuteriumResourcePanel = new JPanel();
 
-            deuteriumTextLabel = new JLabel("Deuterium");
-            deuteriumTextLabel.setFont(new Font("Arial", 1, 24));
-
-            deuteriumTextPanel = new JPanel();
-            deuteriumTextPanel.add(deuteriumTextLabel);
-
             deuteriumIcon = new ImageIcon("./M3-Programacion/GUI/images/redstone.png");
             Image redstoneIconScaled = deuteriumIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
             deuteriumImageLabel = new JLabel(new ImageIcon(redstoneIconScaled));
@@ -169,20 +172,140 @@ class MainPanel extends JPanel {
 
             deuteriumResourcePanel.add(deuteriumImageLabel);
             deuteriumResourcePanel.add(deuteriumTextLabel);
-
-
+            
             infoPanel.add(metalTextPanel);
             infoPanel.add(metalResourcePanel);
-            infoPanel.add(deuteriumTextPanel);
             infoPanel.add(deuteriumResourcePanel);
+            infoPanel.add(new PaddingPanel(Color.magenta)); // Simply to differentiate panels
 
+            // Making the technology lvls Panel
+            technologyPanel = new JPanel();
+            technologyPanel.setLayout(new GridLayout(3,1));
+
+            technologyTextPanel = new JPanel();
+
+            technologyTextLabel = new JLabel("Technology");
+            technologyTextLabel.setFont(new Font("Arial", 1, 20));
+            technologyTextPanel.add(technologyTextLabel);
+            technologyPanel.add(technologyTextPanel);
+
+            techAttackPanel = new JPanel();
+
+            techAttackLvlAmountTextArea = new JTextArea("" + planet.getTechnologyAttack());
+            techAttackLvlAmountTextArea.setFont(new Font("Arial", 1, 20));
+            techAttackLvlAmountTextArea.setPreferredSize(new Dimension(30,30));
+            techAttackLvlAmountTextArea.setEditable(false);
+            
+            techAttackPanel.add(techAttackLvlAmountTextArea);
+
+            plusIcon = new ImageIcon("./M3-Programacion/GUI/images/plus_icon.png");
+            Image plusIconScaled = plusIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+            // techAttackLvlUpLabel = new JLabel(new ImageIcon(plusIconScaled));
+            lvlUpAttackButton = new JButton("lvlUpAttackTech");
+            lvlUpAttackButton.setIcon(new ImageIcon(plusIconScaled));
+            lvlUpAttackButton.setFont(new Font("Arial", 1, 0));
+            lvlUpAttackButton.setSize(30, 30);
+            lvlUpAttackButton.setPreferredSize(new Dimension(plusIconScaled.getWidth(this),plusIconScaled.getHeight(this)));
+            lvlUpAttackButton.addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        planet.upgradeTechnologyAttack();
+                    } catch (ResourceException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+                }
+                
+            });
+            techAttackPanel.add(lvlUpAttackButton);
+
+            techAttackIcon = new ImageIcon("./M3-Programacion/GUI/images/sword_icon.png");
+            Image techAttackIconScaled = techAttackIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+            techAttackImgLabel = new JLabel(new ImageIcon(techAttackIconScaled));
+            techAttackPanel.add(techAttackImgLabel);
+
+            techAttackLvlCost = new JLabel("" + planet.getUpgradeAttackTechnologyDeuteriumCost());
+            techAttackLvlCost.setFont(new Font("Arial", 1, 20));
+            techAttackPanel.add(techAttackLvlCost);
+            Image redstoneImageScaledTiny = redstoneIconScaled.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+            techAttackPanel.add(new JLabel(new ImageIcon(redstoneImageScaledTiny)));
+
+
+            techDefensePanel = new JPanel();
+
+            techDefenseLvlAmountTextArea = new JTextArea("" + planet.getTechnologyDefense());
+            techDefenseLvlAmountTextArea.setEditable(false);
+            techDefenseLvlAmountTextArea.setFont(new Font("Arial", 1, 20));
+            techDefenseLvlAmountTextArea.setPreferredSize(new Dimension(30,30));
+            techDefensePanel.add(techDefenseLvlAmountTextArea);
+
+            lvlUpDefenseButton = new JButton("lvlUpDefenseTech");
+            lvlUpDefenseButton.setIcon(new ImageIcon(plusIconScaled));
+            lvlUpDefenseButton.setFont(new Font("Arial", 1, 0));
+            lvlUpDefenseButton.setSize(30, 30);
+            lvlUpDefenseButton.setPreferredSize(new Dimension(plusIconScaled.getWidth(this),plusIconScaled.getHeight(this)));
+            lvlUpDefenseButton.addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        planet.upgradeTechnologyDefense();
+                    } catch (ResourceException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+                }
+                
+            });
+            techDefensePanel.add(lvlUpDefenseButton);
+
+            techDefenseIcon = new ImageIcon("./M3-Programacion/GUI/images/shield_icon.png");
+            Image techDefenseIconScaled = techDefenseIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+            techDefenseImgLabel = new JLabel(new ImageIcon(techDefenseIconScaled));
+            techDefensePanel.add(techDefenseImgLabel);
+
+            techDefenseLvlCost = new JLabel("" + planet.getUpgradeDefenseTechnologyDeuteriumCost());
+            techDefenseLvlCost.setFont(new Font("Arial", 1, 20));
+            techDefensePanel.add(techDefenseLvlCost);
+            techDefensePanel.add(new JLabel(new ImageIcon(redstoneImageScaledTiny)));
+
+            
+            technologyPanel.add(techAttackPanel);
+            technologyPanel.add(techDefensePanel);
+            
+
+
+
+
+
+            // Adding everything in order
 
             mainPanel.add(rotatingEarthPanel);
             mainPanel.add(infoPanel);
+            mainPanel.add(technologyPanel);
 
+            
             
     
             add(mainPanel);
+        }
+
+        public JLabel getTechDefenseLvlCost() {
+            return techDefenseLvlCost;
+        }
+
+        public JTextArea getTechDefenseLvlAmountTextArea() {
+            return techDefenseLvlAmountTextArea;
+        }
+
+        public JLabel getTechAttackLvlCost() {
+            return techAttackLvlCost;
+        }
+
+        public JTextArea getTechAttackLvlAmountTextArea() {
+            return techAttackLvlAmountTextArea;
         }
 
         public JLabel getMetalJLabel() {
@@ -195,6 +318,18 @@ class MainPanel extends JPanel {
         
         public JLabel getDeuteriumJLabel() {
             return deuteriumTextLabel;
+        }
+
+        public void addTechLvlPlanet(Planet planet) throws ResourceException {
+            planet.upgradeTechnologyAttack();
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println(e.getActionCommand());
+            if (e.getActionCommand() == "lvlUpAttackTech") {
+                
+            }
         }
     }
 
@@ -224,7 +359,7 @@ class MainPanel extends JPanel {
     class BottomPanel extends JPanel {
         private JPanel mainPanel, panel1, panel2;
 
-        BottomPanel() {
+        BottomPanel(Planet planet) {
             setSize(new Dimension(200,200));
             setPreferredSize(new Dimension(200,200));
             setLayout(new BorderLayout());
@@ -299,6 +434,10 @@ class MainPanel extends JPanel {
     public void updateAll(Planet planet) {
         leftPanel.getMetalJLabel().setText(String.valueOf(planet.getMetal()));
         leftPanel.getDeuteriumJLabel().setText(String.valueOf(planet.getDeuterium()));
+        leftPanel.getTechAttackLvlAmountTextArea().setText("" + planet.getTechnologyAttack());
+        leftPanel.getTechAttackLvlCost().setText("" + planet.getUpgradeAttackTechnologyDeuteriumCost());
+        leftPanel.getTechDefenseLvlAmountTextArea().setText("" + planet.getTechnologyDefense());
+        leftPanel.getTechDefenseLvlCost().setText("" + planet.getUpgradeDefenseTechnologyDeuteriumCost());
     }
 }
 
