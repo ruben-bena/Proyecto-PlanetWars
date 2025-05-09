@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+// TODO: Refactor this huge class in a few .java Classes
 public class MainScreen extends JFrame {
     
     public MainScreen() {
@@ -106,8 +107,10 @@ class MainPanel extends JPanel {
         GameSettingsPanel() {
 
             // GameSettingsPanel
-            setSize(new Dimension(200,200));
-            setPreferredSize(new Dimension(200,200));
+            int gameSettingsWidth = 200;
+            int gameSettingsHeight = 200;
+            setSize(new Dimension(gameSettingsWidth,gameSettingsHeight));
+            setPreferredSize(new Dimension(gameSettingsWidth,gameSettingsHeight));
             setLayout(new BorderLayout());
             add(new PaddingPanel(), BorderLayout.NORTH);
             add(new PaddingPanel(), BorderLayout.WEST);
@@ -126,14 +129,12 @@ class MainPanel extends JPanel {
             mainPanel.add(imagePanel);
 
             // buttonsPanel
-            // TODO: Define events for the buttons
-            // TODO: Implement those events as methods of the class GameSettingsPanel
-            // TODO: Define each button method
-            // TODO: Add button that pauses the game
+            // TODO: Add button that pauses the game (optional)
             buttonsPanel = new JPanel();
+            int buttonsPanelHeight = 300;
             buttonsPanel.setLayout(new GridLayout(4,1));
-            buttonsPanel.setPreferredSize(new Dimension(Integer.MAX_VALUE, 300));
-            buttonsPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 300));
+            buttonsPanel.setPreferredSize(new Dimension(Integer.MAX_VALUE, buttonsPanelHeight));
+            buttonsPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, buttonsPanelHeight));
             buttonsPanel.setBackground(Color.YELLOW);
 
             newGameButton = new JButton("New Game");
@@ -180,19 +181,29 @@ class MainPanel extends JPanel {
         }
 
         public void newGameEvent() {
-        
+            // Maybe we don't add this functionality since we would have to refactor a lot of code in Main
+            // TODO: Decide at the end what we do with this
         }
     
+        // Opens a new JDialog with an JTextArea which has info of the previous 5 battles the actual planet played
         public void battleReportEvent() {
-    
+            // TODO: Define this method when DDBB methods are ready
+
+            // So this method just gets the 5 last values of the Battle_log table and puts them in the JTextArea
         }
     
+        // Opens a new JDialog to teak some options in the game (as difficulty, color, etc.)
         public void settingsEvent() {
-    
+            // TODO: Create a new JDialog with some JButtons as options
+
+            // TODO: Define something that can 'change' the game difficulty, maybe teaking stats in Variables
+            // TODO: Define something that changes the color of the game somehow (maybe light-dark mode)
+            // TODO: Define something that changes the name of the planet
+            // TODO: Define something that changes the player portrait (optional)
         }
     
         public void exitEvent() {
-            // TODO: Improve the visuals of the new window (layout, etc.)
+            // TODO: Improve the visuals of exitWindow (layout, etc.)
             // exitWindow
             JDialog exitWindow = new JDialog(SwingUtilities.getWindowAncestor(this), "Exit");
             exitWindow.setResizable(false);
