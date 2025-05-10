@@ -42,7 +42,7 @@ public class MiddlePanel extends JPanel {
 
             activeImage = earthImage;
             
-            // Things to fix: 1. Right now the enemy uses defenses too, idk if it's just messing up in the visual aspect or it's also doing it in the logic
+            // Things to fix: 1. Timer for another battle is almost instant after the battle is over
             // Things to add: 1. Results pop-up   2. Cheats pop-up
         }
 
@@ -51,31 +51,37 @@ public class MiddlePanel extends JPanel {
 
             g2d = (Graphics2D) g;
             g2d.drawImage(activeImage.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH), 0, 0, this);
-            // g2d.fillRect(200, 200, 300, 300);
+
             if(planet.getCurrentThreat() != null) {
-                System.out.println("bbbbbbbbbbbbbbbbb");
-                if(planet.getCurrentThreat().isHasCombatStarted()) { // It doesn't get to here
-                    System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                if(planet.getCurrentThreat().isHasCombatStarted()) {
+                    g2d.setFont(new Font("Arial", 3, 72));
+                    g2d.setColor(Color.WHITE);
                     
                     // Painting the units
-
                     g2d.drawImage(allyUnit.getBufferedImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH), 30, getHeight()-330, this);
                     g2d.drawImage(enemyUnit.getBufferedImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH), getWidth() - 330, 30, this);
-                    if (battle.getAttackingArmy() == 0) {
-                        g2d.drawImage(sword_turnImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH), 300, getHeight() - 150, this);
-                    } else {
-                        g2d.drawImage(sword_turnImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH), getWidth() - 330, 50, this);
-                    }
+                    // if (battle.getAttackingArmy() == 0) {
+                    //     g2d.drawImage(sword_turnImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH), 300, getHeight() - 150, this);
+                    // } else {
+                    //     g2d.drawImage(sword_turnImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH), getWidth() - 370, 200, this);
+                    // }
 
                     if(allyUnit.getActualArmor() <= 0) {
                         g2d.drawImage(explosionImage.getScaledInstance(300, 300, Image.SCALE_SMOOTH), 30, getHeight()-330, this);
                     } else if (enemyUnit.getActualArmor() <= 0) {
                         g2d.drawImage(explosionImage.getScaledInstance(300, 300, Image.SCALE_SMOOTH), getWidth() - 330, 30, this);
                     }
+
+                    //Painting the "health bar"
+                    g2d.drawString("HP: " + battle.getPlanetArmyPercRemaining(), 30, getHeight()-330);
+                    g2d.drawString("HP: " + battle.getEnemyArmyPercRemaining(), getWidth() - 330, 60);
+
+                    // Painting the "vs" thing
+
                     g2d.setStroke(new BasicStroke(10));
                     g2d.drawLine(0, 0, getWidth(), getHeight());
-                    g2d.setColor(Color.WHITE);
-                    g2d.setFont(new Font("Arial", 3, 72));
+                    
+                    
                     g2d.drawString("VS", getWidth()/2-36, getHeight()/2+36);
 
                 }

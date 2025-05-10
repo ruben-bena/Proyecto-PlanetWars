@@ -220,7 +220,6 @@ public class Main{
                         j--;
                     }
 
-                    // For some reason it only gives values to option 3
                     if(sum > randomNumber) {
                         option = i;
                         break;
