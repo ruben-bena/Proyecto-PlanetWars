@@ -18,8 +18,10 @@ public class Main{
         planet.newArmoredShip(1);
 
         // TODO I should add a "elligible for combat" mechanic, for instance if planet doesn't have any MilitaryUnits, to not be threatened.
+        // Add battle report, add skip battle mechanic
 
         MainScreen ms = new MainScreen(planet);
+        ms.getMainPanel().getMiddlePanel().requestFocusInWindow();
 
         Timer timer = new Timer();
         

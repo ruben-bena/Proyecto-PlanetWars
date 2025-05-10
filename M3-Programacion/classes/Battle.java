@@ -62,6 +62,7 @@ public class Battle {
     private int planetArmyPercRemaining;
     private int enemyArmyPercRemaining;
     private int attackingArmy;
+    private boolean skipBattle;
 
     public Battle(Planet planet, MainPanel mp) {
         this.planetArmy = planet.getArmy();
@@ -71,6 +72,7 @@ public class Battle {
         this.hasCombatStarted = false;
         this.planetArmyPercRemaining = 100;
         this.enemyArmyPercRemaining = 100;
+        skipBattle = false;
         announceCombat();
         TimerTask task = new TimerTask() {
             public void run() {
@@ -464,8 +466,9 @@ public class Battle {
 
                     try {
 
-                        
-                        Thread.sleep(500);
+                        if (!skipBattle){
+                            Thread.sleep(500);
+                        }
                     } catch (InterruptedException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
@@ -561,6 +564,18 @@ public class Battle {
         public int getEnemyArmyPercRemaining() {
             return enemyArmyPercRemaining;
         }
+
+
+        public boolean isSkipBattle() {
+            return skipBattle;
+        }
+
+
+        public void setSkipBattle(boolean skipBattle) {
+            this.skipBattle = skipBattle;
+        }
+
+        
         
         
 

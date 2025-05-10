@@ -8,6 +8,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Stroke;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +21,7 @@ import javax.swing.JPanel;
 import GUI.*;
 import classes.*;
 
-public class MiddlePanel extends JPanel {
+public class MiddlePanel extends JPanel{
         private BufferedImage activeImage;
         private BufferedImage earthImage;
         private BufferedImage battleScene, sword_turnImage, explosionImage;
@@ -29,6 +32,21 @@ public class MiddlePanel extends JPanel {
         MiddlePanel(Planet planet) {
             setLayout(new BorderLayout());
             add(new PaddingPanel(), BorderLayout.NORTH);
+            setFocusable(true);
+            addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    // TODO Auto-generated method stub
+                    super.keyPressed(e);
+                    System.out.println(e.getKeyCode());
+                    if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                        if(battle != null && battle.isHasCombatStarted()){
+                            battle.setSkipBattle(true);
+                            System.out.println("Skipping...");
+                        }
+                    }
+                }
+            });
             this.planet = planet;
             try {
                 earthImage = ImageIO.read(new File("./M3-Programacion/GUI/images/earth.jpg"));
@@ -54,17 +72,42 @@ public class MiddlePanel extends JPanel {
 
             if(planet.getCurrentThreat() != null) {
                 if(planet.getCurrentThreat().isHasCombatStarted()) {
+                    g2d.setFont(new Font("Arial", 1, 32));
+                    g2d.setColor(new Color(255,255,255, 220));
+                    g2d.drawString("\"Space\" to skip", getWidth()/2-100, getHeight() - 30);
                     g2d.setFont(new Font("Arial", 3, 72));
-                    g2d.setColor(Color.WHITE);
                     
+                    if (battle.getAttackingArmy() == 0) {
+                        // g2d.drawImage(sword_turnImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH), 300, getHeight() - 150, this);
+                        int[] xPoints = new int[3];
+                        xPoints[0] = 0;
+                        xPoints[1] = getWidth();
+                        xPoints[2] = 0;
+                        int[] yPoints = new int[3];
+                        yPoints[0] = 0;
+                        yPoints[1] = getHeight();
+                        yPoints[2] = getHeight();
+                        g2d.setColor(new Color(255,255,255, 20));
+                        g2d.fillPolygon(xPoints, yPoints, 3);
+                    } else {
+                        int[] xPoints = new int[3];
+                        xPoints[0] = getWidth();
+                        xPoints[1] = 0;
+                        xPoints[2] = getWidth();
+                        int[] yPoints = new int[3];
+                        yPoints[0] = 0;
+                        yPoints[1] = 0;
+                        yPoints[2] = getHeight();
+                        g2d.setColor(new Color(255,255,255, 20));
+                        g2d.fillPolygon(xPoints, yPoints, 3);
+                        // g2d.drawImage(sword_turnImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH), getWidth() - 370, 200, this);
+                    }
+
+                    g2d.setColor(Color.WHITE);
                     // Painting the units
                     g2d.drawImage(allyUnit.getBufferedImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH), 30, getHeight()-330, this);
                     g2d.drawImage(enemyUnit.getBufferedImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH), getWidth() - 330, 30, this);
-                    // if (battle.getAttackingArmy() == 0) {
-                    //     g2d.drawImage(sword_turnImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH), 300, getHeight() - 150, this);
-                    // } else {
-                    //     g2d.drawImage(sword_turnImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH), getWidth() - 370, 200, this);
-                    // }
+                    
 
                     if(allyUnit.getActualArmor() <= 0) {
                         g2d.drawImage(explosionImage.getScaledInstance(300, 300, Image.SCALE_SMOOTH), 30, getHeight()-330, this);
@@ -72,17 +115,18 @@ public class MiddlePanel extends JPanel {
                         g2d.drawImage(explosionImage.getScaledInstance(300, 300, Image.SCALE_SMOOTH), getWidth() - 330, 30, this);
                     }
 
+                    g2d.setColor(Color.WHITE);
                     //Painting the "health bar"
                     g2d.drawString("HP: " + battle.getPlanetArmyPercRemaining(), 30, getHeight()-330);
-                    g2d.drawString("HP: " + battle.getEnemyArmyPercRemaining(), getWidth() - 330, 60);
+                    g2d.drawString("HP: " + battle.getEnemyArmyPercRemaining(), getWidth() - 380, 80);
 
                     // Painting the "vs" thing
 
                     g2d.setStroke(new BasicStroke(10));
                     g2d.drawLine(0, 0, getWidth(), getHeight());
                     
-                    
-                    g2d.drawString("VS", getWidth()/2-36, getHeight()/2+36);
+                    g2d.setFont(new Font("Arial", 3, 96));
+                    g2d.drawString("VS", getWidth()/2-48, getHeight()/2+48);
 
                 }
             }
@@ -111,4 +155,6 @@ public class MiddlePanel extends JPanel {
             g2d.fillOval(50, 50, 200, 200);
             repaint();
         }
+
+        
     }
