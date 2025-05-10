@@ -15,7 +15,6 @@ public class Main{
         planet.newIonCannon(3);
         planet.newArmoredShip(1);
 
-        // TODO I should add a "elligible for combat" mechanic, for instance if planet doesn't have any MilitaryUnits, to not be threatened.
         // Add battle report, add skip battle mechanic
         // Things to add: Resource mines that you can level up, the ability to "fix" damaged troops.
         // Thing to fix: 1. Skip using space doesn't work if you have bought or done something, because it thinks you're "clicking" with spacebar
