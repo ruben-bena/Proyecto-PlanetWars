@@ -61,7 +61,7 @@ public class MiddlePanel extends JPanel{
             activeImage = earthImage;
             
             // Things to fix: 1. Timer for another battle is almost instant after the battle is over
-            // Things to add: 1. Results pop-up   2. Cheats pop-up
+            // Things to add: 1. Cheats pop-up
         }
 
         protected void paintComponent(Graphics g) {
@@ -78,7 +78,6 @@ public class MiddlePanel extends JPanel{
                     g2d.setFont(new Font("Arial", 3, 72));
                     
                     if (battle.getAttackingArmy() == 0) {
-                        // g2d.drawImage(sword_turnImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH), 300, getHeight() - 150, this);
                         int[] xPoints = new int[3];
                         xPoints[0] = 0;
                         xPoints[1] = getWidth();
@@ -100,7 +99,6 @@ public class MiddlePanel extends JPanel{
                         yPoints[2] = getHeight();
                         g2d.setColor(new Color(255,255,255, 20));
                         g2d.fillPolygon(xPoints, yPoints, 3);
-                        // g2d.drawImage(sword_turnImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH), getWidth() - 370, 200, this);
                     }
 
                     g2d.setColor(Color.WHITE);
@@ -115,16 +113,18 @@ public class MiddlePanel extends JPanel{
                         g2d.drawImage(explosionImage.getScaledInstance(300, 300, Image.SCALE_SMOOTH), getWidth() - 330, 30, this);
                     }
 
-                    g2d.setColor(Color.WHITE);
+                    
                     //Painting the "health bar"
+                    g2d.setColor(Color.WHITE);
                     g2d.drawString("HP: " + battle.getPlanetArmyPercRemaining(), 30, getHeight()-330);
                     g2d.drawString("HP: " + battle.getEnemyArmyPercRemaining(), getWidth() - 380, 80);
 
                     // Painting the "vs" thing
-
+                    g2d.setColor(Color.BLACK);
                     g2d.setStroke(new BasicStroke(10));
                     g2d.drawLine(0, 0, getWidth(), getHeight());
                     
+                    g2d.setColor(Color.WHITE);
                     g2d.setFont(new Font("Arial", 3, 96));
                     g2d.drawString("VS", getWidth()/2-48, getHeight()/2+48);
 

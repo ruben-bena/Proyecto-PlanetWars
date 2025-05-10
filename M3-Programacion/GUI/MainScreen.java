@@ -34,27 +34,13 @@ public class MainScreen extends JFrame {
    private MainPanel mainPanel;
     public MainScreen(Planet planet) {
         super();
+        setTitle("Planet Wars");
+
+        // Make it so the player can't buy units during battle
         
-        
-
-        File folder = new File("./M3-Programacion/GUI/images/");
-
-        File[] files = folder.listFiles(); // returns null if not a directory
-
-        if (files != null) {
-            for (File file : files) {
-                System.out.println(file.getName() + (file.isDirectory() ? " [DIR]" : ""));
-            }
-        } else {
-            System.out.println("The specified path is not a directory or doesn't exist.");
-        }
-
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(1480, 920);
         mainPanel = new MainPanel(planet);
-
-        String currentDir = System.getProperty("user.dir");
-        System.out.println("Current working directory: " + currentDir);
 
         add(mainPanel);
 		

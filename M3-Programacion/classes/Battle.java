@@ -401,7 +401,7 @@ public class Battle {
 
                     // Checking if it's destroyed
                     if(defendingUnit.getActualArmor() <= 0) {
-                        battleDevelopment += defendingUnit.getName() + " has " + defendingUnit.getActualArmor() + ", it gets destroyed.\n";
+                        battleDevelopment += defendingUnit.getName() + " has " + defendingUnit.getActualArmor() + " armor, it gets destroyed.\n";
 
                         // Before elmininating it, cheking if waste gets generated
                         boolean isGeneratingWaste = false;
@@ -580,6 +580,13 @@ public class Battle {
         public String getBattleDevelopment() {
             return battleDevelopment;
         }
+
+
+        public ArrayList<MilitaryUnit>[] getEnemyArmy() {
+            return enemyArmy;
+        }
+
+        
 
         
 
