@@ -19,6 +19,7 @@ public class Main{
 
         // TODO I should add a "elligible for combat" mechanic, for instance if planet doesn't have any MilitaryUnits, to not be threatened.
         // Add battle report, add skip battle mechanic
+        // Thing to fix: 1. Skip using space doesn't work if you have bought or done something, because it thinks you're "clicking" with spacebar
 
         MainScreen ms = new MainScreen(planet);
         ms.getMainPanel().getMiddlePanel().requestFocusInWindow();
@@ -28,7 +29,7 @@ public class Main{
 
         TimerTask threatTimer = new TimerTask() {
             public void run() {
-                if (!planet.isActiveThreat()) {
+                if (!planet.isActiveThreat() && planet.isElligibleForCombat()) {
                     planet.setCurrentThreat(new Battle(planet, ms.getMainPanel()));
                     planet.setActiveThreat(true);
                     

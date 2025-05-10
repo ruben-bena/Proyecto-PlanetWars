@@ -359,5 +359,19 @@ public class Planet {
         newIonCannon(3);
         newArmoredShip(1);
     }
+
+    public boolean isElligibleForCombat() {
+        int troopNumber = 0;
+
+        for(int i = 0; i < army.length; i++) {
+            troopNumber += army[i].size();
+        }
+
+        if(troopNumber <= 5) {
+            return false;
+        }
+
+        return true;
+    }
     
 }

@@ -79,7 +79,7 @@ public class Battle {
                 combat(planet, mp);
                 planet.addBattleReport(battleDevelopment);
                 planet.setActiveThreat(false);
-                hasCombatStarted = false; // This is instantaneous so it's not visible if I set it to false right away
+                hasCombatStarted = false;
 
                 planet.setNBattles(planet.getNBattles() + 1);
                 mp.getMiddlePanel().changeScreenToDefaultScene();
