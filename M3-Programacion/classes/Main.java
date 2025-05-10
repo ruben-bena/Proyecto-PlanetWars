@@ -282,8 +282,8 @@ class Time {
     private int deltaTime;
 
     static int secInMs = 1000;
-    static int countdownBattleTime = secInMs * 10;
-    static int timeBetweenBattles = secInMs * 20;
+    static int countdownBattleTime = secInMs * 5;
+    static int timeBetweenBattles = secInMs * 5;
     static int timeBetweenResources = secInMs * 10;
 
 

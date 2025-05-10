@@ -496,6 +496,7 @@ public class Battle {
             battleDevelopment += winner + " wins!";
             // System.out.println(battleDevelopment);
         }
+            new ResultFrame(this);
             return;
         }
 
@@ -574,6 +575,13 @@ public class Battle {
         public void setSkipBattle(boolean skipBattle) {
             this.skipBattle = skipBattle;
         }
+
+
+        public String getBattleDevelopment() {
+            return battleDevelopment;
+        }
+
+        
 
         
         

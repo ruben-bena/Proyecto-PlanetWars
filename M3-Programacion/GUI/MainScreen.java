@@ -35,6 +35,7 @@ public class MainScreen extends JFrame {
     public MainScreen(Planet planet) {
         super();
         
+        
 
         File folder = new File("./M3-Programacion/GUI/images/");
 
