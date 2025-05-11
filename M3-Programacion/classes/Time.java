@@ -9,9 +9,12 @@ public class Time {
 
     public static int secondsCountdownBattle = 20;
     public static int secInMs = 1000;
+    public static int secondsBetweenBattles = 120;
+    public static int secondsBetweenResources = 10;
+
     public static int countdownBattleTime = secInMs * secondsCountdownBattle;
-    public static int timeBetweenBattles = secInMs * 120;
-    public static int timeBetweenResources = secInMs * 10;
+    public static int timeBetweenBattles = secInMs * secondsBetweenBattles;
+    public static int timeBetweenResources = secInMs * secondsBetweenResources;
 
 
     public Time() {

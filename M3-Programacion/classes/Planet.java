@@ -46,6 +46,7 @@ public class Planet {
         this.nBattles = 0;
         this.metalMineLvl = 1;
         this.deuteriumMineLvl = 1;
+
     }
 
     public void upgradeTechnologyDefense() throws ResourceException {
@@ -350,7 +351,11 @@ public class Planet {
         setCurrentThreat(null);
         upgradeDefenseTechnologyDeuteriumCost = 3000;
         upgradeAttackTechnologyDeuteriumCost = 3000;
+        upgradeMetalMineLvlMetalCost = 10000;
+        upgradeDeuteriumMineLvlDeuteriumCost = 4000;
         battleReports = new String[5];
+        metalMineLvl = 1;
+        deuteriumMineLvl = 1;
 
         army = new ArrayList[7];
         for(int i = 0; i < army.length; i++) {
@@ -424,7 +429,30 @@ public class Planet {
         return upgradeDeuteriumMineLvlDeuteriumCost;
     }
 
- 
+    public void resetArmyArmor() {
+        for (int i = 0; i < army.length; i++) {
+            for (int j = 0; j < army[i].size(); j++) {
+                army[i].get(j).resetArmor();
+            }
+        }
+    }
+
+    public int[] getFixArmyCost() {
+        int[] cost = new int[2];
+        int metalCost = 0;
+        int deuteriumCost = 0;
+        cost[0] = metalCost;
+        cost[1] = deuteriumCost;
+
+        for (int i = 0; i < army.length; i++) {
+            for (int j = 0; j < army[i].size(); j++) {
+                metalCost += army[i].get(j).getMetalCost() / 2;
+                deuteriumCost += army[i].get(j).getDeuteriumCost() / 2;
+            }
+        }
+
+        return cost;
+    }
 
     
     

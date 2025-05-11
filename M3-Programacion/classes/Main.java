@@ -15,43 +15,14 @@ public class Main{
         planet.newIonCannon(3);
         planet.newArmoredShip(1);
 
-        // Things to add: Resource mines that you can level up, the ability to "fix" damaged troops.
+        // Things to add: The ability to "fix" damaged troops.
 
         MainScreen ms = new MainScreen(planet);
         ms.getMainPanel().getMiddlePanel().requestFocusInWindow();
-
-        Timer timer = new Timer();
-        
-
-        TimerTask threatTimer = new TimerTask() {
-            public void run() {
-                if (!planet.isActiveThreat() && planet.isElligibleForCombat()) {
-                    if(planet.getCurrentThreat() != null) {
-                        if(planet.getCurrentThreat().isHasCombatStarted()) {
-                            return;
-                        }
-                    }
-                    planet.setCurrentThreat(new Battle(planet, ms.getMainPanel(), ms));
-                    planet.setActiveThreat(true);
-                    
-
-                }
-                
-            }
-        };
-
+       
         new ThreatTimer(planet, ms);
+        new ResourceTimer(planet);
 
-        TimerTask resourceTask = new TimerTask() {
-            public void run() {
-                planet.setMetal(planet.getMetal() + 2000 * planet.getMetalMineLvl());
-                planet.setDeuterium(planet.getDeuterium() + 800 * planet.getDeuteriumMineLvl());
-                
-            }
-        };
-        
-        // timer.schedule(threatTimer, Time.timeBetweenBattles, Time.timeBetweenBattles);
-        timer.schedule(resourceTask, Time.timeBetweenResources, Time.timeBetweenResources);
 
         String menu = """
                 1) View Planet Stats
@@ -180,13 +151,10 @@ public class Main{
 
 
     }
-    // public static void newGame(Planet planet, TimerTask threatTask, TimerTask resourceTask, Timer timer) {
-    //     planet = new Planet(1, 1, 300000, 40000, 3000, 3000);
-    //     threatTask.cancel();
-    //     resourceTask.cancel();
-    //     timer.schedule(resourceTask, Time.timeBetweenResources, Time.timeBetweenResources);
-    //     timer.schedule(threatTask, Time.timeBetweenBattles, Time.timeBetweenBattles);
-    // }
+    public static void newGame(Planet planet) throws ResourceException {
+        planet.newGame();
+        
+    }
 
     public static ArrayList<MilitaryUnit>[] createEnemyArmy(Planet planet) {
         ArrayList<MilitaryUnit>[] army = new ArrayList[7];
@@ -267,12 +235,6 @@ public class Main{
         }
         
         return army;
-    }
-
-    public void announceCombat(ArrayList<MilitaryUnit>[] enemyArmy) {
-        // enemyArmy = createEnemyArmy();
-        System.out.println("NEW THREAT IS COMING");
-
     }
 
     // closeGame --> Saves all data in DDBB and then closes the program. It's called from the "Exit" button and closing the MainScreen

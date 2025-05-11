@@ -71,6 +71,49 @@ public class ResultFrame extends JFrame implements ActionListener {
         setVisible(true);
 
     }
+
+    public ResultFrame(String battleDevelopment, int battleN) {
+        setSize(new Dimension(1000,700));
+        mainPanel = new JPanel();
+        mainPanel.setLayout(new BorderLayout());
+        setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
+        add(new PaddingPanel(), BorderLayout.WEST);
+        add(new PaddingPanel(), BorderLayout.NORTH);
+        add(new PaddingPanel(), BorderLayout.SOUTH);
+        add(new PaddingPanel(), BorderLayout.EAST);
+
+        resultLabel = new JLabel("Battle nº" + battleN);
+        resultLabel.setFont(new Font("Arial", Font.BOLD, 96));
+        resultPanel = new JPanel();
+        resultPanel.add(resultLabel);
+        resultLabel.setForeground(Color.WHITE);
+        resultPanel.setBackground(Color.BLACK);
+
+        mainPanel.add(resultPanel, BorderLayout.NORTH);
+
+        report_text = new JTextArea(battleDevelopment);
+        report_text.setFont(new Font("Arial", Font.BOLD, 24));
+        scrollPane = new JScrollPane(report_text);
+
+        mainPanel.add(scrollPane, BorderLayout.CENTER);
+
+        acceptButton = new JButton("Accept");
+        acceptButton.addActionListener(this);
+        acceptButton.setFont(new Font("Arial", Font.BOLD, 24));
+        acceptButton.setPreferredSize(new Dimension(200,50));
+        acceptButton.setBackground(Color.WHITE);
+        
+        buttonPanel = new JPanel();
+        buttonPanel.add(acceptButton);
+        buttonPanel.setBackground(Color.BLACK);
+
+        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+        add(mainPanel);
+
+        setVisible(true);
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub

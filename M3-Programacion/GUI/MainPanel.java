@@ -44,7 +44,7 @@ public class MainPanel extends JPanel {
         setLayout(new BorderLayout());
 
         leftPanel = new LeftPanel(planet);
-        rightPanel = new RightPanel();
+        rightPanel = new RightPanel(planet);
         bottomPanel = new BottomPanel(planet);
         middlePanel = new MiddlePanel(planet);
         
@@ -105,5 +105,8 @@ public class MainPanel extends JPanel {
         bottomPanel.getMissileLauncherNameLabel().setText("Missile Launcher - " + planet.getArmy()[4].size());
         bottomPanel.getIonCannonNameLabel().setText("Ion Cannon - " + planet.getArmy()[5].size());
         bottomPanel.getPlasmaCannonNameLabel().setText("Plasma Cannon - " + planet.getArmy()[6].size());
+
+        rightPanel.getMetalCostFixLabel().setText("" + planet.getFixArmyCost()[0]);
+        rightPanel.getDeuteriumCostFixLabel().setText("" + planet.getFixArmyCost()[1]);
     }
 }

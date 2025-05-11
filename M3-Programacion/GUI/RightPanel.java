@@ -3,23 +3,33 @@ package GUI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
+import classes.Planet;
+import classes.ResourceException;
+
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 class RightPanel extends JPanel {
-        private JPanel mainPanel, imagePanel, buttonsPanel;
-        private JButton newGameButton, battleReportButton, settingsButton, exitButton;
+        private JPanel mainPanel, imagePanel, buttonsPanel, upperPanel, fixArmyPanel, costFixArmyPanel, costFixArmyAmountPanel;
+        private JButton newGameButton, battleReportButton, settingsButton, exitButton, viewCurrentThreatButton, fixArmyButton;
+        private JLabel metalImageLabel, deuteriumImageLabel, metalCostFixLabel, deuteriumCostFixLabel;
+        private Planet planet;
+        private ImageIcon metalIcon, deuteriumIcon;
 
-        RightPanel() {
-
+        RightPanel(Planet planet) {
+            this.planet = planet;
             // GameSettingsPanel
             int gameSettingsWidth = 200;
             int gameSettingsHeight = 200;
@@ -38,10 +48,63 @@ class RightPanel extends JPanel {
 
             // imagePanel
             // TODO: Add image
+            upperPanel = new JPanel();
+            upperPanel.setLayout(new GridLayout(2,1));
+            
+            fixArmyPanel = new JPanel();
+            fixArmyPanel.setLayout(new GridLayout(3,1));
+
+
+            fixArmyButton = new JButton("Fix Army");
+            fixArmyButton.setFont(new Font("Arial", Font.BOLD, 24));
+            fixArmyButton.setBackground(Color.black);
+            fixArmyButton.setForeground(Color.WHITE);
+            fixArmyButton.addActionListener(new ButtonEvents());
+            fixArmyPanel.add(fixArmyButton);
+
+
+            costFixArmyPanel = new JPanel();
+            costFixArmyPanel.setLayout(new BorderLayout());
+            costFixArmyAmountPanel = new JPanel();
+
+            metalIcon = new ImageIcon("./M3-Programacion/GUI/images/iron_ingot.png");
+            Image metalIconScaled = metalIcon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+            metalImageLabel = new JLabel(new ImageIcon(metalIconScaled));
+            
+            costFixArmyAmountPanel.add(metalImageLabel);
+            metalCostFixLabel = new JLabel("" + planet.getFixArmyCost()[0]);
+            costFixArmyAmountPanel.add(metalCostFixLabel);
+
+            deuteriumIcon = new ImageIcon("./M3-Programacion/GUI/images/redstone.png");
+            Image redstoneIconScaled = deuteriumIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+            deuteriumImageLabel = new JLabel(new ImageIcon(redstoneIconScaled));
+
+            costFixArmyAmountPanel.add(deuteriumImageLabel);
+
+            deuteriumCostFixLabel = new JLabel("" + planet.getFixArmyCost()[1]);
+            costFixArmyAmountPanel.add(deuteriumCostFixLabel);
+            
+            costFixArmyPanel.add(costFixArmyAmountPanel, BorderLayout.CENTER);
+
+            fixArmyPanel.add(costFixArmyPanel);
+
+            upperPanel.add(fixArmyPanel);
+            
+
+            viewCurrentThreatButton = new JButton("View Current Threat");
+            viewCurrentThreatButton.addActionListener(new ButtonEvents());
+
+            upperPanel.add(viewCurrentThreatButton);
+
+            
+
             imagePanel = new JPanel();
             imagePanel.setBackground(Color.RED);
-            mainPanel.add(imagePanel);
 
+            
+            mainPanel.add(upperPanel);
+
+            mainPanel.add(imagePanel);
             // buttonsPanel
             // TODO: Add button that pauses the game (optional)
             buttonsPanel = new JPanel();
@@ -70,6 +133,13 @@ class RightPanel extends JPanel {
             mainPanel.add(buttonsPanel);
         }
 
+        public JLabel getMetalCostFixLabel() {
+            return metalCostFixLabel;
+        }
+        public JLabel getDeuteriumCostFixLabel() {
+            return deuteriumCostFixLabel;
+        }
+
         class ButtonEvents implements ActionListener {
 
             @Override
@@ -90,17 +160,41 @@ class RightPanel extends JPanel {
                     System.out.println("Exit pressed");
                     exitEvent();
                 }
+
+                if (e.getActionCommand().equals("View Current Threat")) {
+                    if (planet.isActiveThreat()) {
+                        new ThreatFrame(planet);
+                    }
+                    System.out.println("Current threat");
+                }
+
+                if (e.getActionCommand().equals("Fix Army")) {
+                    fixArmyEvent();
+                    System.out.println("Fix Army pressed");
+                    
+                }
             }
 
         }
-
-        public void newGameEvent() {
+        public void fixArmyEvent() {
+            if (planet.getMetal() > planet.getFixArmyCost()[0] && planet.getDeuterium() > planet.getFixArmyCost()[1]) {
+                planet.resetArmyArmor();
+            }
+        }
+        public void newGameEvent()  {
             // Maybe we don't add this functionality since we would have to refactor a lot of code in Main
+            try {
+                planet.newGame();
+            } catch (ResourceException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             // TODO: Decide at the end what we do with this
         }
     
         // Opens a new JDialog with an JTextArea which has info of the previous 5 battles the actual planet played
         public void battleReportEvent() {
+            new ReportsFrame(planet);
             // TODO: Define this method when DDBB methods are ready
 
             // So this method just gets the 5 last values of the Battle_log table and puts them in the JTextArea
