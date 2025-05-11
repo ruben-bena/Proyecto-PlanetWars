@@ -446,6 +446,7 @@ public class Planet {
 
         for (int i = 0; i < army.length; i++) {
             for (int j = 0; j < army[i].size(); j++) {
+                // if (army[i].get(j).getActualArmor() < army[i].get(j).getInitialArmor()) // For some reason this method is only for Ships, not MilitaryUnit as a whole.
                 metalCost += army[i].get(j).getMetalCost() / 2;
                 deuteriumCost += army[i].get(j).getDeuteriumCost() / 2;
             }
