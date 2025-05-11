@@ -10,6 +10,9 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 class RightPanel extends JPanel {
         private JPanel mainPanel, imagePanel, buttonsPanel;
@@ -136,7 +139,7 @@ class RightPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     System.out.println("Yes pressed");
-                    closeGame();
+                    // idk how to call this method, it's supposed to be in Main i guess --> closeGame();
                 }
             });
     

@@ -2,14 +2,11 @@ package GUI;
 import classes.*;
 import javax.swing.JFrame;
 
-// TODO: Refactor this huge class in a few .java Classes
 public class MainScreen extends JFrame {
    private MainPanel mainPanel;
     public MainScreen(Planet planet) {
         super();
         setTitle("Planet Wars");
-
-        // Make it so the player can't buy units during battle
         
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(1480, 920);
@@ -19,6 +16,11 @@ public class MainScreen extends JFrame {
 		
 		setVisible(true);
     }
+    public MainPanel getMainPanel() {
+        return mainPanel;
+    }
+    
+
 }
 
 // class MainPanel extends JPanel {
