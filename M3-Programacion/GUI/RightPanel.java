@@ -178,6 +178,8 @@ class RightPanel extends JPanel {
         }
         public void fixArmyEvent() {
             if (planet.getMetal() > planet.getFixArmyCost()[0] && planet.getDeuterium() > planet.getFixArmyCost()[1]) {
+                planet.setMetal(planet.getMetal() - planet.getFixArmyCost()[0]);
+                planet.setDeuterium(planet.getDeuterium() - planet.getFixArmyCost()[1]);
                 planet.resetArmyArmor();
             }
         }

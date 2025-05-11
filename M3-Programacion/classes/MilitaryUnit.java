@@ -23,6 +23,9 @@ public interface MilitaryUnit {
     // Nos la probabilidad de generar volver a atacar.
     abstract void resetArmor();
     // Nos restablecerá nuestro blindaje a su valor original.
+
+    abstract boolean hasBeenDamaged();
+    
     abstract String getName();
 
     abstract BufferedImage getBufferedImage();
