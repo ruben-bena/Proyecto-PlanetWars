@@ -1,27 +1,6 @@
 package GUI;
 import classes.*;
-
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.Border;
 
 // TODO: Refactor this huge class in a few .java Classes
 public class MainScreen extends JFrame {
@@ -42,140 +21,140 @@ public class MainScreen extends JFrame {
     }
 }
 
-class MainPanel extends JPanel {
-    private LeftPanel leftPanel;
-    private RightPanel rightPanel;
-    private BottomPanel bottomPanel;
-    private MiddlePanel middlePanel;
+// class MainPanel extends JPanel {
+//     private LeftPanel leftPanel;
+//     private RightPanel rightPanel;
+//     private BottomPanel bottomPanel;
+//     private MiddlePanel middlePanel;
 
-    MainPanel() {
-        setBackground(Color.BLUE);
-        setLayout(new BorderLayout());
+//     MainPanel() {
+//         setBackground(Color.BLUE);
+//         setLayout(new BorderLayout());
         
-        leftPanel = new LeftPanel();
-        rightPanel = new RightPanel();
-        bottomPanel = new BottomPanel();
-        middlePanel = new MiddlePanel();
+//         leftPanel = new LeftPanel();
+//         rightPanel = new RightPanel();
+//         bottomPanel = new BottomPanel();
+//         middlePanel = new MiddlePanel();
 
-        middlePanel.setBackground(Color.MAGENTA);
+//         middlePanel.setBackground(Color.MAGENTA);
         
 
-        add(leftPanel, BorderLayout.WEST);
-        add(rightPanel, BorderLayout.EAST);
-        add(bottomPanel, BorderLayout.SOUTH);
-        add(middlePanel, BorderLayout.CENTER);
+//         add(leftPanel, BorderLayout.WEST);
+//         add(rightPanel, BorderLayout.EAST);
+//         add(bottomPanel, BorderLayout.SOUTH);
+//         add(middlePanel, BorderLayout.CENTER);
         
-        setVisible(true);
-    }
+//         setVisible(true);
+//     }
 
-    class LeftPanel extends JPanel {
-        private JPanel mainPanel, panel1, panel2;
+//     class LeftPanel extends JPanel {
+//         private JPanel mainPanel, panel1, panel2;
     
-        LeftPanel() {
-            setSize(new Dimension(200,200));
-            setPreferredSize(new Dimension(200,200));
-            setLayout(new BorderLayout());
-            add(new PaddingPanel(), BorderLayout.NORTH);
-            add(new PaddingPanel(), BorderLayout.WEST);
-            add(new PaddingPanel(), BorderLayout.EAST);
+//         LeftPanel() {
+//             setSize(new Dimension(200,200));
+//             setPreferredSize(new Dimension(200,200));
+//             setLayout(new BorderLayout());
+//             add(new PaddingPanel(), BorderLayout.NORTH);
+//             add(new PaddingPanel(), BorderLayout.WEST);
+//             add(new PaddingPanel(), BorderLayout.EAST);
             
     
-            mainPanel = new JPanel();
-            panel1 = new JPanel();
-            panel2 = new JPanel();
+//             mainPanel = new JPanel();
+//             panel1 = new JPanel();
+//             panel2 = new JPanel();
     
-            mainPanel.setBackground(Color.orange);
+//             mainPanel.setBackground(Color.orange);
     
-            add(mainPanel);
-        }
-    }
+//             add(mainPanel);
+//         }
+//     }
 
-    class RightPanel extends JPanel {
-        private JPanel mainPanel, panel1, panel2;
+//     class RightPanel extends JPanel {
+//         private JPanel mainPanel, panel1, panel2;
 
-        RightPanel() {
+//         RightPanel() {
 
-            setSize(new Dimension(200,200));
-            setPreferredSize(new Dimension(200,200));
-            setLayout(new BorderLayout());
-            add(new PaddingPanel(), BorderLayout.NORTH);
-            add(new PaddingPanel(), BorderLayout.WEST);
-            add(new PaddingPanel(), BorderLayout.EAST);
+//             setSize(new Dimension(200,200));
+//             setPreferredSize(new Dimension(200,200));
+//             setLayout(new BorderLayout());
+//             add(new PaddingPanel(), BorderLayout.NORTH);
+//             add(new PaddingPanel(), BorderLayout.WEST);
+//             add(new PaddingPanel(), BorderLayout.EAST);
             
     
-            mainPanel = new JPanel();
-            panel1 = new JPanel();
-            panel2 = new JPanel();
+//             mainPanel = new JPanel();
+//             panel1 = new JPanel();
+//             panel2 = new JPanel();
     
-            mainPanel.setBackground(Color.GREEN);
+//             mainPanel.setBackground(Color.GREEN);
     
-            add(mainPanel);
-        }
-    }
+//             add(mainPanel);
+//         }
+//     }
 
-    class BottomPanel extends JPanel {
-        private JPanel mainPanel, panel1, panel2;
+//     class BottomPanel extends JPanel {
+//         private JPanel mainPanel, panel1, panel2;
 
-        BottomPanel() {
-            setSize(new Dimension(200,200));
-            setPreferredSize(new Dimension(200,200));
-            setLayout(new BorderLayout());
-            setBackground(Color.BLACK);
-            add(new PaddingPanel(), BorderLayout.NORTH);
-            add(new PaddingPanel(), BorderLayout.WEST);
-            add(new PaddingPanel(), BorderLayout.EAST);
-            add(new PaddingPanel(), BorderLayout.SOUTH);
+//         BottomPanel() {
+//             setSize(new Dimension(200,200));
+//             setPreferredSize(new Dimension(200,200));
+//             setLayout(new BorderLayout());
+//             setBackground(Color.BLACK);
+//             add(new PaddingPanel(), BorderLayout.NORTH);
+//             add(new PaddingPanel(), BorderLayout.WEST);
+//             add(new PaddingPanel(), BorderLayout.EAST);
+//             add(new PaddingPanel(), BorderLayout.SOUTH);
     
-            mainPanel = new JPanel();
-            panel1 = new JPanel();
-            panel2 = new JPanel();
+//             mainPanel = new JPanel();
+//             panel1 = new JPanel();
+//             panel2 = new JPanel();
     
-            mainPanel.setBackground(Color.WHITE);
+//             mainPanel.setBackground(Color.WHITE);
     
-            add(mainPanel);
-        }
-    }
-
-    
-    class MiddlePanel extends JPanel {
-
-        private BufferedImage earthImage;
-
-        MiddlePanel() {
-            setLayout(new BorderLayout());
-            add(new PaddingPanel(), BorderLayout.NORTH);
+//             add(mainPanel);
+//         }
+//     }
 
     
-            // add(mainPanel);
-        }
+//     class MiddlePanel extends JPanel {
 
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
+//         private BufferedImage earthImage;
+
+//         MiddlePanel() {
+//             setLayout(new BorderLayout());
+//             add(new PaddingPanel(), BorderLayout.NORTH);
+
+    
+//             // add(mainPanel);
+//         }
+
+//         protected void paintComponent(Graphics g) {
+//             super.paintComponent(g);
 
         
-            try {
-                earthImage = ImageIO.read(new File("./M3-Programacion/GUI/images/earth.jpg"));
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+//             try {
+//                 earthImage = ImageIO.read(new File("./M3-Programacion/GUI/images/earth.jpg"));
+//             } catch (IOException e) {
+//                 // TODO Auto-generated catch block
+//                 e.printStackTrace();
+//             }
 
-            Graphics2D g2d = (Graphics2D) g;
-            g2d.drawImage(earthImage.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH), 0, 0, this);
-            g2d.fillRect(200, 200, 300, 300);
+//             Graphics2D g2d = (Graphics2D) g;
+//             g2d.drawImage(earthImage.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH), 0, 0, this);
+//             g2d.fillRect(200, 200, 300, 300);
             
-            // g.drawImage(null, ALLBITS, ABORT, bottomPanel);
-        }
-    }
+//             // g.drawImage(null, ALLBITS, ABORT, bottomPanel);
+//         }
+//     }
 
-    class PaddingPanel extends JPanel {
-        PaddingPanel() {
-            setBackground(Color.black);
-            setPreferredSize(new Dimension(10,10));
-        }
-    }
+//     class PaddingPanel extends JPanel {
+//         PaddingPanel() {
+//             setBackground(Color.black);
+//             setPreferredSize(new Dimension(10,10));
+//         }
+//     }
     
-}
+// }
 
 
 
