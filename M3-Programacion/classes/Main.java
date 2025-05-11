@@ -15,9 +15,7 @@ public class Main{
         planet.newIonCannon(3);
         planet.newArmoredShip(1);
 
-        // Add battle report, add skip battle mechanic
         // Things to add: Resource mines that you can level up, the ability to "fix" damaged troops.
-        // Thing to fix: 1. Skip using space doesn't work if you have bought or done something, because it thinks you're "clicking" with spacebar
 
         MainScreen ms = new MainScreen(planet);
         ms.getMainPanel().getMiddlePanel().requestFocusInWindow();
@@ -28,7 +26,12 @@ public class Main{
         TimerTask threatTimer = new TimerTask() {
             public void run() {
                 if (!planet.isActiveThreat() && planet.isElligibleForCombat()) {
-                    planet.setCurrentThreat(new Battle(planet, ms.getMainPanel()));
+                    if(planet.getCurrentThreat() != null) {
+                        if(planet.getCurrentThreat().isHasCombatStarted()) {
+                            return;
+                        }
+                    }
+                    planet.setCurrentThreat(new Battle(planet, ms.getMainPanel(), ms));
                     planet.setActiveThreat(true);
                     
 
@@ -36,6 +39,8 @@ public class Main{
                 
             }
         };
+
+        new ThreatTimer(planet, ms);
 
         TimerTask resourceTask = new TimerTask() {
             public void run() {
@@ -45,7 +50,7 @@ public class Main{
             }
         };
         
-        timer.schedule(threatTimer, Time.timeBetweenBattles, Time.timeBetweenBattles);
+        // timer.schedule(threatTimer, Time.timeBetweenBattles, Time.timeBetweenBattles);
         timer.schedule(resourceTask, Time.timeBetweenResources, Time.timeBetweenResources);
 
         String menu = """

@@ -60,7 +60,7 @@ public class MiddlePanel extends JPanel{
 
             activeImage = earthImage;
             
-            // Things to fix: 1. Timer for another battle is almost instant after the battle is over
+            // Things to fix: 1. Timer for another battle is almost instant after the battle is over // Fixed, maybe could use some improvements though
             // Things to add: 1. Cheats pop-up
         }
 

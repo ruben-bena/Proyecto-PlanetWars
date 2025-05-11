@@ -64,7 +64,7 @@ public class Battle {
     private int attackingArmy;
     private boolean skipBattle;
 
-    public Battle(Planet planet, MainPanel mp) {
+    public Battle(Planet planet, MainPanel mp, MainScreen ms) {
         this.planetArmy = planet.getArmy();
         this.enemyArmy = Main.createEnemyArmy(planet);
         this.initialCostFleet = new int[2][2];
@@ -83,6 +83,8 @@ public class Battle {
 
                 planet.setNBattles(planet.getNBattles() + 1);
                 mp.getMiddlePanel().changeScreenToDefaultScene();
+                // Maybe I should add the threat timer here, so it starts counting after the battle is over
+                new ThreatTimer(planet, ms);
                 
             }
         };
@@ -314,7 +316,8 @@ public class Battle {
             
             // System.out.println("Initial fleet number Planet = " + initialFleetNumber(planetArmy));
             // System.out.println(remainderPercentageFleetPlanet() > 20 && remainderPercentageFleetEnemy() > 20);
-            while(remainderPercentageFleetPlanet() > 20 && remainderPercentageFleetEnemy() > 20) { ///////////////////////////////////////////////////////
+            while(remainderPercentageFleetPlanet() > 20 && remainderPercentageFleetEnemy() > 20) { /////////////////////////
+                mainPanel.getMiddlePanel().requestFocusInWindow();
                 planetArmyPercRemaining = remainderPercentageFleetPlanet();
                 enemyArmyPercRemaining = remainderPercentageFleetEnemy();
                 // System.out.println("Percentage Planet army = " + remainderPercentageFleet(armies[0]));

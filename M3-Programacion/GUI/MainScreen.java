@@ -35,8 +35,6 @@ public class MainScreen extends JFrame {
     public MainScreen(Planet planet) {
         super();
         setTitle("Planet Wars");
-
-        // Make it so the player can't buy units during battle
         
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(1480, 920);
