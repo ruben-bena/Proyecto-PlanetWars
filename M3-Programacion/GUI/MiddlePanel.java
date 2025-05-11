@@ -14,6 +14,8 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -29,6 +31,7 @@ public class MiddlePanel extends JPanel{
         private Graphics2D g2d;
         private MilitaryUnit allyUnit, enemyUnit;
         private Battle battle;
+        private Color threatDisplayColor;
         MiddlePanel(Planet planet) {
             setLayout(new BorderLayout());
             add(new PaddingPanel(), BorderLayout.NORTH);
@@ -48,6 +51,7 @@ public class MiddlePanel extends JPanel{
                 }
             });
             this.planet = planet;
+            threatDisplayColor = Color.WHITE;
             try {
                 earthImage = ImageIO.read(new File("./M3-Programacion/GUI/images/earth.jpg"));
                 battleScene = ImageIO.read(new File("./M3-Programacion/GUI/images/space.jpg"));
@@ -71,6 +75,15 @@ public class MiddlePanel extends JPanel{
             g2d.drawImage(activeImage.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH), 0, 0, this);
 
             if(planet.getCurrentThreat() != null) {
+
+                if(!planet.getCurrentThreat().isHasCombatStarted()) { // it gets here but I have to repaint() somewhere
+                    g2d.setFont(new Font("Arial", Font.BOLD, 48));
+                    g2d.setColor(threatDisplayColor);
+                    g2d.drawString("THREAT DETECTED", getWidth() / 2 - 230, 60);
+                    System.out.println("a");
+                }
+
+                // if combat has started
                 if(planet.getCurrentThreat().isHasCombatStarted()) {
                     g2d.setFont(new Font("Arial", 1, 32));
                     g2d.setColor(new Color(255,255,255, 220));
@@ -156,5 +169,39 @@ public class MiddlePanel extends JPanel{
             repaint();
         }
 
-        
+        class ThreatDisplayTimer extends TimerTask {
+            private int time;
+            private Timer timer;
+            public ThreatDisplayTimer() {
+                time = 0;
+                timer = new Timer();
+
+                timer.schedule(this, 0, Time.secInMs);
+
+            }
+
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                time = time + Time.secInMs;
+
+               
+                if(threatDisplayColor == Color.WHITE) {
+                        threatDisplayColor = Color.RED;
+                } else {
+                        threatDisplayColor = Color.WHITE;
+                    }
+                
+                if(time > Time.countdownBattleTime) {
+                    cancel();
+                }
+
+                repaint();
+
+            }
+        }
+
+        public void doThreatDisplay() {
+            new ThreatDisplayTimer();
+        }
     }

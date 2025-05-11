@@ -25,6 +25,7 @@ public class ThreatTimer extends TimerTask{
                 //     }
                     planet.setCurrentThreat(new Battle(planet, ms.getMainPanel(), ms));
                     planet.setActiveThreat(true);
+                    ms.getMainPanel().getMiddlePanel().doThreatDisplay();
                     
 
                 // }

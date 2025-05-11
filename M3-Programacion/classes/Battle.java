@@ -83,6 +83,7 @@ public class Battle {
 
                 planet.setNBattles(planet.getNBattles() + 1);
                 mp.getMiddlePanel().changeScreenToDefaultScene();
+                planet.setCurrentThreat(null);
                 // Maybe I should add the threat timer here, so it starts counting after the battle is over
                 new ThreatTimer(planet, ms);
                 
