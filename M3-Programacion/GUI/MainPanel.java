@@ -87,12 +87,16 @@ public class MainPanel extends JPanel {
 
 
     public void updateAll(Planet planet) {
-        leftPanel.getMetalJLabel().setText(String.valueOf(planet.getMetal()));
-        leftPanel.getDeuteriumJLabel().setText(String.valueOf(planet.getDeuterium()));
+        leftPanel.getMetalJLabel().setText((planet.getMetal() + " +" + 2000 * planet.getMetalMineLvl()));
+        leftPanel.getDeuteriumJLabel().setText(String.valueOf(planet.getDeuterium()) + " +" + 800 * planet.getDeuteriumMineLvl());
         leftPanel.getTechAttackLvlAmountTextArea().setText("" + planet.getTechnologyAttack());
         leftPanel.getTechAttackLvlCost().setText("" + planet.getUpgradeAttackTechnologyDeuteriumCost());
         leftPanel.getTechDefenseLvlAmountTextArea().setText("" + planet.getTechnologyDefense());
         leftPanel.getTechDefenseLvlCost().setText("" + planet.getUpgradeDefenseTechnologyDeuteriumCost());
+        leftPanel.getMetalMineLvlTextArea().setText("" + planet.getMetalMineLvl());
+        leftPanel.getDeuteriumMineLvlTextArea().setText("" + planet.getDeuteriumMineLvl());
+        leftPanel.getMetalMineCostLabel().setText("" + planet.getUpgradeMetalMineLvlMetalCost());
+        leftPanel.getDeuteriumMineCostLabel().setText("" + planet.getUpgradeDeuteriumMineLvlDeuteriumCost());
 
         bottomPanel.getLightHunterNameLabel().setText("Light Hunter - " + planet.getArmy()[0].size());
         bottomPanel.getHeavyHunterNameLabel().setText("Heavy Hunter - " + planet.getArmy()[1].size());

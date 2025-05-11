@@ -14,6 +14,10 @@ public class Planet {
     private Battle currentThreat;
     private String[] battleReports;
     private int nBattles;
+    private int metalMineLvl;
+    private int deuteriumMineLvl;
+    private int upgradeMetalMineLvlMetalCost;
+    private int upgradeDeuteriumMineLvlDeuteriumCost;
 
     // Army[0] → arrayList de Ligth Hunter
     // Army[1] → arrayList de Heavy Hunter
@@ -31,6 +35,8 @@ public class Planet {
         this.deuterium = deuterium;
         this.upgradeDefenseTechnologyDeuteriumCost = upgradeDefenseTechnologyDeuteriumCost;
         this.upgradeAttackTechnologyDeuteriumCost = upgradeAttackTechnologyDeuteriumCost;
+        this.upgradeMetalMineLvlMetalCost = 10000;
+        this.upgradeDeuteriumMineLvlDeuteriumCost = 4000;
         this.army = new ArrayList[7];
         this.isActiveThreat = false;
         this.battleReports = new String[5];
@@ -38,6 +44,8 @@ public class Planet {
             army[i] = new ArrayList<MilitaryUnit>();
         }
         this.nBattles = 0;
+        this.metalMineLvl = 1;
+        this.deuteriumMineLvl = 1;
     }
 
     public void upgradeTechnologyDefense() throws ResourceException {
@@ -373,5 +381,51 @@ public class Planet {
 
         return true;
     }
+
+    public int getMetalMineLvl() {
+        return metalMineLvl;
+    }
+
+    public void setMetalMineLvl(int metalMineLvl) {
+        this.metalMineLvl = metalMineLvl;
+    }
+
+    public int getDeuteriumMineLvl() {
+        return deuteriumMineLvl;
+    }
+
+    public void setDeuteriumMineLvl(int deuteriumMineLvl) {
+        this.deuteriumMineLvl = deuteriumMineLvl;
+    }
+
+    public void upgradeMetalMine() {
+        if (metal >= upgradeMetalMineLvlMetalCost) {
+            metal -= upgradeMetalMineLvlMetalCost;
+            setMetalMineLvl(metalMineLvl + 1);
+            upgradeMetalMineLvlMetalCost += upgradeMetalMineLvlMetalCost * 0.1;
+        }
+    }
+
+    public void upgradeDeuteriumMine() {
+        if (deuterium >= upgradeDeuteriumMineLvlDeuteriumCost) {
+            deuterium -= upgradeDeuteriumMineLvlDeuteriumCost;
+            setDeuteriumMineLvl(deuteriumMineLvl + 1);
+            upgradeDeuteriumMineLvlDeuteriumCost += upgradeDeuteriumMineLvlDeuteriumCost * 0.1;
+        }
+
+    }
+
+    public int getUpgradeMetalMineLvlMetalCost() {
+        return upgradeMetalMineLvlMetalCost;
+    }
+
+
+    public int getUpgradeDeuteriumMineLvlDeuteriumCost() {
+        return upgradeDeuteriumMineLvlDeuteriumCost;
+    }
+
+ 
+
+    
     
 }

@@ -44,8 +44,8 @@ public class Main{
 
         TimerTask resourceTask = new TimerTask() {
             public void run() {
-                planet.setMetal(planet.getMetal() + 2000);
-                planet.setDeuterium(planet.getDeuterium() + 200);
+                planet.setMetal(planet.getMetal() + 2000 * planet.getMetalMineLvl());
+                planet.setDeuterium(planet.getDeuterium() + 800 * planet.getDeuteriumMineLvl());
                 
             }
         };
@@ -287,7 +287,7 @@ class Time {
 
     static int secInMs = 1000;
     static int countdownBattleTime = secInMs * 5;
-    static int timeBetweenBattles = secInMs * 5;
+    static int timeBetweenBattles = secInMs * 120;
     static int timeBetweenResources = secInMs * 10;
 
 
