@@ -37,7 +37,7 @@ function generateStars() {
     const { stars: starCount } = calculateDensity();
     const docHeight = getDocumentHeight();
     
-    // Clear existing stars becouse of the resizing of the window
+    // Clear existing stars when the window is resized
     const existingStars = container.querySelectorAll('.star');
     if (existingStars.length > 0) {
         existingStars.forEach(star => star.remove());
@@ -77,13 +77,13 @@ const PLANET_COLORS = [
     { main: '#d4a55e', shadow: '#7a4a20', ring: 'rgba(240, 220, 180, 0.9)' }
 ];
 
-// Función para generar planetas optimizada
+// Generate planets and clear existing ones when the window is resized
 function generatePlanets() {
     const container = document.getElementById('stars-container');
     const { planets: planetCount } = calculateDensity();
     const docHeight = getDocumentHeight();
     
-    // Limpiar planetas existentes
+    // Clear existing planets when the window is resized
     container.querySelectorAll('.planet, .planet-ring').forEach(el => el.remove());
     
     const fragment = document.createDocumentFragment();
@@ -105,6 +105,7 @@ function generatePlanets() {
         planet.setAttribute('data-layer', i + 3);
         planet.setAttribute('data-original-y', (yPos / 100) * window.innerHeight);
         
+        // Add ring if the probability allows it
         if (hasRing) {
             const ringSize = size * (1.5 + Math.random() * 0.5);
             const ringThickness = size * (0.1 + Math.random() * 0.05);
@@ -127,7 +128,7 @@ function generatePlanets() {
     container.appendChild(fragment);
 }
 
-// Efecto de parallax optimizado con throttling
+// Parallax effect
 let lastScrollTime = 0;
 function parallaxEffect() {
     const now = Date.now();
@@ -136,13 +137,13 @@ function parallaxEffect() {
     
     const scrollPosition = window.scrollY;
     
-    // Mover estrellas
+    // Move star layers with parallax effect
     document.querySelectorAll('.star').forEach(star => {
         const layer = parseInt(star.getAttribute('data-layer'));
         star.style.transform = `translateY(-${scrollPosition * layer * 0.15}px)`;
     });
     
-    // Mover planetas
+    // Move planet layers with parallax effect
     document.querySelectorAll('.planet').forEach(planet => {
         const layer = parseInt(planet.getAttribute('data-layer'));
         const originalY = parseFloat(planet.getAttribute('data-original-y'));
@@ -155,7 +156,7 @@ function parallaxEffect() {
     });
 }
 
-// Observador de altura optimizado
+// Check document height and regenerate stars and planets if needed
 let lastHeight = 0;
 let heightCheckTimeout;
 function checkDocumentHeight() {
@@ -169,10 +170,10 @@ function checkDocumentHeight() {
             generatePlanets();
         }
         checkDocumentHeight();
-    }, 200); // Verificar cada 200ms en lugar de en cada frame
+    }, 200); // Verify every 200ms
 }
 
-// Inicialización optimizada
+// Start the background effects
 function initSpaceEffects() {
     if (!document.getElementById('stars-container')) {
         const starsContainer = document.createElement('div');
@@ -183,7 +184,7 @@ function initSpaceEffects() {
     generateStars();
     generatePlanets();
     
-    // Event listeners con debouncing
+    // Start parallax effect
     window.addEventListener('scroll', () => {
         requestAnimationFrame(parallaxEffect);
     });
@@ -199,15 +200,15 @@ function initSpaceEffects() {
     
     window.addEventListener('resize', resizeHandler);
     
-    // Iniciar observador de altura
+    // Start checking document height
     lastHeight = getDocumentHeight();
     checkDocumentHeight();
     
-    // Disparar evento scroll inicial
+    // Trigger initial scroll event
     window.dispatchEvent(new Event('scroll'));
 }
 
-// Función debounce para optimización
+// Debounce function to limit the frequency of function calls
 function debounce(func, wait) {
     let timeout;
     return function() {
@@ -217,7 +218,7 @@ function debounce(func, wait) {
     };
 }
 
-// Iniciar cuando el DOM esté listo
+// Start the space effects when the DOM is ready
 document.addEventListener('DOMContentLoaded', initSpaceEffects);
 
 
