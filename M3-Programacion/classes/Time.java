@@ -7,9 +7,10 @@ public class Time {
     private int totalSeconds;
     private int deltaTime;
 
+    public static int secondsCountdownBattle = 20;
     public static int secInMs = 1000;
-    public static int countdownBattleTime = secInMs * 20;
-    public static int timeBetweenBattles = secInMs * 10;
+    public static int countdownBattleTime = secInMs * secondsCountdownBattle;
+    public static int timeBetweenBattles = secInMs * 120;
     public static int timeBetweenResources = secInMs * 10;
 
 

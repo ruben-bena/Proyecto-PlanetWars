@@ -32,6 +32,7 @@ public class MiddlePanel extends JPanel{
         private MilitaryUnit allyUnit, enemyUnit;
         private Battle battle;
         private Color threatDisplayColor;
+        private int timerCountdown;
         MiddlePanel(Planet planet) {
             setLayout(new BorderLayout());
             add(new PaddingPanel(), BorderLayout.NORTH);
@@ -50,6 +51,7 @@ public class MiddlePanel extends JPanel{
                     }
                 }
             });
+            timerCountdown = Time.secondsCountdownBattle;
             this.planet = planet;
             threatDisplayColor = Color.WHITE;
             try {
@@ -80,6 +82,7 @@ public class MiddlePanel extends JPanel{
                     g2d.setFont(new Font("Arial", Font.BOLD, 48));
                     g2d.setColor(threatDisplayColor);
                     g2d.drawString("THREAT DETECTED", getWidth() / 2 - 230, 60);
+                    g2d.drawString(String.valueOf(timerCountdown), getWidth() / 2 - 20, 120);
                 }
 
                 // if combat has started
@@ -183,7 +186,7 @@ public class MiddlePanel extends JPanel{
             public void run() {
                 // TODO Auto-generated method stub
                 time = time + Time.secInMs;
-
+                timerCountdown--;
                
                 if(threatDisplayColor == Color.WHITE) {
                         threatDisplayColor = Color.RED;
@@ -193,6 +196,7 @@ public class MiddlePanel extends JPanel{
                 
                 if(time > Time.countdownBattleTime) {
                     cancel();
+                    timerCountdown = Time.secondsCountdownBattle;
                 }
 
                 repaint();

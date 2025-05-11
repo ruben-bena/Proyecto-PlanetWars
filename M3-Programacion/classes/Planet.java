@@ -317,7 +317,7 @@ public class Planet {
 
         // Moving all one position
         for(int i = battleReports.length - 1; i > 0; i--) {
-            System.out.println("Report = " + i);
+            // System.out.println("Report = " + i);
             battleReports[i] = battleReports[i-1];
         }
 

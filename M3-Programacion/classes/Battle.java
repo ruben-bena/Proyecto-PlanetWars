@@ -116,12 +116,12 @@ public class Battle {
         resourcesLosses[1][1] = initialCostFleet[1][1] + enemyDrops[1];
         resourcesLosses[0][2] = resourcesLosses[0][0] + 5 * resourcesLosses[0][1];
         resourcesLosses[1][2] = resourcesLosses[1][0] + 5 * resourcesLosses[1][1];
-        System.out.println("Initial cost fleet planet metal = " + initialCostFleet[0][0]);
-        System.out.println("Initial cost fleet planet deut = " + initialCostFleet[0][1]);
-        System.out.println("Initial cost fleet enemy metal = " + initialCostFleet[1][0]);
-        System.out.println("Initial cost fleet enemy deut = " + initialCostFleet[1][1]);
-        System.out.println("Losses by planet = " + resourcesLosses[0][2]);
-        System.out.println("Losses by enemy = " + resourcesLosses[1][2]);
+        // System.out.println("Initial cost fleet planet metal = " + initialCostFleet[0][0]);
+        // System.out.println("Initial cost fleet planet deut = " + initialCostFleet[0][1]);
+        // System.out.println("Initial cost fleet enemy metal = " + initialCostFleet[1][0]);
+        // System.out.println("Initial cost fleet enemy deut = " + initialCostFleet[1][1]);
+        // System.out.println("Losses by planet = " + resourcesLosses[0][2]);
+        // System.out.println("Losses by enemy = " + resourcesLosses[1][2]);
     }
 
     public int fleetResourceCost(ArrayList<MilitaryUnit>[] army) {
@@ -385,7 +385,7 @@ public class Battle {
                         defending_group = getGroupDefender(enemyArmy);
                         indexDefendingUnit = (int) (Math.random() * enemyArmy[defending_group].size());
                         defendingUnit = (MilitaryUnit) (enemyArmy[defending_group].get(indexDefendingUnit));
-                        System.out.println("enemy defending unit = " + defendingUnit.getName());
+                        // System.out.println("enemy defending unit = " + defendingUnit.getName());
 
                     }
                     
