@@ -275,7 +275,11 @@ public class Main{
 
     }
 
-    
+    // closeGame --> Saves all data in DDBB and then closes the program. It's called from the "Exit" button and closing the MainScreen
+    public void closeGame() {
+        // TODO: Store data in DDBB before saving (need the DDBB methods finished beforehand)
+        System.exit(0);
+    }
 }
 
 
