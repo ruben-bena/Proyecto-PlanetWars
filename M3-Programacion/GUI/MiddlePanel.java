@@ -76,11 +76,10 @@ public class MiddlePanel extends JPanel{
 
             if(planet.getCurrentThreat() != null) {
 
-                if(!planet.getCurrentThreat().isHasCombatStarted()) { // it gets here but I have to repaint() somewhere
+                if(!planet.getCurrentThreat().isHasCombatStarted()) {
                     g2d.setFont(new Font("Arial", Font.BOLD, 48));
                     g2d.setColor(threatDisplayColor);
                     g2d.drawString("THREAT DETECTED", getWidth() / 2 - 230, 60);
-                    System.out.println("a");
                 }
 
                 // if combat has started
