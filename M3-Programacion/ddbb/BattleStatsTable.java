@@ -24,8 +24,8 @@ public class BattleStatsTable implements Table {
         bst.setResource_deuterion_acquired(100);
         bst.modifyRow();
 
-        // // getRow test
-        // bst.getRow(1);
+        // getRow test
+        bst.getRow(1);
     }
 
     public BattleStatsTable(Database db, int num_battle, int planet_id, int resource_metal_acquired,
@@ -71,9 +71,30 @@ public class BattleStatsTable implements Table {
     }
 
     @Override
-    public void getRow(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRow'");
+    public void getRow(int num_battle) {
+        String selectQuery = "SELECT planet_id, resource_metal_acquired, resource_deuterion_acquired "
+            + "FROM Battle_stats WHERE num_battle = ?";
+        try (PreparedStatement ps = db.getConnection().prepareStatement(selectQuery)) {
+            ps.setInt(1, num_battle);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    planet_id = rs.getInt("planet_id");
+                    resource_metal_acquired = rs.getInt("resource_metal_acquired");
+                    resource_deuterion_acquired = rs.getInt("resource_deuterion_acquired");
+                    System.out.println("recovered row for num_battle=" + num_battle);
+                    
+                    // refresh planet_id in case it has changed (for example id we loaded another planet)
+                    if (this.num_battle != num_battle) {
+                        System.out.println("num_battle before = " + this.num_battle + ", num_battle now = " + num_battle);
+                        this.num_battle = num_battle;
+                    }
+                } else {
+                    System.out.println("no row with num_battle=" + num_battle + " in the ddbb");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
