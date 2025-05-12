@@ -1,0 +1,13 @@
+package classes;
+import ddbb.*;
+
+// This class will contain the objects that need to be accesed in many different classes
+public class GlobalContext {
+    public static Database db;
+    public static BattleLogTable battleLogTable;
+    public static BattleStatsTable battleStatsTable;
+    public static EnemyArmyTable enemyArmyTable;
+    public static PlanetBattleArmyTable planetBattleArmyTable;
+    public static PlanetBattleDefenseTable planetBattleDefenseTable;
+    public static PlanetStatsTable planetStatsTable;
+}
