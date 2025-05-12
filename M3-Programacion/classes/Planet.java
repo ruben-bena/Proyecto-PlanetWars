@@ -2,6 +2,7 @@ package classes;
 
 import java.util.ArrayList;
 
+// TODO: planets need a name
 public class Planet {
     private int technologyDefense;
     private int technologyAttack;
