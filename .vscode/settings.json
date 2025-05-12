@@ -4,5 +4,6 @@
     ],
     "java.project.referencedLibraries": [
         "ojdbc10.jar"
-    ]
+    ],
+    "java.debug.settings.onBuildFailureProceed": true
 }
