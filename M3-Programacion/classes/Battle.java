@@ -43,8 +43,7 @@ public class Battle {
     // InitialArmies[0][1] cazadores pesados en nuestro planeta antes de iniciar batalla..
     // Este array nos ayudará a calcular los costes de las flotas iniciales y por tanto, las
     // pérdidas.
-    private int[] actualNumberUnitsPlanet;
-    private int[] actualNumberUnitsEnemy; 
+
     private boolean hasCombatStarted;
     // arrays que
     // cuantifican las unidades actuales de cada grupo, tanto para el planeta, como para el
@@ -57,8 +56,6 @@ public class Battle {
     // actualNumberUnitsPlanet[5] --> Cañones de iones
     // actualNumberUnitsPlanet[6] --> Cañones de Plasma
 
-    private MilitaryUnit currentAttacking;
-    private MilitaryUnit currentDefending;
     private int planetArmyPercRemaining;
     private int enemyArmyPercRemaining;
     private int attackingArmy;
@@ -274,8 +271,7 @@ public class Battle {
         enemyDrops = new int[2];
         planetDrops = new int[2];
         initInitialArmies();
-        actualNumberUnitsPlanet = getArrayValuesFromArrayList(planetArmy);
-        actualNumberUnitsEnemy = getArrayValuesFromArrayList(enemyArmy);
+
 
         initialCostFleet[0][0] = getMetalCostOfArmy(planetArmy);
         initialCostFleet[0][1] = getDeuteriumCostOfArmy(planetArmy);
@@ -372,7 +368,7 @@ public class Battle {
                     }
                     
                     // System.out.println("Attacking unit index = " + indexAttackingUnit);
-                    currentAttacking = attackingUnit;
+
 
                     MilitaryUnit defendingUnit;
                     // Selecting defending group
@@ -388,8 +384,7 @@ public class Battle {
                         // System.out.println("enemy defending unit = " + defendingUnit.getName());
 
                     }
-                    
-                    currentDefending = defendingUnit;
+
 
                     
                     
