@@ -24,7 +24,8 @@ public class PlanetStatsTable implements Table {
     private int armored_ship_remaining;
     
     public static void main(String[] args) {
-        String url = "jdbc:oracle:thin:@//localhost:1521/freepdb1"; // Local VM Oracle ddbb
+        // String url = "jdbc:oracle:thin:@//localhost:1521/freepdb1"; // Local VM Oracle ddbb
+        String url = "jdbc:oracle:thin:@//192.168.1.39:1521/freepdb1"; // Local VM Oracle ddbb
         String username = "planetWars";
         String pass = "planetWars";
         PlanetStatsTable pst = new PlanetStatsTable(new Database(url, username, pass), 1, "prueba", 1,1,1,1,1,1,1,1,1,1,1,1);
@@ -62,30 +63,29 @@ public class PlanetStatsTable implements Table {
 
     @Override
     public void insertRow() {
-        String insertQuery = "INSERT INTO PlanetStats (" +
-            "planet_id, name, resource_metal_amount, resource_deuterion_amount, " +
+        String insertQuery = "INSERT INTO Planet_stats (" +
+            "name, resource_metal_amount, resource_deuterion_amount, " +
             "technology_defense_level, technology_attack_level, battles_counter, " +
             "missile_launcher_remaining, ion_cannon_remaining, plasma_cannon_remaining, " +
             "light_hunter_remaining, heavy_hunter_remaining, battleship_remaining, armored_ship_remaining" +
-            ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         System.out.println("query para insertar creada");
         try {
             PreparedStatement ps = db.getConnection().prepareStatement(insertQuery);
             System.out.println("PreparedStatement creado");
-            ps.setInt(1, planet_id);
-            ps.setString(2, name);
-            ps.setInt(3, resource_metal_amount);
-            ps.setInt(4, resource_deuterion_amount);
-            ps.setInt(5, technology_defense_level);
-            ps.setInt(6, technology_attack_level);
-            ps.setInt(7, battles_counter);
-            ps.setInt(8, missile_launcherremaining);
-            ps.setInt(9, ion_cannon_remaining);
-            ps.setInt(10, plasma_cannon_remaining);
-            ps.setInt(11, light_hunter_remaining);
-            ps.setInt(12, heavy_hunter_remaining);
-            ps.setInt(13, battleship_remaining);
-            ps.setInt(14, armored_ship_remaining);
+            ps.setString(1, name);
+            ps.setInt(2, resource_metal_amount);
+            ps.setInt(3, resource_deuterion_amount);
+            ps.setInt(4, technology_defense_level);
+            ps.setInt(5, technology_attack_level);
+            ps.setInt(6, battles_counter);
+            ps.setInt(7, missile_launcherremaining);
+            ps.setInt(8, ion_cannon_remaining);
+            ps.setInt(9, plasma_cannon_remaining);
+            ps.setInt(10, light_hunter_remaining);
+            ps.setInt(11, heavy_hunter_remaining);
+            ps.setInt(12, battleship_remaining);
+            ps.setInt(13, armored_ship_remaining);
 
             ps.executeUpdate();
             System.out.println("Inserción ejecutada correctamente");
