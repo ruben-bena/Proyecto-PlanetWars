@@ -46,7 +46,7 @@ public class PlanetStatsTable implements Table {
 
     public PlanetStatsTable(Database db, Planet planet) {
         this.db = db;
-        this.name = "prueba";
+        this.name = "prueba"; // TODO: needs to be well implemented in class Planet
         this.resource_metal_amount = planet.getMetal();
         this.resource_deuterion_amount = planet.getDeuterium();
         this.technology_defense_level = planet.getTechnologyDefense();
@@ -202,6 +202,60 @@ public class PlanetStatsTable implements Table {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void updateAttributes(Planet planet) {
+        /*
+        this.name = "prueba"; // TODO: needs to be well implemented in class Planet
+        this.resource_metal_amount = planet.getMetal();
+        this.resource_deuterion_amount = planet.getDeuterium();
+        this.technology_defense_level = planet.getTechnologyDefense();
+        this.technology_attack_level = planet.getTechnologyAttack();
+        this.battles_counter = planet.getNBattles();
+        this.missile_launcher_remaining = planet.getArmy()[4].size();
+        this.ion_cannon_remaining = planet.getArmy()[5].size();
+        this.plasma_cannon_remaining = planet.getArmy()[6].size();
+        this.light_hunter_remaining = planet.getArmy()[0].size();
+        this.heavy_hunter_remaining = planet.getArmy()[1].size();
+        this.battleship_remaining = planet.getArmy()[2].size();
+        this.armored_ship_remaining = planet.getArmy()[3].size();
+        */
+        if (this.resource_metal_amount != planet.getMetal()) {
+            this.resource_metal_amount = planet.getMetal();
+        }
+        if (this.resource_deuterion_amount != planet.getDeuterium()) {
+            this.resource_deuterion_amount = planet.getDeuterium();
+        }
+        if (this.technology_defense_level != planet.getTechnologyDefense()) {
+            this.technology_defense_level = planet.getTechnologyDefense();
+        }
+        if (this.technology_attack_level != planet.getTechnologyAttack()) {
+            this.technology_attack_level = planet.getTechnologyAttack();
+        }
+        if (this.battles_counter != planet.getNBattles()) {
+            this.battles_counter = planet.getNBattles();
+        }
+        if (this.missile_launcher_remaining != planet.getArmy()[4].size()) {
+            this.missile_launcher_remaining = planet.getArmy()[4].size();
+        }
+        if (this.ion_cannon_remaining != planet.getArmy()[5].size()) {
+            this.ion_cannon_remaining = planet.getArmy()[5].size();
+        }
+        if (this.plasma_cannon_remaining != planet.getArmy()[6].size()) {
+            this.plasma_cannon_remaining = planet.getArmy()[6].size();
+        }
+        if (this.light_hunter_remaining != planet.getArmy()[0].size()) {
+            this.light_hunter_remaining = planet.getArmy()[0].size();
+        }
+        if (this.heavy_hunter_remaining != planet.getArmy()[1].size()) {
+            this.heavy_hunter_remaining = planet.getArmy()[1].size();
+        }
+        if (this.battleship_remaining != planet.getArmy()[2].size()) {
+            this.battleship_remaining = planet.getArmy()[2].size();
+        }
+        if (this.armored_ship_remaining != planet.getArmy()[3].size()) {
+            this.armored_ship_remaining = planet.getArmy()[3].size();
         }
     }
     
