@@ -1,38 +1,3 @@
-// package ddbb;
-
-// public class PlanetBattleArmyTable implements Table {
-//     private Database db;
-//     private int planet_battle_army_id;
-//     private int num_battle;
-//     private int light_hunter_threat;
-//     private int light_hunter_destroyed;
-//     private int heavy_hunter_threat;
-//     private int heavy_hunter_destroyed;
-//     private int battleship_threat;
-//     private int battleship_destroyed;
-//     private int armored_ship_threat;
-//     private int armored_ship_destroyed;
-
-//     @Override
-//     public void insertRow() {
-//         // TODO Auto-generated method stub
-//         throw new UnsupportedOperationException("Unimplemented method 'insertRow'");
-//     }
-
-//     @Override
-//     public void getRow(int id) {
-//         // TODO Auto-generated method stub
-//         throw new UnsupportedOperationException("Unimplemented method 'getRow'");
-//     }
-
-//     @Override
-//     public void modifyRow() {
-//         // TODO Auto-generated method stub
-//         throw new UnsupportedOperationException("Unimplemented method 'modifyRow'");
-//     }
-
-// }
-
 package ddbb;
 
 import java.sql.PreparedStatement;
