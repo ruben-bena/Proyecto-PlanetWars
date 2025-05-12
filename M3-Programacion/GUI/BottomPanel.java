@@ -85,6 +85,11 @@ public class BottomPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
+                        if(planet.getCurrentThreat() != null) {
+                            if (planet.getCurrentThreat().isHasCombatStarted()) {
+                                return;
+                            }
+                        }
                         planet.newLightHunter(1);;
                     } catch (ResourceException e1) {
                         // TODO Auto-generated catch block
@@ -123,7 +128,7 @@ public class BottomPanel extends JPanel {
             heavyHunterPanel.setLayout(new BorderLayout());
             heavyHunterPanel.setBackground(Color.BLACK);
 
-            buyHeavyHunterButton = new JButton("buyLightHunter");
+            buyHeavyHunterButton = new JButton("buyHeavyHunter");
             buyHeavyHunterButton.setBackground(Color.white);
             buyHeavyHunterButton.setIcon(new ImageIcon(HeavyHunter.getImgIcon().getImage().getScaledInstance(70, 100, Image.SCALE_SMOOTH)));
             buyHeavyHunterButton.setFont(new Font("Arial", 1, 0));
@@ -134,6 +139,11 @@ public class BottomPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
+                        if(planet.getCurrentThreat() != null) {
+                            if (planet.getCurrentThreat().isHasCombatStarted()) {
+                                return;
+                            }
+                        }
                         planet.newHeavyHunter(1);;
                     } catch (ResourceException e1) {
                         // TODO Auto-generated catch block
@@ -190,6 +200,11 @@ public class BottomPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
+                        if(planet.getCurrentThreat() != null) {
+                            if (planet.getCurrentThreat().isHasCombatStarted()) {
+                                return;
+                            }
+                        }
                         planet.newBattleShip(1);;
                     } catch (ResourceException e1) {
                         // TODO Auto-generated catch block
@@ -242,6 +257,11 @@ public class BottomPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
+                        if(planet.getCurrentThreat() != null) {
+                            if (planet.getCurrentThreat().isHasCombatStarted()) {
+                                return;
+                            }
+                        }
                         planet.newArmoredShip(1);
                     } catch (ResourceException e1) {
                         // TODO Auto-generated catch block
@@ -294,6 +314,11 @@ public class BottomPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
+                        if(planet.getCurrentThreat() != null) {
+                            if (planet.getCurrentThreat().isHasCombatStarted()) {
+                                return;
+                            }
+                        }
                         planet.newMissileLauncher(1);
                     } catch (ResourceException e1) {
                         // TODO Auto-generated catch block
@@ -347,6 +372,11 @@ public class BottomPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
+                        if(planet.getCurrentThreat() != null) {
+                            if (planet.getCurrentThreat().isHasCombatStarted()) {
+                                return;
+                            }
+                        }
                         planet.newIonCannon(1);
                     } catch (ResourceException e1) {
                         // TODO Auto-generated catch block
@@ -399,6 +429,11 @@ public class BottomPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
+                        if(planet.getCurrentThreat() != null) {
+                            if (planet.getCurrentThreat().isHasCombatStarted()) {
+                                return;
+                            }
+                        }
                         planet.newPlasmaCannon(1);
                     } catch (ResourceException e1) {
                         // TODO Auto-generated catch block

@@ -14,6 +14,8 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -29,6 +31,8 @@ public class MiddlePanel extends JPanel{
         private Graphics2D g2d;
         private MilitaryUnit allyUnit, enemyUnit;
         private Battle battle;
+        private Color threatDisplayColor;
+        private int timerCountdown;
         MiddlePanel(Planet planet) {
             setLayout(new BorderLayout());
             add(new PaddingPanel(), BorderLayout.NORTH);
@@ -47,7 +51,9 @@ public class MiddlePanel extends JPanel{
                     }
                 }
             });
+            timerCountdown = Time.secondsCountdownBattle;
             this.planet = planet;
+            threatDisplayColor = Color.WHITE;
             try {
                 earthImage = ImageIO.read(new File("./M3-Programacion/GUI/images/earth.jpg"));
                 battleScene = ImageIO.read(new File("./M3-Programacion/GUI/images/space.jpg"));
@@ -60,7 +66,7 @@ public class MiddlePanel extends JPanel{
 
             activeImage = earthImage;
             
-            // Things to fix: 1. Timer for another battle is almost instant after the battle is over
+            // Things to fix: 1. Timer for another battle is almost instant after the battle is over // Fixed, maybe could use some improvements though
             // Things to add: 1. Cheats pop-up
         }
 
@@ -71,6 +77,15 @@ public class MiddlePanel extends JPanel{
             g2d.drawImage(activeImage.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH), 0, 0, this);
 
             if(planet.getCurrentThreat() != null) {
+
+                if(!planet.getCurrentThreat().isHasCombatStarted()) {
+                    g2d.setFont(new Font("Arial", Font.BOLD, 48));
+                    g2d.setColor(threatDisplayColor);
+                    g2d.drawString("THREAT DETECTED", getWidth() / 2 - 230, 60);
+                    g2d.drawString(String.valueOf(timerCountdown), getWidth() / 2 - 20, 120);
+                }
+
+                // if combat has started
                 if(planet.getCurrentThreat().isHasCombatStarted()) {
                     g2d.setFont(new Font("Arial", 1, 32));
                     g2d.setColor(new Color(255,255,255, 220));
@@ -156,5 +171,40 @@ public class MiddlePanel extends JPanel{
             repaint();
         }
 
-        
+        class ThreatDisplayTimer extends TimerTask {
+            private int time;
+            private Timer timer;
+            public ThreatDisplayTimer() {
+                time = 0;
+                timer = new Timer();
+
+                timer.schedule(this, 0, Time.secInMs);
+
+            }
+
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                time = time + Time.secInMs;
+                timerCountdown--;
+               
+                if(threatDisplayColor == Color.WHITE) {
+                        threatDisplayColor = Color.RED;
+                } else {
+                        threatDisplayColor = Color.WHITE;
+                    }
+                
+                if(time > Time.countdownBattleTime) {
+                    cancel();
+                    timerCountdown = Time.secondsCountdownBattle;
+                }
+
+                repaint();
+
+            }
+        }
+
+        public void doThreatDisplay() {
+            new ThreatDisplayTimer();
+        }
     }

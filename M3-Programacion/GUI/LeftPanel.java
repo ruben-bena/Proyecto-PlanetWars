@@ -34,14 +34,14 @@ import javax.swing.border.Border;
 
 public class LeftPanel extends JPanel implements ActionListener{
         private JPanel mainPanel, rotatingEarthPanel, infoPanel, metalTextPanel, metalResourcePanel, deuteriumTextPanel, deuteriumResourcePanel, technologyPanel,
-        techAttackPanel, techDefensePanel, technologyTextPanel, resourcesTextPanel;
+        techAttackPanel, techDefensePanel, technologyTextPanel, resourcesTextPanel, minesPanel, minesTxtPanel, metalMinePanel, deuteriumMinePanel;
         private ImageIcon rotatingEarthIcon, metalIcon, deuteriumIcon, techDefenseIcon, techAttackIcon, plusIcon;
         private JLabel rotatingEarthLabel, metalTextLabel, deuteriumTextLabel, metalImageLabel, deuteriumImageLabel, metalAmountLabel, 
         deuteriumAmountLabel, technologyTextLabel, techAttackImgLabel, techDefenseImgLabel, techAttackLvlCost, techDefenseLvlCost, techAttackLvlUpLabel,
-        resourcesTextLabel;
+        resourcesTextLabel, minesTxtLabel, metalMineImgLabel, deuteriumMineImgLabel, metalMineCostLabel, deuteriumMineCostLabel;
         private String metalStr, deuteriumStr;
-        private JButton lvlUpAttackButton, lvlUpDefenseButton;
-        private JTextArea techAttackLvlAmountTextArea, techDefenseLvlAmountTextArea;
+        private JButton lvlUpAttackButton, lvlUpDefenseButton,lvlUpMetalMineButton, lvlUpDeuteriumMineButton;
+        private JTextArea techAttackLvlAmountTextArea, techDefenseLvlAmountTextArea, metalMineLvlTextArea, deuteriumMineLvlTextArea;
     
         LeftPanel(Planet planet) {
             setSize(new Dimension(230,230));
@@ -75,7 +75,7 @@ public class LeftPanel extends JPanel implements ActionListener{
 
             // Making the info panel
             infoPanel = new JPanel();
-            infoPanel.setLayout(new GridLayout(4,1));
+            infoPanel.setLayout(new GridLayout(3,1));
 
             resourcesTextLabel = new JLabel("Resources");
             resourcesTextLabel.setFont(new Font("Arial", 1, 24));
@@ -92,7 +92,7 @@ public class LeftPanel extends JPanel implements ActionListener{
             Image metalIconScaled = metalIcon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
             metalImageLabel = new JLabel(new ImageIcon(metalIconScaled));
 
-            metalStr = String.valueOf(planet.getMetal());
+            metalStr = String.valueOf(planet.getMetal() + " +" + 2000 * planet.getMetalMineLvl());
             metalTextLabel = new JLabel(metalStr);
             metalTextLabel.setFont(new Font("Arial", 1, 20));
 
@@ -105,7 +105,7 @@ public class LeftPanel extends JPanel implements ActionListener{
             Image redstoneIconScaled = deuteriumIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
             deuteriumImageLabel = new JLabel(new ImageIcon(redstoneIconScaled));
 
-            deuteriumStr = String.valueOf(planet.getDeuterium());
+            deuteriumStr = String.valueOf(planet.getDeuterium()) + " +" + 800 * planet.getDeuteriumMineLvl();
             deuteriumTextLabel = new JLabel(deuteriumStr);
             deuteriumTextLabel.setFont(new Font("Arial", 1, 20));
 
@@ -122,7 +122,7 @@ public class LeftPanel extends JPanel implements ActionListener{
             technologyPanel.setLayout(new GridLayout(3,1));
 
             technologyTextPanel = new JPanel();
-            technologyTextPanel.setBackground(new Color(50,50,50));
+            technologyTextPanel.setBackground(new Color(30,30,30));
 
             technologyTextLabel = new JLabel("Technology");
             technologyTextLabel.setFont(new Font("Arial", 1, 24));
@@ -218,11 +218,94 @@ public class LeftPanel extends JPanel implements ActionListener{
             technologyPanel.add(techAttackPanel);
             technologyPanel.add(techDefensePanel);
 
+            // Mines panel
+            minesPanel = new JPanel();
+            minesPanel.setLayout(new GridLayout(3,1));
+            minesPanel.setBackground(Color.PINK);
+
+            minesTxtPanel = new JPanel();
+            minesTxtPanel.setBackground(new Color(30,30,30));
+            minesTxtLabel = new JLabel("Mines");
+            minesTxtLabel.setFont(new Font("Arial", 1, 24));
+            minesTxtLabel.setForeground(Color.WHITE);
+            minesTxtPanel.add(minesTxtLabel);
+
+            // metal mine panel
+            metalMinePanel = new JPanel();
+
+            metalMineLvlTextArea = new JTextArea("" + planet.getMetalMineLvl());
+            metalMineLvlTextArea.setEditable(false);
+            metalMineLvlTextArea.setFont(new Font("Arial", 1, 20));
+            metalMineLvlTextArea.setPreferredSize(new Dimension(30,30));
+            metalMinePanel.add(metalMineLvlTextArea);
+
+            lvlUpMetalMineButton = new JButton("lvlUpMetalMine");
+            lvlUpMetalMineButton.setIcon(new ImageIcon(plusIconScaled));
+            lvlUpMetalMineButton.setFont(new Font("Arial", 1, 0));
+            lvlUpMetalMineButton.setSize(30, 30);
+            lvlUpMetalMineButton.setPreferredSize(new Dimension(plusIconScaled.getWidth(this),plusIconScaled.getHeight(this)));
+            lvlUpMetalMineButton.addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    planet.upgradeMetalMine();
+                }
+                
+            });
+            metalMineImgLabel = new JLabel(new ImageIcon(metalIconScaled));
+
+            metalMineCostLabel = new JLabel("" + planet.getUpgradeMetalMineLvlMetalCost());
+            metalMineCostLabel.setFont(new Font("Arial", 1, 20));
+
+            metalMinePanel.add(lvlUpMetalMineButton);
+            metalMinePanel.add(metalMineImgLabel);
+            metalMinePanel.add(metalMineCostLabel);
+            metalMinePanel.add(new JLabel(new ImageIcon(metalIconScaled.getScaledInstance(20, 20, Image.SCALE_SMOOTH))));
+
+            // deuterium mine panel
+            deuteriumMinePanel = new JPanel();
+
+            deuteriumMineLvlTextArea = new JTextArea("" + planet.getDeuteriumMineLvl());
+            deuteriumMineLvlTextArea.setEditable(false);
+            deuteriumMineLvlTextArea.setFont(new Font("Arial", 1, 20));
+            deuteriumMineLvlTextArea.setPreferredSize(new Dimension(30,30));
+            deuteriumMinePanel.add(deuteriumMineLvlTextArea);
+
+            lvlUpDeuteriumMineButton = new JButton("lvlUpDeuteriumMine");
+            lvlUpDeuteriumMineButton.setIcon(new ImageIcon(plusIconScaled));
+            lvlUpDeuteriumMineButton.setFont(new Font("Arial", 1, 0));
+            lvlUpDeuteriumMineButton.setSize(30, 30);
+            lvlUpDeuteriumMineButton.setPreferredSize(new Dimension(plusIconScaled.getWidth(this),plusIconScaled.getHeight(this)));
+            lvlUpDeuteriumMineButton.addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    planet.upgradeDeuteriumMine();
+                }
+                
+            });
+            deuteriumMineImgLabel = new JLabel(new ImageIcon(redstoneIconScaled));
+
+            deuteriumMineCostLabel = new JLabel("" + planet.getUpgradeDeuteriumMineLvlDeuteriumCost());
+            deuteriumMineCostLabel.setFont(new Font("Arial", 1, 20));
+
+            deuteriumMinePanel.add(lvlUpDeuteriumMineButton);
+            deuteriumMinePanel.add(deuteriumMineImgLabel);
+            deuteriumMinePanel.add(deuteriumMineCostLabel);
+            deuteriumMinePanel.add(new JLabel(new ImageIcon(redstoneImageScaledTiny)));
+
+
+            //
+            minesPanel.add(minesTxtPanel);
+            minesPanel.add(metalMinePanel);
+            minesPanel.add(deuteriumMinePanel);
+
 
             // Adding everything in order
             mainPanel.add(rotatingEarthPanel);
             mainPanel.add(infoPanel);
             mainPanel.add(technologyPanel);
+            mainPanel.add(minesPanel);
 
             
             
@@ -260,6 +343,23 @@ public class LeftPanel extends JPanel implements ActionListener{
 
         public void addTechLvlPlanet(Planet planet) throws ResourceException {
             planet.upgradeTechnologyAttack();
+        }
+        
+
+        public JLabel getMetalMineCostLabel() {
+            return metalMineCostLabel;
+        }
+
+        public JLabel getDeuteriumMineCostLabel() {
+            return deuteriumMineCostLabel;
+        }
+
+        public JTextArea getMetalMineLvlTextArea() {
+            return metalMineLvlTextArea;
+        }
+
+        public JTextArea getDeuteriumMineLvlTextArea() {
+            return deuteriumMineLvlTextArea;
         }
 
         @Override

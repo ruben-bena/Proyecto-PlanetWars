@@ -39,12 +39,13 @@ public class MainPanel extends JPanel {
     private BottomPanel bottomPanel;
     private MiddlePanel middlePanel;
 
-    MainPanel(Planet planet) {
+
+    MainPanel(Planet planet, MainScreen ms) {
         setBackground(Color.BLUE);
         setLayout(new BorderLayout());
 
         leftPanel = new LeftPanel(planet);
-        rightPanel = new RightPanel();
+        rightPanel = new RightPanel(planet, ms);
         bottomPanel = new BottomPanel(planet);
         middlePanel = new MiddlePanel(planet);
         
@@ -87,12 +88,16 @@ public class MainPanel extends JPanel {
 
 
     public void updateAll(Planet planet) {
-        leftPanel.getMetalJLabel().setText(String.valueOf(planet.getMetal()));
-        leftPanel.getDeuteriumJLabel().setText(String.valueOf(planet.getDeuterium()));
+        leftPanel.getMetalJLabel().setText((planet.getMetal() + " +" + 2000 * planet.getMetalMineLvl()));
+        leftPanel.getDeuteriumJLabel().setText(String.valueOf(planet.getDeuterium()) + " +" + 800 * planet.getDeuteriumMineLvl());
         leftPanel.getTechAttackLvlAmountTextArea().setText("" + planet.getTechnologyAttack());
         leftPanel.getTechAttackLvlCost().setText("" + planet.getUpgradeAttackTechnologyDeuteriumCost());
         leftPanel.getTechDefenseLvlAmountTextArea().setText("" + planet.getTechnologyDefense());
         leftPanel.getTechDefenseLvlCost().setText("" + planet.getUpgradeDefenseTechnologyDeuteriumCost());
+        leftPanel.getMetalMineLvlTextArea().setText("" + planet.getMetalMineLvl());
+        leftPanel.getDeuteriumMineLvlTextArea().setText("" + planet.getDeuteriumMineLvl());
+        leftPanel.getMetalMineCostLabel().setText("" + planet.getUpgradeMetalMineLvlMetalCost());
+        leftPanel.getDeuteriumMineCostLabel().setText("" + planet.getUpgradeDeuteriumMineLvlDeuteriumCost());
 
         bottomPanel.getLightHunterNameLabel().setText("Light Hunter - " + planet.getArmy()[0].size());
         bottomPanel.getHeavyHunterNameLabel().setText("Heavy Hunter - " + planet.getArmy()[1].size());
@@ -101,5 +106,8 @@ public class MainPanel extends JPanel {
         bottomPanel.getMissileLauncherNameLabel().setText("Missile Launcher - " + planet.getArmy()[4].size());
         bottomPanel.getIonCannonNameLabel().setText("Ion Cannon - " + planet.getArmy()[5].size());
         bottomPanel.getPlasmaCannonNameLabel().setText("Plasma Cannon - " + planet.getArmy()[6].size());
+
+        rightPanel.getMetalCostFixLabel().setText("" + planet.getFixArmyCost()[0]);
+        rightPanel.getDeuteriumCostFixLabel().setText("" + planet.getFixArmyCost()[1]);
     }
 }

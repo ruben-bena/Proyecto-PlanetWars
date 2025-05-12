@@ -15,38 +15,14 @@ public class Main{
         planet.newIonCannon(3);
         planet.newArmoredShip(1);
 
-        // TODO I should add a "elligible for combat" mechanic, for instance if planet doesn't have any MilitaryUnits, to not be threatened.
-        // Add battle report, add skip battle mechanic
-        // Thing to fix: 1. Skip using space doesn't work if you have bought or done something, because it thinks you're "clicking" with spacebar
+        // Things to add: The ability to "fix" damaged troops.
 
         MainScreen ms = new MainScreen(planet);
         ms.getMainPanel().getMiddlePanel().requestFocusInWindow();
+       
+        new ThreatTimer(planet, ms);
+        new ResourceTimer(planet);
 
-        Timer timer = new Timer();
-        
-
-        TimerTask threatTimer = new TimerTask() {
-            public void run() {
-                if (!planet.isActiveThreat() && planet.isElligibleForCombat()) {
-                    planet.setCurrentThreat(new Battle(planet, ms.getMainPanel()));
-                    planet.setActiveThreat(true);
-                    
-
-                }
-                
-            }
-        };
-
-        TimerTask resourceTask = new TimerTask() {
-            public void run() {
-                planet.setMetal(planet.getMetal() + 2000);
-                planet.setDeuterium(planet.getDeuterium() + 200);
-                
-            }
-        };
-        
-        timer.schedule(threatTimer, Time.timeBetweenBattles, Time.timeBetweenBattles);
-        timer.schedule(resourceTask, Time.timeBetweenResources, Time.timeBetweenResources);
 
         String menu = """
                 1) View Planet Stats
@@ -175,13 +151,10 @@ public class Main{
 
 
     }
-    // public static void newGame(Planet planet, TimerTask threatTask, TimerTask resourceTask, Timer timer) {
-    //     planet = new Planet(1, 1, 300000, 40000, 3000, 3000);
-    //     threatTask.cancel();
-    //     resourceTask.cancel();
-    //     timer.schedule(resourceTask, Time.timeBetweenResources, Time.timeBetweenResources);
-    //     timer.schedule(threatTask, Time.timeBetweenBattles, Time.timeBetweenBattles);
-    // }
+    public static void newGame(Planet planet) throws ResourceException {
+        planet.newGame();
+        
+    }
 
     public static ArrayList<MilitaryUnit>[] createEnemyArmy(Planet planet) {
         ArrayList<MilitaryUnit>[] army = new ArrayList[7];
@@ -194,8 +167,8 @@ public class Main{
         }
         ////////
 
-        int metalInitialResources = 300000 + 20000 * planet.getNBattles(); // This way it gets progressively harder
-        int deuteriumInitialResources = 4000 + 300 * planet.getNBattles();
+        int metalInitialResources = 300000 + (60000 * planet.getNBattles() * planet.getDifficulty()); // This way it gets progressively harder
+        int deuteriumInitialResources = 24000 + (7000 * planet.getNBattles() * planet.getDifficulty());
         int option = -1;
 
         // light hunter [0]
@@ -264,12 +237,6 @@ public class Main{
         return army;
     }
 
-    public void announceCombat(ArrayList<MilitaryUnit>[] enemyArmy) {
-        // enemyArmy = createEnemyArmy();
-        System.out.println("NEW THREAT IS COMING");
-
-    }
-
     // closeGame --> Saves all data in DDBB and then closes the program. It's called from the "Exit" button and closing the MainScreen
     public void closeGame() {
         // TODO: Store data in DDBB before saving (need the DDBB methods finished beforehand)
@@ -277,67 +244,5 @@ public class Main{
     }
 }
 
-class Time {
-    private int miliseconds;
-    private int seconds;
-    private int minutes;
-    private int totalSeconds;
-    private int deltaTime;
 
-    static int secInMs = 1000;
-    static int countdownBattleTime = secInMs * 5;
-    static int timeBetweenBattles = secInMs * 5;
-    static int timeBetweenResources = secInMs * 10;
-
-
-    public Time() {
-        this.miliseconds = 0;
-        this.seconds = 0;
-        this.minutes = 0;
-        this.totalSeconds = 0;
-        this.deltaTime = secInMs/50;
-    }
-
-    public int getSeconds() {
-        return seconds;
-    }
-
-    public void setSeconds(int seconds) {
-        this.seconds = seconds;
-    }
-
-    public int getMinutes() {
-        return minutes;
-    }
-
-    public void setMinutes(int minutes) {
-        this.minutes = minutes;
-    }
-
-    public int getTotalSeconds() {
-        return totalSeconds;
-    }
-
-    public void setTotalSeconds(int totalSeconds) {
-        this.totalSeconds = totalSeconds;
-    }
-
-    public int getDeltaTime() {
-        return deltaTime;
-    }
-
-    public void setDeltaTime(int deltaTime) {
-        this.deltaTime = deltaTime;
-    }
-
-    public int getMiliseconds() {
-        return miliseconds;
-    }
-
-    public void setMiliseconds(int miliseconds) {
-        this.miliseconds = miliseconds;
-    }
-
-    
-}
 

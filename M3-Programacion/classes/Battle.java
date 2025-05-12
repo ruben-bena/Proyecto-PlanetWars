@@ -64,7 +64,7 @@ public class Battle {
     private int attackingArmy;
     private boolean skipBattle;
 
-    public Battle(Planet planet, MainPanel mp) {
+    public Battle(Planet planet, MainPanel mp, MainScreen ms) {
         this.planetArmy = planet.getArmy();
         this.enemyArmy = Main.createEnemyArmy(planet);
         this.initialCostFleet = new int[2][2];
@@ -83,6 +83,9 @@ public class Battle {
 
                 planet.setNBattles(planet.getNBattles() + 1);
                 mp.getMiddlePanel().changeScreenToDefaultScene();
+                planet.setCurrentThreat(null);
+                // Maybe I should add the threat timer here, so it starts counting after the battle is over
+                new ThreatTimer(planet, ms);
                 
             }
         };
@@ -113,12 +116,12 @@ public class Battle {
         resourcesLosses[1][1] = initialCostFleet[1][1] + enemyDrops[1];
         resourcesLosses[0][2] = resourcesLosses[0][0] + 5 * resourcesLosses[0][1];
         resourcesLosses[1][2] = resourcesLosses[1][0] + 5 * resourcesLosses[1][1];
-        System.out.println("Initial cost fleet planet metal = " + initialCostFleet[0][0]);
-        System.out.println("Initial cost fleet planet deut = " + initialCostFleet[0][1]);
-        System.out.println("Initial cost fleet enemy metal = " + initialCostFleet[1][0]);
-        System.out.println("Initial cost fleet enemy deut = " + initialCostFleet[1][1]);
-        System.out.println("Losses by planet = " + resourcesLosses[0][2]);
-        System.out.println("Losses by enemy = " + resourcesLosses[1][2]);
+        // System.out.println("Initial cost fleet planet metal = " + initialCostFleet[0][0]);
+        // System.out.println("Initial cost fleet planet deut = " + initialCostFleet[0][1]);
+        // System.out.println("Initial cost fleet enemy metal = " + initialCostFleet[1][0]);
+        // System.out.println("Initial cost fleet enemy deut = " + initialCostFleet[1][1]);
+        // System.out.println("Losses by planet = " + resourcesLosses[0][2]);
+        // System.out.println("Losses by enemy = " + resourcesLosses[1][2]);
     }
 
     public int fleetResourceCost(ArrayList<MilitaryUnit>[] army) {
@@ -314,7 +317,8 @@ public class Battle {
             
             // System.out.println("Initial fleet number Planet = " + initialFleetNumber(planetArmy));
             // System.out.println(remainderPercentageFleetPlanet() > 20 && remainderPercentageFleetEnemy() > 20);
-            while(remainderPercentageFleetPlanet() > 20 && remainderPercentageFleetEnemy() > 20) { ///////////////////////////////////////////////////////
+            while(remainderPercentageFleetPlanet() > 20 && remainderPercentageFleetEnemy() > 20) { /////////////////////////
+                mainPanel.getMiddlePanel().requestFocusInWindow();
                 planetArmyPercRemaining = remainderPercentageFleetPlanet();
                 enemyArmyPercRemaining = remainderPercentageFleetEnemy();
                 // System.out.println("Percentage Planet army = " + remainderPercentageFleet(armies[0]));
@@ -381,7 +385,7 @@ public class Battle {
                         defending_group = getGroupDefender(enemyArmy);
                         indexDefendingUnit = (int) (Math.random() * enemyArmy[defending_group].size());
                         defendingUnit = (MilitaryUnit) (enemyArmy[defending_group].get(indexDefendingUnit));
-                        System.out.println("enemy defending unit = " + defendingUnit.getName());
+                        // System.out.println("enemy defending unit = " + defendingUnit.getName());
 
                     }
                     

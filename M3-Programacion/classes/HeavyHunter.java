@@ -80,4 +80,14 @@ public class HeavyHunter extends Ship implements MilitaryUnit {
         }
         return null;
     }
+
+    public boolean hasBeenDamaged() {
+        // TODO Auto-generated method stub
+        if(getArmor() < getInitialArmor()) {
+            return true;
+        }
+        else { 
+            return false;
+        }
+    }
 }

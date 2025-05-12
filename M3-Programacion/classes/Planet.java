@@ -14,6 +14,11 @@ public class Planet {
     private Battle currentThreat;
     private String[] battleReports;
     private int nBattles;
+    private int metalMineLvl;
+    private int deuteriumMineLvl;
+    private int upgradeMetalMineLvlMetalCost;
+    private int upgradeDeuteriumMineLvlDeuteriumCost;
+    private int difficulty;
 
     // Army[0] → arrayList de Ligth Hunter
     // Army[1] → arrayList de Heavy Hunter
@@ -29,8 +34,11 @@ public class Planet {
         this.technologyAttack = technologyAtack;
         this.metal = metal;
         this.deuterium = deuterium;
+        this.difficulty = 1;
         this.upgradeDefenseTechnologyDeuteriumCost = upgradeDefenseTechnologyDeuteriumCost;
         this.upgradeAttackTechnologyDeuteriumCost = upgradeAttackTechnologyDeuteriumCost;
+        this.upgradeMetalMineLvlMetalCost = 10000;
+        this.upgradeDeuteriumMineLvlDeuteriumCost = 4000;
         this.army = new ArrayList[7];
         this.isActiveThreat = false;
         this.battleReports = new String[5];
@@ -38,6 +46,9 @@ public class Planet {
             army[i] = new ArrayList<MilitaryUnit>();
         }
         this.nBattles = 0;
+        this.metalMineLvl = 1;
+        this.deuteriumMineLvl = 1;
+
     }
 
     public void upgradeTechnologyDefense() throws ResourceException {
@@ -103,6 +114,14 @@ public class Planet {
             
         }
     }
+    public int getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
+    }
+
     public void newBattleShip(int n) throws ResourceException {
         // First it tries to use deuterium, if you don't have enough, it tries to use metal
         int armor = Variables.ARMOR_BATTLESHIP + (getTechnologyDefense() * Variables.PLUS_ARMOR_BATTLESHIP_BY_TECHNOLOGY) * (Variables.ARMOR_BATTLESHIP/100);
@@ -309,7 +328,7 @@ public class Planet {
 
         // Moving all one position
         for(int i = battleReports.length - 1; i > 0; i--) {
-            System.out.println("Report = " + i);
+            // System.out.println("Report = " + i);
             battleReports[i] = battleReports[i-1];
         }
 
@@ -342,7 +361,11 @@ public class Planet {
         setCurrentThreat(null);
         upgradeDefenseTechnologyDeuteriumCost = 3000;
         upgradeAttackTechnologyDeuteriumCost = 3000;
+        upgradeMetalMineLvlMetalCost = 10000;
+        upgradeDeuteriumMineLvlDeuteriumCost = 4000;
         battleReports = new String[5];
+        metalMineLvl = 1;
+        deuteriumMineLvl = 1;
 
         army = new ArrayList[7];
         for(int i = 0; i < army.length; i++) {
@@ -373,5 +396,90 @@ public class Planet {
 
         return true;
     }
+
+    public int getMetalMineLvl() {
+        return metalMineLvl;
+    }
+
+    public void setMetalMineLvl(int metalMineLvl) {
+        this.metalMineLvl = metalMineLvl;
+    }
+
+    public int getDeuteriumMineLvl() {
+        return deuteriumMineLvl;
+    }
+
+    public void setDeuteriumMineLvl(int deuteriumMineLvl) {
+        this.deuteriumMineLvl = deuteriumMineLvl;
+    }
+
+    public void upgradeMetalMine() {
+        if (metal >= upgradeMetalMineLvlMetalCost) {
+            metal -= upgradeMetalMineLvlMetalCost;
+            setMetalMineLvl(metalMineLvl + 1);
+            upgradeMetalMineLvlMetalCost += upgradeMetalMineLvlMetalCost * 0.1;
+        }
+    }
+
+    public void upgradeDeuteriumMine() {
+        if (deuterium >= upgradeDeuteriumMineLvlDeuteriumCost) {
+            deuterium -= upgradeDeuteriumMineLvlDeuteriumCost;
+            setDeuteriumMineLvl(deuteriumMineLvl + 1);
+            upgradeDeuteriumMineLvlDeuteriumCost += upgradeDeuteriumMineLvlDeuteriumCost * 0.1;
+        }
+
+    }
+
+    public int getUpgradeMetalMineLvlMetalCost() {
+        return upgradeMetalMineLvlMetalCost;
+    }
+
+
+    public int getUpgradeDeuteriumMineLvlDeuteriumCost() {
+        return upgradeDeuteriumMineLvlDeuteriumCost;
+    }
+
+    public void resetArmyArmor() {
+        for (int i = 0; i < army.length; i++) {
+            for (int j = 0; j < army[i].size(); j++) {
+                army[i].get(j).resetArmor();
+            }
+        }
+    }
+
+    public int[] getFixArmyCost() {
+        int[] cost = new int[2];
+        int metalCost = 0;
+        int deuteriumCost = 0;
+        
+
+        for (int i = 0; i < army.length; i++) {
+            for (int j = 0; j < army[i].size(); j++) {
+                if (army[i].get(j).hasBeenDamaged()){
+                    metalCost += army[i].get(j).getMetalCost() / 2;
+                    deuteriumCost += army[i].get(j).getDeuteriumCost() / 2;
+                }
+            }
+        }
+
+        cost[0] = metalCost;
+        cost[1] = deuteriumCost;
+
+        return cost;
+    }
+
+    public String getDifficultyStr() {
+        if (difficulty == 1) {
+            return "Easy";
+        }
+        else if (difficulty == 2) {
+            return "Medium";
+        }
+        else {
+            return "Hard";
+        }
+    }
+
+    
     
 }
