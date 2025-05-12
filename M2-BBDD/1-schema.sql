@@ -47,10 +47,9 @@ CREATE TABLE Battle_log
         num_line   NUMBER
                    GENERATED ALWAYS AS IDENTITY START WITH 1
                    PRIMARY KEY,
-        planet_id  NUMBER NOT NULL,
         num_battle NUMBER NOT NULL,
 
-        log_entry VARCHAR2(4000) NOT NULL,
+        log_entry CLOB NOT NULL,
 
         CONSTRAINT fk_battle_log_battle_stats
             FOREIGN KEY ( num_battle )
