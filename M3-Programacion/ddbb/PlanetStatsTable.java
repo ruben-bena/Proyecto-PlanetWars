@@ -26,7 +26,7 @@ public class PlanetStatsTable implements Table {
     
     public static void main(String[] args) {
         // String url = "jdbc:oracle:thin:@//localhost:1521/freepdb1"; // Local VM Oracle ddbb
-        String url = "jdbc:oracle:thin:@//192.168.1.39:1521/freepdb1"; // Local VM Oracle ddbb
+        String url = "jdbc:oracle:thin:@//localhost:1521/freepdb1"; // Local VM Oracle ddbb
         String username = "planetWars";
         String pass = "planetWars";
         PlanetStatsTable pst = new PlanetStatsTable(new Database(url, username, pass), 1, "prueba", 1,1,1,1,1,1,1,1,1,1,1,1);
