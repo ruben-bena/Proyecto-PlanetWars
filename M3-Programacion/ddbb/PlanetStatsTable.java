@@ -37,6 +37,9 @@ public class PlanetStatsTable implements Table {
         // modifying test
         pst.setBattles_counter(3);
         pst.modifyRow();
+
+        // getRow test
+        pst.getRow(1);
     }
 
     
@@ -114,9 +117,43 @@ public class PlanetStatsTable implements Table {
     }
 
     @Override
-    public void getRow() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRow'");
+    public void getRow(int planet_id) {
+        String selectQuery = "SELECT name, resource_metal_amount, resource_deuterion_amount, "
+            + "technology_defense_level, technology_attack_level, battles_counter, "
+            + "missile_launcher_remaining, ion_cannon_remaining, plasma_cannon_remaining, "
+            + "light_hunter_remaining, heavy_hunter_remaining, battleship_remaining, armored_ship_remaining "
+            + "FROM Planet_stats WHERE planet_id = ?";
+        try (PreparedStatement ps = db.getConnection().prepareStatement(selectQuery)) {
+            ps.setInt(1, planet_id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    name = rs.getString("name");
+                    resource_metal_amount = rs.getInt("resource_metal_amount");
+                    resource_deuterion_amount = rs.getInt("resource_deuterion_amount");
+                    technology_defense_level = rs.getInt("technology_defense_level");
+                    technology_attack_level = rs.getInt("technology_attack_level");
+                    battles_counter = rs.getInt("battles_counter");
+                    missile_launcherremaining = rs.getInt("missile_launcher_remaining");
+                    ion_cannon_remaining = rs.getInt("ion_cannon_remaining");
+                    plasma_cannon_remaining = rs.getInt("plasma_cannon_remaining");
+                    light_hunter_remaining = rs.getInt("light_hunter_remaining");
+                    heavy_hunter_remaining = rs.getInt("heavy_hunter_remaining");
+                    battleship_remaining = rs.getInt("battleship_remaining");
+                    armored_ship_remaining = rs.getInt("armored_ship_remaining");
+                    System.out.println("recovered row for planet_id=" + planet_id);
+                    
+                    // refresh planet_id in case it has changed (for example id we loaded another planet)
+                    if (this.planet_id != planet_id) {
+                        System.out.println("planet_id before = " + this.planet_id + "planet_id now = " + planet_id);
+                        this.planet_id = planet_id;
+                    }
+                } else {
+                    System.out.println("no row with planet_id=" + planet_id + " in the ddbb");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
