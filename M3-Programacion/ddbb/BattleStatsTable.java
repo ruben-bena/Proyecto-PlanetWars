@@ -20,8 +20,9 @@ public class BattleStatsTable implements Table {
         // insertion test
         bst.insertRow();
 
-        // // modifying test
-        // bst.modifyRow();
+        // modifying test
+        bst.setResource_deuterion_acquired(100);
+        bst.modifyRow();
 
         // // getRow test
         // bst.getRow(1);
@@ -43,7 +44,7 @@ public class BattleStatsTable implements Table {
             "planet_id, resource_metal_acquired, resource_deuterion_acquired" +
             ") VALUES (?, ?, ?)";
         System.out.println("query for inserting data executed");
-        try (PreparedStatement ps = db.getConnection().prepareStatement(insertQuery, new String[] { "planet_id" });) {
+        try (PreparedStatement ps = db.getConnection().prepareStatement(insertQuery, new String[] { "num_battle" });) {
             // inserting data in ddbb
             System.out.println("PreparedStatement created");
             ps.setInt(1, planet_id);
@@ -58,7 +59,7 @@ public class BattleStatsTable implements Table {
                 try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         num_battle = generatedKeys.getInt(1);
-                        System.out.println("new num_battle: " + planet_id);
+                        System.out.println("new num_battle: " + num_battle);
                     } else {
                         System.out.println("could not obtain generated num_battle");
                     }
@@ -77,8 +78,40 @@ public class BattleStatsTable implements Table {
 
     @Override
     public void modifyRow() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'modifyRow'");
+        String updateQuery = "UPDATE Battle_stats SET "
+            + "planet_id = ?, resource_metal_acquired = ?, resource_deuterion_acquired = ? "
+            + "WHERE num_battle = ?";
+        try (PreparedStatement ps = db.getConnection().prepareStatement(updateQuery)) {
+            ps.setInt(1, planet_id);
+            ps.setInt(2, resource_metal_acquired);
+            ps.setInt(3, resource_deuterion_acquired);
+            ps.setInt(4, num_battle);
+
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows > 0) {
+                System.out.println("success modifying the row with num_battle=" + num_battle);
+            } else {
+                System.out.println("row with num_battle = " + num_battle + " not found. no row has been modified");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
+
+    public void setNum_battle(int num_battle) {
+		this.num_battle = num_battle;
+	}
+
+	public void setPlanet_id(int planet_id) {
+		this.planet_id = planet_id;
+	}
+
+	public void setResource_metal_acquired(int resource_metal_acquired) {
+		this.resource_metal_acquired = resource_metal_acquired;
+	}
+
+	public void setResource_deuterion_acquired(int resource_deuterion_acquired) {
+		this.resource_deuterion_acquired = resource_deuterion_acquired;
+	}
 
 }
