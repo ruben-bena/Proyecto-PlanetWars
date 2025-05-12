@@ -41,7 +41,6 @@ public class PlanetStatsTable implements Table {
         // getRow test
         pst.getRow(1);
     }
-
     
     public PlanetStatsTable(Database db) {
         this.db = db;
@@ -154,12 +153,6 @@ public class PlanetStatsTable implements Table {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void deleteRow() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteRow'");
     }
 
     @Override
