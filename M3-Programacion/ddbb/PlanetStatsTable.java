@@ -3,6 +3,7 @@ package ddbb;
 // This class (and the others alike) receives a Database object at creation (to receive the Connection attribute) and in each method receives the "Gamedata" object
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class PlanetStatsTable implements Table {
@@ -71,7 +72,9 @@ public class PlanetStatsTable implements Table {
             ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         System.out.println("query para insertar creada");
         try {
-            PreparedStatement ps = db.getConnection().prepareStatement(insertQuery);
+            // inserting data in ddbb
+            // PreparedStatement ps = db.getConnection().prepareStatement(insertQuery);
+            PreparedStatement ps = db.getConnection().prepareStatement(insertQuery, new String[] { "planet_id" });
             System.out.println("PreparedStatement creado");
             ps.setString(1, name);
             ps.setInt(2, resource_metal_amount);
@@ -87,8 +90,20 @@ public class PlanetStatsTable implements Table {
             ps.setInt(12, battleship_remaining);
             ps.setInt(13, armored_ship_remaining);
 
-            ps.executeUpdate();
+            int affectedRows = ps.executeUpdate();
             System.out.println("Inserción ejecutada correctamente");
+
+            // saving the id in the attribute for modifying table later
+            if (affectedRows > 0) {
+                try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        planet_id = generatedKeys.getInt(1);
+                        System.out.println("new planet_id: " + planet_id);
+                    } else {
+                        System.out.println("Could not obtain generated planet_id");
+                    }
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
