@@ -29,8 +29,8 @@ public class PlanetBattleDefenseTable implements Table {
         pbdt.setIon_cannon_built(400);
         pbdt.modifyRow();
 
-        // // getRow test
-        // pbdt.getRow(1);
+        // getRow test
+        pbdt.getRow(1);
     }
 
     public PlanetBattleDefenseTable(Database db, int planet_battle_defense_id, int num_battle,
@@ -87,9 +87,34 @@ public class PlanetBattleDefenseTable implements Table {
     }
 
     @Override
-    public void getRow(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRow'");
+    public void getRow(int planet_battle_defense_id) {
+        String selectQuery = "SELECT num_battle, missile_launcher_built, missile_launcher_destroyed, ion_cannon_built, ion_cannon_destroyed, plasma_canon_built, plasma_canon_destroyed "
+            + "FROM Planet_battle_defense WHERE planet_battle_defense_id = ?";
+        try (PreparedStatement ps = db.getConnection().prepareStatement(selectQuery)) {
+            ps.setInt(1, planet_battle_defense_id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    num_battle = rs.getInt("num_battle");
+                    missile_launcher_built = rs.getInt("missile_launcher_built");
+                    missile_launcher_destroyed = rs.getInt("missile_launcher_destroyed");
+                    ion_cannon_built = rs.getInt("ion_cannon_built");
+                    ion_cannon_destroyed = rs.getInt("ion_cannon_destroyed");
+                    plasma_canon_built = rs.getInt("plasma_canon_built");
+                    plasma_canon_destroyed = rs.getInt("plasma_canon_destroyed");
+                    System.out.println("recovered row for planet_battle_defense_id=" + planet_battle_defense_id);
+                    
+                    // refresh planet_id in case it has changed (for example id we loaded another planet)
+                    if (this.planet_battle_defense_id != planet_battle_defense_id) {
+                        System.out.println("planet_battle_defense_id before = " + this.planet_battle_defense_id + ", planet_battle_defense_id now = " + planet_battle_defense_id);
+                        this.planet_battle_defense_id = planet_battle_defense_id;
+                    }
+                } else {
+                    System.out.println("no row with planet_battle_defense_id=" + planet_battle_defense_id + " in the ddbb");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
