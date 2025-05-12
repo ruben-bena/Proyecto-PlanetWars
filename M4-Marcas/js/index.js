@@ -1,6 +1,3 @@
-// ... existing code ...
-// Slider de fotos para la sección game-gallery
-
 document.addEventListener("DOMContentLoaded", function() {
     const images = [
         "img/index/placeholder-1.png",
