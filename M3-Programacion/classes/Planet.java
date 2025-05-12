@@ -18,6 +18,7 @@ public class Planet {
     private int deuteriumMineLvl;
     private int upgradeMetalMineLvlMetalCost;
     private int upgradeDeuteriumMineLvlDeuteriumCost;
+    private int difficulty;
 
     // Army[0] → arrayList de Ligth Hunter
     // Army[1] → arrayList de Heavy Hunter
@@ -33,6 +34,7 @@ public class Planet {
         this.technologyAttack = technologyAtack;
         this.metal = metal;
         this.deuterium = deuterium;
+        this.difficulty = 1;
         this.upgradeDefenseTechnologyDeuteriumCost = upgradeDefenseTechnologyDeuteriumCost;
         this.upgradeAttackTechnologyDeuteriumCost = upgradeAttackTechnologyDeuteriumCost;
         this.upgradeMetalMineLvlMetalCost = 10000;
@@ -112,6 +114,14 @@ public class Planet {
             
         }
     }
+    public int getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
+    }
+
     public void newBattleShip(int n) throws ResourceException {
         // First it tries to use deuterium, if you don't have enough, it tries to use metal
         int armor = Variables.ARMOR_BATTLESHIP + (getTechnologyDefense() * Variables.PLUS_ARMOR_BATTLESHIP_BY_TECHNOLOGY) * (Variables.ARMOR_BATTLESHIP/100);
@@ -456,6 +466,18 @@ public class Planet {
         cost[1] = deuteriumCost;
 
         return cost;
+    }
+
+    public String getDifficultyStr() {
+        if (difficulty == 1) {
+            return "Easy";
+        }
+        else if (difficulty == 2) {
+            return "Medium";
+        }
+        else {
+            return "Hard";
+        }
     }
 
     

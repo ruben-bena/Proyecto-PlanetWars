@@ -27,10 +27,12 @@ class RightPanel extends JPanel {
         private JLabel metalImageLabel, deuteriumImageLabel, metalCostFixLabel, deuteriumCostFixLabel;
         private Planet planet;
         private ImageIcon metalIcon, deuteriumIcon;
+        private MainScreen ms;
 
-        RightPanel(Planet planet) {
+        RightPanel(Planet planet, MainScreen ms) {
             this.planet = planet;
-            // GameSettingsPanel
+            this.ms = ms;
+  
             int gameSettingsWidth = 200;
             int gameSettingsHeight = 200;
             setSize(new Dimension(gameSettingsWidth,gameSettingsHeight));
@@ -42,12 +44,11 @@ class RightPanel extends JPanel {
             
             // mainPanel --> Contains the subpanels for image and buttons.
             mainPanel = new JPanel();
-            mainPanel.setBackground(Color.GREEN);
+            mainPanel.setBackground(Color.BLACK);
             mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
             add(mainPanel);
 
-            // imagePanel
-            // TODO: Add image
+
             upperPanel = new JPanel();
             upperPanel.setLayout(new GridLayout(2,1));
             
@@ -92,6 +93,9 @@ class RightPanel extends JPanel {
             
 
             viewCurrentThreatButton = new JButton("View Current Threat");
+            viewCurrentThreatButton.setBackground(Color.BLACK);
+            viewCurrentThreatButton.setForeground(Color.WHITE);
+            viewCurrentThreatButton.setFont(new Font("Arial", Font.BOLD, 14));
             viewCurrentThreatButton.addActionListener(new ButtonEvents());
 
             upperPanel.add(viewCurrentThreatButton);
@@ -99,7 +103,7 @@ class RightPanel extends JPanel {
             
 
             imagePanel = new JPanel();
-            imagePanel.setBackground(Color.RED);
+            imagePanel.setBackground(Color.BLACK);
 
             
             mainPanel.add(upperPanel);
@@ -115,18 +119,30 @@ class RightPanel extends JPanel {
             buttonsPanel.setBackground(Color.YELLOW);
 
             newGameButton = new JButton("New Game");
+            newGameButton.setFont(new Font("Arial", Font.BOLD, 18));
+            newGameButton.setBackground(Color.BLACK);
+            newGameButton.setForeground(Color.WHITE);
             buttonsPanel.add(newGameButton);
             newGameButton.addActionListener(new ButtonEvents());
 
             battleReportButton = new JButton("Battle Report");
+            battleReportButton.setFont(new Font("Arial", Font.BOLD, 18));
+            battleReportButton.setBackground(Color.BLACK);
+            battleReportButton.setForeground(Color.WHITE);
             buttonsPanel.add(battleReportButton);
             battleReportButton.addActionListener(new ButtonEvents());
             
             settingsButton = new JButton("Settings");
+            settingsButton.setFont(new Font("Arial", Font.BOLD, 18));
+            settingsButton.setBackground(Color.BLACK);
+            settingsButton.setForeground(Color.WHITE);
             buttonsPanel.add(settingsButton);
             settingsButton.addActionListener(new ButtonEvents());
 
             exitButton = new JButton("Exit");
+            exitButton.setFont(new Font("Arial", Font.BOLD, 18));
+            exitButton.setBackground(Color.BLACK);
+            exitButton.setForeground(Color.WHITE);
             buttonsPanel.add(exitButton);
             exitButton.addActionListener(new ButtonEvents());
 
@@ -177,6 +193,11 @@ class RightPanel extends JPanel {
 
         }
         public void fixArmyEvent() {
+            if(planet.getCurrentThreat() != null) {
+                if (planet.getCurrentThreat().isHasCombatStarted()) {
+                    return;
+                }
+            }
             if (planet.getMetal() > planet.getFixArmyCost()[0] && planet.getDeuterium() > planet.getFixArmyCost()[1]) {
                 planet.setMetal(planet.getMetal() - planet.getFixArmyCost()[0]);
                 planet.setDeuterium(planet.getDeuterium() - planet.getFixArmyCost()[1]);
@@ -184,45 +205,34 @@ class RightPanel extends JPanel {
             }
         }
         public void newGameEvent()  {
-            // Maybe we don't add this functionality since we would have to refactor a lot of code in Main
             try {
                 planet.newGame();
             } catch (ResourceException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            // TODO: Decide at the end what we do with this
         }
     
-        // Opens a new JDialog with an JTextArea which has info of the previous 5 battles the actual planet played
         public void battleReportEvent() {
             new ReportsFrame(planet);
             // TODO: Define this method when DDBB methods are ready
 
-            // So this method just gets the 5 last values of the Battle_log table and puts them in the JTextArea
         }
     
-        // Opens a new JDialog to teak some options in the game (as difficulty, color, etc.)
         public void settingsEvent() {
-            // TODO: Create a new JDialog with some JButtons as options
-
-            // TODO: Define something that can 'change' the game difficulty, maybe teaking stats in Variables
-            // TODO: Define something that changes the color of the game somehow (maybe light-dark mode)
-            // TODO: Define something that changes the name of the planet
-            // TODO: Define something that changes the player portrait (optional)
+            new SettingsFrame(planet);
         }
     
         public void exitEvent() {
-            // TODO: Improve the visuals of exitWindow (layout, etc.)
-            // exitWindow
             JDialog exitWindow = new JDialog(SwingUtilities.getWindowAncestor(this), "Exit");
             exitWindow.setResizable(false);
             exitWindow.setLocationRelativeTo(null);
-            exitWindow.setSize(500, 300);
+            exitWindow.setSize(300, 100);
+            exitWindow.setBackground(new Color(30,30,30));
             exitWindow.getContentPane().setLayout(new BoxLayout(exitWindow.getContentPane(), BoxLayout.Y_AXIS));
     
             // exitLabel
             JLabel exitLabel = new JLabel("Are you sure you want to exit?");
+
             exitWindow.add(exitLabel);
     
             // exitButtonsPanel
@@ -235,7 +245,8 @@ class RightPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     System.out.println("Yes pressed");
-                    // idk how to call this method, it's supposed to be in Main i guess --> closeGame();
+                    ms.dispose();
+                    System.exit(0);
                 }
             });
     

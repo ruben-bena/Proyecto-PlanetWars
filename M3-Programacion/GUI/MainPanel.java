@@ -39,12 +39,13 @@ public class MainPanel extends JPanel {
     private BottomPanel bottomPanel;
     private MiddlePanel middlePanel;
 
-    MainPanel(Planet planet) {
+
+    MainPanel(Planet planet, MainScreen ms) {
         setBackground(Color.BLUE);
         setLayout(new BorderLayout());
 
         leftPanel = new LeftPanel(planet);
-        rightPanel = new RightPanel(planet);
+        rightPanel = new RightPanel(planet, ms);
         bottomPanel = new BottomPanel(planet);
         middlePanel = new MiddlePanel(planet);
         
