@@ -25,8 +25,9 @@ public class PlanetBattleDefenseTable implements Table {
         // insertion test
         pbdt.insertRow();
 
-        // // modifying test
-        // pbdt.modifyRow();
+        // modifying test
+        pbdt.setIon_cannon_built(400);
+        pbdt.modifyRow();
 
         // // getRow test
         // pbdt.getRow(1);
@@ -73,8 +74,8 @@ public class PlanetBattleDefenseTable implements Table {
             if (affectedRows > 0) {
                 try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
-                        num_battle = generatedKeys.getInt(1);
-                        System.out.println("new planet_battle_defense_id: " + num_battle);
+                        planet_battle_defense_id = generatedKeys.getInt(1);
+                        System.out.println("new planet_battle_defense_id: " + planet_battle_defense_id);
                     } else {
                         System.out.println("could not obtain generated planet_battle_defense_id");
                     }
@@ -93,8 +94,30 @@ public class PlanetBattleDefenseTable implements Table {
 
     @Override
     public void modifyRow() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'modifyRow'");
+        String updateQuery = "UPDATE Planet_battle_defense SET " +
+            "num_battle = ?, missile_launcher_built = ?, missile_launcher_destroyed = ?, " +
+            "ion_cannon_built = ?, ion_cannon_destroyed = ?, " +
+            "plasma_canon_built = ?, plasma_canon_destroyed = ?" +
+            "WHERE planet_battle_defense_id = ?";
+        try (PreparedStatement ps = db.getConnection().prepareStatement(updateQuery)) {
+            ps.setInt(1, num_battle);
+            ps.setInt(2, missile_launcher_built);
+            ps.setInt(3, missile_launcher_destroyed);
+            ps.setInt(4, ion_cannon_built);
+            ps.setInt(5, ion_cannon_destroyed);
+            ps.setInt(6, plasma_canon_built);
+            ps.setInt(7, plasma_canon_destroyed);
+            ps.setInt(8, planet_battle_defense_id);
+
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows > 0) {
+                System.out.println("success modifying the row with planet_battle_defense_id=" + planet_battle_defense_id);
+            } else {
+                System.out.println("row with planet_battle_defense_id = " + planet_battle_defense_id + " not found. no row has been modified");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setPlanet_battle_defense_id(int planet_battle_defense_id) {
