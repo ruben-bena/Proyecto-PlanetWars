@@ -414,6 +414,10 @@ public class Planet {
     }
 
     public void upgradeMetalMine() {
+        if(metalMineLvl >= 10) {
+            return;
+        }
+
         if (metal >= upgradeMetalMineLvlMetalCost) {
             metal -= upgradeMetalMineLvlMetalCost;
             setMetalMineLvl(metalMineLvl + 1);
@@ -422,6 +426,10 @@ public class Planet {
     }
 
     public void upgradeDeuteriumMine() {
+        if(deuteriumMineLvl >= 10) {
+            return;
+        }
+
         if (deuterium >= upgradeDeuteriumMineLvlDeuteriumCost) {
             deuterium -= upgradeDeuteriumMineLvlDeuteriumCost;
             setDeuteriumMineLvl(deuteriumMineLvl + 1);

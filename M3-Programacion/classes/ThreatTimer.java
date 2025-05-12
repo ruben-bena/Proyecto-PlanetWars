@@ -16,6 +16,14 @@ public class ThreatTimer extends TimerTask{
         timer.schedule(this, Time.timeBetweenBattles);
     }
 
+    public ThreatTimer(Planet planet, MainScreen ms, int i) {
+        this.planet = planet;
+        this.ms = ms;
+        timer = new Timer();
+        timer.schedule(this, 0);
+    }
+
+
     public void run() {
                 // if (!planet.isActiveThreat() && planet.isElligibleForCombat()) {
                 //     if(planet.getCurrentThreat() != null) {
@@ -23,10 +31,11 @@ public class ThreatTimer extends TimerTask{
                 //             return;
                 //         }
                 //     }
+                if(planet.getCurrentThreat() == null) {
                     planet.setCurrentThreat(new Battle(planet, ms.getMainPanel(), ms));
                     planet.setActiveThreat(true);
                     ms.getMainPanel().getMiddlePanel().doThreatDisplay();
-                    
+                }
 
                 // }
                 

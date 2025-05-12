@@ -15,6 +15,7 @@ import javax.swing.SwingUtilities;
 
 import classes.Planet;
 import classes.ResourceException;
+import classes.ThreatTimer;
 
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -23,7 +24,7 @@ import java.awt.event.ActionListener;
 
 class RightPanel extends JPanel {
         private JPanel mainPanel, imagePanel, buttonsPanel, upperPanel, fixArmyPanel, costFixArmyPanel, costFixArmyAmountPanel;
-        private JButton newGameButton, battleReportButton, settingsButton, exitButton, viewCurrentThreatButton, fixArmyButton;
+        private JButton newGameButton, battleReportButton, settingsButton, exitButton, viewCurrentThreatButton, fixArmyButton, startABattle;
         private JLabel metalImageLabel, deuteriumImageLabel, metalCostFixLabel, deuteriumCostFixLabel;
         private Planet planet;
         private ImageIcon metalIcon, deuteriumIcon;
@@ -88,6 +89,23 @@ class RightPanel extends JPanel {
             costFixArmyPanel.add(costFixArmyAmountPanel, BorderLayout.CENTER);
 
             fixArmyPanel.add(costFixArmyPanel);
+
+            startABattle = new JButton("Start a fight");
+            startABattle.setFont(new Font("Arial", Font.BOLD, 20));
+            startABattle.setBackground(Color.BLACK);
+            startABattle.setForeground(Color.WHITE);
+            startABattle.addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // TODO Auto-generated method stub
+                    new ThreatTimer(planet, ms, 1);
+                }
+                
+            });
+
+            fixArmyPanel.add(startABattle);
+            
 
             upperPanel.add(fixArmyPanel);
             
