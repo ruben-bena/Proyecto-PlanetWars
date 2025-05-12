@@ -1,6 +1,5 @@
 package classes;
 import GUI.*;
-
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -82,6 +81,7 @@ public class Battle {
                 hasCombatStarted = false;
 
                 planet.setNBattles(planet.getNBattles() + 1);
+                GlobalContext.planetStatsTable.updateAttributes(planet);
                 mp.getMiddlePanel().changeScreenToDefaultScene();
                 planet.setCurrentThreat(null);
                 // Maybe I should add the threat timer here, so it starts counting after the battle is over

@@ -206,21 +206,9 @@ public class PlanetStatsTable implements Table {
     }
 
     public void updateAttributes(Planet planet) {
-        /*
-        this.name = "prueba"; // TODO: needs to be well implemented in class Planet
-        this.resource_metal_amount = planet.getMetal();
-        this.resource_deuterion_amount = planet.getDeuterium();
-        this.technology_defense_level = planet.getTechnologyDefense();
-        this.technology_attack_level = planet.getTechnologyAttack();
-        this.battles_counter = planet.getNBattles();
-        this.missile_launcher_remaining = planet.getArmy()[4].size();
-        this.ion_cannon_remaining = planet.getArmy()[5].size();
-        this.plasma_cannon_remaining = planet.getArmy()[6].size();
-        this.light_hunter_remaining = planet.getArmy()[0].size();
-        this.heavy_hunter_remaining = planet.getArmy()[1].size();
-        this.battleship_remaining = planet.getArmy()[2].size();
-        this.armored_ship_remaining = planet.getArmy()[3].size();
-        */
+
+        // Update the attributes
+
         if (this.resource_metal_amount != planet.getMetal()) {
             this.resource_metal_amount = planet.getMetal();
         }
@@ -257,6 +245,10 @@ public class PlanetStatsTable implements Table {
         if (this.armored_ship_remaining != planet.getArmy()[3].size()) {
             this.armored_ship_remaining = planet.getArmy()[3].size();
         }
+
+        // Save changes in ddbb
+
+        modifyRow();
     }
     
     public void setPlanet_id(int planet_id) {

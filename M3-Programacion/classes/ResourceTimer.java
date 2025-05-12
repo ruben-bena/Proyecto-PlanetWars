@@ -16,7 +16,7 @@ public class ResourceTimer extends TimerTask {
     public void run() {
         planet.setMetal(planet.getMetal() + 2000 * planet.getMetalMineLvl());
         planet.setDeuterium(planet.getDeuterium() + 800 * planet.getDeuteriumMineLvl());
-
+        GlobalContext.planetStatsTable.updateAttributes(planet);
     }
     
 }

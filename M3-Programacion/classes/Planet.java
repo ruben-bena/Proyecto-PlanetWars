@@ -58,6 +58,7 @@ public class Planet {
             deuterium -= upgradeDefenseTechnologyDeuteriumCost;
             upgradeDefenseTechnologyDeuteriumCost += upgradeDefenseTechnologyDeuteriumCost*0.1; // 10% increase in the cost
             System.out.println("Defense now lvl: " + technologyDefense);
+            GlobalContext.planetStatsTable.updateAttributes(this);
         } else {
             // System.out.println("No tienes suficiente deuterio para mejorar la tecnologia de defensa");
             throw new ResourceException("You don't have enough deuterium to upgrade the defense technology");
@@ -70,6 +71,7 @@ public class Planet {
             deuterium -= upgradeAttackTechnologyDeuteriumCost;
             upgradeAttackTechnologyDeuteriumCost += upgradeAttackTechnologyDeuteriumCost*0.1; // 10% increase in the cost
             System.out.println("Attack now lvl: " + technologyAttack);
+            GlobalContext.planetStatsTable.updateAttributes(this);
         } else {
             // System.out.println("No tienes suficiente deuterio para mejorar la tecnologia de ataque");
             throw new ResourceException("You don't have enough deuterium to upgrade the attack technology");
@@ -90,6 +92,9 @@ public class Planet {
             }
             else {
                 System.out.println("Added " + i + " Light Hunters");
+                if (i > 0) {
+                    GlobalContext.planetStatsTable.updateAttributes(this);
+                }
                 throw new ResourceException("You don't have enough resources to add more Light Hunters");
             }
             
@@ -110,6 +115,9 @@ public class Planet {
             
             else {
                 System.out.println("Added " + i + " Heavy Hunters");
+                if (i > 0) {
+                    GlobalContext.planetStatsTable.updateAttributes(this);
+                }
                 throw new ResourceException("You don't have enough resources to add more Heavy Hunters");
             }
             
@@ -138,6 +146,9 @@ public class Planet {
             }
             else {
                 System.out.println("Added " + i + " Battle Ships");
+                if (i > 0) {
+                    GlobalContext.planetStatsTable.updateAttributes(this);
+                }
                 throw new ResourceException("You don't have enough resources to add more Battle Ships");
             }
             
@@ -159,6 +170,9 @@ public class Planet {
             
             else {
                 System.out.println("Added " + i + " Armored Ships");
+                if (i > 0) {
+                    GlobalContext.planetStatsTable.updateAttributes(this);
+                }
                 throw new ResourceException("You don't have enough resources to add more Armored Ships");
             }
             
@@ -180,6 +194,9 @@ public class Planet {
             
             else {
                 System.out.println("Added " + i + " Missile Launchers");
+                if (i > 0) {
+                    GlobalContext.planetStatsTable.updateAttributes(this);
+                }
                 throw new ResourceException("You don't have enough resources to add more Missile Launchers");
             }
             
@@ -201,6 +218,9 @@ public class Planet {
 
             else {
                 System.out.println("Added " + i + " Ion Cannons");
+                if (i > 0) {
+                    GlobalContext.planetStatsTable.updateAttributes(this);
+                }
                 throw new ResourceException("You don't have enough resources to add more Ion Cannons");
             }
             
@@ -223,6 +243,9 @@ public class Planet {
 
             else {
                 System.out.println("Added " + i + " Plasma Cannons");
+                if (i > 0) {
+                    GlobalContext.planetStatsTable.updateAttributes(this);
+                }
                 throw new ResourceException("You don't have enough resources to add more Plasma Cannons");
             }
             
