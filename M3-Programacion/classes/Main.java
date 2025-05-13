@@ -253,7 +253,7 @@ public class Main{
     // closeGame --> Saves all data in DDBB and then closes the program. It's called from the "Exit" button and closing the MainScreen
     public static void closeGame() {
         // TODO: Store data in DDBB before saving (need the DDBB methods finished beforehand)
-        System.out.println("Llamo al método closeGame()");
+        System.out.println("Llamo al método estático Main.closeGame()");
         System.out.println("La conexión a la bbdd está abierta --> isClosed=" + GlobalContext.database.isClosed());
         GlobalContext.database.close();
         System.out.println("He cerrado la conexión a la bbdd --> isClosed=" + GlobalContext.database.isClosed());

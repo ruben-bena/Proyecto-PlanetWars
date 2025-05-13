@@ -2,6 +2,8 @@ package classes;
 
 import java.util.ArrayList;
 
+import ddbb.PlanetStatsTable;
+
 // TODO: planets need a name
 public class Planet {
     private int technologyDefense;
@@ -398,6 +400,10 @@ public class Planet {
 
         generateDefaultArmy();
 
+        // Generate the new row in PlanetStatsTable
+        System.out.println("Genero la nueva fila en la tabla Planet_stats");
+        GlobalContext.planetStatsTable = new PlanetStatsTable(GlobalContext.database, this);
+        GlobalContext.planetStatsTable.insertRow();
     }
 
     public void generateDefaultArmy() throws ResourceException {

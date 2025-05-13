@@ -320,5 +320,7 @@ public class PlanetStatsTable implements Table {
 		this.armored_ship_remaining = armored_ship_remaining;
 	}
     
-    
+    public int getPlanet_id() {
+        return planet_id;
+    }
 }
