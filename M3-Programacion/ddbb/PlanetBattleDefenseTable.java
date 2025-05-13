@@ -1,6 +1,5 @@
 package ddbb;
 import classes.Battle;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,8 +10,8 @@ public class PlanetBattleDefenseTable implements Table {
     private int num_battle;
     private int missile_launcher_built;
     private int missile_launcher_destroyed;
-    private int ion_cannon_built;
-    private int ion_cannon_destroyed;
+    private int ion_canon_built;
+    private int ion_canon_destroyed;
     private int plasma_canon_built;
     private int plasma_canon_destroyed;
 
@@ -27,7 +26,7 @@ public class PlanetBattleDefenseTable implements Table {
         pbdt.insertRow();
 
         // modifying test
-        pbdt.setIon_cannon_built(400);
+        pbdt.setIon_canon_built(400);
         pbdt.modifyRow();
 
         // getRow test
@@ -47,8 +46,8 @@ public class PlanetBattleDefenseTable implements Table {
 		this.num_battle = num_battle;
 		this.missile_launcher_built = missile_launcher_build;
 		this.missile_launcher_destroyed = missile_launcher_destroyed;
-		this.ion_cannon_built = ion_cannon_built;
-		this.ion_cannon_destroyed = ion_cannon_destroyed;
+		this.ion_canon_built = ion_cannon_built;
+		this.ion_canon_destroyed = ion_cannon_destroyed;
 		this.plasma_canon_built = plasma_cannon_built;
 		this.plasma_canon_destroyed = plasma_canon_destroyed;
 	}
@@ -57,10 +56,10 @@ public class PlanetBattleDefenseTable implements Table {
         this.db = db;
         this.num_battle = num_battle;
         this.missile_launcher_built = battle.getInitialArmies()[0][4];
-        this.ion_cannon_built = battle.getInitialArmies()[0][5];
+        this.ion_canon_built = battle.getInitialArmies()[0][5];
         this.plasma_canon_built = battle.getInitialArmies()[0][6];
         this.missile_launcher_destroyed = missile_launcher_built - battle.getPlanetArmy()[4].size();
-        this.ion_cannon_destroyed = ion_cannon_built - battle.getPlanetArmy()[5].size();
+        this.ion_canon_destroyed = ion_canon_built - battle.getPlanetArmy()[5].size();
         this.plasma_canon_destroyed = plasma_canon_built - battle.getPlanetArmy()[6].size();
     }
 
@@ -78,8 +77,8 @@ public class PlanetBattleDefenseTable implements Table {
             ps.setInt(1, num_battle);
             ps.setInt(2, missile_launcher_built);
             ps.setInt(3, missile_launcher_destroyed);
-            ps.setInt(4, ion_cannon_built);
-            ps.setInt(5, ion_cannon_destroyed);
+            ps.setInt(4, ion_canon_built);
+            ps.setInt(5, ion_canon_destroyed);
             ps.setInt(6, plasma_canon_built);
             ps.setInt(7, plasma_canon_destroyed);
 
@@ -113,8 +112,8 @@ public class PlanetBattleDefenseTable implements Table {
                     num_battle = rs.getInt("num_battle");
                     missile_launcher_built = rs.getInt("missile_launcher_built");
                     missile_launcher_destroyed = rs.getInt("missile_launcher_destroyed");
-                    ion_cannon_built = rs.getInt("ion_cannon_built");
-                    ion_cannon_destroyed = rs.getInt("ion_cannon_destroyed");
+                    ion_canon_built = rs.getInt("ion_cannon_built");
+                    ion_canon_destroyed = rs.getInt("ion_cannon_destroyed");
                     plasma_canon_built = rs.getInt("plasma_canon_built");
                     plasma_canon_destroyed = rs.getInt("plasma_canon_destroyed");
                     System.out.println("recovered row for planet_battle_defense_id=" + planet_battle_defense_id);
@@ -144,8 +143,8 @@ public class PlanetBattleDefenseTable implements Table {
             ps.setInt(1, num_battle);
             ps.setInt(2, missile_launcher_built);
             ps.setInt(3, missile_launcher_destroyed);
-            ps.setInt(4, ion_cannon_built);
-            ps.setInt(5, ion_cannon_destroyed);
+            ps.setInt(4, ion_canon_built);
+            ps.setInt(5, ion_canon_destroyed);
             ps.setInt(6, plasma_canon_built);
             ps.setInt(7, plasma_canon_destroyed);
             ps.setInt(8, planet_battle_defense_id);
@@ -170,23 +169,23 @@ public class PlanetBattleDefenseTable implements Table {
 	}
 
 	public void setMissile_launcher_build(int missile_launcher_build) {
-		this.missile_launcher_build = missile_launcher_build;
+		this.missile_launcher_built = missile_launcher_build;
 	}
 
 	public void setMissile_launcher_destroyed(int missile_launcher_destroyed) {
 		this.missile_launcher_destroyed = missile_launcher_destroyed;
 	}
 
-	public void setIon_cannon_built(int ion_cannon_built) {
-		this.ion_cannon_built = ion_cannon_built;
+	public void setIon_canon_built(int ion_cannon_built) {
+		this.ion_canon_built = ion_cannon_built;
 	}
 
-	public void setIon_cannon_destroyed(int ion_cannon_destroyed) {
-		this.ion_cannon_destroyed = ion_cannon_destroyed;
+	public void setIon_canon_destroyed(int ion_cannon_destroyed) {
+		this.ion_canon_destroyed = ion_cannon_destroyed;
 	}
 
-	public void setPlasma_cannon_built(int plasma_cannon_built) {
-		this.plasma_cannon_built = plasma_cannon_built;
+	public void setPlasma_canon_built(int plasma_cannon_built) {
+		this.plasma_canon_built = plasma_cannon_built;
 	}
 
 	public void setPlasma_canon_destroyed(int plasma_canon_destroyed) {

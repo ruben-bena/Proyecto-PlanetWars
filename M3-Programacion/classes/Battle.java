@@ -2,6 +2,7 @@ package classes;
 import GUI.*;
 import ddbb.BattleLogTable;
 import ddbb.BattleStatsTable;
+import ddbb.PlanetBattleArmyTable;
 import ddbb.PlanetBattleDefenseTable;
 import java.util.ArrayList;
 import java.util.Timer;
@@ -109,6 +110,13 @@ public class Battle {
                     Battle.this // This way we pass the Battle and not the TimerTask
                 );
                 GlobalContext.planetBattleDefenseTable.insertRow();
+                // PlanetBattleArmy
+                GlobalContext.planetBattleArmyTable = new PlanetBattleArmyTable(
+                    GlobalContext.database,
+                    GlobalContext.num_battle,
+                    Battle.this
+                );
+                GlobalContext.planetBattleArmyTable.insertRow();
 
                 // Maybe I should add the threat timer here, so it starts counting after the battle is over
                 new ThreatTimer(planet, ms);
