@@ -59,9 +59,9 @@ public class PlanetBattleDefenseTable implements Table {
         this.missile_launcher_built = battle.getInitialArmies()[0][4];
         this.ion_cannon_built = battle.getInitialArmies()[0][5];
         this.plasma_canon_built = battle.getInitialArmies()[0][6];
-        this.missile_launcher_destroyed = battle.getPlanetArmy()[4].size();
-        this.ion_cannon_destroyed = battle.getPlanetArmy()[5].size();
-        this.plasma_canon_destroyed = battle.getPlanetArmy()[6].size();
+        this.missile_launcher_destroyed = missile_launcher_built - battle.getPlanetArmy()[4].size();
+        this.ion_cannon_destroyed = ion_cannon_built - battle.getPlanetArmy()[5].size();
+        this.plasma_canon_destroyed = plasma_canon_built - battle.getPlanetArmy()[6].size();
     }
 
     @Override
