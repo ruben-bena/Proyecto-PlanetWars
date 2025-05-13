@@ -1,5 +1,6 @@
 package ddbb;
 
+import classes.Battle;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -41,6 +42,10 @@ public class EnemyArmyTable implements Table {
         eat.getRow(1);
     }
 
+    private EnemyArmyTable() {
+
+    }
+
     public EnemyArmyTable(Database db,
                           int enemy_army_id,
                           int num_battle,
@@ -63,6 +68,19 @@ public class EnemyArmyTable implements Table {
         this.battleship_destroyed = battleship_destroyed;
         this.armored_ship_threat = armored_ship_threat;
         this.armored_ship_destroyed = armored_ship_destroyed;
+    }
+
+    public EnemyArmyTable(Database db, int num_battle, Battle battle) {
+        this.db = db;
+        this.num_battle = num_battle;
+        this.light_hunter_threat = battle.getInitialArmies()[1][0];
+        this.heavy_hunter_threat = battle.getInitialArmies()[1][1];
+        this.battleship_threat = battle.getInitialArmies()[1][2];
+        this.armored_ship_threat = battle.getInitialArmies()[1][3];
+        this.light_hunter_destroyed = light_hunter_threat - battle.getEnemyArmy()[0].size();
+        this.heavy_hunter_destroyed = heavy_hunter_threat - battle.getEnemyArmy()[1].size();
+        this.battleship_destroyed = battleship_threat - battle.getEnemyArmy()[2].size();
+        this.armored_ship_destroyed = armored_ship_threat - battle.getEnemyArmy()[3].size();
     }
 
     @Override

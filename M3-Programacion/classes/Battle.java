@@ -2,6 +2,7 @@ package classes;
 import GUI.*;
 import ddbb.BattleLogTable;
 import ddbb.BattleStatsTable;
+import ddbb.EnemyArmyTable;
 import ddbb.PlanetBattleArmyTable;
 import ddbb.PlanetBattleDefenseTable;
 import java.util.ArrayList;
@@ -117,7 +118,13 @@ public class Battle {
                     Battle.this
                 );
                 GlobalContext.planetBattleArmyTable.insertRow();
-
+                // EnemyArmyTable
+                GlobalContext.enemyArmyTable = new EnemyArmyTable(
+                    GlobalContext.database,
+                    GlobalContext.num_battle,
+                    Battle.this
+                );
+                GlobalContext.enemyArmyTable.insertRow();
                 // Maybe I should add the threat timer here, so it starts counting after the battle is over
                 new ThreatTimer(planet, ms);
                 
