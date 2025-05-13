@@ -1,3 +1,13 @@
+/*
+-- DELETE ALL TABLES
+drop table Battle_log;
+drop table Planet_battle_defense;
+drop table Planet_battle_army;
+drop table Enemy_army;
+drop table Battle_stats;
+drop table Planet_stats;
+*/
+
 CREATE TABLE Planet_stats
     (
         -- pk

@@ -248,7 +248,6 @@ public class PlanetStatsTable implements Table {
         }
 
         // Save changes in ddbb
-
         modifyRow();
     }
     
