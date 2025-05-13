@@ -4,11 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,6 +29,7 @@ public class SettingsFrame extends JFrame implements ActionListener {
     private Planet planet;
     private JTextArea metalInputTextArea, deuteriumInputTextArea;
     private ImageIcon metalIcon, deuteriumIcon, plusIcon;
+    private Font customFontBiggest, customFontBig, customFont, customFontSmall;
     
     public SettingsFrame(Planet planet) {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -40,6 +44,17 @@ public class SettingsFrame extends JFrame implements ActionListener {
         add(new PaddingPanel(), BorderLayout.EAST);
         add(new PaddingPanel(), BorderLayout.SOUTH);
 
+        try {
+            customFontBiggest = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(68f);
+            customFontBig = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(40f);
+            customFont = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(22f);
+            customFontSmall = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(16f);
+        } catch (FontFormatException | IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+
         this.planet = planet;
 
         mainPanel = new JPanel();
@@ -49,7 +64,8 @@ public class SettingsFrame extends JFrame implements ActionListener {
         difficultyPanel = new JPanel();
         difficultyPanel.setLayout(new BorderLayout());
         difficultyLabel = new JLabel("DIFFICULTY: " + planet.getDifficultyStr());
-        difficultyLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        // difficultyLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        difficultyLabel.setFont(customFontSmall);
         difficultyPanel.setBackground(new Color(30,30,30));
         difficultyLabel.setForeground(Color.WHITE);
         difficultyPanel.add(new PaddingPanel(new Color(30,30,30), new Dimension(160,20)), BorderLayout.WEST);
@@ -61,13 +77,16 @@ public class SettingsFrame extends JFrame implements ActionListener {
 
         easyButton = new JButton("Easy");
         easyButton.setBackground(Color.WHITE);
-        easyButton.setFont(new Font("Arial", Font.BOLD, 18));
+        // easyButton.setFont(new Font("Arial", Font.BOLD, 18));
+        easyButton.setFont(customFontSmall);
         mediumButton = new JButton("Medium");
         mediumButton.setBackground(Color.WHITE);
-        mediumButton.setFont(new Font("Arial", Font.BOLD, 18));
+        // mediumButton.setFont(new Font("Arial", Font.BOLD, 18));
+        mediumButton.setFont(customFontSmall);
         hardButton = new JButton("Hard");
         hardButton.setBackground(Color.WHITE);
-        hardButton.setFont(new Font("Arial", Font.BOLD, 18));
+        // hardButton.setFont(new Font("Arial", Font.BOLD, 18));
+        hardButton.setFont(customFontSmall);
 
 
         difficultyButtonsPanel.add(easyButton);
@@ -81,7 +100,8 @@ public class SettingsFrame extends JFrame implements ActionListener {
         cheatsTextPanel = new JPanel();
         cheatsTextPanel.setLayout(new BorderLayout());
         cheatsTextLabel = new JLabel("Cheats");
-        cheatsTextLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        // cheatsTextLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        cheatsTextLabel.setFont(customFontSmall);
         cheatsTextPanel.setBackground(new Color(30,30,30));
         cheatsTextLabel.setForeground(Color.WHITE);
         cheatsTextPanel.add(new PaddingPanel(new Color(30,30,30), new Dimension(210, 10)), BorderLayout.WEST);
@@ -99,7 +119,8 @@ public class SettingsFrame extends JFrame implements ActionListener {
 
         metalInputTextArea = new JTextArea();
         metalInputTextArea.setPreferredSize(new Dimension(100,40));
-        metalInputTextArea.setFont(new Font("Arial", Font.BOLD, 18));
+        // metalInputTextArea.setFont(new Font("Arial", Font.BOLD, 18));
+        metalInputTextArea.setFont(customFont);
         metalInputTextArea.setLineWrap(true);
 
         plusIcon = new ImageIcon("./M3-Programacion/GUI/images/plus_icon.png");
@@ -126,7 +147,8 @@ public class SettingsFrame extends JFrame implements ActionListener {
 
         deuteriumInputTextArea = new JTextArea();
         deuteriumInputTextArea.setPreferredSize(new Dimension(100,40));
-        deuteriumInputTextArea.setFont(new Font("Arial", Font.BOLD, 18));
+        // deuteriumInputTextArea.setFont(new Font("Arial", Font.BOLD, 18));
+        deuteriumInputTextArea.setFont(customFont);
         deuteriumInputTextArea.setLineWrap(true);
 
 

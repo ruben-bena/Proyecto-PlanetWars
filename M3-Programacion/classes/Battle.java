@@ -258,12 +258,17 @@ public class Battle {
         // enemyArmy = Main.createEnemyArmy();
         this.armies = new ArrayList[2][7];
         
-        for (int i = 0; i < armies.length; i++) {
-            for (int j = 0; j < armies[i].length; j++) {
-                this.armies[i][j] = new ArrayList<MilitaryUnit>() ;
-                this.armies[i][j] = armies[i][j];
-            }
+
+        armies[0] = new ArrayList[7];
+        for(int i = 0; i < planetArmy.length; i++) {
+            armies[0][i] = new ArrayList<>(planetArmy[i]);
         }
+        armies[1] = new ArrayList[7];
+        for(int i = 0; i < enemyArmy.length; i++) {
+            armies[1][i] = new ArrayList<>(enemyArmy[i]);
+        }
+
+
         initialNumberUnitsPlanet = initialFleetNumber(planetArmy);
         initialNumberUnitsEnemy = initialFleetNumber(enemyArmy);
         battleDevelopment = "";
@@ -496,6 +501,8 @@ public class Battle {
             // System.out.println(battleDevelopment);
         }
             new ResultFrame(this);
+            System.out.println("Armies after fight (has to remain as in the start)");
+            printArmies();
             return;
         }
 
@@ -506,6 +513,16 @@ public class Battle {
             System.out.println("Battle Ships = " + enemyArmy[2].size());
             System.out.println("Armored Ships = " + enemyArmy[3].size());
             System.out.println();
+        }
+
+        public void printArmies() {
+            for(int i = 0; i < armies.length; i++) {
+                for(int j = 0; j < armies[i].length; j++) {
+                    if(armies[i][j] != null) {
+                        System.out.println(armies[i][j].size());
+                    }
+                }
+            }
         }
 
         public int getCostOfGroup(ArrayList<MilitaryUnit> group) {

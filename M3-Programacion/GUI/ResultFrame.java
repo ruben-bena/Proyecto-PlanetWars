@@ -4,8 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.Action;
 import javax.swing.JButton;
@@ -25,6 +28,7 @@ public class ResultFrame extends JFrame implements ActionListener {
     private JLabel resultLabel;
     private JScrollPane scrollPane;
     private JButton acceptButton;
+    private Font customFontBiggest, customFontBig, customFont, customFontSmall;
     public ResultFrame(Battle battle) {
         setSize(new Dimension(1000,700));
         mainPanel = new JPanel();
@@ -36,12 +40,24 @@ public class ResultFrame extends JFrame implements ActionListener {
         add(new PaddingPanel(), BorderLayout.SOUTH);
         add(new PaddingPanel(), BorderLayout.EAST);
 
+        try {
+                customFontBiggest = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(68f);
+                customFontBig = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(40f);
+                customFont = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(22f);
+                customFontSmall = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(16f);
+            } catch (FontFormatException | IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+
         if (battle.getWinner() == 0) {
             resultLabel = new JLabel("You won!");
         } else {
             resultLabel = new JLabel("You lost...");
         }
-        resultLabel.setFont(new Font("Arial", Font.BOLD, 96));
+        // resultLabel.setFont(new Font("Arial", Font.BOLD, 96));
+        resultLabel.setFont(customFontBiggest);
         resultPanel = new JPanel();
         resultPanel.add(resultLabel);
         resultLabel.setForeground(Color.WHITE);
@@ -50,14 +66,16 @@ public class ResultFrame extends JFrame implements ActionListener {
         mainPanel.add(resultPanel, BorderLayout.NORTH);
 
         report_text = new JTextArea(battle.getBattleDevelopment());
-        report_text.setFont(new Font("Arial", Font.BOLD, 24));
+        // report_text.setFont(new Font("Arial", Font.BOLD, 24));
+        report_text.setFont(customFontSmall);
         scrollPane = new JScrollPane(report_text);
 
         mainPanel.add(scrollPane, BorderLayout.CENTER);
 
         acceptButton = new JButton("Accept");
         acceptButton.addActionListener(this);
-        acceptButton.setFont(new Font("Arial", Font.BOLD, 24));
+        // acceptButton.setFont(new Font("Arial", Font.BOLD, 24));
+        acceptButton.setFont(customFont);
         acceptButton.setPreferredSize(new Dimension(200,50));
         acceptButton.setBackground(Color.WHITE);
         
@@ -83,8 +101,19 @@ public class ResultFrame extends JFrame implements ActionListener {
         add(new PaddingPanel(), BorderLayout.SOUTH);
         add(new PaddingPanel(), BorderLayout.EAST);
 
+        try {
+            customFontBiggest = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(68f);
+            customFontBig = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(40f);
+            customFont = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(22f);
+            customFontSmall = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(16f);
+        } catch (FontFormatException | IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
         resultLabel = new JLabel("Battle nº" + battleN);
-        resultLabel.setFont(new Font("Arial", Font.BOLD, 96));
+        // resultLabel.setFont(new Font("Arial", Font.BOLD, 96));
+        resultLabel.setFont(customFontBiggest);
         resultPanel = new JPanel();
         resultPanel.add(resultLabel);
         resultLabel.setForeground(Color.WHITE);
@@ -93,14 +122,16 @@ public class ResultFrame extends JFrame implements ActionListener {
         mainPanel.add(resultPanel, BorderLayout.NORTH);
 
         report_text = new JTextArea(battleDevelopment);
-        report_text.setFont(new Font("Arial", Font.BOLD, 24));
+        // report_text.setFont(new Font("Arial", Font.BOLD, 24));
+        report_text.setFont(customFont);
         scrollPane = new JScrollPane(report_text);
 
         mainPanel.add(scrollPane, BorderLayout.CENTER);
 
         acceptButton = new JButton("Accept");
         acceptButton.addActionListener(this);
-        acceptButton.setFont(new Font("Arial", Font.BOLD, 24));
+        // acceptButton.setFont(new Font("Arial", Font.BOLD, 24));
+        acceptButton.setFont(customFont);
         acceptButton.setPreferredSize(new Dimension(200,50));
         acceptButton.setBackground(Color.WHITE);
         
