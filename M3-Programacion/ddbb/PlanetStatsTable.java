@@ -119,6 +119,7 @@ public class PlanetStatsTable implements Table {
                 try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         planet_id = generatedKeys.getInt(1);
+                        GlobalContext.planet_id = planet_id;
                         System.out.println("new planet_id: " + planet_id);
                     } else {
                         System.out.println("could not obtain generated planet_id");
