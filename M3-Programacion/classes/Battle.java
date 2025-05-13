@@ -542,7 +542,7 @@ public class Battle {
         public int getMetalCostOfArmy(ArrayList<MilitaryUnit>[] army) {
             int total = 0;
             for (int i = 0; i < army.length; i++) {
-                for(int j = 0; i < army[i].size(); i++) {
+                for(int j = 0; j < army[i].size(); j++) {
                     total += army[i].get(j).getMetalCost();
                 }
             }
@@ -552,7 +552,7 @@ public class Battle {
         public int getDeuteriumCostOfArmy(ArrayList<MilitaryUnit>[] army) {
             int total = 0;
             for (int i = 0; i < army.length; i++) {
-                for(int j = 0; i < army[i].size(); i++) {
+                for(int j = 0; j < army[i].size(); j++) {
                     total += army[i].get(j).getDeuteriumCost();
                 }
             }

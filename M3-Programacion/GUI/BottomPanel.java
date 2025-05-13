@@ -78,7 +78,7 @@ public class BottomPanel extends JPanel {
             mainPanel.setLayout(new BorderLayout());
             shopPanel = new JPanel();
             shopPanel.setLayout(new GridLayout(1,7));
-            shopPanel.setBackground(Color.pink);
+            shopPanel.setBackground(Globals.bottomBackgroundColor);
 
             //LightHunters panel
             lightHunterPanel = new JPanel();
@@ -111,6 +111,7 @@ public class BottomPanel extends JPanel {
             });
             lightHunterNamePanel = new JPanel();
             lightHunterNameLabel = new JLabel("Light Hunter - " + planet.getArmy()[0].size());
+            lightHunterNameLabel.setForeground(Globals.bottomFontColor);
             lightHunterNamePanel.setBackground(Globals.bottomBackgroundColor);
             
             // lightHunterNameLabel.setFont(new Font("Arial", 1, 20));
@@ -126,11 +127,13 @@ public class BottomPanel extends JPanel {
             
             lightHunterCostPanel.add(new JLabel(new ImageIcon(metalImageScaledTiny)));
             lightHunterPriceMetalLabel = new JLabel("" + Variables.METAL_COST_LIGTHHUNTER);
+            lightHunterPriceMetalLabel.setForeground(Globals.bottomFontColor);
             // lightHunterPriceMetalLabel.setFont(new Font("Arial", 1, 20));
             lightHunterPriceMetalLabel.setFont(customFontSmaller);
             lightHunterCostPanel.add(lightHunterPriceMetalLabel);
             lightHunterCostPanel.add(new JLabel(new ImageIcon(redstoneImageScaledTiny)));
             lightHunterPriceDeuteriumLabel = new JLabel("" + Variables.DEUTERIUM_COST_LIGTHHUNTER);
+            lightHunterPriceDeuteriumLabel.setForeground(Globals.bottomFontColor);
             // lightHunterPriceDeuteriumLabel.setFont(new Font("Arial", 1, 20));
             lightHunterPriceDeuteriumLabel.setFont(customFontSmaller);
             lightHunterCostPanel.add(lightHunterPriceDeuteriumLabel);
@@ -170,6 +173,7 @@ public class BottomPanel extends JPanel {
             });
             heavyHunterNamePanel = new JPanel();
             heavyHunterNameLabel = new JLabel("Heavy Hunter - " + planet.getArmy()[1].size());
+            heavyHunterNameLabel.setForeground(Globals.bottomFontColor);
             heavyHunterNamePanel.setBackground(Globals.bottomBackgroundColor);
             
             // heavyHunterNameLabel.setFont(new Font("Arial", 1, 20));
@@ -185,11 +189,13 @@ public class BottomPanel extends JPanel {
             
             heavyHunterCostPanel.add(new JLabel(new ImageIcon(metalImageScaledTiny)));
             heavyHunterPriceMetalLabel = new JLabel("" + Variables.METAL_COST_HEAVYHUNTER);
+            heavyHunterPriceMetalLabel.setForeground(Globals.bottomFontColor);
             // heavyHunterPriceMetalLabel.setFont(new Font("Arial", 1, 20));
             heavyHunterPriceMetalLabel.setFont(customFontSmaller);
             heavyHunterCostPanel.add(heavyHunterPriceMetalLabel);
             heavyHunterCostPanel.add(new JLabel(new ImageIcon(redstoneImageScaledTiny)));
             heavyHunterPriceDeuteriumLabel = new JLabel("" + Variables.DEUTERIUM_COST_HEAVYHUNTER);
+            heavyHunterPriceDeuteriumLabel.setForeground(Globals.bottomFontColor);
             // heavyHunterPriceDeuteriumLabel.setFont(new Font("Arial", 1, 20));
             heavyHunterPriceDeuteriumLabel.setFont(customFontSmaller);
             heavyHunterCostPanel.add(heavyHunterPriceDeuteriumLabel);
@@ -236,6 +242,7 @@ public class BottomPanel extends JPanel {
             });
             battleShipNamePanel = new JPanel();
             battleShipNameLabel = new JLabel("Battle Ship - " + planet.getArmy()[2].size());
+            battleShipNameLabel.setForeground(Globals.bottomFontColor);
             battleShipNamePanel.setBackground(Globals.bottomBackgroundColor);
             
             // battleShipNameLabel.setFont(new Font("Arial", 1, 20));
@@ -251,12 +258,14 @@ public class BottomPanel extends JPanel {
             
             battleShipCostPanel.add(new JLabel(new ImageIcon(metalImageScaledTiny)));
             battleShipPriceMetalLabel = new JLabel("" + Variables.METAL_COST_BATTLESHIP);
+            battleShipPriceMetalLabel.setForeground(Globals.bottomFontColor);
             // battleShipPriceMetalLabel.setFont(new Font("Arial", 1, 20));
             battleShipPriceMetalLabel.setFont(customFontSmaller);
 
             battleShipCostPanel.add(battleShipPriceMetalLabel);
             battleShipCostPanel.add(new JLabel(new ImageIcon(redstoneImageScaledTiny)));
             battleShipPriceDeuteriumLabel = new JLabel("" + Variables.DEUTERIUM_COST_BATTLESHIP);
+            battleShipPriceDeuteriumLabel.setForeground(Globals.bottomFontColor);
             // battleShipPriceDeuteriumLabel.setFont(new Font("Arial", 1, 20));
             battleShipPriceDeuteriumLabel.setFont(customFontSmaller);
             battleShipCostPanel.add(battleShipPriceDeuteriumLabel);
@@ -299,6 +308,7 @@ public class BottomPanel extends JPanel {
             });
             armoredShipNamePanel = new JPanel();
             armoredShipNameLabel = new JLabel("Armored Ship - " + planet.getArmy()[3].size());
+            armoredShipNameLabel.setForeground(Globals.bottomFontColor);
             armoredShipNamePanel.setBackground(Globals.bottomBackgroundColor);
             
             // armoredShipNameLabel.setFont(new Font("Arial", 1, 20));
@@ -314,11 +324,13 @@ public class BottomPanel extends JPanel {
             
             armoredShipCostPanel.add(new JLabel(new ImageIcon(metalImageScaledTiny)));
             armoredShipPriceMetalLabel = new JLabel("" + Variables.METAL_COST_ARMOREDSHIP);
+            armoredShipPriceMetalLabel.setForeground(Globals.bottomFontColor);
             // armoredShipPriceMetalLabel.setFont(new Font("Arial", 1, 20));
             armoredShipPriceMetalLabel.setFont(customFontSmaller);
             armoredShipCostPanel.add(armoredShipPriceMetalLabel);
             armoredShipCostPanel.add(new JLabel(new ImageIcon(redstoneImageScaledTiny)));
             battleShipPriceDeuteriumLabel = new JLabel("" + Variables.DEUTERIUM_COST_ARMOREDSHIP);
+            battleShipPriceDeuteriumLabel.setForeground(Globals.bottomFontColor);
             // battleShipPriceDeuteriumLabel.setFont(new Font("Arial", 1, 20));
             battleShipPriceDeuteriumLabel.setFont(customFontSmaller);
             armoredShipCostPanel.add(battleShipPriceDeuteriumLabel);
@@ -361,6 +373,7 @@ public class BottomPanel extends JPanel {
             });
             missileLauncherNamePanel = new JPanel();
             missileLauncherNameLabel = new JLabel("Missile Launcher - " + planet.getArmy()[4].size());
+            missileLauncherNameLabel.setForeground(Globals.bottomFontColor);
             missileLauncherNamePanel.setBackground(Globals.bottomBackgroundColor);
             
             // missileLauncherNameLabel.setFont(new Font("Arial", 1, 20));
@@ -376,11 +389,13 @@ public class BottomPanel extends JPanel {
             
             missileLauncherCostPanel.add(new JLabel(new ImageIcon(metalImageScaledTiny)));
             missileLauncherPriceMetalLabel = new JLabel("" + Variables.METAL_COST_MISSILELAUNCHER);
+            missileLauncherPriceMetalLabel.setForeground(Globals.bottomFontColor);
             // missileLauncherPriceMetalLabel.setFont(new Font("Arial", 1, 20));
             missileLauncherPriceMetalLabel.setFont(customFontSmaller);
             missileLauncherCostPanel.add(missileLauncherPriceMetalLabel);
             missileLauncherCostPanel.add(new JLabel(new ImageIcon(redstoneImageScaledTiny)));
             missileLauncherPriceDeuteriumLabel = new JLabel("" + Variables.DEUTERIUM_COST_MISSILELAUNCHER);
+            missileLauncherPriceDeuteriumLabel.setForeground(Globals.bottomFontColor);
             // missileLauncherPriceDeuteriumLabel.setFont(new Font("Arial", 1, 20));
             missileLauncherPriceDeuteriumLabel.setFont(customFontSmaller);
             missileLauncherCostPanel.add(missileLauncherPriceDeuteriumLabel);
@@ -424,6 +439,7 @@ public class BottomPanel extends JPanel {
             });
             ionCannonNamePanel = new JPanel();
             ionCannonNameLabel = new JLabel("Ion Cannon - " + planet.getArmy()[5].size());
+            ionCannonNameLabel.setForeground(Globals.bottomFontColor);
             ionCannonNamePanel.setBackground(Globals.bottomBackgroundColor);
             
             // ionCannonNameLabel.setFont(new Font("Arial", 1, 20));
@@ -439,11 +455,13 @@ public class BottomPanel extends JPanel {
             
             ionCannonCostPanel.add(new JLabel(new ImageIcon(metalImageScaledTiny)));
             ionCannonPriceMetalLabel = new JLabel("" + Variables.METAL_COST_IONCANNON);
+            ionCannonPriceMetalLabel.setForeground(Globals.bottomFontColor);
             // ionCannonPriceMetalLabel.setFont(new Font("Arial", 1, 20));
             ionCannonPriceMetalLabel.setFont(customFontSmaller);
             ionCannonCostPanel.add(ionCannonPriceMetalLabel);
             ionCannonCostPanel.add(new JLabel(new ImageIcon(redstoneImageScaledTiny)));
             ionCannonPriceDeuteriumLabel = new JLabel("" + Variables.DEUTERIUM_COST_IONCANNON);
+            ionCannonPriceDeuteriumLabel.setForeground(Globals.bottomFontColor);
             // ionCannonPriceDeuteriumLabel.setFont(new Font("Arial", 1, 20));
             ionCannonPriceDeuteriumLabel.setFont(customFontSmaller);
             ionCannonCostPanel.add(ionCannonPriceDeuteriumLabel);
@@ -486,6 +504,7 @@ public class BottomPanel extends JPanel {
             });
             plasmaCannonNamePanel = new JPanel();
             plasmaCannonNameLabel = new JLabel("Plasma Cannon - " + planet.getArmy()[6].size());
+            plasmaCannonNameLabel.setForeground(Globals.bottomFontColor);
             plasmaCannonNamePanel.setBackground(Globals.bottomBackgroundColor);
             
             // plasmaCannonNameLabel.setFont(new Font("Arial", 1, 20));
@@ -501,11 +520,13 @@ public class BottomPanel extends JPanel {
             
             plasmaCannonCostPanel.add(new JLabel(new ImageIcon(metalImageScaledTiny)));
             plasmaCannonPriceMetalLabel = new JLabel("" + Variables.METAL_COST_PLASMACANNON);
+            plasmaCannonPriceMetalLabel.setForeground(Globals.bottomFontColor);
             // plasmaCannonPriceMetalLabel.setFont(new Font("Arial", 1, 20));
             plasmaCannonPriceMetalLabel.setFont(customFontSmaller);
             plasmaCannonCostPanel.add(plasmaCannonPriceMetalLabel);
             plasmaCannonCostPanel.add(new JLabel(new ImageIcon(redstoneImageScaledTiny)));
             plasmaCannonPriceDeuteriumLabel = new JLabel("" + Variables.DEUTERIUM_COST_PLASMACANNON);
+            plasmaCannonPriceDeuteriumLabel.setForeground(Globals.bottomFontColor);
             // plasmaCannonPriceDeuteriumLabel.setFont(new Font("Arial", 1, 20));
             plasmaCannonPriceDeuteriumLabel.setFont(customFontSmaller);
             plasmaCannonCostPanel.add(plasmaCannonPriceDeuteriumLabel);
