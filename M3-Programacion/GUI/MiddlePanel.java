@@ -4,6 +4,7 @@ import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -33,10 +34,22 @@ public class MiddlePanel extends JPanel{
         private Battle battle;
         private Color threatDisplayColor;
         private int timerCountdown;
+        private Font customFontBig, customFont, customFontSmall, customFontBiggest;
         MiddlePanel(Planet planet) {
             setLayout(new BorderLayout());
             add(new PaddingPanel(), BorderLayout.NORTH);
             setFocusable(true);
+
+            try {
+                customFontBiggest = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(68f);
+                customFontBig = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(40f);
+                customFont = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(32f);
+                customFontSmall = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(18f);
+            } catch (FontFormatException | IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
             addKeyListener(new KeyAdapter() {
                 @Override
                 public void keyPressed(KeyEvent e) {
@@ -79,18 +92,21 @@ public class MiddlePanel extends JPanel{
             if(planet.getCurrentThreat() != null) {
 
                 if(!planet.getCurrentThreat().isHasCombatStarted()) {
-                    g2d.setFont(new Font("Arial", Font.BOLD, 48));
+                    // g2d.setFont(new Font("Arial", Font.BOLD, 48));
+                    g2d.setFont(customFontBig);
                     g2d.setColor(threatDisplayColor);
-                    g2d.drawString("THREAT DETECTED", getWidth() / 2 - 230, 60);
-                    g2d.drawString(String.valueOf(timerCountdown), getWidth() / 2 - 20, 120);
+                    g2d.drawString("THREAT DETECTED", getWidth() / 2 - 150, 60);
+                    g2d.drawString(String.valueOf(timerCountdown), getWidth() / 2, 120);
                 }
 
                 // if combat has started
                 if(planet.getCurrentThreat().isHasCombatStarted()) {
-                    g2d.setFont(new Font("Arial", 1, 32));
+                    // g2d.setFont(new Font("Arial", 1, 32));
+                    g2d.setFont(customFont);
                     g2d.setColor(new Color(255,255,255, 220));
                     g2d.drawString("\"Space\" to skip", getWidth()/2-100, getHeight() - 30);
-                    g2d.setFont(new Font("Arial", 3, 72));
+                    // g2d.setFont(new Font("Arial", 3, 72));
+                    g2d.setFont(customFontBiggest);
                     
                     if (battle.getAttackingArmy() == 0) {
                         int[] xPoints = new int[3];

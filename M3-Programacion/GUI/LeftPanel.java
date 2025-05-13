@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -42,6 +43,7 @@ public class LeftPanel extends JPanel implements ActionListener{
         private String metalStr, deuteriumStr;
         private JButton lvlUpAttackButton, lvlUpDefenseButton,lvlUpMetalMineButton, lvlUpDeuteriumMineButton;
         private JTextArea techAttackLvlAmountTextArea, techDefenseLvlAmountTextArea, metalMineLvlTextArea, deuteriumMineLvlTextArea;
+        private Font customFont, customFontSmaller;
     
         LeftPanel(Planet planet) {
             setSize(new Dimension(230,230));
@@ -50,6 +52,14 @@ public class LeftPanel extends JPanel implements ActionListener{
             add(new PaddingPanel(), BorderLayout.NORTH);
             add(new PaddingPanel(), BorderLayout.WEST);
             add(new PaddingPanel(), BorderLayout.EAST);
+
+            try {
+                customFont = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(24f);
+                customFontSmaller = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(20f);
+            } catch (FontFormatException | IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
 
             mainPanel = new JPanel();
             // mainPanel.setBackground(Color.orange);
@@ -78,7 +88,8 @@ public class LeftPanel extends JPanel implements ActionListener{
             infoPanel.setLayout(new GridLayout(3,1));
 
             resourcesTextLabel = new JLabel("Resources");
-            resourcesTextLabel.setFont(new Font("Arial", 1, 24));
+            // resourcesTextLabel.setFont(new Font("Arial", 1, 24));
+            resourcesTextLabel.setFont(customFont);
             resourcesTextLabel.setForeground(Color.WHITE);
 
             resourcesTextPanel = new JPanel();
@@ -94,7 +105,8 @@ public class LeftPanel extends JPanel implements ActionListener{
 
             metalStr = String.valueOf(planet.getMetal() + " +" + 2000 * planet.getMetalMineLvl());
             metalTextLabel = new JLabel(metalStr);
-            metalTextLabel.setFont(new Font("Arial", 1, 20));
+            // metalTextLabel.setFont(new Font("Arial", 1, 20));
+            metalTextLabel.setFont(customFontSmaller);
 
             metalResourcePanel.add(metalImageLabel);
             metalResourcePanel.add(metalTextLabel);
@@ -107,7 +119,8 @@ public class LeftPanel extends JPanel implements ActionListener{
 
             deuteriumStr = String.valueOf(planet.getDeuterium()) + " +" + 800 * planet.getDeuteriumMineLvl();
             deuteriumTextLabel = new JLabel(deuteriumStr);
-            deuteriumTextLabel.setFont(new Font("Arial", 1, 20));
+            // deuteriumTextLabel.setFont(new Font("Arial", 1, 20));
+            deuteriumTextLabel.setFont(customFontSmaller);
 
             deuteriumResourcePanel.add(deuteriumImageLabel);
             deuteriumResourcePanel.add(deuteriumTextLabel);
@@ -125,7 +138,9 @@ public class LeftPanel extends JPanel implements ActionListener{
             technologyTextPanel.setBackground(new Color(30,30,30));
 
             technologyTextLabel = new JLabel("Technology");
-            technologyTextLabel.setFont(new Font("Arial", 1, 24));
+            
+            // technologyTextLabel.setFont(new Font("Arial", 1, 24));
+            technologyTextLabel.setFont(customFont);
             technologyTextLabel.setForeground(Color.WHITE);
 
             
@@ -135,7 +150,8 @@ public class LeftPanel extends JPanel implements ActionListener{
             techAttackPanel = new JPanel();
 
             techAttackLvlAmountTextArea = new JTextArea("" + planet.getTechnologyAttack());
-            techAttackLvlAmountTextArea.setFont(new Font("Arial", 1, 20));
+            // techAttackLvlAmountTextArea.setFont(new Font("Arial", 1, 20));
+            techAttackLvlAmountTextArea.setFont(customFontSmaller);
             techAttackLvlAmountTextArea.setPreferredSize(new Dimension(30,30));
             techAttackLvlAmountTextArea.setEditable(false);
             
@@ -170,7 +186,8 @@ public class LeftPanel extends JPanel implements ActionListener{
             techAttackPanel.add(techAttackImgLabel);
 
             techAttackLvlCost = new JLabel("" + planet.getUpgradeAttackTechnologyDeuteriumCost());
-            techAttackLvlCost.setFont(new Font("Arial", 1, 20));
+            // techAttackLvlCost.setFont(new Font("Arial", 1, 20));
+            techAttackLvlCost.setFont(customFontSmaller);
             techAttackPanel.add(techAttackLvlCost);
             Image redstoneImageScaledTiny = redstoneIconScaled.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
             techAttackPanel.add(new JLabel(new ImageIcon(redstoneImageScaledTiny)));
@@ -180,7 +197,8 @@ public class LeftPanel extends JPanel implements ActionListener{
 
             techDefenseLvlAmountTextArea = new JTextArea("" + planet.getTechnologyDefense());
             techDefenseLvlAmountTextArea.setEditable(false);
-            techDefenseLvlAmountTextArea.setFont(new Font("Arial", 1, 20));
+            // techDefenseLvlAmountTextArea.setFont(new Font("Arial", 1, 20));
+            techDefenseLvlAmountTextArea.setFont(customFontSmaller);
             techDefenseLvlAmountTextArea.setPreferredSize(new Dimension(30,30));
             techDefensePanel.add(techDefenseLvlAmountTextArea);
 
@@ -210,7 +228,8 @@ public class LeftPanel extends JPanel implements ActionListener{
             techDefensePanel.add(techDefenseImgLabel);
 
             techDefenseLvlCost = new JLabel("" + planet.getUpgradeDefenseTechnologyDeuteriumCost());
-            techDefenseLvlCost.setFont(new Font("Arial", 1, 20));
+            // techDefenseLvlCost.setFont(new Font("Arial", 1, 20));
+            techDefenseLvlCost.setFont(customFontSmaller);
             techDefensePanel.add(techDefenseLvlCost);
             techDefensePanel.add(new JLabel(new ImageIcon(redstoneImageScaledTiny)));
 
@@ -226,7 +245,8 @@ public class LeftPanel extends JPanel implements ActionListener{
             minesTxtPanel = new JPanel();
             minesTxtPanel.setBackground(new Color(30,30,30));
             minesTxtLabel = new JLabel("Mines");
-            minesTxtLabel.setFont(new Font("Arial", 1, 24));
+            // minesTxtLabel.setFont(new Font("Arial", 1, 24));
+            minesTxtLabel.setFont(customFont);
             minesTxtLabel.setForeground(Color.WHITE);
             minesTxtPanel.add(minesTxtLabel);
 
@@ -235,7 +255,8 @@ public class LeftPanel extends JPanel implements ActionListener{
 
             metalMineLvlTextArea = new JTextArea("" + planet.getMetalMineLvl());
             metalMineLvlTextArea.setEditable(false);
-            metalMineLvlTextArea.setFont(new Font("Arial", 1, 20));
+            // metalMineLvlTextArea.setFont(new Font("Arial", 1, 20));
+            metalMineLvlTextArea.setFont(customFontSmaller);
             metalMineLvlTextArea.setPreferredSize(new Dimension(30,30));
             metalMinePanel.add(metalMineLvlTextArea);
 
@@ -255,7 +276,8 @@ public class LeftPanel extends JPanel implements ActionListener{
             metalMineImgLabel = new JLabel(new ImageIcon(metalIconScaled));
 
             metalMineCostLabel = new JLabel("" + planet.getUpgradeMetalMineLvlMetalCost());
-            metalMineCostLabel.setFont(new Font("Arial", 1, 20));
+            // metalMineCostLabel.setFont(new Font("Arial", 1, 20));
+            metalMineCostLabel.setFont(customFontSmaller);
 
             metalMinePanel.add(lvlUpMetalMineButton);
             metalMinePanel.add(metalMineImgLabel);
@@ -267,7 +289,8 @@ public class LeftPanel extends JPanel implements ActionListener{
 
             deuteriumMineLvlTextArea = new JTextArea("" + planet.getDeuteriumMineLvl());
             deuteriumMineLvlTextArea.setEditable(false);
-            deuteriumMineLvlTextArea.setFont(new Font("Arial", 1, 20));
+            // deuteriumMineLvlTextArea.setFont(new Font("Arial", 1, 20));
+            deuteriumMineLvlTextArea.setFont(customFontSmaller);
             deuteriumMineLvlTextArea.setPreferredSize(new Dimension(30,30));
             deuteriumMinePanel.add(deuteriumMineLvlTextArea);
 
@@ -287,7 +310,8 @@ public class LeftPanel extends JPanel implements ActionListener{
             deuteriumMineImgLabel = new JLabel(new ImageIcon(redstoneIconScaled));
 
             deuteriumMineCostLabel = new JLabel("" + planet.getUpgradeDeuteriumMineLvlDeuteriumCost());
-            deuteriumMineCostLabel.setFont(new Font("Arial", 1, 20));
+            // deuteriumMineCostLabel.setFont(new Font("Arial", 1, 20));
+            deuteriumMineCostLabel.setFont(customFontSmaller);
 
             deuteriumMinePanel.add(lvlUpDeuteriumMineButton);
             deuteriumMinePanel.add(deuteriumMineImgLabel);

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontFormatException;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -21,6 +22,8 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 class RightPanel extends JPanel {
         private JPanel mainPanel, imagePanel, buttonsPanel, upperPanel, fixArmyPanel, costFixArmyPanel, costFixArmyAmountPanel;
@@ -29,10 +32,21 @@ class RightPanel extends JPanel {
         private Planet planet;
         private ImageIcon metalIcon, deuteriumIcon;
         private MainScreen ms;
+        private Font customFont, customFontSmaller, customFontSmallest;
 
         RightPanel(Planet planet, MainScreen ms) {
             this.planet = planet;
             this.ms = ms;
+
+            try {
+                customFont = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(24f);
+                customFontSmaller = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(18f);
+                customFontSmallest = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(14f);
+            } catch (FontFormatException | IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
   
             int gameSettingsWidth = 200;
             int gameSettingsHeight = 200;
@@ -58,7 +72,8 @@ class RightPanel extends JPanel {
 
 
             fixArmyButton = new JButton("Fix Army");
-            fixArmyButton.setFont(new Font("Arial", Font.BOLD, 24));
+            // fixArmyButton.setFont(new Font("Arial", Font.BOLD, 24));
+            fixArmyButton.setFont(customFont);
             fixArmyButton.setBackground(Color.black);
             fixArmyButton.setForeground(Color.WHITE);
             fixArmyButton.addActionListener(new ButtonEvents());
@@ -91,7 +106,8 @@ class RightPanel extends JPanel {
             fixArmyPanel.add(costFixArmyPanel);
 
             startABattle = new JButton("Start a fight");
-            startABattle.setFont(new Font("Arial", Font.BOLD, 20));
+            // startABattle.setFont(new Font("Arial", Font.BOLD, 20));
+            startABattle.setFont(customFontSmaller);
             startABattle.setBackground(Color.BLACK);
             startABattle.setForeground(Color.WHITE);
             startABattle.addActionListener(new ActionListener() {
@@ -110,10 +126,12 @@ class RightPanel extends JPanel {
             upperPanel.add(fixArmyPanel);
             
 
-            viewCurrentThreatButton = new JButton("View Current Threat");
+            viewCurrentThreatButton = new JButton("View Threat");
+            // viewCurrentThreatButton.
             viewCurrentThreatButton.setBackground(Color.BLACK);
             viewCurrentThreatButton.setForeground(Color.WHITE);
-            viewCurrentThreatButton.setFont(new Font("Arial", Font.BOLD, 14));
+            // viewCurrentThreatButton.setFont(new Font("Arial", Font.BOLD, 14));
+            viewCurrentThreatButton.setFont(customFontSmaller);
             viewCurrentThreatButton.addActionListener(new ButtonEvents());
 
             upperPanel.add(viewCurrentThreatButton);
@@ -137,28 +155,32 @@ class RightPanel extends JPanel {
             buttonsPanel.setBackground(Color.YELLOW);
 
             newGameButton = new JButton("New Game");
-            newGameButton.setFont(new Font("Arial", Font.BOLD, 18));
+            // newGameButton.setFont(new Font("Arial", Font.BOLD, 18));
+            newGameButton.setFont(customFontSmaller);
             newGameButton.setBackground(Color.BLACK);
             newGameButton.setForeground(Color.WHITE);
             buttonsPanel.add(newGameButton);
             newGameButton.addActionListener(new ButtonEvents());
 
             battleReportButton = new JButton("Battle Report");
-            battleReportButton.setFont(new Font("Arial", Font.BOLD, 18));
+            // battleReportButton.setFont(new Font("Arial", Font.BOLD, 18));
+            battleReportButton.setFont(customFontSmaller);
             battleReportButton.setBackground(Color.BLACK);
             battleReportButton.setForeground(Color.WHITE);
             buttonsPanel.add(battleReportButton);
             battleReportButton.addActionListener(new ButtonEvents());
             
             settingsButton = new JButton("Settings");
-            settingsButton.setFont(new Font("Arial", Font.BOLD, 18));
+            // settingsButton.setFont(new Font("Arial", Font.BOLD, 18));
+            settingsButton.setFont(customFontSmaller);
             settingsButton.setBackground(Color.BLACK);
             settingsButton.setForeground(Color.WHITE);
             buttonsPanel.add(settingsButton);
             settingsButton.addActionListener(new ButtonEvents());
 
             exitButton = new JButton("Exit");
-            exitButton.setFont(new Font("Arial", Font.BOLD, 18));
+            // exitButton.setFont(new Font("Arial", Font.BOLD, 18));
+            exitButton.setFont(customFontSmaller);
             exitButton.setBackground(Color.BLACK);
             exitButton.setForeground(Color.WHITE);
             buttonsPanel.add(exitButton);
@@ -195,7 +217,7 @@ class RightPanel extends JPanel {
                     exitEvent();
                 }
 
-                if (e.getActionCommand().equals("View Current Threat")) {
+                if (e.getActionCommand().equals("View Threat")) {
                     if (planet.isActiveThreat()) {
                         new ThreatFrame(planet);
                     }
