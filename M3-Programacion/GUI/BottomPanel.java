@@ -86,7 +86,7 @@ public class BottomPanel extends JPanel {
             lightHunterPanel.setBackground(Color.GREEN);
 
             buyLightHunterButton = new JButton("buyLightHunter");
-            buyLightHunterButton.setBackground(Color.white);
+            buyLightHunterButton.setBackground(Globals.bottomImageBackgroundColor);
             buyLightHunterButton.setIcon(new ImageIcon(LightHunter.getImgIcon().getImage().getScaledInstance(70, 100, Image.SCALE_SMOOTH)));
             buyLightHunterButton.setFont(new Font("Arial", 1, 0));
             buyLightHunterButton.setSize(30, 30);
@@ -111,6 +111,7 @@ public class BottomPanel extends JPanel {
             });
             lightHunterNamePanel = new JPanel();
             lightHunterNameLabel = new JLabel("Light Hunter - " + planet.getArmy()[0].size());
+            lightHunterNamePanel.setBackground(Globals.bottomBackgroundColor);
             
             // lightHunterNameLabel.setFont(new Font("Arial", 1, 20));
             lightHunterNameLabel.setFont(customFontSmaller);
@@ -121,6 +122,7 @@ public class BottomPanel extends JPanel {
             lightHunterPanel.add(buyLightHunterButton, BorderLayout.CENTER);
 
             lightHunterCostPanel = new JPanel();
+            lightHunterCostPanel.setBackground(Globals.bottomBackgroundColor);
             
             lightHunterCostPanel.add(new JLabel(new ImageIcon(metalImageScaledTiny)));
             lightHunterPriceMetalLabel = new JLabel("" + Variables.METAL_COST_LIGTHHUNTER);
@@ -140,10 +142,10 @@ public class BottomPanel extends JPanel {
             //HeavyHuntersPanel
             heavyHunterPanel = new JPanel();
             heavyHunterPanel.setLayout(new BorderLayout());
-            heavyHunterPanel.setBackground(Color.BLACK);
+            heavyHunterPanel.setBackground(Globals.bottomBackgroundColor);
 
             buyHeavyHunterButton = new JButton("buyHeavyHunter");
-            buyHeavyHunterButton.setBackground(Color.white);
+            buyHeavyHunterButton.setBackground(Globals.bottomImageBackgroundColor);
             buyHeavyHunterButton.setIcon(new ImageIcon(HeavyHunter.getImgIcon().getImage().getScaledInstance(70, 100, Image.SCALE_SMOOTH)));
             buyHeavyHunterButton.setFont(new Font("Arial", 1, 0));
             buyHeavyHunterButton.setSize(30, 30);
@@ -168,6 +170,7 @@ public class BottomPanel extends JPanel {
             });
             heavyHunterNamePanel = new JPanel();
             heavyHunterNameLabel = new JLabel("Heavy Hunter - " + planet.getArmy()[1].size());
+            heavyHunterNamePanel.setBackground(Globals.bottomBackgroundColor);
             
             // heavyHunterNameLabel.setFont(new Font("Arial", 1, 20));
             heavyHunterNameLabel.setFont(customFontSmaller);
@@ -178,6 +181,7 @@ public class BottomPanel extends JPanel {
             heavyHunterPanel.add(buyHeavyHunterButton, BorderLayout.CENTER);
 
             heavyHunterCostPanel = new JPanel();
+            heavyHunterCostPanel.setBackground(Globals.bottomBackgroundColor);
             
             heavyHunterCostPanel.add(new JLabel(new ImageIcon(metalImageScaledTiny)));
             heavyHunterPriceMetalLabel = new JLabel("" + Variables.METAL_COST_HEAVYHUNTER);
@@ -201,13 +205,13 @@ public class BottomPanel extends JPanel {
 
             //battleShip panel
             battleShipPanel = new JPanel();
-            battleShipPanel.setBackground(Color.ORANGE);
+            battleShipPanel.setBackground(Globals.bottomBackgroundColor);
 
             battleShipPanel.setLayout(new BorderLayout());
-            battleShipPanel.setBackground(Color.BLACK);
+            // battleShipPanel.setBackground(Color.BLACK);
 
             buyBattleShipButton = new JButton("buyBattleShip");
-            buyBattleShipButton.setBackground(Color.white);
+            buyBattleShipButton.setBackground(Globals.bottomImageBackgroundColor);
             buyBattleShipButton.setIcon(new ImageIcon(BattleShip.getImgIcon().getImage().getScaledInstance(70, 100, Image.SCALE_SMOOTH)));
             buyBattleShipButton.setFont(new Font("Arial", 1, 0));
             buyBattleShipButton.setSize(30, 30);
@@ -232,6 +236,7 @@ public class BottomPanel extends JPanel {
             });
             battleShipNamePanel = new JPanel();
             battleShipNameLabel = new JLabel("Battle Ship - " + planet.getArmy()[2].size());
+            battleShipNamePanel.setBackground(Globals.bottomBackgroundColor);
             
             // battleShipNameLabel.setFont(new Font("Arial", 1, 20));
             battleShipNameLabel.setFont(customFontSmaller);
@@ -242,6 +247,7 @@ public class BottomPanel extends JPanel {
             battleShipPanel.add(buyBattleShipButton, BorderLayout.CENTER);
 
             battleShipCostPanel = new JPanel();
+            battleShipCostPanel.setBackground(Globals.bottomBackgroundColor);
             
             battleShipCostPanel.add(new JLabel(new ImageIcon(metalImageScaledTiny)));
             battleShipPriceMetalLabel = new JLabel("" + Variables.METAL_COST_BATTLESHIP);
@@ -261,14 +267,14 @@ public class BottomPanel extends JPanel {
 
             //armoredShip panel
             armoredShipPanel = new JPanel();
-            armoredShipPanel.setBackground(Color.CYAN);
+            // armoredShipPanel.setBackground(Color.CYAN);
 
 
             armoredShipPanel.setLayout(new BorderLayout());
-            armoredShipPanel.setBackground(Color.BLACK);
+            armoredShipPanel.setBackground(Globals.bottomBackgroundColor);
 
             buyArmoredShipButton = new JButton("buyArmoredShip");
-            buyArmoredShipButton.setBackground(Color.white);
+            buyArmoredShipButton.setBackground(Globals.bottomImageBackgroundColor);
             buyArmoredShipButton.setIcon(new ImageIcon(ArmoredShip.getImgIcon().getImage().getScaledInstance(70, 100, Image.SCALE_SMOOTH)));
             buyArmoredShipButton.setFont(new Font("Arial", 1, 0));
             buyArmoredShipButton.setSize(30, 30);
@@ -293,6 +299,7 @@ public class BottomPanel extends JPanel {
             });
             armoredShipNamePanel = new JPanel();
             armoredShipNameLabel = new JLabel("Armored Ship - " + planet.getArmy()[3].size());
+            armoredShipNamePanel.setBackground(Globals.bottomBackgroundColor);
             
             // armoredShipNameLabel.setFont(new Font("Arial", 1, 20));
             armoredShipNameLabel.setFont(customFontSmaller);
@@ -303,6 +310,7 @@ public class BottomPanel extends JPanel {
             armoredShipPanel.add(buyArmoredShipButton, BorderLayout.CENTER);
 
             armoredShipCostPanel = new JPanel();
+            armoredShipCostPanel.setBackground(Globals.bottomBackgroundColor);
             
             armoredShipCostPanel.add(new JLabel(new ImageIcon(metalImageScaledTiny)));
             armoredShipPriceMetalLabel = new JLabel("" + Variables.METAL_COST_ARMOREDSHIP);
@@ -322,13 +330,13 @@ public class BottomPanel extends JPanel {
 
             //missileLauncher panel
             missileLauncherPanel = new JPanel();
-            missileLauncherPanel.setBackground(Color.RED);
+            // missileLauncherPanel.setBackground(Color.RED);
 
             missileLauncherPanel.setLayout(new BorderLayout());
-            missileLauncherPanel.setBackground(Color.BLACK);
+            missileLauncherPanel.setBackground(Globals.bottomBackgroundColor);
 
             buyMissileLauncherButton = new JButton("buyMissileLauncher");
-            buyMissileLauncherButton.setBackground(Color.white);
+            buyMissileLauncherButton.setBackground(Globals.bottomImageBackgroundColor);
             buyMissileLauncherButton.setIcon(new ImageIcon(MissileLauncher.getImgIcon().getImage().getScaledInstance(130, 80, Image.SCALE_SMOOTH)));
             buyMissileLauncherButton.setFont(new Font("Arial", 1, 0));
             buyMissileLauncherButton.setSize(30, 30);
@@ -353,6 +361,7 @@ public class BottomPanel extends JPanel {
             });
             missileLauncherNamePanel = new JPanel();
             missileLauncherNameLabel = new JLabel("Missile Launcher - " + planet.getArmy()[4].size());
+            missileLauncherNamePanel.setBackground(Globals.bottomBackgroundColor);
             
             // missileLauncherNameLabel.setFont(new Font("Arial", 1, 20));
             missileLauncherNameLabel.setFont(customFontSmaller);
@@ -363,6 +372,7 @@ public class BottomPanel extends JPanel {
             missileLauncherPanel.add(buyMissileLauncherButton, BorderLayout.CENTER);
 
             missileLauncherCostPanel = new JPanel();
+            missileLauncherCostPanel.setBackground(Globals.bottomBackgroundColor);
             
             missileLauncherCostPanel.add(new JLabel(new ImageIcon(metalImageScaledTiny)));
             missileLauncherPriceMetalLabel = new JLabel("" + Variables.METAL_COST_MISSILELAUNCHER);
@@ -383,13 +393,13 @@ public class BottomPanel extends JPanel {
 
             //ionCannon panel
             ionCannonPanel = new JPanel();
-            ionCannonPanel.setBackground(Color.YELLOW);
+            // ionCannonPanel.setBackground(Color.YELLOW);
 
             ionCannonPanel.setLayout(new BorderLayout());
-            ionCannonPanel.setBackground(Color.BLACK);
+            ionCannonPanel.setBackground(Globals.bottomBackgroundColor);
 
             buyIonCannonButton = new JButton("buyIonCannon");
-            buyIonCannonButton.setBackground(Color.white);
+            buyIonCannonButton.setBackground(Globals.bottomImageBackgroundColor);
             buyIonCannonButton.setIcon(new ImageIcon(IonCannon.getImgIcon().getImage().getScaledInstance(130, 80, Image.SCALE_SMOOTH)));
             buyIonCannonButton.setFont(new Font("Arial", 1, 0));
             buyIonCannonButton.setSize(30, 30);
@@ -414,6 +424,7 @@ public class BottomPanel extends JPanel {
             });
             ionCannonNamePanel = new JPanel();
             ionCannonNameLabel = new JLabel("Ion Cannon - " + planet.getArmy()[5].size());
+            ionCannonNamePanel.setBackground(Globals.bottomBackgroundColor);
             
             // ionCannonNameLabel.setFont(new Font("Arial", 1, 20));
             ionCannonNameLabel.setFont(customFontSmaller);
@@ -424,6 +435,7 @@ public class BottomPanel extends JPanel {
             ionCannonPanel.add(buyIonCannonButton, BorderLayout.CENTER);
 
             ionCannonCostPanel = new JPanel();
+            ionCannonCostPanel.setBackground(Globals.bottomBackgroundColor);
             
             ionCannonCostPanel.add(new JLabel(new ImageIcon(metalImageScaledTiny)));
             ionCannonPriceMetalLabel = new JLabel("" + Variables.METAL_COST_IONCANNON);
@@ -443,13 +455,13 @@ public class BottomPanel extends JPanel {
 
             //plasmaCannon panel
             plasmaCannonPanel = new JPanel();
-            plasmaCannonPanel.setBackground(Color.WHITE);
+            // plasmaCannonPanel.setBackground(Color.WHITE);
 
             plasmaCannonPanel.setLayout(new BorderLayout());
-            plasmaCannonPanel.setBackground(Color.BLACK);
+            plasmaCannonPanel.setBackground(Globals.bottomBackgroundColor);
 
             buyPlasmaCannonButton = new JButton("buyPlasmaCannon");
-            buyPlasmaCannonButton.setBackground(Color.white);
+            buyPlasmaCannonButton.setBackground(Globals.bottomImageBackgroundColor);
             buyPlasmaCannonButton.setIcon(new ImageIcon(PlasmaCannon.getImgIcon().getImage().getScaledInstance(90, 80, Image.SCALE_SMOOTH)));
             buyPlasmaCannonButton.setFont(new Font("Arial", 1, 0));
             buyPlasmaCannonButton.setSize(30, 30);
@@ -474,6 +486,7 @@ public class BottomPanel extends JPanel {
             });
             plasmaCannonNamePanel = new JPanel();
             plasmaCannonNameLabel = new JLabel("Plasma Cannon - " + planet.getArmy()[6].size());
+            plasmaCannonNamePanel.setBackground(Globals.bottomBackgroundColor);
             
             // plasmaCannonNameLabel.setFont(new Font("Arial", 1, 20));
             plasmaCannonNameLabel.setFont(customFontSmaller);
@@ -484,6 +497,7 @@ public class BottomPanel extends JPanel {
             plasmaCannonPanel.add(buyPlasmaCannonButton, BorderLayout.CENTER);
 
             plasmaCannonCostPanel = new JPanel();
+            plasmaCannonCostPanel.setBackground(Globals.bottomBackgroundColor);
             
             plasmaCannonCostPanel.add(new JLabel(new ImageIcon(metalImageScaledTiny)));
             plasmaCannonPriceMetalLabel = new JLabel("" + Variables.METAL_COST_PLASMACANNON);
