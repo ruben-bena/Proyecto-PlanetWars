@@ -1,7 +1,5 @@
 package ddbb;
-
-// This class (and the others alike) receives a Database object at creation (to receive the Connection attribute) and in each method receives the "Gamedata" object
-
+import classes.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +14,7 @@ public class PlanetStatsTable implements Table {
     private int technology_defense_level;
     private int technology_attack_level;
     private int battles_counter;
-    private int missile_launcherremaining;
+    private int missile_launcher_remaining;
     private int ion_cannon_remaining;
     private int plasma_cannon_remaining;
     private int light_hunter_remaining;
@@ -42,8 +40,25 @@ public class PlanetStatsTable implements Table {
         pst.getRow(1);
     }
     
-    public PlanetStatsTable(Database db) {
+    private PlanetStatsTable() {
+        
+    }
+
+    public PlanetStatsTable(Database db, Planet planet) {
         this.db = db;
+        this.name = "prueba"; // TODO: needs to be well implemented in class Planet
+        this.resource_metal_amount = planet.getMetal();
+        this.resource_deuterion_amount = planet.getDeuterium();
+        this.technology_defense_level = planet.getTechnologyDefense();
+        this.technology_attack_level = planet.getTechnologyAttack();
+        this.battles_counter = planet.getNBattles();
+        this.missile_launcher_remaining = planet.getArmy()[4].size();
+        this.ion_cannon_remaining = planet.getArmy()[5].size();
+        this.plasma_cannon_remaining = planet.getArmy()[6].size();
+        this.light_hunter_remaining = planet.getArmy()[0].size();
+        this.heavy_hunter_remaining = planet.getArmy()[1].size();
+        this.battleship_remaining = planet.getArmy()[2].size();
+        this.armored_ship_remaining = planet.getArmy()[3].size();
     }
 
     public PlanetStatsTable(Database db, int planet_id, String name, int resource_metal_amount,
@@ -60,7 +75,7 @@ public class PlanetStatsTable implements Table {
 		this.technology_defense_level = technology_defense_level;
 		this.technology_attack_level = technology_attack_level;
 		this.battles_counter = battles_counter;
-		this.missile_launcherremaining = missile_launcherremaining;
+		this.missile_launcher_remaining = missile_launcherremaining;
 		this.ion_cannon_remaining = ion_cannon_remaining;
 		this.plasma_cannon_remaining = plasma_cannon_remaining;
 		this.light_hunter_remaining = light_hunter_remaining;
@@ -88,7 +103,7 @@ public class PlanetStatsTable implements Table {
             ps.setInt(4, technology_defense_level);
             ps.setInt(5, technology_attack_level);
             ps.setInt(6, battles_counter);
-            ps.setInt(7, missile_launcherremaining);
+            ps.setInt(7, missile_launcher_remaining);
             ps.setInt(8, ion_cannon_remaining);
             ps.setInt(9, plasma_cannon_remaining);
             ps.setInt(10, light_hunter_remaining);
@@ -104,6 +119,7 @@ public class PlanetStatsTable implements Table {
                 try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         planet_id = generatedKeys.getInt(1);
+                        GlobalContext.planet_id = planet_id;
                         System.out.println("new planet_id: " + planet_id);
                     } else {
                         System.out.println("could not obtain generated planet_id");
@@ -132,7 +148,7 @@ public class PlanetStatsTable implements Table {
                     technology_defense_level = rs.getInt("technology_defense_level");
                     technology_attack_level = rs.getInt("technology_attack_level");
                     battles_counter = rs.getInt("battles_counter");
-                    missile_launcherremaining = rs.getInt("missile_launcher_remaining");
+                    missile_launcher_remaining = rs.getInt("missile_launcher_remaining");
                     ion_cannon_remaining = rs.getInt("ion_cannon_remaining");
                     plasma_cannon_remaining = rs.getInt("plasma_cannon_remaining");
                     light_hunter_remaining = rs.getInt("light_hunter_remaining");
@@ -170,7 +186,7 @@ public class PlanetStatsTable implements Table {
             ps.setInt(4, technology_defense_level);
             ps.setInt(5, technology_attack_level);
             ps.setInt(6, battles_counter);
-            ps.setInt(7, missile_launcherremaining);
+            ps.setInt(7, missile_launcher_remaining);
             ps.setInt(8, ion_cannon_remaining);
             ps.setInt(9, plasma_cannon_remaining);
             ps.setInt(10, light_hunter_remaining);
@@ -188,6 +204,52 @@ public class PlanetStatsTable implements Table {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void updateAttributes(Planet planet) {
+
+        // Update the attributes
+
+        if (this.resource_metal_amount != planet.getMetal()) {
+            this.resource_metal_amount = planet.getMetal();
+        }
+        if (this.resource_deuterion_amount != planet.getDeuterium()) {
+            this.resource_deuterion_amount = planet.getDeuterium();
+        }
+        if (this.technology_defense_level != planet.getTechnologyDefense()) {
+            this.technology_defense_level = planet.getTechnologyDefense();
+        }
+        if (this.technology_attack_level != planet.getTechnologyAttack()) {
+            this.technology_attack_level = planet.getTechnologyAttack();
+        }
+        if (this.battles_counter != planet.getNBattles()) {
+            this.battles_counter = planet.getNBattles();
+        }
+        if (this.missile_launcher_remaining != planet.getArmy()[4].size()) {
+            this.missile_launcher_remaining = planet.getArmy()[4].size();
+        }
+        if (this.ion_cannon_remaining != planet.getArmy()[5].size()) {
+            this.ion_cannon_remaining = planet.getArmy()[5].size();
+        }
+        if (this.plasma_cannon_remaining != planet.getArmy()[6].size()) {
+            this.plasma_cannon_remaining = planet.getArmy()[6].size();
+        }
+        if (this.light_hunter_remaining != planet.getArmy()[0].size()) {
+            this.light_hunter_remaining = planet.getArmy()[0].size();
+        }
+        if (this.heavy_hunter_remaining != planet.getArmy()[1].size()) {
+            this.heavy_hunter_remaining = planet.getArmy()[1].size();
+        }
+        if (this.battleship_remaining != planet.getArmy()[2].size()) {
+            this.battleship_remaining = planet.getArmy()[2].size();
+        }
+        if (this.armored_ship_remaining != planet.getArmy()[3].size()) {
+            this.armored_ship_remaining = planet.getArmy()[3].size();
+        }
+
+        // Save changes in ddbb
+
+        modifyRow();
     }
     
     public void setPlanet_id(int planet_id) {
@@ -226,7 +288,7 @@ public class PlanetStatsTable implements Table {
 
 
 	public void setMissile_launcherremaining(int missile_launcherremaining) {
-		this.missile_launcherremaining = missile_launcherremaining;
+		this.missile_launcher_remaining = missile_launcherremaining;
 	}
 
 
@@ -259,5 +321,7 @@ public class PlanetStatsTable implements Table {
 		this.armored_ship_remaining = armored_ship_remaining;
 	}
     
-    
+    public int getPlanet_id() {
+        return planet_id;
+    }
 }

@@ -1,6 +1,8 @@
 package classes;
 import GUI.*;
-
+import ddbb.BattleLogTable;
+import ddbb.BattleStatsTable;
+import ddbb.PlanetBattleDefenseTable;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -81,6 +83,33 @@ public class Battle {
                 planet.setNBattles(planet.getNBattles() + 1);
                 mp.getMiddlePanel().changeScreenToDefaultScene();
                 planet.setCurrentThreat(null);
+
+                // DDBB operations
+                // PlanetStatsTable
+                GlobalContext.planetStatsTable.updateAttributes(planet);
+                // BattleStatsTable
+                GlobalContext.battleStatsTable = new BattleStatsTable(
+                    GlobalContext.database,
+                    GlobalContext.planet_id,
+                    wasteMetalDeuterium[0],
+                    wasteMetalDeuterium[1]
+                );
+                GlobalContext.battleStatsTable.insertRow();
+                // BattleLogTable
+                GlobalContext.battleLogTable = new BattleLogTable(
+                    GlobalContext.database,
+                    GlobalContext.num_battle,
+                    battleDevelopment
+                );
+                GlobalContext.battleLogTable.insertRow();
+                // PlanetBattleDefense
+                GlobalContext.planetBattleDefenseTable = new PlanetBattleDefenseTable(
+                    GlobalContext.database,
+                    GlobalContext.num_battle,
+                    Battle.this // This way we pass the Battle and not the TimerTask
+                );
+                GlobalContext.planetBattleDefenseTable.insertRow();
+
                 // Maybe I should add the threat timer here, so it starts counting after the battle is over
                 new ThreatTimer(planet, ms);
                 
@@ -495,6 +524,8 @@ public class Battle {
                 planet.setDeuterium(planet.getDeuterium() + wasteMetalDeuterium[1]);
             } else {
                 winner = "Invader";
+                wasteMetalDeuterium[0] = 0;
+                wasteMetalDeuterium[1] = 0;
             }
 
             battleDevelopment += winner + " wins!";
@@ -582,6 +613,9 @@ public class Battle {
             return enemyArmyPercRemaining;
         }
 
+        public int[][] getInitialArmies() {
+            return initialArmies;
+        }
 
         public boolean isSkipBattle() {
             return skipBattle;
@@ -600,6 +634,10 @@ public class Battle {
 
         public ArrayList<MilitaryUnit>[] getEnemyArmy() {
             return enemyArmy;
+        }
+
+        public ArrayList<MilitaryUnit>[] getPlanetArmy() {
+            return planetArmy;
         }
 
         

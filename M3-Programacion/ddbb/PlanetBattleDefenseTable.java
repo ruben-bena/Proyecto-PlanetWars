@@ -1,4 +1,5 @@
 package ddbb;
+import classes.Battle;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,6 +34,10 @@ public class PlanetBattleDefenseTable implements Table {
         pbdt.getRow(1);
     }
 
+    private PlanetBattleDefenseTable() {
+
+    }
+
     public PlanetBattleDefenseTable(Database db, int planet_battle_defense_id, int num_battle,
 			int missile_launcher_build, int missile_launcher_destroyed, int ion_cannon_built, int ion_cannon_destroyed,
 			int plasma_cannon_built, int plasma_canon_destroyed) {
@@ -47,6 +52,17 @@ public class PlanetBattleDefenseTable implements Table {
 		this.plasma_canon_built = plasma_cannon_built;
 		this.plasma_canon_destroyed = plasma_canon_destroyed;
 	}
+
+    public PlanetBattleDefenseTable(Database db, int num_battle, Battle battle) {
+        this.db = db;
+        this.num_battle = num_battle;
+        this.missile_launcher_built = battle.getInitialArmies()[0][4];
+        this.ion_cannon_built = battle.getInitialArmies()[0][5];
+        this.plasma_canon_built = battle.getInitialArmies()[0][6];
+        this.missile_launcher_destroyed = battle.getPlanetArmy()[4].size();
+        this.ion_cannon_destroyed = battle.getPlanetArmy()[5].size();
+        this.plasma_canon_destroyed = battle.getPlanetArmy()[6].size();
+    }
 
     @Override
     public void insertRow() {

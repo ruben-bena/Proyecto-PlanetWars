@@ -1,5 +1,6 @@
 package ddbb;
 
+import classes.GlobalContext;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,12 +29,25 @@ public class BattleStatsTable implements Table {
         bst.getRow(1);
     }
 
+    private BattleStatsTable() {
+
+    }
+
     public BattleStatsTable(Database db, int num_battle, int planet_id, int resource_metal_acquired,
 			int resource_deuterion_acquired) {
 		super();
 		this.db = db;
 		this.num_battle = num_battle;
 		this.planet_id = planet_id;
+		this.resource_metal_acquired = resource_metal_acquired;
+		this.resource_deuterion_acquired = resource_deuterion_acquired;
+	}
+
+    public BattleStatsTable(Database db, int planet_id, int resource_metal_acquired, 
+        int resource_deuterion_acquired) {
+		super();
+		this.db = db;
+		this.planet_id = GlobalContext.planet_id;
 		this.resource_metal_acquired = resource_metal_acquired;
 		this.resource_deuterion_acquired = resource_deuterion_acquired;
 	}
@@ -59,6 +73,7 @@ public class BattleStatsTable implements Table {
                 try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         num_battle = generatedKeys.getInt(1);
+                        GlobalContext.num_battle = num_battle;
                         System.out.println("new num_battle: " + num_battle);
                     } else {
                         System.out.println("could not obtain generated num_battle");

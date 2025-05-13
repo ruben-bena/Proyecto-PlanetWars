@@ -1,5 +1,7 @@
 package classes;
 import GUI.*;
+import ddbb.Database;
+import ddbb.PlanetStatsTable;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -9,11 +11,22 @@ import java.util.TimerTask;
 
 public class Main{
     public static void main(String[] args) throws ResourceException {
+
+        // Establish connection to local vm ddbb
+        String url = "jdbc:oracle:thin:@//localhost:1521/freepdb1"; // Local VM Oracle ddbb
+        String username = "planetWars";
+        String pass = "planetWars";
+        GlobalContext.database = new Database(url, username, pass);
+
         Planet planet = new Planet(1, 1, 200000, 40000, 3000, 3000);
         planet.newLightHunter(4);
         planet.newHeavyHunter(2);
         planet.newIonCannon(3);
         planet.newArmoredShip(1);
+
+        // Create PlanetStatsTable object with planet info, and inserting it in ddbb
+        GlobalContext.planetStatsTable = new PlanetStatsTable(GlobalContext.database, planet);
+        GlobalContext.planetStatsTable.insertRow();
 
         // Things to add: The ability to "fix" damaged troops.
 
@@ -238,8 +251,12 @@ public class Main{
     }
 
     // closeGame --> Saves all data in DDBB and then closes the program. It's called from the "Exit" button and closing the MainScreen
-    public void closeGame() {
+    public static void closeGame() {
         // TODO: Store data in DDBB before saving (need the DDBB methods finished beforehand)
+        System.out.println("Llamo al método estático Main.closeGame()");
+        System.out.println("La conexión a la bbdd está abierta --> isClosed=" + GlobalContext.database.isClosed());
+        GlobalContext.database.close();
+        System.out.println("He cerrado la conexión a la bbdd --> isClosed=" + GlobalContext.database.isClosed());
         System.exit(0);
     }
 }

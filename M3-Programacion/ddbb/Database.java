@@ -30,14 +30,14 @@ public class Database  {
     public Database(String url, String username, String pass) {
         try {
             Class.forName("oracle.jdbc.OracleDriver");
-            System.out.println("Driver cargado");
+            System.out.println("Driver loaded");
             conn = DriverManager.getConnection(url, username, pass);
-            System.out.println("Conexión establecida");
+            System.out.println("Connection established");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
-            System.out.println("Driver no encontrado.");
+            System.out.println("Driver could not be loaded...");
             e.printStackTrace();
         }
     }
