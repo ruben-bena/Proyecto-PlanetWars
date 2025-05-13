@@ -75,8 +75,8 @@ class RightPanel extends JPanel {
             fixArmyButton = new JButton("Fix Army");
             // fixArmyButton.setFont(new Font("Arial", Font.BOLD, 24));
             fixArmyButton.setFont(customFont);
-            fixArmyButton.setBackground(Color.black);
-            fixArmyButton.setForeground(Color.WHITE);
+            fixArmyButton.setBackground(Globals.rightButtonsColor);
+            fixArmyButton.setForeground(Globals.rightButtonsFontColor);
             fixArmyButton.addActionListener(new ButtonEvents());
             fixArmyPanel.add(fixArmyButton);
 
@@ -84,6 +84,7 @@ class RightPanel extends JPanel {
             costFixArmyPanel = new JPanel();
             costFixArmyPanel.setLayout(new BorderLayout());
             costFixArmyAmountPanel = new JPanel();
+            costFixArmyAmountPanel.setBackground(Globals.rightSecPanelColor);
 
             metalIcon = new ImageIcon("./M3-Programacion/GUI/images/iron_ingot.png");
             Image metalIconScaled = metalIcon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
@@ -91,6 +92,7 @@ class RightPanel extends JPanel {
             
             costFixArmyAmountPanel.add(metalImageLabel);
             metalCostFixLabel = new JLabel("" + planet.getFixArmyCost()[0]);
+            metalCostFixLabel.setForeground(Globals.rightSecFontColor);
             costFixArmyAmountPanel.add(metalCostFixLabel);
 
             deuteriumIcon = new ImageIcon("./M3-Programacion/GUI/images/redstone.png");
@@ -100,6 +102,7 @@ class RightPanel extends JPanel {
             costFixArmyAmountPanel.add(deuteriumImageLabel);
 
             deuteriumCostFixLabel = new JLabel("" + planet.getFixArmyCost()[1]);
+            deuteriumCostFixLabel.setForeground(Globals.rightSecFontColor);
             costFixArmyAmountPanel.add(deuteriumCostFixLabel);
             
             costFixArmyPanel.add(costFixArmyAmountPanel, BorderLayout.CENTER);
@@ -109,8 +112,8 @@ class RightPanel extends JPanel {
             startABattle = new JButton("Start a fight");
             // startABattle.setFont(new Font("Arial", Font.BOLD, 20));
             startABattle.setFont(customFontSmaller);
-            startABattle.setBackground(Color.BLACK);
-            startABattle.setForeground(Color.WHITE);
+            startABattle.setBackground(Globals.rightButtonsColor);
+            startABattle.setForeground(Globals.rightButtonsFontColor);
             startABattle.addActionListener(new ActionListener() {
 
                 @Override
@@ -129,8 +132,8 @@ class RightPanel extends JPanel {
 
             viewCurrentThreatButton = new JButton("View Threat");
             // viewCurrentThreatButton.
-            viewCurrentThreatButton.setBackground(Color.BLACK);
-            viewCurrentThreatButton.setForeground(Color.WHITE);
+            viewCurrentThreatButton.setBackground(Globals.rightButtonsColor);
+            viewCurrentThreatButton.setForeground(Globals.rightButtonsFontColor);
             // viewCurrentThreatButton.setFont(new Font("Arial", Font.BOLD, 14));
             viewCurrentThreatButton.setFont(customFontSmaller);
             viewCurrentThreatButton.addActionListener(new ButtonEvents());
@@ -158,32 +161,32 @@ class RightPanel extends JPanel {
             newGameButton = new JButton("New Game");
             // newGameButton.setFont(new Font("Arial", Font.BOLD, 18));
             newGameButton.setFont(customFontSmaller);
-            newGameButton.setBackground(Color.BLACK);
-            newGameButton.setForeground(Color.WHITE);
+            newGameButton.setBackground(Globals.rightButtonsColor);
+            newGameButton.setForeground(Globals.rightButtonsFontColor);
             buttonsPanel.add(newGameButton);
             newGameButton.addActionListener(new ButtonEvents());
 
             battleReportButton = new JButton("Battle Report");
             // battleReportButton.setFont(new Font("Arial", Font.BOLD, 18));
             battleReportButton.setFont(customFontSmaller);
-            battleReportButton.setBackground(Color.BLACK);
-            battleReportButton.setForeground(Color.WHITE);
+            battleReportButton.setBackground(Globals.rightButtonsColor);
+            battleReportButton.setForeground(Globals.rightButtonsFontColor);
             buttonsPanel.add(battleReportButton);
             battleReportButton.addActionListener(new ButtonEvents());
             
             settingsButton = new JButton("Settings");
             // settingsButton.setFont(new Font("Arial", Font.BOLD, 18));
             settingsButton.setFont(customFontSmaller);
-            settingsButton.setBackground(Color.BLACK);
-            settingsButton.setForeground(Color.WHITE);
+            settingsButton.setBackground(Globals.rightButtonsColor);
+            settingsButton.setForeground(Globals.rightButtonsFontColor);
             buttonsPanel.add(settingsButton);
             settingsButton.addActionListener(new ButtonEvents());
 
             exitButton = new JButton("Exit");
             // exitButton.setFont(new Font("Arial", Font.BOLD, 18));
             exitButton.setFont(customFontSmaller);
-            exitButton.setBackground(Color.BLACK);
-            exitButton.setForeground(Color.WHITE);
+            exitButton.setBackground(Globals.rightButtonsColor);
+            exitButton.setForeground(Globals.rightButtonsFontColor);
             buttonsPanel.add(exitButton);
             exitButton.addActionListener(new ButtonEvents());
 

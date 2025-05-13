@@ -68,8 +68,8 @@ public class MiddlePanel extends JPanel{
             this.planet = planet;
             threatDisplayColor = Color.WHITE;
             try {
-                earthImage = ImageIO.read(new File("./M3-Programacion/GUI/images/earth.jpg"));
-                battleScene = ImageIO.read(new File("./M3-Programacion/GUI/images/space.jpg"));
+                earthImage = ImageIO.read(new File("./M3-Programacion/GUI/images/earth2.jpg"));
+                battleScene = ImageIO.read(new File("./M3-Programacion/GUI/images/space2.png"));
                 sword_turnImage = ImageIO.read(new File("./M3-Programacion/GUI/images/sword_turn.png"));
                 explosionImage = ImageIO.read(new File("./M3-Programacion/GUI/images/explosion.png"));
             } catch (IOException e) {
@@ -88,7 +88,7 @@ public class MiddlePanel extends JPanel{
 
             g2d = (Graphics2D) g;
             g2d.drawImage(activeImage.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH), 0, 0, this);
-
+            System.out.println("Width = " + getWidth() + " Height = " + getHeight());
             if(planet.getCurrentThreat() != null) {
 
                 if(!planet.getCurrentThreat().isHasCombatStarted()) {
