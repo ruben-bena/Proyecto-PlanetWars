@@ -1,5 +1,6 @@
 package ddbb;
 
+import classes.GlobalContext;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,6 +29,10 @@ public class BattleLogTable implements Table {
         blt.getRow(2);
     }
 
+    private BattleLogTable() {
+
+    }
+
     public BattleLogTable(Database db, int num_line, int num_battle, String log_entry) {
 		super();
 		this.db = db;
@@ -35,6 +40,12 @@ public class BattleLogTable implements Table {
 		this.num_battle = num_battle;
 		this.log_entry = log_entry;
 	}
+
+    public BattleLogTable(Database db, int num_battle, String log_entry) {
+        this.db = db;
+        this.num_battle = GlobalContext.num_battle;
+        this.log_entry = log_entry;
+    }
 
     @Override
     public void insertRow() {

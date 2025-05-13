@@ -1,5 +1,6 @@
 package classes;
 import GUI.*;
+import ddbb.BattleLogTable;
 import ddbb.BattleStatsTable;
 import java.util.ArrayList;
 import java.util.Timer;
@@ -93,8 +94,16 @@ public class Battle {
                     GlobalContext.database,
                     GlobalContext.planet_id,
                     wasteMetalDeuterium[0],
-                    wasteMetalDeuterium[1]);
+                    wasteMetalDeuterium[1]
+                );
                 GlobalContext.battleStatsTable.insertRow();
+                // BattleLogTable
+                GlobalContext.battleLogTable = new BattleLogTable(
+                    GlobalContext.database,
+                    GlobalContext.num_battle,
+                    battleDevelopment
+                );
+                GlobalContext.battleLogTable.insertRow();
 
                 // Maybe I should add the threat timer here, so it starts counting after the battle is over
                 new ThreatTimer(planet, ms);
@@ -507,6 +516,8 @@ public class Battle {
                 planet.setDeuterium(planet.getDeuterium() + wasteMetalDeuterium[1]);
             } else {
                 winner = "Invader";
+                wasteMetalDeuterium[0] = 0;
+                wasteMetalDeuterium[1] = 0;
             }
 
             battleDevelopment += winner + " wins!";
