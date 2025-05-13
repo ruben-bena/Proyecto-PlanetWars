@@ -68,8 +68,8 @@ public class MiddlePanel extends JPanel{
             this.planet = planet;
             threatDisplayColor = Color.WHITE;
             try {
-                earthImage = ImageIO.read(new File("./M3-Programacion/GUI/images/earth.jpg"));
-                battleScene = ImageIO.read(new File("./M3-Programacion/GUI/images/space.jpg"));
+                earthImage = ImageIO.read(new File("./M3-Programacion/GUI/images/earth2.jpg"));
+                battleScene = ImageIO.read(new File("./M3-Programacion/GUI/images/space2.png"));
                 sword_turnImage = ImageIO.read(new File("./M3-Programacion/GUI/images/sword_turn.png"));
                 explosionImage = ImageIO.read(new File("./M3-Programacion/GUI/images/explosion.png"));
             } catch (IOException e) {
