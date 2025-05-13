@@ -1,5 +1,6 @@
 package GUI;
 
+import classes.Main;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -264,7 +265,7 @@ class RightPanel extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     System.out.println("Yes pressed");
                     ms.dispose();
-                    System.exit(0);
+                    Main.closeGame();
                 }
             });
     
