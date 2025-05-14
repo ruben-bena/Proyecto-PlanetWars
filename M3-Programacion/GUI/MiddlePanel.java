@@ -146,9 +146,26 @@ public class MiddlePanel extends JPanel{
 
                     
                     //Painting the "health bar"
-                    g2d.setColor(Color.WHITE);
-                    g2d.drawString("HP: " + battle.getPlanetArmyPercRemaining(), 30, getHeight()-330);
-                    g2d.drawString("HP: " + battle.getEnemyArmyPercRemaining(), getWidth() - 380, 80);
+                    g2d.setColor(Color.BLACK);
+                    g2d.fillRect(20, getHeight()-410, 300, 60);
+                    if(battle.getPlanetArmyPercRemaining() < 50) {
+                        g2d.setColor(Globals.healthBarInjuredColor);
+                    } else {
+                        g2d.setColor(Globals.healthBarHealthyColor);
+                    }
+                    
+                    g2d.fillRect(30, getHeight()-400, (int) (280 * (battle.getPlanetArmyPercRemaining()/100f)), 40);
+                    
+                    g2d.setColor(Color.BLACK);
+                    g2d.fillRect(getWidth() -330, getHeight()-350, 300, 60);
+
+                    if(battle.getEnemyArmyPercRemaining() < 50) {
+                        g2d.setColor(Globals.healthBarInjuredColor);
+                    } else {
+                        g2d.setColor(Globals.healthBarHealthyColor);
+                    }
+  
+                    g2d.fillRect(getWidth() -320, getHeight()-340, (int) (280 * (battle.getEnemyArmyPercRemaining()/100f)), 40);
 
                     // Painting the "vs" thing
                     g2d.setColor(Color.BLACK);
