@@ -57,6 +57,7 @@ public class Main{
                 System.out.println("Has elegido 'Load Game'");
 
                 // TODO: Ventana que permita elegir planeta (se muestra id + nombre)
+                
 
                 // TODO: Una vez elegido el planeta, creamos un objeto PlanetStatsTable que llame a la ddbb y al id del planeta
 
