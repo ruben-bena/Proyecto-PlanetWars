@@ -158,16 +158,16 @@ public class Main{
     public static Planet createEnemyPlanet(Planet userPlanet) {
         Planet enemyPlanet = new Planet(1,1,userPlanet.getMetal(), userPlanet.getDeuterium(), 3000,3000);
         ArrayList<MilitaryUnit>[] enemyArmy = createEnemyArmy(userPlanet);
-        ArrayList<MilitaryUnit>[] enemyDefense = createEnemyDefense(enemyPlanet);
-        enemyArmy[4] = enemyDefense[0];
-        enemyArmy[5] = enemyDefense[1];
-        enemyArmy[6] = enemyDefense[2];
-
+        // ArrayList<MilitaryUnit>[] enemyDefense = createEnemyDefense(enemyPlanet);
         enemyPlanet.setArmy(enemyArmy);
+        enemyPlanet.setPlanetName("Evil Earth");
+        createEnemyDefense(enemyPlanet);
+
         
+
         return enemyPlanet;
     }
-    public static ArrayList<MilitaryUnit>[] createEnemyDefense(Planet enemyPlanet) {
+    public static void createEnemyDefense(Planet enemyPlanet) {
         //array with length 3
         ArrayList<MilitaryUnit>[] defenseArmy = new ArrayList[3];
 
@@ -175,7 +175,7 @@ public class Main{
         for (int i = 0; i < defenseArmy.length; i++) {
             defenseArmy[i] = new ArrayList<MilitaryUnit>();
         }
-        int option;
+        int option = -1;
         while(enemyPlanet.getMetal() > Variables.METAL_COST_MISSILELAUNCHER && enemyPlanet.getDeuterium() > Variables.DEUTERIUM_COST_MISSILELAUNCHER) {
             int[] array = new int[3];
 
@@ -215,7 +215,7 @@ public class Main{
                         break;
 
                     case 2: // Plasma Cannons
-                        enemyPlanet.getArmy()[6].add(new MissileLauncher(Variables.ARMOR_PLASMACANNON, Variables.BASE_DAMAGE_PLASMACANNON);
+                        enemyPlanet.getArmy()[6].add(new MissileLauncher(Variables.ARMOR_PLASMACANNON, Variables.BASE_DAMAGE_PLASMACANNON));
                         enemyPlanet.setMetal(enemyPlanet.getMetal() - Variables.METAL_COST_PLASMACANNON);
                         enemyPlanet.setDeuterium(enemyPlanet.getDeuterium() - Variables.DEUTERIUM_COST_PLASMACANNON);
                         break;

@@ -63,6 +63,19 @@ public class Planet {
         this.planetName = planetName;
     }
 
+    public ArrayList<MilitaryUnit>[] getAttackerArmy() {
+        ArrayList<MilitaryUnit>[] attackerArmy = new ArrayList[7];
+        attackerArmy[0] = army[0];
+        attackerArmy[1] = army[1];
+        attackerArmy[2] = army[2];
+        attackerArmy[3] = army[3];
+        attackerArmy[4] = new ArrayList<MilitaryUnit>();
+        attackerArmy[5] = new ArrayList<MilitaryUnit>();
+        attackerArmy[6] = new ArrayList<MilitaryUnit>();
+
+        return attackerArmy;
+
+    }
 
 
     public void upgradeTechnologyDefense() throws ResourceException {

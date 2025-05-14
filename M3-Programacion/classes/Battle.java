@@ -63,20 +63,57 @@ public class Battle {
     private int enemyArmyPercRemaining;
     private int attackingArmy;
     private boolean skipBattle;
+    private Planet userPlanet;
+    private Planet enemyPlanet;
 
-    public Battle(Planet planet, MainPanel mp, MainScreen ms) {
+    public Battle(Planet planet, Planet enemyPlanet, MainPanel mp, MainScreen ms) {
         this.planetArmy = planet.getArmy();
-        this.enemyArmy = Main.createEnemyArmy(planet);
+        this.enemyArmy = enemyPlanet.getAttackerArmy();
         this.initialCostFleet = new int[2][2];
         this.resourcesLosses = new int[2][3];
         this.hasCombatStarted = false;
         this.planetArmyPercRemaining = 100;
         this.enemyArmyPercRemaining = 100;
         skipBattle = false;
+        this.userPlanet = planet;
+        this.enemyPlanet = enemyPlanet;
         announceCombat();
         TimerTask task = new TimerTask() {
             public void run() {
-                combat(planet, mp);
+                combat(planet, enemyPlanet, mp);
+                planet.addBattleReport(battleDevelopment);
+                planet.setActiveThreat(false);
+                hasCombatStarted = false;
+
+                planet.setNBattles(planet.getNBattles() + 1);
+                mp.getMiddlePanel().changeScreenToDefaultScene();
+                planet.setCurrentThreat(null);
+                // Maybe I should add the threat timer here, so it starts counting after the battle is over
+                new ThreatTimer(planet, ms);
+                
+            }
+        };
+        Timer timer = new Timer();
+
+        timer.schedule(task, Time.countdownBattleTime);
+        
+    }
+
+    public Battle(Planet planet, Planet enemyPlanet, MainPanel mp, MainScreen ms, int i) { // int i is only to differentiate the constructors, there's no use for it
+        this.planetArmy = enemyPlanet.getArmy();
+        this.enemyArmy = planet.getAttackerArmy();
+        this.initialCostFleet = new int[2][2];
+        this.resourcesLosses = new int[2][3];
+        this.hasCombatStarted = false;
+        this.planetArmyPercRemaining = 100;
+        this.enemyArmyPercRemaining = 100;
+        skipBattle = false;
+        this.userPlanet = planet;
+        this.enemyPlanet = enemyPlanet;
+        announceCombat();
+        TimerTask task = new TimerTask() {
+            public void run() {
+                combat(enemyPlanet, planet, mp);
                 planet.addBattleReport(battleDevelopment);
                 planet.setActiveThreat(false);
                 hasCombatStarted = false;
@@ -174,6 +211,22 @@ public class Battle {
 
         return (total * 100) / initialNumberUnitsPlanet;
 
+    }
+    
+    public Planet getUserPlanet() {
+        return userPlanet;
+    }
+
+    public void setUserPlanet(Planet userPlanet) {
+        this.userPlanet = userPlanet;
+    }
+
+    public Planet getEnemyPlanet() {
+        return enemyPlanet;
+    }
+
+    public void setEnemyPlanet(Planet enemyPlanet) {
+        this.enemyPlanet = enemyPlanet;
     }
 
     public int remainderPercentageFleetEnemy() {
@@ -290,7 +343,7 @@ public class Battle {
 
         System.out.println("NEW THREAT IS COMING");
     }
-    public void combat(Planet planet, MainPanel mainPanel) {
+    public void combat(Planet planet, Planet enemyPlanet, MainPanel mainPanel) {
         initialNumberUnitsPlanet = initialFleetNumber(planetArmy);
         MiddlePanel screen = mainPanel.getMiddlePanel();
         if(planet.isActiveThreat()){
@@ -350,12 +403,12 @@ public class Battle {
                     /// 
                     if (attackingArmy == 0) {
                     attacking_group = getPlanetGroupAttacker();
-                    attackerStr = "Planet";
-                    defenderStr = "Enemy";
+                    attackerStr = planet.getPlanetName();
+                    defenderStr = enemyPlanet.getPlanetName();
                     } else {
                     attacking_group = getEnemyGroupAttacker();
-                    attackerStr = "Enemy";
-                    defenderStr = "Planet";
+                    attackerStr = enemyPlanet.getPlanetName();
+                    defenderStr = planet.getPlanetName();
                     }
 
                     // DISPLAYING BATTLE INFO FOR DEBUGGING

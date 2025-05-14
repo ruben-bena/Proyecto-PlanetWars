@@ -43,7 +43,7 @@ public class MiddlePanel extends JPanel{
             
             try {
                 customFontBiggest = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(68f);
-                customFontBig = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(40f);
+                customFontBig = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(48f);
                 customFont = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(32f);
                 customFontSmall = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(18f);
             } catch (FontFormatException | IOException e) {
@@ -185,6 +185,10 @@ public class MiddlePanel extends JPanel{
                     g2d.setFont(new Font("Arial", 3, 96));
                     g2d.drawString("VS", getWidth()/2-48, getHeight()/2+48);
 
+                    // Painting the names of the planets
+                    g2d.setFont(customFontBig);
+                    g2d.drawString(battle.getUserPlanet().getPlanetName(), 50, getHeight()-410 - 20);
+                    g2d.drawString(battle.getEnemyPlanet().getPlanetName(), getWidth() -320, 450);
                 }
             }
             

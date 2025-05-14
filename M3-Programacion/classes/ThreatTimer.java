@@ -32,7 +32,7 @@ public class ThreatTimer extends TimerTask{
                 //         }
                 //     }
                 if(planet.getCurrentThreat() == null) {
-                    planet.setCurrentThreat(new Battle(planet, ms.getMainPanel(), ms));
+                    planet.setCurrentThreat(new Battle(planet, Main.createEnemyPlanet(planet), ms.getMainPanel(), ms));
                     planet.setActiveThreat(true);
                     ms.getMainPanel().getMiddlePanel().doThreatDisplay();
                 }
