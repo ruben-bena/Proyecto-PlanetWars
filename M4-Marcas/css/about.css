@@ -11,7 +11,7 @@
 
 .miembros-equipo {
     display: flex;
-    flex-wrap: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 40px;
     margin: 0 auto;
@@ -57,42 +57,61 @@
     margin: 0;
 }
 
-/* Responsive design */
-@media (max-width: 1024px) {
-    .miembros-equipo {
-        gap: 30px;
-    }
-}
-
-@media (max-width: 768px) {
+/* Responsive styles for tablets */
+@media screen and (max-width: 768px) {
     .miembros-equipo {
         gap: 20px;
+        padding: 0 15px;
     }
-    
+
     .miembro {
-        width: 200px;
+        width: 230px;
+        height: 230px;
         padding: 15px;
     }
-    
+
     .miembro img {
         width: 120px;
         height: 120px;
     }
+
+    .miembro h3 {
+        font-size: 16px;
+    }
+
+    .miembro p {
+        font-size: 13px;
+    }
 }
 
-@media (max-width: 600px) {
-    .equipo{
+/* Responsive styles for mobile phones */
+@media screen and (max-width: 480px) {
+    .equipo {
         padding: 20px;
+        margin: 10px 0;
     }
 
     .miembros-equipo {
-        flex-direction: column;
-        align-items: center;
-        gap: 30px;
+        gap: 15px;
     }
-    
+
     .miembro {
-        width: 80%;
-        max-width: 300px;
+        width: 100%;
+        max-width: 280px;
+        height: auto;
+        min-height: 200px;
+    }
+
+    .miembro img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .miembro h3 {
+        font-size: 15px;
+    }
+
+    .miembro p {
+        font-size: 12px;
     }
 }

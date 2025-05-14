@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snap Scroll</title>
+    <style>
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        section {
+            height: 100vh;
+            scroll-snap-align: start;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+        }
+        
+        /* Colores diferentes para cada sección */
+        section:nth-child(1) { background-color: #ff9aa2; }
+        section:nth-child(2) { background-color: #ffb7b2; }
+        section:nth-child(3) { background-color: #ffdac1; }
+        section:nth-child(4) { background-color: #e2f0cb; }
+        section:nth-child(5) { background-color: #b5ead7; }
+    </style>
+</head>
+<body>
+    <section>Sección 1</section>
+    <section>Sección 2</section>
+    <section>Sección 3</section>
+    <section>Sección 4</section>
+    <section>Sección 5</section>
+</body>
+</html>
