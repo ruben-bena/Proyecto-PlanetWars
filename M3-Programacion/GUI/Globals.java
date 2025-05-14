@@ -21,5 +21,12 @@ public abstract class Globals {
     public static Color rightButtonsFontColor = Color.WHITE;
     public static Color rightSecPanelColor = panelSecColor;
     public static Color rightSecFontColor = Color.WHITE;
+
+    public static Color settingsPanelColor = Color.BLACK;
+    public static Color settingsFontColor = Color.WHITE;
+    public static Color settingsSecPanelColor = Color.BLACK;
+    public static Color settingsSecFontColor = Color.WHITE;
+    public static Color settingsButtonColor = Color.WHITE;
+    public static Color settingsButtonFontColor = Color.BLACK;
     
 }

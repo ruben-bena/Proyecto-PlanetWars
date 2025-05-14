@@ -66,9 +66,9 @@ public class SettingsFrame extends JFrame implements ActionListener {
         difficultyLabel = new JLabel("DIFFICULTY: " + planet.getDifficultyStr());
         // difficultyLabel.setFont(new Font("Arial", Font.BOLD, 18));
         difficultyLabel.setFont(customFontSmall);
-        difficultyPanel.setBackground(new Color(30,30,30));
+        difficultyPanel.setBackground(Globals.settingsPanelColor);
         difficultyLabel.setForeground(Color.WHITE);
-        difficultyPanel.add(new PaddingPanel(new Color(30,30,30), new Dimension(160,20)), BorderLayout.WEST);
+        difficultyPanel.add(new PaddingPanel(Globals.settingsPanelColor, new Dimension(160,20)), BorderLayout.WEST);
         difficultyPanel.add(difficultyLabel, BorderLayout.CENTER);
 
 
@@ -76,15 +76,15 @@ public class SettingsFrame extends JFrame implements ActionListener {
         difficultyButtonsPanel.setLayout(new GridLayout(1,3));
 
         easyButton = new JButton("Easy");
-        easyButton.setBackground(Color.WHITE);
+        easyButton.setBackground(Globals.settingsButtonColor);
         // easyButton.setFont(new Font("Arial", Font.BOLD, 18));
         easyButton.setFont(customFontSmall);
         mediumButton = new JButton("Medium");
-        mediumButton.setBackground(Color.WHITE);
+        mediumButton.setBackground(Globals.settingsButtonColor);
         // mediumButton.setFont(new Font("Arial", Font.BOLD, 18));
         mediumButton.setFont(customFontSmall);
         hardButton = new JButton("Hard");
-        hardButton.setBackground(Color.WHITE);
+        hardButton.setBackground(Globals.settingsButtonColor);
         // hardButton.setFont(new Font("Arial", Font.BOLD, 18));
         hardButton.setFont(customFontSmall);
 
@@ -102,16 +102,16 @@ public class SettingsFrame extends JFrame implements ActionListener {
         cheatsTextLabel = new JLabel("Cheats");
         // cheatsTextLabel.setFont(new Font("Arial", Font.BOLD, 18));
         cheatsTextLabel.setFont(customFontSmall);
-        cheatsTextPanel.setBackground(new Color(30,30,30));
-        cheatsTextLabel.setForeground(Color.WHITE);
-        cheatsTextPanel.add(new PaddingPanel(new Color(30,30,30), new Dimension(210, 10)), BorderLayout.WEST);
+        cheatsTextPanel.setBackground(Globals.settingsPanelColor);
+        cheatsTextLabel.setForeground(Globals.settingsFontColor);
+        cheatsTextPanel.add(new PaddingPanel(Globals.settingsPanelColor, new Dimension(210, 10)), BorderLayout.WEST);
         cheatsTextPanel.add(cheatsTextLabel);
 
         cheatsPanel = new JPanel();
         cheatsPanel.setLayout(new GridLayout(1,2));
 
         addMetalPanel = new JPanel();
-        addMetalPanel.setBackground(Color.GRAY);
+        addMetalPanel.setBackground(Globals.settingsSecPanelColor);
 
         metalIcon = new ImageIcon("./M3-Programacion/GUI/images/iron_ingot.png");
         Image metalIconScaled = metalIcon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
@@ -139,7 +139,7 @@ public class SettingsFrame extends JFrame implements ActionListener {
         
 
         addDeuteriumPanel = new JPanel();
-        addDeuteriumPanel.setBackground(Color.GRAY);
+        addDeuteriumPanel.setBackground(Globals.settingsSecPanelColor);
 
         deuteriumIcon = new ImageIcon("./M3-Programacion/GUI/images/redstone.png");
         Image redstoneIconScaled = deuteriumIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
