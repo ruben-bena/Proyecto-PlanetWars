@@ -1,14 +1,14 @@
 package ddbb;
+import java.io.*;
 import javax.xml.transform.*;
 import javax.xml.transform.stream.*;
-import java.io.*;
 
 public class BattleHtmlTransformator {
     // Paths for XML and HTML files
     // and the XSLT file
     private static final String XML_DIR = "./M4-Marcas/battles/xml/";
     private static final String HTML_DIR = "./M4-Marcas/battles/html/";
-    private static final String XSL_FILE = "./M4-Marcas/battle_transform.xsl";
+    private static final String XSL_FILE = "./M4-Marcas/battles/battle_transform.xsl";
 
     public static boolean transform(int battleId) {
         String inputXmlPath = XML_DIR + "battle" + battleId + ".xml";
