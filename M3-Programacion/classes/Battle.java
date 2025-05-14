@@ -77,6 +77,7 @@ public class Battle {
         skipBattle = false;
         this.userPlanet = planet;
         this.enemyPlanet = enemyPlanet;
+        this.enemyPlanet.setActiveThreat(true);
         announceCombat();
         TimerTask task = new TimerTask() {
             public void run() {
@@ -110,6 +111,7 @@ public class Battle {
         skipBattle = false;
         this.userPlanet = planet;
         this.enemyPlanet = enemyPlanet;
+        this.enemyPlanet.setActiveThreat(true);
         announceCombat();
         TimerTask task = new TimerTask() {
             public void run() {
@@ -346,7 +348,8 @@ public class Battle {
     public void combat(Planet planet, Planet enemyPlanet, MainPanel mainPanel) {
         initialNumberUnitsPlanet = initialFleetNumber(planetArmy);
         MiddlePanel screen = mainPanel.getMiddlePanel();
-        if(planet.isActiveThreat()){
+        if(planet.isActiveThreat() || enemyPlanet.isActiveThreat()){
+            System.out.println("adsjdskd");
             hasCombatStarted = true;
             
             
@@ -543,8 +546,8 @@ public class Battle {
             updateResourceLoses();
 
             battleDevelopment += "\n\n------------------- COMBAT RESULTS -----------------------\n";
-            battleDevelopment += "Resources lost by Planet: " + resourcesLosses[0][2] + "\n";
-            battleDevelopment += "Resources lost by Enemy: " + resourcesLosses[1][2] + "\n\n";
+            battleDevelopment += "Resources lost by " + planet.getPlanetName() + ": " + resourcesLosses[0][2] + "\n";
+            battleDevelopment += "Resources lost by " + enemyPlanet.getPlanetName() +": " + resourcesLosses[1][2] + "\n\n";
 
             if (getWinner() == 0) {
                 winner = "Planet";
