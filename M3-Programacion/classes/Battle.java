@@ -2,6 +2,7 @@ package classes;
 import GUI.*;
 import ddbb.BattleLogTable;
 import ddbb.BattleStatsTable;
+import ddbb.BattleXmlGenerator;
 import ddbb.EnemyArmyTable;
 import ddbb.PlanetBattleArmyTable;
 import ddbb.PlanetBattleDefenseTable;
@@ -125,6 +126,10 @@ public class Battle {
                     Battle.this
                 );
                 GlobalContext.enemyArmyTable.insertRow();
+
+                // Generate battle XML
+                BattleXmlGenerator.generateXml(Battle.this);
+
                 // Maybe I should add the threat timer here, so it starts counting after the battle is over
                 new ThreatTimer(planet, ms);
                 
@@ -655,13 +660,15 @@ public class Battle {
             return planetArmy;
         }
 
-        
+        public int[][] getInitialCostFleet() {
+            return initialCostFleet;
+        }
 
-        
+        public int[][] getResourcesLosses() {
+            return resourcesLosses;
+        }
 
-        
-        
-        
-
-    
+        public int[] getWasteMetalDeuterium() {
+            return wasteMetalDeuterium;
+        }
 }
