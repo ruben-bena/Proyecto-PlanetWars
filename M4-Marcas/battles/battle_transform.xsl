@@ -11,8 +11,8 @@
                 <table class="army-comparison">
                     <thead>
                         <tr>
-                            <th colspan="3">Army Planet</th>
-                            <th colspan="3">Army Enemy</th>
+                            <th colspan="3">Planet</th>
+                            <th colspan="3">Enemy</th>
                         </tr>
                         <tr>
                             <th>Type</th>
@@ -32,12 +32,12 @@
             <div class="costs">
                 <h3>Costs</h3>
                 <div class="cost-planet">
-                    <h3>Army Planet</h3>
+                    <h3>Planet</h3>
                     <p>Metal: <xsl:value-of select="format-number(army_planet/total_cost/metal, '#,###')"/></p>
                     <p>Deuterium: <xsl:value-of select="format-number(army_planet/total_cost/deuterium, '#,###')"/></p>
                 </div>
                 <div class="cost-enemy">
-                    <h3>Army Enemy</h3>
+                    <h3>Enemy</h3>
                     <p>Metal: <xsl:value-of select="format-number(army_enemy/total_cost/metal, '#,###')"/></p>
                     <p>Deuterium: <xsl:value-of select="format-number(army_enemy/total_cost/deuterium, '#,###')"/></p>
                 </div>
@@ -46,13 +46,13 @@
             <div class="losses">
                 <h3>Losses</h3>
                 <div class="losses-planet">
-                    <h3>Army Planet</h3>
+                    <h3>Planet</h3>
                     <p>Metal: <xsl:value-of select="format-number(army_planet/losses/metal, '#,###')"/></p>
                     <p>Deuterium: <xsl:value-of select="format-number(army_planet/losses/deuterium, '#,###')"/></p>
                     <p>Weighted: <xsl:value-of select="format-number(army_planet/losses/weighted, '#,###')"/></p>
                 </div>
                 <div class="losses-enemy">
-                    <h3>Army Enemy</h3>
+                    <h3>Enemy</h3>
                     <p>Metal: <xsl:value-of select="format-number(army_enemy/losses/metal, '#,###')"/></p>
                     <p>Deuterium: <xsl:value-of select="format-number(army_enemy/losses/deuterium, '#,###')"/></p>
                     <p>Weighted: <xsl:value-of select="format-number(army_enemy/losses/weighted, '#,###')"/></p>
