@@ -3,6 +3,7 @@ import GUI.*;
 import ddbb.BattleLogTable;
 import ddbb.BattleStatsTable;
 import ddbb.BattleXmlGenerator;
+import ddbb.BattleHtmlTransformator;
 import ddbb.EnemyArmyTable;
 import ddbb.PlanetBattleArmyTable;
 import ddbb.PlanetBattleDefenseTable;
@@ -129,6 +130,9 @@ public class Battle {
 
                 // Generate battle XML
                 BattleXmlGenerator.generateXml(Battle.this);
+
+                // Transform battle XML to HTML
+                BattleHtmlTransformator.transform(GlobalContext.num_battle);
 
                 // Maybe I should add the threat timer here, so it starts counting after the battle is over
                 new ThreatTimer(planet, ms);
