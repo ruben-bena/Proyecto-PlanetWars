@@ -250,6 +250,18 @@ public class PlanetStatsTable implements Table {
         // Save changes in ddbb
         modifyRow();
     }
+
+    public static String[] generateArrayWithIdAndName() {
+        /*
+        Necesito obtener un array String[] en el que cada String sea una combinación del estilo "<id> - <nombre>", para cada fila de mi tabla. ¿cómo hago eso?
+        
+        Creo que puedo hacer una query y guardarla en un ResultSet, y luego recorrer ese ResultSet y meter en un ArrayList un string que me creo a partir de los 2 valores que me interesan.
+        
+        Finalmente, puedo convertir el ArrayList en un Array (supongo...?) y retornarlo
+        */
+
+        return new String[1];
+    }
     
     public void setPlanet_id(int planet_id) {
 		this.planet_id = planet_id;
