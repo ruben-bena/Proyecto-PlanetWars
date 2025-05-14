@@ -8,6 +8,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -25,7 +27,7 @@ public class ThreatFrame extends JFrame {
     private ArrayList<MilitaryUnit>[] enemyArmy;
 
     public ThreatFrame(Planet planet) {
-        setSize(new Dimension(500,300));
+        setSize(new Dimension(470,230));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Current Threat");
@@ -43,9 +45,20 @@ public class ThreatFrame extends JFrame {
     }
 
     class ThreatPanel extends JPanel {
-
+        private TimerTask task;
+        private Timer timer;
         ThreatPanel() {
+            timer = new Timer();
+            task = new TimerTask() {
 
+                @Override
+                public void run() {
+                    repaint();
+                }
+                
+            };
+
+            timer.schedule(task, 0, 500);
         }
 
         @Override
