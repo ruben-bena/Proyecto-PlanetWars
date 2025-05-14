@@ -1,7 +1,6 @@
 /* ================== */
 /* |SPACE BACKGROUND| */
 /* ================== */
-
 // Get the document height
 function getDocumentHeight() {
     return Math.max(

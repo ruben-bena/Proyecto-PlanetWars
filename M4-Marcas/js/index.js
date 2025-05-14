@@ -1,4 +1,8 @@
+/* ======== */
+/* |SLIDER| */
+/* ======== */
 document.addEventListener("DOMContentLoaded", function() {
+    // Image list 
     const images = [
         "img/index/placeholder-1.png",
         "img/index/placeholder-1.png",
@@ -8,25 +12,28 @@ document.addEventListener("DOMContentLoaded", function() {
         "img/index/placeholder-1.png",
     ];
 
+    // Selec the slider elements
     const sliderImagesContainer = document.querySelector('.slider-images');
     const sliderDotsContainer = document.querySelector('.slider-dots');
     let currentIndex = 0;
 
-    // Crear imágenes
+    // Create image elements and dots
     images.forEach((src, idx) => {
+        // Create image elements
         const img = document.createElement('img');
         img.src = src;
         img.className = 'slider-image' + (idx === 0 ? ' active' : '');
         img.alt = `Imagen ${idx+1}`;
         sliderImagesContainer.appendChild(img);
 
-        // Crear dots
+        // Create dot elements
         const dot = document.createElement('span');
         dot.className = 'slider-dot' + (idx === 0 ? ' active' : '');
         dot.addEventListener('click', () => showSlide(idx));
         sliderDotsContainer.appendChild(dot);
     });
 
+    // Shows the active image and dot
     function showSlide(idx) {
         const imgs = document.querySelectorAll('.slider-image');
         const dots = document.querySelectorAll('.slider-dot');
@@ -35,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
         currentIndex = idx;
     }
 
+    // Buttons interaction
     document.querySelector('.slider-btn-left').addEventListener('click', () => {
         let idx = (currentIndex - 1 + images.length) % images.length;
         showSlide(idx);
