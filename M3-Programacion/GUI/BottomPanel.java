@@ -415,7 +415,7 @@ public class BottomPanel extends JPanel {
 
             buyIonCannonButton = new JButton("buyIonCannon");
             buyIonCannonButton.setBackground(Globals.bottomImageBackgroundColor);
-            buyIonCannonButton.setIcon(new ImageIcon(IonCannon.getImgIcon().getImage().getScaledInstance(130, 80, Image.SCALE_SMOOTH)));
+            buyIonCannonButton.setIcon(new ImageIcon(IonCannon.getImgIcon().getImage().getScaledInstance(110, 110, Image.SCALE_SMOOTH)));
             buyIonCannonButton.setFont(new Font("Arial", 1, 0));
             buyIonCannonButton.setSize(30, 30);
             buyIonCannonButton.setPreferredSize(new Dimension(getWidth(),getHeight()));
@@ -480,7 +480,7 @@ public class BottomPanel extends JPanel {
 
             buyPlasmaCannonButton = new JButton("buyPlasmaCannon");
             buyPlasmaCannonButton.setBackground(Globals.bottomImageBackgroundColor);
-            buyPlasmaCannonButton.setIcon(new ImageIcon(PlasmaCannon.getImgIcon().getImage().getScaledInstance(90, 80, Image.SCALE_SMOOTH)));
+            buyPlasmaCannonButton.setIcon(new ImageIcon(PlasmaCannon.getImgIcon().getImage().getScaledInstance(110, 110, Image.SCALE_SMOOTH)));
             buyPlasmaCannonButton.setFont(new Font("Arial", 1, 0));
             buyPlasmaCannonButton.setSize(30, 30);
             buyPlasmaCannonButton.setPreferredSize(new Dimension(getWidth(),getHeight()));

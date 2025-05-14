@@ -167,8 +167,8 @@ public class Main{
         }
         ////////
 
-        int metalInitialResources = 300000 + (60000 * planet.getNBattles() * planet.getDifficulty()); // This way it gets progressively harder
-        int deuteriumInitialResources = 24000 + (7000 * planet.getNBattles() * planet.getDifficulty());
+        int metalInitialResources = 300000 * planet.getDifficulty() + (100000 * planet.getNBattles() * planet.getDifficulty()); // This way it gets progressively harder
+        int deuteriumInitialResources = 24000 * planet.getDifficulty() + (12000 * planet.getNBattles() * planet.getDifficulty());
         int option = -1;
 
         // light hunter [0]

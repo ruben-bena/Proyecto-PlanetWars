@@ -104,7 +104,7 @@ public class MiddlePanel extends JPanel{
                     // g2d.setFont(new Font("Arial", 1, 32));
                     g2d.setFont(customFont);
                     g2d.setColor(new Color(255,255,255, 220));
-                    g2d.drawString("\"Space\" to skip", getWidth()/2-100, getHeight() - 30);
+                    g2d.drawString("\"Space\" to skip", getWidth()/2-140, getHeight() - 30);
                     // g2d.setFont(new Font("Arial", 3, 72));
                     g2d.setFont(customFontBiggest);
                     

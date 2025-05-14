@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 public class MissileLauncher extends Defense {
-    private static ImageIcon img = new ImageIcon("./M3-Programacion/GUI/images/missile_launcher.png");
+    private static ImageIcon img = new ImageIcon("./M3-Programacion/GUI/images/missile_launcher2.png");
 
     public MissileLauncher(int armor, int baseDamage) {
         setArmor(armor);
@@ -65,7 +65,7 @@ public class MissileLauncher extends Defense {
     
     public BufferedImage getBufferedImage() {
         try {
-            return ImageIO.read(new File("./M3-Programacion/GUI/images/missile_launcher.png"));
+            return ImageIO.read(new File("./M3-Programacion/GUI/images/missile_launcher2.png"));
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

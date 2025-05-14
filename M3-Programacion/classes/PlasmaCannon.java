@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 public class PlasmaCannon extends Defense {
-    private static ImageIcon img = new ImageIcon("./M3-Programacion/GUI/images/plasma_cannon.png");
+    private static ImageIcon img = new ImageIcon("./M3-Programacion/GUI/images/plasma_cannon2.png");
 
     public PlasmaCannon(int armor, int baseDamage) {
         setArmor(armor);
@@ -65,7 +65,7 @@ public class PlasmaCannon extends Defense {
     
     public BufferedImage getBufferedImage() {
         try {
-            return ImageIO.read(new File("./M3-Programacion/GUI/images/plasma_cannon.png"));
+            return ImageIO.read(new File("./M3-Programacion/GUI/images/plasma_cannon2.png"));
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
