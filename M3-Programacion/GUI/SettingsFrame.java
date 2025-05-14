@@ -23,21 +23,22 @@ import javax.swing.JTextArea;
 import classes.Planet;
 
 public class SettingsFrame extends JFrame implements ActionListener {
-    private JPanel mainPanel, difficultyPanel, difficultyButtonsPanel, cheatsTextPanel, cheatsPanel, addMetalPanel, addDeuteriumPanel;
+    private JPanel mainPanel, difficultyPanel, difficultyButtonsPanel, cheatsTextPanel, cheatsPanel, addMetalPanel, addDeuteriumPanel, changeNamePanel;
     private JLabel difficultyLabel, cheatsTextLabel, metalImageLabel, deuteriumImageLabel;
-    private JButton easyButton, mediumButton, hardButton, addMetalButton, addDeuteriumButton;
+    private JButton easyButton, mediumButton, hardButton, addMetalButton, addDeuteriumButton, changeNameButton;
     private Planet planet;
-    private JTextArea metalInputTextArea, deuteriumInputTextArea;
+    private JTextArea metalInputTextArea, deuteriumInputTextArea, changeNameInputTextArea;
     private ImageIcon metalIcon, deuteriumIcon, plusIcon;
+    private MiddlePanel mp;
     private Font customFontBiggest, customFontBig, customFont, customFontSmall;
     
-    public SettingsFrame(Planet planet) {
+    public SettingsFrame(Planet planet, MiddlePanel mp) {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
-        setSize(new Dimension(500,300));
+        setSize(new Dimension(500,400));
         setTitle("Settings");
-
+        this.mp = mp;
         setLayout(new BorderLayout());
         add(new PaddingPanel(), BorderLayout.WEST);
         add(new PaddingPanel(), BorderLayout.NORTH);
@@ -59,7 +60,7 @@ public class SettingsFrame extends JFrame implements ActionListener {
 
         mainPanel = new JPanel();
         mainPanel.setBackground(Color.WHITE);
-        mainPanel.setLayout(new GridLayout(4,1));
+        mainPanel.setLayout(new GridLayout(5,1));
 
         difficultyPanel = new JPanel();
         difficultyPanel.setLayout(new BorderLayout());
@@ -96,6 +97,24 @@ public class SettingsFrame extends JFrame implements ActionListener {
         easyButton.addActionListener(this);
         mediumButton.addActionListener(this);
         hardButton.addActionListener(this);
+
+        changeNamePanel = new JPanel();
+        changeNamePanel.add(new PaddingPanel(Globals.settingsPanelColor, new Dimension(getWidth(), 20)));
+        changeNamePanel.setBackground(Globals.settingsPanelColor);
+        changeNameButton = new JButton("Change Name");
+        changeNameButton.setBackground(Globals.settingsButtonColor);
+        changeNameButton.setForeground(Globals.settingsButtonFontColor);
+        changeNameButton.setFont(customFontSmall);
+        changeNameButton.setPreferredSize(new Dimension(200, 40));
+        changeNameButton.addActionListener(this);
+        changeNamePanel.add(changeNameButton);
+
+        changeNameInputTextArea = new JTextArea();
+        changeNameInputTextArea.setPreferredSize(new Dimension(200, 40));
+        changeNameInputTextArea.setFont(customFont);
+        changeNamePanel.add(changeNameInputTextArea);
+
+
 
         cheatsTextPanel = new JPanel();
         cheatsTextPanel.setLayout(new BorderLayout());
@@ -167,6 +186,7 @@ public class SettingsFrame extends JFrame implements ActionListener {
 
         mainPanel.add(difficultyPanel);
         mainPanel.add(difficultyButtonsPanel);
+        mainPanel.add(changeNamePanel);
         mainPanel.add(cheatsTextPanel);
         mainPanel.add(cheatsPanel);
 
@@ -210,6 +230,15 @@ public class SettingsFrame extends JFrame implements ActionListener {
             }
             deuteriumInputTextArea.setText("");
         }
+
+        if(e.getActionCommand() == "Change Name") {
+            
+            if (isOnlyText(changeNameInputTextArea.getText())) {
+                planet.setPlanetName(changeNameInputTextArea.getText());
+                changeNameInputTextArea.setText("");
+                mp.repaint();
+            }
+        }
     }
 
     public void updateLabels() {
@@ -223,6 +252,19 @@ public class SettingsFrame extends JFrame implements ActionListener {
         
         for (char c : string.toCharArray()) {
             if(!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isOnlyText(String string) {
+        if(string.length() == 0) {
+            return false;
+        }
+        
+        for (char c : string.toCharArray()) {
+            if(Character.isDigit(c)) {
                 return false;
             }
         }

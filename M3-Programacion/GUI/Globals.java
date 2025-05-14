@@ -28,5 +28,9 @@ public abstract class Globals {
     public static Color settingsSecFontColor = Color.WHITE;
     public static Color settingsButtonColor = Color.WHITE;
     public static Color settingsButtonFontColor = Color.BLACK;
+
+
+    public static Color healthBarHealthyColor = Color.WHITE;
+    public static Color healthBarInjuredColor = new Color(255, 102, 102);
     
 }

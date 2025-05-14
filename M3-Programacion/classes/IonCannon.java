@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 public class IonCannon extends Defense {
-    private static ImageIcon img = new ImageIcon("./M3-Programacion/GUI/images/ion_cannon.png");
+    private static ImageIcon img = new ImageIcon("./M3-Programacion/GUI/images/ionCannon2.png");
     public IonCannon(int armor, int baseDamage) {
         setArmor(armor);
         setInitialArmor(armor);
@@ -70,7 +70,7 @@ public class IonCannon extends Defense {
 
     public BufferedImage getBufferedImage(){
         try {
-            return ImageIO.read(new File("./M3-Programacion/GUI/images/ion_cannon.png"));
+            return ImageIO.read(new File("./M3-Programacion/GUI/images/ionCannon2.png"));
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

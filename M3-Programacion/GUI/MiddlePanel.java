@@ -40,6 +40,7 @@ public class MiddlePanel extends JPanel{
             add(new PaddingPanel(), BorderLayout.NORTH);
             setFocusable(true);
 
+            
             try {
                 customFontBiggest = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(68f);
                 customFontBig = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(40f);
@@ -89,14 +90,22 @@ public class MiddlePanel extends JPanel{
             g2d = (Graphics2D) g;
             g2d.drawImage(activeImage.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH), 0, 0, this);
             System.out.println("Width = " + getWidth() + " Height = " + getHeight());
+
+            
+            if(activeImage.equals(earthImage)) {
+                g2d.setFont(customFontBig);
+                g2d.setColor(threatDisplayColor);
+                g2d.drawString(planet.getPlanetName(), getWidth() / 2 - (planet.getPlanetName().length() * 10), 50);
+            }
+
             if(planet.getCurrentThreat() != null) {
 
+                // if combat hasn't started but there is a fight incoming
                 if(!planet.getCurrentThreat().isHasCombatStarted()) {
-                    // g2d.setFont(new Font("Arial", Font.BOLD, 48));
                     g2d.setFont(customFontBig);
                     g2d.setColor(threatDisplayColor);
-                    g2d.drawString("THREAT DETECTED", getWidth() / 2 - 150, 60);
-                    g2d.drawString(String.valueOf(timerCountdown), getWidth() / 2, 120);
+                    g2d.drawString("THREAT DETECTED", getWidth() / 2 - 150, 100);
+                    g2d.drawString(String.valueOf(timerCountdown), getWidth() / 2, 160);
                 }
 
                 // if combat has started
@@ -104,7 +113,7 @@ public class MiddlePanel extends JPanel{
                     // g2d.setFont(new Font("Arial", 1, 32));
                     g2d.setFont(customFont);
                     g2d.setColor(new Color(255,255,255, 220));
-                    g2d.drawString("\"Space\" to skip", getWidth()/2-100, getHeight() - 30);
+                    g2d.drawString("\"Space\" to skip", getWidth()/2-140, getHeight() - 30);
                     // g2d.setFont(new Font("Arial", 3, 72));
                     g2d.setFont(customFontBiggest);
                     
@@ -146,9 +155,26 @@ public class MiddlePanel extends JPanel{
 
                     
                     //Painting the "health bar"
-                    g2d.setColor(Color.WHITE);
-                    g2d.drawString("HP: " + battle.getPlanetArmyPercRemaining(), 30, getHeight()-330);
-                    g2d.drawString("HP: " + battle.getEnemyArmyPercRemaining(), getWidth() - 380, 80);
+                    g2d.setColor(Color.BLACK);
+                    g2d.fillRect(20, getHeight()-410, 300, 60);
+                    if(battle.getPlanetArmyPercRemaining() < 50) {
+                        g2d.setColor(Globals.healthBarInjuredColor);
+                    } else {
+                        g2d.setColor(Globals.healthBarHealthyColor);
+                    }
+                    
+                    g2d.fillRect(30, getHeight()-400, (int) (280 * (battle.getPlanetArmyPercRemaining()/100f)), 40);
+                    
+                    g2d.setColor(Color.BLACK);
+                    g2d.fillRect(getWidth() -330, getHeight()-350, 300, 60);
+
+                    if(battle.getEnemyArmyPercRemaining() < 50) {
+                        g2d.setColor(Globals.healthBarInjuredColor);
+                    } else {
+                        g2d.setColor(Globals.healthBarHealthyColor);
+                    }
+  
+                    g2d.fillRect(getWidth() -320, getHeight()-340, (int) (280 * (battle.getEnemyArmyPercRemaining()/100f)), 40);
 
                     // Painting the "vs" thing
                     g2d.setColor(Color.BLACK);
