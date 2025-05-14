@@ -19,6 +19,7 @@ public class Planet {
     private int upgradeMetalMineLvlMetalCost;
     private int upgradeDeuteriumMineLvlDeuteriumCost;
     private int difficulty;
+    private String planetName;
 
     // Army[0] → arrayList de Ligth Hunter
     // Army[1] → arrayList de Heavy Hunter
@@ -48,8 +49,21 @@ public class Planet {
         this.nBattles = 0;
         this.metalMineLvl = 1;
         this.deuteriumMineLvl = 1;
+        this.planetName = "Earth";
 
     }
+
+    public String getPlanetName() {
+        return planetName;
+    }
+
+
+
+    public void setPlanetName(String planetName) {
+        this.planetName = planetName;
+    }
+
+
 
     public void upgradeTechnologyDefense() throws ResourceException {
         if (deuterium >= upgradeDefenseTechnologyDeuteriumCost) {

@@ -40,6 +40,7 @@ public class MiddlePanel extends JPanel{
             add(new PaddingPanel(), BorderLayout.NORTH);
             setFocusable(true);
 
+            
             try {
                 customFontBiggest = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(68f);
                 customFontBig = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(40f);
@@ -89,14 +90,22 @@ public class MiddlePanel extends JPanel{
             g2d = (Graphics2D) g;
             g2d.drawImage(activeImage.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH), 0, 0, this);
             System.out.println("Width = " + getWidth() + " Height = " + getHeight());
+
+            
+            if(activeImage.equals(earthImage)) {
+                g2d.setFont(customFontBig);
+                g2d.setColor(threatDisplayColor);
+                g2d.drawString(planet.getPlanetName(), getWidth() / 2 - (planet.getPlanetName().length() * 10), 50);
+            }
+
             if(planet.getCurrentThreat() != null) {
 
+                // if combat hasn't started but there is a fight incoming
                 if(!planet.getCurrentThreat().isHasCombatStarted()) {
-                    // g2d.setFont(new Font("Arial", Font.BOLD, 48));
                     g2d.setFont(customFontBig);
                     g2d.setColor(threatDisplayColor);
-                    g2d.drawString("THREAT DETECTED", getWidth() / 2 - 150, 60);
-                    g2d.drawString(String.valueOf(timerCountdown), getWidth() / 2, 120);
+                    g2d.drawString("THREAT DETECTED", getWidth() / 2 - 150, 100);
+                    g2d.drawString(String.valueOf(timerCountdown), getWidth() / 2, 160);
                 }
 
                 // if combat has started

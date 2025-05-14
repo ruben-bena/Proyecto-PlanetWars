@@ -262,7 +262,7 @@ class RightPanel extends JPanel {
         }
     
         public void settingsEvent() {
-            new SettingsFrame(planet);
+            new SettingsFrame(planet, ms.getMainPanel().getMiddlePanel());
         }
     
         public void exitEvent() {
