@@ -8,6 +8,8 @@ import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.JOptionPane;
+
 
 public class Main{
     public static void main(String[] args) throws ResourceException {
@@ -17,6 +19,19 @@ public class Main{
         String username = "planetWars";
         String pass = "planetWars";
         GlobalContext.database = new Database(url, username, pass);
+
+        // TODO: Que al principio pregunte si quieres una nueva partida, o cargar una partida de la bbdd
+        // String[] opciones = {"Nueva Partida", "Cargar Partida"};
+        // int eleccion = JOptionPane.showOptionDialog(
+        //         null,
+        //         "What do you prefer?",
+        //         "Inicio del juego",
+        //         JOptionPane.DEFAULT_OPTION,
+        //         JOptionPane.QUESTION_MESSAGE,
+        //         null,
+        //         opciones,
+        //         opciones[0]
+        // );
 
         Planet planet = new Planet(1, 1, 200000, 40000, 3000, 3000);
         planet.newLightHunter(4);
