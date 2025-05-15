@@ -6,33 +6,33 @@
         <table class="army-comparison">
             <thead>
                 <tr>
-                    <th colspan="3">Planet</th><th colspan="3">Enemy</th>
+                    <th rowspan="2">Unit type</th><th colspan="2">Planet</th><th colspan="2">Enemy</th>
                 </tr>
                 <tr>
-                    <th>Type</th><th>Units</th><th>Drops</th><th>Type</th><th>Units</th><th>Drops</th>
+                    <th>Units</th><th>Drop</th><th>Units</th><th>Drop</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>Light Hunter</td><td>4</td><td>0</td><td>Light Hunter</td><td>2</td><td>0</td>
+                    <td>Light Hunter</td><td>4</td><td>0</td><td>2</td><td>0</td>
                 </tr>
                 <tr>
-                    <td>Heavy Hunter</td><td>2</td><td>0</td><td>Heavy Hunter</td><td>0</td><td>0</td>
+                    <td>Heavy Hunter</td><td>2</td><td>0</td><td>0</td><td>0</td>
                 </tr>
                 <tr>
-                    <td>Battle Ship</td><td>0</td><td>0</td><td>Battle Ship</td><td>2</td><td>0</td>
+                    <td>Battle Ship</td><td>0</td><td>0</td><td>2</td><td>0</td>
                 </tr>
                 <tr>
-                    <td>Armored Ship</td><td>1</td><td>0</td><td>Armored Ship</td><td>1</td><td>0</td>
+                    <td>Armored Ship</td><td>1</td><td>0</td><td>1</td><td>0</td>
                 </tr>
                 <tr>
-                    <td>Missile Launcher</td><td>0</td><td>0</td><td>-</td><td>-</td><td>-</td>
+                    <td>Missile Launcher</td><td>0</td><td>0</td><td>-</td><td>-</td>
                 </tr>
                 <tr>
-                    <td>Ion Cannon</td><td>0</td><td>0</td><td>-</td><td>-</td><td>-</td>
+                    <td>Ion Cannon</td><td>0</td><td>0</td><td>-</td><td>-</td>
                 </tr>
                 <tr>
-                    <td>Plasma Cannon</td><td>0</td><td>0</td><td>-</td><td>-</td><td>-</td>
+                    <td>Plasma Cannon</td><td>0</td><td>0</td><td>-</td><td>-</td>
                 </tr>
             </tbody>
         </table>
@@ -40,38 +40,52 @@
 
     <div class="costs">
         <h3>Costs</h3>
-        <div class="cost-planet">
-            <h4>Planet</h4>
-            <p>Metal: 67,000</p>
-            <p>Deuterium: 16,800</p>
-        </div>
-        <div class="cost-enemy">
-            <h4>Enemy</h4>
-            <p>Metal: 126,000</p>
-            <p>Deuterium: 29,100</p>
+        <div class="costs-container">
+            <div class="cost-planet">
+                <h4>Planet</h4>
+                <ul>
+                    <li>Metal: 67,000</li>
+                    <li>Deuterium: 16,800</li>
+                </ul>
+            </div>
+            <div class="cost-enemy">
+                <h4>Enemy</h4>
+                <ul>
+                    <li>Metal: 126,000</li>
+                    <li>Deuterium: 29,100</li>
+                </ul>
+            </div>
         </div>
     </div>
 
     <div class="losses">
         <h3>Losses</h3>
-        <div class="losses-planet">
-            <h4>Planet</h4>
-            <p>Metal: 97,500</p>
-            <p>Deuterium: 18,550</p>
-            <p>Weighted: 190,250</p>
-        </div>
-        <div class="losses-enemy">
-            <h4>Enemy</h4>
-            <p>Metal: 129,000</p>
-            <p>Deuterium: 29,150</p>
-            <p>Weighted: 274,750</p>
+        <div class="losses-container">
+            <div class="losses-planet">
+                <h4>Planet</h4>
+                <ul>
+                    <li>Metal: 97,500</li>
+                    <li>Deuterium: 18,550</li>
+                    <li>Weighted: 190,250</li>
+                </ul>
+            </div>
+            <div class="losses-enemy">
+                <h4>Enemy</h4>
+                <ul>
+                    <li>Metal: 129,000</li>
+                    <li>Deuterium: 29,150</li>
+                    <li>Weighted: 274,750</li>
+                </ul>
+            </div>
         </div>
     </div>
 
     <div class="waste">
         <h3>Waste Generated</h3>
-        <p>Metal: 7,000</p>
-        <p>Deuterium: 420</p>
+        <ul>
+            <li>Metal: 7,000</li>
+            <li>Deuterium: 420</li>
+        </ul>
     </div>
 
     <div class="result victory">

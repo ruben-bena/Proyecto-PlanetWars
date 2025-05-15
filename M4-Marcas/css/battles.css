@@ -23,6 +23,8 @@
     text-align: center;
 }
 
+
+
 /* ================ */
 /* |SEARCH SECTION| */
 /* ================ */
@@ -89,7 +91,6 @@
     width: 100%;
     margin-bottom: 40px;
 }
-
 .reporte-batalla h2 {
     font-size: 2.5em;
     color: #fff;
@@ -97,23 +98,68 @@
     margin-bottom: 30px;
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
-
 .reporte-batalla h3 {
     font-size: 1.8em;
-    color: #4CAF50;
+    color:  #fff;
     margin: 20px 0 15px 0;
     text-align: center;
 }
 
 /* Army comparison */
+.comparison {
+    background-color: rgba(40, 40, 50, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
 
 /* Costs */
+.costs {
+    background-color: rgba(40, 40, 50, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.costs-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
 /* Losses */
+.losses {
+    background-color: rgba(40, 40, 50, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.losses-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
 /* Waste */
+.waste {
+    background-color: rgba(40, 40, 50, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
 
-/* Battle result */
+
+/* Result */
+.result {
+    background-color: rgba(40, 40, 50, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
 
 
 
