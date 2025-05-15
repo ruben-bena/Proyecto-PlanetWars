@@ -3,6 +3,7 @@ import classes.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class PlanetStatsTable implements Table {
     private Database db; // Reference for Connection
@@ -251,7 +252,7 @@ public class PlanetStatsTable implements Table {
         modifyRow();
     }
 
-    public static String[] generateArrayWithIdAndName() {
+    public ArrayList<String> generateArrayWithIdAndName() {
         /*
         Necesito obtener un array String[] en el que cada String sea una combinación del estilo "<id> - <nombre>", para cada fila de mi tabla. ¿cómo hago eso?
         
@@ -259,8 +260,28 @@ public class PlanetStatsTable implements Table {
         
         Finalmente, puedo convertir el ArrayList en un Array (supongo...?) y retornarlo
         */
+        ArrayList<String> arrayWithAllId = new ArrayList<String>();
+        try {
+            // Getting data from table
+            String getAllIdQuery = "SELECT planet_id, name FROM Planet_stats";
+            PreparedStatement ps = db.getConnection().prepareStatement(getAllIdQuery);
+            ResultSet rs = ps.executeQuery();
 
-        return new String[1];
+            // Making the array
+            while (rs.next()) {
+                int planetId = rs.getInt(1);
+                String planetName = rs.getString(2);
+                String gameName = String.format("%5d %-15s", planetId, planetName);
+                System.out.println(gameName);
+                arrayWithAllId.add(gameName);
+            }
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return arrayWithAllId;
     }
     
     public void setPlanet_id(int planet_id) {
