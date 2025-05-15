@@ -20,6 +20,7 @@ public class Planet {
     private int upgradeDeuteriumMineLvlDeuteriumCost;
     private int difficulty;
     private String planetName;
+    private Boolean isInvading;
 
     // Army[0] → arrayList de Ligth Hunter
     // Army[1] → arrayList de Heavy Hunter
@@ -42,6 +43,7 @@ public class Planet {
         this.upgradeDeuteriumMineLvlDeuteriumCost = 4000;
         this.army = new ArrayList[7];
         this.isActiveThreat = false;
+        this.isInvading = false;
         this.battleReports = new String[5];
         for(int i = 0; i < army.length; i++) {
             army[i] = new ArrayList<MilitaryUnit>();
@@ -77,6 +79,14 @@ public class Planet {
 
     }
 
+    
+    public Boolean getIsInvading() {
+        return isInvading;
+    }
+
+    public void setIsInvading(Boolean isInvading) {
+        this.isInvading = isInvading;
+    }
 
     public void upgradeTechnologyDefense() throws ResourceException {
         if (deuterium >= upgradeDefenseTechnologyDeuteriumCost) {

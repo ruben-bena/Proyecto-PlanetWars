@@ -35,11 +35,14 @@ public class MiddlePanel extends JPanel{
         private Color threatDisplayColor;
         private int timerCountdown;
         private Font customFontBig, customFont, customFontSmall, customFontBiggest;
+        private String threatDisplayStr, invadeDisplayStr, activeDisplayStr;
         MiddlePanel(Planet planet) {
             setLayout(new BorderLayout());
             add(new PaddingPanel(), BorderLayout.NORTH);
             setFocusable(true);
-
+            threatDisplayStr = "THREAT DETECTED";
+            invadeDisplayStr = "SEARCHING";
+            activeDisplayStr = threatDisplayStr;
             
             try {
                 customFontBiggest = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(68f);
@@ -93,20 +96,35 @@ public class MiddlePanel extends JPanel{
 
             
             if(activeImage.equals(earthImage)) {
+                g2d.setColor(Color.BLACK);
+                // g2d.fillRect(getWidth()/2 - 250, 0, 500, 150);
                 g2d.setFont(customFontBig);
                 g2d.setColor(threatDisplayColor);
-                g2d.drawString(planet.getPlanetName(), getWidth() / 2 - (planet.getPlanetName().length() * 10), 50);
+                // g2d.drawString(planet.getPlanetName(), getWidth() / 2 - (planet.getPlanetName().length() * 10), 50);
+                g2d.drawString(planet.getPlanetName(), 50, 75);
             }
+
+            
 
             if(planet.getCurrentThreat() != null) {
 
                 // if combat hasn't started but there is a fight incoming
-                if(!planet.getCurrentThreat().isHasCombatStarted()) {
+                if(!planet.getCurrentThreat().isHasCombatStarted() || planet.getIsInvading() && battle.getBattleType() == 0) {
+                    g2d.setColor(Color.BLACK);
+                    // g2d.fillRect(getWidth()/2 - 200, 75, 460, 150);
                     g2d.setFont(customFontBig);
                     g2d.setColor(threatDisplayColor);
-                    g2d.drawString("THREAT DETECTED", getWidth() / 2 - 150, 100);
-                    g2d.drawString(String.valueOf(timerCountdown), getWidth() / 2, 160);
+                    if(activeDisplayStr.equals(threatDisplayStr)) {
+                        g2d.drawString(activeDisplayStr, getWidth() / 2 - (activeDisplayStr.length() * 13), 75);
+                        g2d.drawString(String.valueOf(timerCountdown), getWidth() / 2, 160);
+                    } else {
+                        g2d.setFont(customFont);
+                        g2d.drawString(activeDisplayStr, 50, 150);
+                        g2d.drawString(String.valueOf(timerCountdown), 50, 200);
+                    }
                 }
+
+                
 
                 // if combat has started
                 if(planet.getCurrentThreat().isHasCombatStarted()) {
@@ -187,8 +205,13 @@ public class MiddlePanel extends JPanel{
 
                     // Painting the names of the planets
                     g2d.setFont(customFontBig);
-                    g2d.drawString(battle.getUserPlanet().getPlanetName(), 50, getHeight()-410 - 20);
-                    g2d.drawString(battle.getEnemyPlanet().getPlanetName(), getWidth() -320, 450);
+                    if(battle.getBattleType() == 0) {
+                        g2d.drawString(battle.getUserPlanet().getPlanetName(), 50, getHeight()-410 - 20);
+                        g2d.drawString(battle.getEnemyPlanet().getPlanetName(), getWidth() -320, 450);
+                    } else {
+                        g2d.drawString(battle.getEnemyPlanet().getPlanetName(), 50, getHeight()-410 - 20);
+                        g2d.drawString(battle.getUserPlanet().getPlanetName(), getWidth() -320, 450);
+                    }
                 }
             }
             
@@ -221,6 +244,7 @@ public class MiddlePanel extends JPanel{
             private int time;
             private Timer timer;
             public ThreatDisplayTimer() {
+                activeDisplayStr = threatDisplayStr;
                 time = 0;
                 timer = new Timer();
 
@@ -242,6 +266,7 @@ public class MiddlePanel extends JPanel{
                 
                 if(time > Time.countdownBattleTime) {
                     cancel();
+                    threatDisplayColor = Color.WHITE;
                     timerCountdown = Time.secondsCountdownBattle;
                 }
 
@@ -252,5 +277,53 @@ public class MiddlePanel extends JPanel{
 
         public void doThreatDisplay() {
             new ThreatDisplayTimer();
+        }
+
+        class InvadeDisplayTimer extends TimerTask {
+            private int time;
+            private Timer timer;
+            private int nDots = 0;
+            public InvadeDisplayTimer() {
+                activeDisplayStr = invadeDisplayStr;
+                time = 0;
+                timer = new Timer();
+
+                timer.schedule(this, 0, Time.secInMs);
+
+            }
+
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                time = time + Time.secInMs;
+                timerCountdown--;
+                
+                if (nDots <= 3) {
+                    invadeDisplayStr += ".";
+                    activeDisplayStr = invadeDisplayStr;
+                    nDots++;
+                }
+
+                if(nDots >= 4) {
+                    invadeDisplayStr = "SEARCHING";
+                    activeDisplayStr = invadeDisplayStr;
+                    nDots = 0;
+                }
+                System.out.println(nDots);
+               
+                
+                
+                if(time > Time.countdownBattleTime) {
+                    cancel();
+                    timerCountdown = Time.secondsCountdownBattle;
+                }
+
+                repaint();
+
+            }
+        }
+
+        public void doInvadeDisplay() {
+            new InvadeDisplayTimer();
         }
     }

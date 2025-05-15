@@ -10,6 +10,7 @@ public class Battle {
     private ArrayList<MilitaryUnit>[] enemyArmy; // → para almacenar la flota enemiga
     private ArrayList[][] armies; // que es un array de ArrayList de dos filas y siete columnas, donde almacenaremos nuestro ejército en la primera fila, y el ejército enemigo en la segunda fila;
     private String battleDevelopment; // Donde guardamos todo el desarrollo de la batalla paso a paso
+    private String battleReport;
     private int[][] initialCostFleet; // coste de metal deuterio de los ejercitos iniciales
     // initialCostFleet = [[metal][deuterio],[metal][deuterio]]; // donde initialCostFleet[0] costes unidades del planeta , initialCostFleet[1] costes unidades enemigas. Lo necesitamos para saber las pérdidas en materiales de cada flota.
 
@@ -65,6 +66,7 @@ public class Battle {
     private boolean skipBattle;
     private Planet userPlanet;
     private Planet enemyPlanet;
+    private int battleType;
 
     public Battle(Planet planet, Planet enemyPlanet, MainPanel mp, MainScreen ms) {
         this.planetArmy = planet.getArmy();
@@ -78,10 +80,12 @@ public class Battle {
         this.userPlanet = planet;
         this.enemyPlanet = enemyPlanet;
         this.enemyPlanet.setActiveThreat(true);
+        this.battleType = 0;
+        this.battleReport = "";
         announceCombat();
         TimerTask task = new TimerTask() {
             public void run() {
-                combat(planet, enemyPlanet, mp);
+                combat(planet, enemyPlanet, mp, battleType);
                 planet.addBattleReport(battleDevelopment);
                 planet.setActiveThreat(false);
                 hasCombatStarted = false;
@@ -112,10 +116,13 @@ public class Battle {
         this.userPlanet = planet;
         this.enemyPlanet = enemyPlanet;
         this.enemyPlanet.setActiveThreat(true);
+        this.battleType = 1;
+        this.battleReport = "";
         announceCombat();
         TimerTask task = new TimerTask() {
             public void run() {
-                combat(enemyPlanet, planet, mp);
+                planet.setIsInvading(true);
+                combat(enemyPlanet, planet, mp, battleType);
                 planet.addBattleReport(battleDevelopment);
                 planet.setActiveThreat(false);
                 hasCombatStarted = false;
@@ -123,6 +130,7 @@ public class Battle {
                 planet.setNBattles(planet.getNBattles() + 1);
                 mp.getMiddlePanel().changeScreenToDefaultScene();
                 planet.setCurrentThreat(null);
+                planet.setIsInvading(false);
                 // Maybe I should add the threat timer here, so it starts counting after the battle is over
                 new ThreatTimer(planet, ms);
                 
@@ -342,10 +350,14 @@ public class Battle {
         initialCostFleet[1][0] = getMetalCostOfArmy(enemyArmy);
         initialCostFleet[1][1] = getDeuteriumCostOfArmy(enemyArmy);
 
-
-        System.out.println("NEW THREAT IS COMING");
+        if(battleType == 0) {
+            System.out.println("NEW THREAT IS COMING");
+        } else {
+            System.out.println("INVADING ANOTHER PLANET");
+        }
     }
-    public void combat(Planet planet, Planet enemyPlanet, MainPanel mainPanel) {
+    public void combat(Planet planet, Planet enemyPlanet, MainPanel mainPanel, int battleType) {
+        // battleType 0 = getting invaded, 1 = invading.
         initialNumberUnitsPlanet = initialFleetNumber(planetArmy);
         MiddlePanel screen = mainPanel.getMiddlePanel();
         if(planet.isActiveThreat() || enemyPlanet.isActiveThreat()){
@@ -550,21 +562,53 @@ public class Battle {
             battleDevelopment += "Resources lost by " + enemyPlanet.getPlanetName() +": " + resourcesLosses[1][2] + "\n\n";
 
             if (getWinner() == 0) {
-                winner = "Planet";
-                battleDevelopment += "Planet collects " + wasteMetalDeuterium[0] + " metal and " + wasteMetalDeuterium[1] + " deuterium\n\n";
+                winner = planet.getPlanetName();
+                battleDevelopment += planet.getPlanetName() + " collects " + wasteMetalDeuterium[0] + " metal and " + wasteMetalDeuterium[1] + " deuterium\n\n";
                 planet.setMetal(planet.getMetal() + wasteMetalDeuterium[0]);
                 planet.setDeuterium(planet.getDeuterium() + wasteMetalDeuterium[1]);
             } else {
-                winner = "Invader";
+                if(battleType == 1) {
+                    winner = enemyPlanet.getPlanetName();
+                    battleDevelopment += enemyPlanet.getPlanetName() + " collects " + wasteMetalDeuterium[0] + " metal and " + wasteMetalDeuterium[1] + " deuterium\n\n";
+                    enemyPlanet.setMetal(enemyPlanet.getMetal() + wasteMetalDeuterium[0]);
+                    enemyPlanet.setDeuterium(enemyPlanet.getDeuterium() + wasteMetalDeuterium[1]);
+                }
+                else {
+                    winner = planet.getPlanetName();
+                }
             }
 
             battleDevelopment += winner + " wins!";
             // System.out.println(battleDevelopment);
         }
+            updateBattleReport();
+            System.out.println(battleReport);
             new ResultFrame(this);
             System.out.println("Armies after fight (has to remain as in the start)");
             printArmies();
             return;
+        }
+
+        public void updateBattleReport() {
+            String divider = "----------------------------------------------------\n";
+            battleReport += divider;
+            battleReport += "Army Planet " + userPlanet.getPlanetName() + "\n";
+            for(int i = 0; i < armies[0].length; i++) {
+                if(armies[0][i].size() > 0){
+                    battleReport +=  ((MilitaryUnit) armies[0][i].get(0)).getName() + ": " + armies[0][i].size() +"\n";
+                }
+            }
+            battleReport += divider;
+
+            battleReport += "Army Planet " + enemyPlanet.getPlanetName() + "\n";
+            for(int i = 0; i < armies[1].length; i++) {
+                if(armies[1][i].size() > 0){
+                    battleReport +=  ((MilitaryUnit) armies[1][i].get(0)).getName() + ": " + armies[1][i].size() +"\n";
+                }
+            }
+
+            battleReport += divider;
+
         }
 
         public void printEnemyStats() {
@@ -633,8 +677,16 @@ public class Battle {
             return attackingArmy;
         }
 
+        
+        public int getBattleType() {
+			return battleType;
+		}
 
-        public int getPlanetArmyPercRemaining() {
+		public void setBattleType(int battleType) {
+			this.battleType = battleType;
+		}
+
+		public int getPlanetArmyPercRemaining() {
             return planetArmyPercRemaining;
         }
 

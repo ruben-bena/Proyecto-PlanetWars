@@ -230,6 +230,7 @@ class RightPanel extends JPanel {
                     if (planet.isActiveThreat()) {
                         new ThreatFrame(planet);
                     }
+
                     System.out.println("Current threat");
                 }
 
@@ -240,7 +241,8 @@ class RightPanel extends JPanel {
                 }
 
                 if (e.getActionCommand() == "Invade") {
-                    new Battle(planet, Main.createEnemyPlanet(planet), ms.getMainPanel(), ms, 1);
+                    planet.setCurrentThreat(new Battle(planet, Main.createEnemyPlanet(planet), ms.getMainPanel(), ms, 1));
+                    ms.getMainPanel().getMiddlePanel().doInvadeDisplay();
                 }
             }
 
