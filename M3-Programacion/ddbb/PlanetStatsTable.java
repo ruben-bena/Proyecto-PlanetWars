@@ -45,6 +45,10 @@ public class PlanetStatsTable implements Table {
         
     }
 
+    public PlanetStatsTable(Database db) {
+        this.db = db;
+    }
+
     public PlanetStatsTable(Database db, Planet planet) {
         this.db = db;
         this.name = "prueba"; // TODO: needs to be well implemented in class Planet
@@ -252,19 +256,12 @@ public class PlanetStatsTable implements Table {
         modifyRow();
     }
 
-    public ArrayList<String> generateArrayWithIdAndName() {
-        /*
-        Necesito obtener un array String[] en el que cada String sea una combinación del estilo "<id> - <nombre>", para cada fila de mi tabla. ¿cómo hago eso?
-        
-        Creo que puedo hacer una query y guardarla en un ResultSet, y luego recorrer ese ResultSet y meter en un ArrayList un string que me creo a partir de los 2 valores que me interesan.
-        
-        Finalmente, puedo convertir el ArrayList en un Array (supongo...?) y retornarlo
-        */
+    public static ArrayList<String> generateArrayWithIdAndName() {
         ArrayList<String> arrayWithAllId = new ArrayList<String>();
         try {
             // Getting data from table
             String getAllIdQuery = "SELECT planet_id, name FROM Planet_stats";
-            PreparedStatement ps = db.getConnection().prepareStatement(getAllIdQuery);
+            PreparedStatement ps = GlobalContext.database.getConnection().prepareStatement(getAllIdQuery);
             ResultSet rs = ps.executeQuery();
 
             // Making the array
@@ -282,6 +279,18 @@ public class PlanetStatsTable implements Table {
         }
 
         return arrayWithAllId;
+    }
+
+    public void updatePlanetWithTable(Planet planet) {
+        // TODO: Inventar algo para darle el coste de subir ataque y defensa
+        planet = new Planet(
+            technology_defense_level,
+            technology_attack_level,
+            resource_metal_amount,
+            resource_deuterion_amount,
+            1000,
+            1000
+        );
     }
     
     public void setPlanet_id(int planet_id) {
