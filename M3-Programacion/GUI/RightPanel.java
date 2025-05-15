@@ -143,6 +143,9 @@ class RightPanel extends JPanel {
 
             invadePanel = new JPanel();
             invadeButton = new JButton("Invade");
+            invadeButton.setFont(customFontSmaller);
+            invadeButton.setBackground(Globals.rightButtonsColor);
+            invadeButton.setForeground(Globals.rightButtonsFontColor);
             invadeButton.addActionListener(new ButtonEvents());
             invadePanel.setLayout(new BorderLayout());
             invadePanel.add(invadeButton);
