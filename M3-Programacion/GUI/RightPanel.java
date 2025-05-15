@@ -15,6 +15,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import classes.Battle;
+import classes.Main;
 import classes.Planet;
 import classes.ResourceException;
 import classes.ThreatTimer;
@@ -27,8 +29,8 @@ import java.io.File;
 import java.io.IOException;
 
 class RightPanel extends JPanel {
-        private JPanel mainPanel, imagePanel, buttonsPanel, upperPanel, fixArmyPanel, costFixArmyPanel, costFixArmyAmountPanel;
-        private JButton newGameButton, battleReportButton, settingsButton, exitButton, viewCurrentThreatButton, fixArmyButton, startABattle;
+        private JPanel mainPanel, imagePanel, buttonsPanel, upperPanel, fixArmyPanel, costFixArmyPanel, costFixArmyAmountPanel, invadePanel;
+        private JButton newGameButton, battleReportButton, settingsButton, exitButton, viewCurrentThreatButton, fixArmyButton, startABattle, invadeButton;
         private JLabel metalImageLabel, deuteriumImageLabel, metalCostFixLabel, deuteriumCostFixLabel;
         private Planet planet;
         private ImageIcon metalIcon, deuteriumIcon;
@@ -140,7 +142,11 @@ class RightPanel extends JPanel {
 
             upperPanel.add(viewCurrentThreatButton);
 
-            
+            invadePanel = new JPanel();
+            invadeButton = new JButton("Invade");
+            invadeButton.addActionListener(new ButtonEvents());
+            invadePanel.setLayout(new BorderLayout());
+            invadePanel.add(invadeButton);
 
             imagePanel = new JPanel();
             imagePanel.setBackground(Color.BLACK);
@@ -148,7 +154,7 @@ class RightPanel extends JPanel {
             
             mainPanel.add(upperPanel);
 
-            mainPanel.add(imagePanel);
+            mainPanel.add(invadePanel);
             // buttonsPanel
             // TODO: Add button that pauses the game (optional)
             buttonsPanel = new JPanel();
@@ -225,6 +231,7 @@ class RightPanel extends JPanel {
                     if (planet.isActiveThreat()) {
                         new ThreatFrame(planet);
                     }
+
                     System.out.println("Current threat");
                 }
 
@@ -232,6 +239,11 @@ class RightPanel extends JPanel {
                     fixArmyEvent();
                     System.out.println("Fix Army pressed");
                     
+                }
+
+                if (e.getActionCommand() == "Invade") {
+                    planet.setCurrentThreat(new Battle(planet, Main.createEnemyPlanet(planet), ms.getMainPanel(), ms, 1));
+                    ms.getMainPanel().getMiddlePanel().doInvadeDisplay();
                 }
             }
 

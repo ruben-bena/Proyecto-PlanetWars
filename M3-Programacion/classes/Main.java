@@ -183,7 +183,79 @@ public class Main{
         planet.newGame();
         
     }
+    public static Planet createEnemyPlanet(Planet userPlanet) {
+        Planet enemyPlanet = new Planet(1,1,userPlanet.getMetal(), userPlanet.getDeuterium(), 3000,3000);
+        ArrayList<MilitaryUnit>[] enemyArmy = createEnemyArmy(userPlanet);
+        // ArrayList<MilitaryUnit>[] enemyDefense = createEnemyDefense(enemyPlanet);
+        enemyPlanet.setArmy(enemyArmy);
+        enemyPlanet.setPlanetName("Evil Earth");
+        createEnemyDefense(enemyPlanet);
 
+        
+
+        return enemyPlanet;
+    }
+    public static void createEnemyDefense(Planet enemyPlanet) {
+        //array with length 3
+        ArrayList<MilitaryUnit>[] defenseArmy = new ArrayList[3];
+
+        // init the army array
+        for (int i = 0; i < defenseArmy.length; i++) {
+            defenseArmy[i] = new ArrayList<MilitaryUnit>();
+        }
+        int option = -1;
+        while(enemyPlanet.getMetal() > Variables.METAL_COST_MISSILELAUNCHER && enemyPlanet.getDeuterium() > Variables.DEUTERIUM_COST_MISSILELAUNCHER) {
+            int[] array = new int[3];
+
+                array[0] = 55;
+                array[1] = 25;
+                array[2] = 20;
+
+                int randomNumber = (int) (Math.random() * 100);
+
+                for(int i = 0; i < array.length; i++) {
+                    int sum = array[0];
+                    int j = i;
+                    while (j > 0 && i != 0) {
+                        sum += array[j];
+                        j--;
+                    }
+
+                    if(sum > randomNumber) {
+                        option = i;
+                        break;
+                    }
+                }
+
+            if (enemyPlanet.getMetal() > Variables.METAL_COST_LIGTHHUNTER && enemyPlanet.getDeuterium() > Variables.DEUTERIUM_COST_LIGTHHUNTER) {
+                
+                switch (option) {
+                    case 0: // Missile Launchers
+                        enemyPlanet.getArmy()[4].add(new MissileLauncher(Variables.ARMOR_MISSILELAUNCHER, Variables.BASE_DAMAGE_MISSILELAUNCHER));
+                        enemyPlanet.setMetal(enemyPlanet.getMetal() - Variables.METAL_COST_MISSILELAUNCHER);
+                        enemyPlanet.setDeuterium(enemyPlanet.getDeuterium() - Variables.DEUTERIUM_COST_MISSILELAUNCHER);
+                        break;
+
+                    case 1: // Ion Cannons
+                        enemyPlanet.getArmy()[5].add(new MissileLauncher(Variables.ARMOR_IONCANNON, Variables.BASE_DAMAGE_IONCANNON));
+                        enemyPlanet.setMetal(enemyPlanet.getMetal() - Variables.METAL_COST_IONCANNON);
+                        enemyPlanet.setDeuterium(enemyPlanet.getDeuterium() - Variables.DEUTERIUM_COST_IONCANNON);
+                        break;
+
+                    case 2: // Plasma Cannons
+                        enemyPlanet.getArmy()[6].add(new MissileLauncher(Variables.ARMOR_PLASMACANNON, Variables.BASE_DAMAGE_PLASMACANNON));
+                        enemyPlanet.setMetal(enemyPlanet.getMetal() - Variables.METAL_COST_PLASMACANNON);
+                        enemyPlanet.setDeuterium(enemyPlanet.getDeuterium() - Variables.DEUTERIUM_COST_PLASMACANNON);
+                        break;
+                    
+                    default:
+                        System.out.println("Error: Option = " + option);
+                        break;
+                }
+            }
+        }
+
+    }
     public static ArrayList<MilitaryUnit>[] createEnemyArmy(Planet planet) {
         ArrayList<MilitaryUnit>[] army = new ArrayList[7];
         // Enemy doesn't have defenses so the army array won't go past index 3.
