@@ -1,0 +1,139 @@
+/* ============= */
+/* |BASE STYLES| */
+/* ============= */
+.main-content {
+    min-height: 100vh;
+    scroll-snap-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+/* Title */
+.main-content h1 {
+    font-size: 4em;
+    margin: 30px 0;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    text-align: center;
+}
+
+/* ================ */
+/* |SEARCH SECTION| */
+/* ================ */
+/* Section */
+.buscar-batalla {
+    background-color: rgba(30, 30, 40, 0.7);
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Form */
+#form-buscar-batalla {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+}
+#form-buscar-batalla label {
+    font-size: 1.2em;
+    color: #ccc;
+}
+#form-buscar-batalla input {
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 2px solid #4CAF50;
+    background-color: rgba(40, 40, 50, 0.9);
+    color: white;
+    font-size: 1em;
+    min-width: 200px;
+}
+
+/* Form Button*/
+#form-buscar-batalla button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+#form-buscar-batalla button:hover {
+    background-color: #45a049;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+}
+
+
+
+/* =============== */
+/* |BATTLE REPORT| */
+/* =============== */
+/* Battle report container */
+.reporte-batalla {
+    background-color: rgba(30, 30, 40, 0.7);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.reporte-batalla h2 {
+    font-size: 2.5em;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.reporte-batalla h3 {
+    font-size: 1.8em;
+    color: #4CAF50;
+    margin: 20px 0 15px 0;
+    text-align: center;
+}
+
+/* Army comparison */
+
+/* Costs */
+
+/* Losses */
+
+/* Waste */
+
+/* Battle result */
+
+
+
+/* =============== */
+/* |ERROR MESSAGE| */
+/* =============== */
+.error {
+    background-color: rgba(244, 67, 54, 0.2);
+    border: 2px solid #f44336;
+    color: #f44336;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    margin-top: 30px;
+}
+.error h3 {
+    font-size: 2em;
+    margin-bottom: 15px;
+}
+.error p {
+    font-size: 1.2em;
+    color: #ff9999;
+}
