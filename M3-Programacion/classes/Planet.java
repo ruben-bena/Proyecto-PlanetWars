@@ -12,7 +12,7 @@ public class Planet {
     private boolean isActiveThreat;
     private ArrayList<MilitaryUnit>[] army;
     private Battle currentThreat;
-    private String[] battleReports;
+    private Battle[] battleReports;
     private int nBattles;
     private int metalMineLvl;
     private int deuteriumMineLvl;
@@ -44,7 +44,8 @@ public class Planet {
         this.army = new ArrayList[7];
         this.isActiveThreat = false;
         this.isInvading = false;
-        this.battleReports = new String[5];
+        // this.battleReports = new String[5];
+        this.battleReports = new Battle[5];
         for(int i = 0; i < army.length; i++) {
             army[i] = new ArrayList<MilitaryUnit>();
         }
@@ -103,7 +104,7 @@ public class Planet {
     public void upgradeTechnologyAttack() throws ResourceException {
         if (deuterium >= upgradeAttackTechnologyDeuteriumCost) {
             technologyAttack++;
-            deuterium -= upgradeAttackTechnologyDeuteriumCost; upgradeAttackTechnologyDeuteriumCost += upgradeAttac
+            deuterium -= upgradeAttackTechnologyDeuteriumCost;
             upgradeAttackTechnologyDeuteriumCost += upgradeAttackTechnologyDeuteriumCost*0.1; // 10% increase in the cost
             System.out.println("Attack now lvl: " + technologyAttack);
         } else {
@@ -361,7 +362,7 @@ public class Planet {
         return this.currentThreat;
     }
 
-    public void addBattleReport(String report) {
+    public void addBattleReport(Battle report) {
 
         // Moving all one position
         for(int i = battleReports.length - 1; i > 0; i--) {
@@ -372,11 +373,18 @@ public class Planet {
         battleReports[0] = report;
     }
 
-    public String[] getBattleReports() {
+    // public String[] getBattleReports() {
+    //     return battleReports;
+    // }
+
+    // public String getBattleReport(int n) {
+    //     return battleReports[n];
+    // }
+    public Battle[] getBattleReports() {
         return battleReports;
     }
 
-    public String getBattleReport(int n) {
+    public Battle getBattleReport(int n) {
         return battleReports[n];
     }
 
@@ -400,7 +408,8 @@ public class Planet {
         upgradeAttackTechnologyDeuteriumCost = 3000;
         upgradeMetalMineLvlMetalCost = 10000;
         upgradeDeuteriumMineLvlDeuteriumCost = 4000;
-        battleReports = new String[5];
+        // battleReports = new String[5];
+        battleReports = new Battle[5];
         metalMineLvl = 1;
         deuteriumMineLvl = 1;
 

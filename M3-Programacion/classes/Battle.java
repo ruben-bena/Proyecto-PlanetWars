@@ -67,6 +67,7 @@ public class Battle {
     private Planet userPlanet;
     private Planet enemyPlanet;
     private int battleType;
+    private Battle thisBattle;
 
     public Battle(Planet planet, Planet enemyPlanet, MainPanel mp, MainScreen ms) {
         this.planetArmy = planet.getArmy();
@@ -82,11 +83,12 @@ public class Battle {
         this.enemyPlanet.setActiveThreat(true);
         this.battleType = 0;
         this.battleReport = "";
+        thisBattle = this;
         announceCombat();
         TimerTask task = new TimerTask() {
             public void run() {
                 combat(planet, enemyPlanet, mp, battleType);
-                planet.addBattleReport(battleDevelopment);
+                planet.addBattleReport(thisBattle);
                 planet.setActiveThreat(false);
                 hasCombatStarted = false;
 
@@ -118,12 +120,13 @@ public class Battle {
         this.enemyPlanet.setActiveThreat(true);
         this.battleType = 1;
         this.battleReport = "";
+        thisBattle = this;
         announceCombat();
         TimerTask task = new TimerTask() {
             public void run() {
                 planet.setIsInvading(true);
                 combat(enemyPlanet, planet, mp, battleType);
-                planet.addBattleReport(battleDevelopment);
+                planet.addBattleReport(thisBattle);
                 planet.setActiveThreat(false);
                 hasCombatStarted = false;
 

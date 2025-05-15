@@ -101,7 +101,7 @@ public class ResultFrame extends JFrame implements ActionListener {
 
     }
 
-    public ResultFrame(String battleDevelopment, int battleN) {
+    public ResultFrame(Battle battle, int battleN) {
         setSize(new Dimension(1000,700));
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
@@ -111,8 +111,10 @@ public class ResultFrame extends JFrame implements ActionListener {
         add(new PaddingPanel(), BorderLayout.NORTH);
         add(new PaddingPanel(), BorderLayout.SOUTH);
         add(new PaddingPanel(), BorderLayout.EAST);
+        this.battle = battle;
 
-        activeStringView = battleDevelopment;
+        // activeStringView = battleDevelopment;
+        activeStringView = battle.getBattleDevelopment();
 
         try {
             customFontBiggest = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(68f);
@@ -150,11 +152,14 @@ public class ResultFrame extends JFrame implements ActionListener {
         
         switchViewButton = new JButton("Switch View");
         switchViewButton.addActionListener(this);
+        switchViewButton.setFont(customFont);
+        switchViewButton.setPreferredSize(new Dimension(200,50));
+        switchViewButton.setBackground(Color.WHITE);
 
         buttonPanel = new JPanel();
         buttonPanel.add(acceptButton);
         buttonPanel.setBackground(Color.BLACK);
-        // buttonPanel.add(switchViewButton);
+        buttonPanel.add(switchViewButton);
 
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
         add(mainPanel);
