@@ -103,7 +103,7 @@ public class Planet {
     public void upgradeTechnologyAttack() throws ResourceException {
         if (deuterium >= upgradeAttackTechnologyDeuteriumCost) {
             technologyAttack++;
-            deuterium -= upgradeAttackTechnologyDeuteriumCost;
+            deuterium -= upgradeAttackTechnologyDeuteriumCost; upgradeAttackTechnologyDeuteriumCost += upgradeAttac
             upgradeAttackTechnologyDeuteriumCost += upgradeAttackTechnologyDeuteriumCost*0.1; // 10% increase in the cost
             System.out.println("Attack now lvl: " + technologyAttack);
         } else {

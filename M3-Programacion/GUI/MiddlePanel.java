@@ -92,7 +92,7 @@ public class MiddlePanel extends JPanel{
 
             g2d = (Graphics2D) g;
             g2d.drawImage(activeImage.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH), 0, 0, this);
-            System.out.println("Width = " + getWidth() + " Height = " + getHeight());
+            // System.out.println("Width = " + getWidth() + " Height = " + getHeight());
 
             
             if(activeImage.equals(earthImage)) {

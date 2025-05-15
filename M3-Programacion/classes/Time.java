@@ -7,7 +7,7 @@ public class Time {
     private int totalSeconds;
     private int deltaTime;
 
-    public static int secondsCountdownBattle = 10;
+    public static int secondsCountdownBattle = 5;
     public static int secInMs = 1000;
     public static int secondsBetweenBattles = 120;
     public static int secondsBetweenResources = 10;

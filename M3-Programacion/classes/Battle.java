@@ -157,18 +157,54 @@ public class Battle {
 
     
     public void updateResourceLoses() {
-        resourcesLosses[0][0] = initialCostFleet[0][0] + planetDrops[0];
+        // resourcesLosses[0][0] = initialCostFleet[0][0] + planetDrops[0];
+        // resourcesLosses[0][1] = initialCostFleet[0][1] + planetDrops[1];
+        // resourcesLosses[1][0] = initialCostFleet[1][0] + enemyDrops[0];
+        // resourcesLosses[1][1] = initialCostFleet[1][1] + enemyDrops[1];
+        // resourcesLosses[0][2] = resourcesLosses[0][0] + 5 * resourcesLosses[0][1];
+        // resourcesLosses[1][2] = resourcesLosses[1][0] + 5 * resourcesLosses[1][1];
+        
+        resourcesLosses[0][0] = initialCostFleet[0][0];
         resourcesLosses[0][1] = initialCostFleet[0][1] + planetDrops[1];
+
+        resourcesLosses[0][0] += Variables.METAL_COST_LIGTHHUNTER * planetDrops[0];
+        resourcesLosses[0][0] += Variables.METAL_COST_HEAVYHUNTER * planetDrops[1];
+        resourcesLosses[0][0] += Variables.METAL_COST_BATTLESHIP * planetDrops[2];
+        resourcesLosses[0][0] += Variables.METAL_COST_ARMOREDSHIP * planetDrops[3];
+        resourcesLosses[0][0] += Variables.METAL_COST_MISSILELAUNCHER * planetDrops[4];
+        resourcesLosses[0][0] += Variables.METAL_COST_IONCANNON * planetDrops[5];
+        resourcesLosses[0][0] += Variables.METAL_COST_PLASMACANNON * planetDrops[6];
+
+        resourcesLosses[0][1] += Variables.DEUTERIUM_COST_LIGTHHUNTER * planetDrops[0];
+        resourcesLosses[0][1] += Variables.DEUTERIUM_COST_HEAVYHUNTER * planetDrops[1];
+        resourcesLosses[0][1] += Variables.DEUTERIUM_COST_BATTLESHIP * planetDrops[2];
+        resourcesLosses[0][1] += Variables.DEUTERIUM_COST_ARMOREDSHIP * planetDrops[3];
+        resourcesLosses[0][1] += Variables.DEUTERIUM_COST_MISSILELAUNCHER * planetDrops[4];
+        resourcesLosses[0][1] += Variables.DEUTERIUM_COST_IONCANNON * planetDrops[5];
+        resourcesLosses[0][1] += Variables.DEUTERIUM_COST_PLASMACANNON * planetDrops[6];
+
+        resourcesLosses[1][0] += Variables.METAL_COST_LIGTHHUNTER * enemyDrops[0];
+        resourcesLosses[1][0] += Variables.METAL_COST_HEAVYHUNTER * enemyDrops[1];
+        resourcesLosses[1][0] += Variables.METAL_COST_BATTLESHIP * enemyDrops[2];
+        resourcesLosses[1][0] += Variables.METAL_COST_ARMOREDSHIP * enemyDrops[3];
+        resourcesLosses[1][0] += Variables.METAL_COST_MISSILELAUNCHER * enemyDrops[4];
+        resourcesLosses[1][0] += Variables.METAL_COST_IONCANNON * enemyDrops[5];
+        resourcesLosses[1][0] += Variables.METAL_COST_PLASMACANNON * enemyDrops[6];
+
+        resourcesLosses[1][1] += Variables.DEUTERIUM_COST_LIGTHHUNTER * enemyDrops[0];
+        resourcesLosses[1][1] += Variables.DEUTERIUM_COST_HEAVYHUNTER * enemyDrops[1];
+        resourcesLosses[1][1] += Variables.DEUTERIUM_COST_BATTLESHIP * enemyDrops[2];
+        resourcesLosses[1][1] += Variables.DEUTERIUM_COST_ARMOREDSHIP * enemyDrops[3];
+        resourcesLosses[1][1] += Variables.DEUTERIUM_COST_MISSILELAUNCHER * enemyDrops[4];
+        resourcesLosses[1][1] += Variables.DEUTERIUM_COST_IONCANNON * enemyDrops[5];
+        resourcesLosses[1][1] += Variables.DEUTERIUM_COST_PLASMACANNON * enemyDrops[6];
+
+
         resourcesLosses[1][0] = initialCostFleet[1][0] + enemyDrops[0];
         resourcesLosses[1][1] = initialCostFleet[1][1] + enemyDrops[1];
         resourcesLosses[0][2] = resourcesLosses[0][0] + 5 * resourcesLosses[0][1];
         resourcesLosses[1][2] = resourcesLosses[1][0] + 5 * resourcesLosses[1][1];
-        // System.out.println("Initial cost fleet planet metal = " + initialCostFleet[0][0]);
-        // System.out.println("Initial cost fleet planet deut = " + initialCostFleet[0][1]);
-        // System.out.println("Initial cost fleet enemy metal = " + initialCostFleet[1][0]);
-        // System.out.println("Initial cost fleet enemy deut = " + initialCostFleet[1][1]);
-        // System.out.println("Losses by planet = " + resourcesLosses[0][2]);
-        // System.out.println("Losses by enemy = " + resourcesLosses[1][2]);
+
     }
 
     public int fleetResourceCost(ArrayList<MilitaryUnit>[] army) {
@@ -339,8 +375,10 @@ public class Battle {
         initialNumberUnitsEnemy = initialFleetNumber(enemyArmy);
         battleDevelopment = "";
         wasteMetalDeuterium = new int[2];
-        enemyDrops = new int[2];
-        planetDrops = new int[2];
+        enemyDrops = new int[7];
+        planetDrops = new int[7];
+
+        initInitialArmies();
 
         actualNumberUnitsPlanet = getArrayValuesFromArrayList(planetArmy);
         actualNumberUnitsEnemy = getArrayValuesFromArrayList(enemyArmy);
@@ -493,13 +531,13 @@ public class Battle {
                         }
 
                         // Adding it to planetDrops and enemyDrops
-                        if (defendingArmy == 0) { //I'm assuming the 0 is for metal and 1 is for deuterium
-                            planetDrops[0] += defendingUnit.getMetalCost();
-                            planetDrops[1] += defendingUnit.getDeuteriumCost();
-                        } else {
-                            enemyDrops[0] += defendingUnit.getMetalCost();
-                            enemyDrops[1] += defendingUnit.getDeuteriumCost();
-                        }
+                        // if (defendingArmy == 0) { //I'm assuming the 0 is for metal and 1 is for deuterium
+                        //     planetDrops[0] += defendingUnit.getMetalCost();
+                        //     planetDrops[1] += defendingUnit.getDeuteriumCost();
+                        // } else {
+                        //     enemyDrops[0] += defendingUnit.getMetalCost();
+                        //     enemyDrops[1] += defendingUnit.getDeuteriumCost();
+                        // }
 
 
                         // Removing from arrays
@@ -581,33 +619,72 @@ public class Battle {
             battleDevelopment += winner + " wins!";
             // System.out.println(battleDevelopment);
         }
+            updateDrops();
             updateBattleReport();
             System.out.println(battleReport);
             new ResultFrame(this);
-            System.out.println("Armies after fight (has to remain as in the start)");
-            printArmies();
+            // System.out.println("Armies after fight (has to remain as in the start)");
+            // printArmies();
             return;
         }
 
         public void updateBattleReport() {
             String divider = "----------------------------------------------------\n";
             battleReport += divider;
-            battleReport += "Army Planet " + userPlanet.getPlanetName() + "\n";
+            if(battleType == 0) {
+                battleReport += "Army Planet " + userPlanet.getPlanetName() + "\n";
+            }
+            else {
+                battleReport += "Army Planet " + enemyPlanet.getPlanetName() + "\n";
+            }
             for(int i = 0; i < armies[0].length; i++) {
                 if(armies[0][i].size() > 0){
-                    battleReport +=  ((MilitaryUnit) armies[0][i].get(0)).getName() + ": " + armies[0][i].size() +"\n";
+                    battleReport +=  ((MilitaryUnit) armies[0][i].get(0)).getName() + ": " + armies[0][i].size() + " -" + planetDrops[i] +"\n";
                 }
             }
             battleReport += divider;
 
-            battleReport += "Army Planet " + enemyPlanet.getPlanetName() + "\n";
+            if(battleType == 0) {
+                battleReport += "Army Planet " + enemyPlanet.getPlanetName() + "\n";
+            }
+            else {
+                battleReport += "Army Planet " + userPlanet.getPlanetName() + "\n";
+            }
+            
             for(int i = 0; i < armies[1].length; i++) {
                 if(armies[1][i].size() > 0){
-                    battleReport +=  ((MilitaryUnit) armies[1][i].get(0)).getName() + ": " + armies[1][i].size() +"\n";
+                    battleReport +=  ((MilitaryUnit) armies[1][i].get(0)).getName() + ": " + armies[1][i].size() + " -" + enemyDrops[i] +"\n";
                 }
             }
 
             battleReport += divider;
+
+            if (battleType == 0) {
+                battleReport += "Losses Army " + userPlanet.getPlanetName() + "\n";
+            } else {
+                battleReport += "Losses Army " + enemyPlanet.getPlanetName() + "\n";
+            }
+            battleReport += "Metal: " + resourcesLosses[0][0] + "\n";
+            battleReport += "Deuterium: " + resourcesLosses[0][1] + "\n";
+            battleReport += "Weighted: " + resourcesLosses[0][2] + "\n";
+
+            battleReport += divider;
+
+            if(battleType == 0) {
+                battleReport += "Losses Army " + enemyPlanet.getPlanetName() + "\n";
+            } else {
+                battleReport += "Losses Army " + userPlanet.getPlanetName() + "\n";
+            }
+
+            battleReport += "Metal: " + resourcesLosses[1][0] + "\n";
+            battleReport += "Deuterium: " + resourcesLosses[1][1] + "\n";
+            battleReport += "Weighted: " + resourcesLosses[1][2] + "\n";
+
+            battleReport += divider;
+
+            battleReport += "Waste Generated:\n";
+            battleReport += "Metal: " + wasteMetalDeuterium[0] + "\n";
+            battleReport += "Deuterium: " + wasteMetalDeuterium[1] + "\n";
 
         }
 
@@ -628,6 +705,24 @@ public class Battle {
                     }
                 }
             }
+        }
+
+        public void updateDrops() {
+            planetDrops[0] = initialArmies[0][0] - planetArmy[0].size();
+            planetDrops[1] = initialArmies[0][1] - planetArmy[1].size();
+            planetDrops[2] = initialArmies[0][2] - planetArmy[2].size();
+            planetDrops[3] = initialArmies[0][3] - planetArmy[3].size();
+            planetDrops[4] = initialArmies[0][4] - planetArmy[4].size();
+            planetDrops[5] = initialArmies[0][5] - planetArmy[5].size();
+            planetDrops[6] = initialArmies[0][6] - planetArmy[6].size();
+
+            enemyDrops[0] = initialArmies[1][0] - enemyArmy[0].size();
+            enemyDrops[1] = initialArmies[1][1] - enemyArmy[1].size();
+            enemyDrops[2] = initialArmies[1][2] - enemyArmy[2].size();
+            enemyDrops[3] = initialArmies[1][3] - enemyArmy[3].size();
+            enemyDrops[4] = initialArmies[1][4] - enemyArmy[4].size();
+            enemyDrops[5] = initialArmies[1][5] - enemyArmy[5].size();
+            enemyDrops[6] = initialArmies[1][6] - enemyArmy[6].size();
         }
 
         public int getCostOfGroup(ArrayList<MilitaryUnit> group) {
@@ -680,6 +775,16 @@ public class Battle {
         
         public int getBattleType() {
 			return battleType;
+		}
+
+        
+
+		public String getBattleReport() {
+			return battleReport;
+		}
+
+		public void setBattleReport(String battleReport) {
+			this.battleReport = battleReport;
 		}
 
 		public void setBattleType(int battleType) {
