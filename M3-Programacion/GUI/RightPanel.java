@@ -120,7 +120,7 @@ class RightPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // TODO Auto-generated method stub
-                    if(planet.getNTroops() > 0 && !planet.getIsInvading()) {
+                    if(planet.getNTroops() > 0 && !planet.getIsInvading() && !planet.isActiveThreat()) {
                         new ThreatTimer(planet, ms, 1);
                     } else {
                         ms.getMainPanel().getMiddlePanel().doShowMessage("Can't do that", 2);
