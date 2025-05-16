@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Select the elements for the battle report searcher
     const formBuscarBatalla = document.getElementById('form-buscar-batalla');
     const resultadoBatalla = document.getElementById('resultado-batalla');
+
+    // Initialize the current battle number
+    let currentBattleNumber = null;
     
     // Add an event listener to the form
     formBuscarBatalla.addEventListener('submit', function(e) {
@@ -13,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Obtain the battle number from the input field
         const numeroBatalla = document.getElementById('numero-batalla').value;
+        currentBattleNumber = numeroBatalla; // Almacenar el número de batalla
         
         // Load the battle file
         cargarBatalla(numeroBatalla);
@@ -45,7 +49,28 @@ document.addEventListener('DOMContentLoaded', function() {
                         <p>No se encontró la batalla #${numero}</p>
                     </div>
                 `;
-            }
-        );
+            });
     }
+
+    
+
+    /* ======================= */
+    /* |XML DOWNLOADER BUTTON| */
+    /* ======================= */
+    // Delegate the click event to the download button
+    resultadoBatalla.addEventListener('click', function(e) {
+        if (e.target && e.target.id === 'downloadXML') {
+            if (currentBattleNumber) {
+                const rutaXML = `battles/xml/battle${currentBattleNumber}.xml`;
+                
+                // Create a link element to download the XML file
+                const link = document.createElement('a');
+                link.href = rutaXML;
+                link.download = `battle${currentBattleNumber}.xml`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
+    });
 });
