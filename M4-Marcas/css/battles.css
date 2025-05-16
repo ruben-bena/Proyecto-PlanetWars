@@ -128,7 +128,7 @@
 .army-comparison td {
     padding: 12px 15px;
     text-align: center;
-    border: 1px solid rgba(15,15,15);
+    border: 1px solid rgb(65, 65, 65);
 }
 /* Rounded borders */
 .army-comparison thead tr:first-child th:first-child {
@@ -205,6 +205,7 @@
 }
 
 /* Costs */
+/* General container*/
 .costs {
     background-color: rgba(40, 40, 50);
     padding: 20px;
@@ -212,23 +213,110 @@
     margin-bottom: 30px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
+/* Boxes container*/
 .costs-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
+}
+/* Planet box */
+.cost-planet {
+    flex: 1;
+    background-color: rgba(27, 27, 37);
+    padding: 18px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background 0.2s, box-shadow 0.2s;
+    border: 2px solid #26ac33;
+}
+.cost-planet:hover {
+    background-color: rgba(33,33,43);
+    box-shadow: 0 8px 20px rgba(38, 172, 51, 0.3);
 }
 .cost-planet h4 {
     font-size: 1.5em;
-    color: #008000;
     margin-bottom: 10px;
+    color: #4CAF50;
+}
+.cost-planet ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+.cost-planet li {
+    background: rgba(255,255,255,0.07);
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+}
+.cost-planet li:last-child {
+    margin-bottom: 0;
+}
+.cost-planet li span {
+    font-weight: bold;
+    color: #b6ffb6;
+}
+/* Enemy box */
+.cost-enemy {
+    flex: 1;
+    background-color: rgba(27, 27, 37);
+    padding: 18px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background 0.2s, box-shadow 0.2s;
+    border: 2px solid #d13a3a; /* Borde rojo */
+}
+.cost-enemy:hover {
+    background-color: rgba(33,33,43);
+    box-shadow: 0 8px 20px rgba(209, 58, 58, 0.3);
 }
 .cost-enemy h4 {
     font-size: 1.5em;
-    color: #ff0000;
     margin-bottom: 10px;
+    color: #f44336;
+}
+.cost-enemy ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+.cost-enemy li {
+    background: rgba(255,255,255,0.07);
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+}
+.cost-enemy li:last-child {
+    margin-bottom: 0;
+}
+.cost-enemy li span {
+    font-weight: bold;
+    color: #ffd6d6;
 }
 
 /* Losses */
+/* General container */
 .losses {
     background-color: rgba(40, 40, 50);
     padding: 20px;
@@ -236,20 +324,106 @@
     margin-bottom: 30px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
+/* Boxes container */
 .losses-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
+}
+/* Planet losses box */
+.losses-planet {
+    flex: 1;
+    background-color: rgba(27, 27, 37);
+    padding: 18px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background 0.2s, box-shadow 0.2s;
+    border: 2px solid #26ac33;
+}
+.losses-planet:hover {
+    background-color: rgba(33,33,43);
+    box-shadow: 0 8px 20px rgba(38, 172, 51, 0.3);
 }
 .losses-planet h4 {
     font-size: 1.5em;
-    color: #008000;
     margin-bottom: 10px;
+    color: #4CAF50;
+}
+.losses-planet ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+.losses-planet li {
+    background: rgba(255,255,255,0.07);
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+}
+.losses-planet li:last-child {
+    margin-bottom: 0;
+}
+.losses-planet li span {
+    font-weight: bold;
+    color: #b6ffb6;
+}
+/* Enemy losses box */
+.losses-enemy {
+    flex: 1;
+    background-color: rgba(27, 27, 37);
+    padding: 18px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background 0.2s, box-shadow 0.2s;
+    border: 2px solid #d13a3a;
+}
+.losses-enemy:hover {
+    background-color: rgba(33,33,43);
+    box-shadow: 0 8px 20px rgba(209, 58, 58, 0.3);
 }
 .losses-enemy h4 {
     font-size: 1.5em;
-    color: #ff0000;
     margin-bottom: 10px;
+    color: #f44336;
+}
+.losses-enemy ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+.losses-enemy li {
+    background: rgba(255,255,255,0.07);
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+}
+.losses-enemy li:last-child {
+    margin-bottom: 0;
+}
+.losses-enemy li span {
+    font-weight: bold;
+    color: #ffd6d6;
 }
 
 /* Waste */
@@ -267,7 +441,6 @@
     background-color: rgba(40, 40, 50);
     padding: 20px;
     border-radius: 10px;
-    margin-bottom: 30px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 

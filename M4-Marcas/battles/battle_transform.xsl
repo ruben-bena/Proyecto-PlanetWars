@@ -93,6 +93,8 @@
                     </xsl:choose>
                 </p>
             </div>
+            
+            <button class="btn-download" onclick="downloadBattleXML()">Download battle XML</button>
         </div>
     </xsl:template>
     

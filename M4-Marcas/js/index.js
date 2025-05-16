@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
         "img/index/placeholder-1.png",
     ];
 
-    // Selec the slider elements
+    // Select the slider elements
     const sliderImagesContainer = document.querySelector('.slider-images');
     const sliderDotsContainer = document.querySelector('.slider-dots');
     let currentIndex = 0;
