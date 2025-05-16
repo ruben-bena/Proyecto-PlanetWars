@@ -93,7 +93,7 @@ public class Planet {
         if (deuterium >= upgradeDefenseTechnologyDeuteriumCost) {
             technologyDefense++;
             deuterium -= upgradeDefenseTechnologyDeuteriumCost;
-            upgradeDefenseTechnologyDeuteriumCost += upgradeDefenseTechnologyDeuteriumCost*0.1; // 10% increase in the cost
+            upgradeDefenseTechnologyDeuteriumCost += upgradeDefenseTechnologyDeuteriumCost*(Variables.UPGRADE_PLUS_DEFENSE_TECHNOLOGY_DEUTERIUM_COST/100f); // 10% increase in the cost
             System.out.println("Defense now lvl: " + technologyDefense);
         } else {
             // System.out.println("No tienes suficiente deuterio para mejorar la tecnologia de defensa");
@@ -105,7 +105,7 @@ public class Planet {
         if (deuterium >= upgradeAttackTechnologyDeuteriumCost) {
             technologyAttack++;
             deuterium -= upgradeAttackTechnologyDeuteriumCost;
-            upgradeAttackTechnologyDeuteriumCost += upgradeAttackTechnologyDeuteriumCost*0.1; // 10% increase in the cost
+            upgradeAttackTechnologyDeuteriumCost += upgradeAttackTechnologyDeuteriumCost*(Variables.UPGRADE_PLUS_ATTACK_TECHNOLOGY_DEUTERIUM_COST/100f); // 10% increase in the cost
             System.out.println("Attack now lvl: " + technologyAttack);
         } else {
             // System.out.println("No tienes suficiente deuterio para mejorar la tecnologia de ataque");

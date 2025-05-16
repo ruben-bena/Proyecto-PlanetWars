@@ -254,9 +254,9 @@ class RightPanel extends JPanel {
                 }
 
                 if (e.getActionCommand() == "Invade") {
-                    if(planet.getNTroopsNoDefense() > 0 && planet.isActiveThreat() == false && !planet.getIsInvading()) {
+                    if(planet.getNTroopsNoDefense() > 0  && !planet.getIsInvading()) {
                         planet.setIsInvading(true);
-                        planet.setCurrentThreat(new Battle(planet, Main.createEnemyPlanet(planet), ms.getMainPanel(), ms, 1));
+                        // planet.setCurrentThreat(new Battle(planet, Main.createEnemyPlanet(planet), ms.getMainPanel(), ms, 1));
                         ms.getMainPanel().getMiddlePanel().doInvadeDisplay();
                     } else {
                         ms.getMainPanel().getMiddlePanel().doShowMessage("Can't do that", 3);

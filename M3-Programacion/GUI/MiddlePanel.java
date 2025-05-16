@@ -108,11 +108,9 @@ public class MiddlePanel extends JPanel{
             
 
             if(planet.getCurrentThreat() != null) {
-
                 // if combat hasn't started but there is a fight incoming
                 if(!planet.getCurrentThreat().isHasCombatStarted() || planet.getIsInvading() && battle.getBattleType() == 0) {
                     g2d.setColor(Color.BLACK);
-                    // g2d.fillRect(getWidth()/2 - 200, 75, 460, 150);
                     g2d.setFont(customFontBig);
                     g2d.setColor(threatDisplayColor);
                     if(activeDisplayStr.equals(threatDisplayStr)) {

@@ -9,7 +9,7 @@ import java.util.TimerTask;
 
 public class Main{
     public static void main(String[] args) throws ResourceException {
-        Planet planet = new Planet(1, 1, 200000, 40000, 3000, 3000);
+        Planet planet = new Planet(1, 1, 200000, 40000, Variables.UPGRADE_BASE_DEFENSE_TECHNOLOGY_DEUTERIUM_COST, Variables.UPGRADE_BASE_ATTACK_TECHNOLOGY_DEUTERIUM_COST);
         planet.newLightHunter(4);
         planet.newHeavyHunter(2);
         planet.newIonCannon(3);
