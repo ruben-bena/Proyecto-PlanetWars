@@ -444,7 +444,26 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-
+/* Download button */
+.btn-download{
+    display: inline-block;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 4em;
+    padding: 20px 30px;
+    transition: all 0.3s ease;
+    margin-top: 30px;
+    border: none;
+    cursor: pointer;
+}
+.btn-download:hover {
+    background-color: #45a049;
+    box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+    transform: translateY(-5px);
+}
 
 /* =============== */
 /* |ERROR MESSAGE| */

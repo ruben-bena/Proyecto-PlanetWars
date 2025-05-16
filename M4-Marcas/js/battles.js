@@ -1,3 +1,25 @@
+/* ======================= */
+/* |XML DOWNLOADER BUTTON| */
+/* ======================= */
+// Variable to store the current battle number
+let currentBattleNumber = null;
+
+// Function to handle the download button click
+function downloadBattleXML() {
+    // Path to the XML file
+    const xmlPath = `battles/xml/battle${currentBattleNumber}.xml`;
+    
+    // Create a temporary anchor element to trigger the download
+    const link = document.createElement('a');
+    link.href = xmlPath;
+    link.download = `battle${currentBattleNumber}.xml`;
+    
+    // Append to the body, trigger click, and remove
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
 /* ======================== */
 /* |BATTLE REPORT SEARCHER| */
 /* ======================== */
@@ -5,6 +27,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Select the elements for the battle report searcher
     const formBuscarBatalla = document.getElementById('form-buscar-batalla');
     const resultadoBatalla = document.getElementById('resultado-batalla');
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
     
     // Add an event listener to the form
     formBuscarBatalla.addEventListener('submit', function(e) {
@@ -45,7 +71,31 @@ document.addEventListener('DOMContentLoaded', function() {
                         <p>No se encontró la batalla #${numero}</p>
                     </div>
                 `;
+<<<<<<< Updated upstream
             }
         );
     }
 });
+=======
+            });
+    }
+});
+
+
+
+
+function downloadBattleXML() {
+    // Construct the XML file path
+    const xmlPath = `battles/xml/battle${currentBattleNumber}.xml`;
+    
+    // Create a temporary anchor element to trigger the download
+    const link = document.createElement('a');
+    link.href = xmlPath;
+    link.download = `battle${currentBattleNumber}.xml`;
+    
+    // Append to the body, trigger click, and remove
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+>>>>>>> Stashed changes
