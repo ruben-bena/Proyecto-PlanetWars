@@ -120,7 +120,9 @@ class RightPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // TODO Auto-generated method stub
-                    new ThreatTimer(planet, ms, 1);
+                    if(planet.getNTroops() > 0) {
+                        new ThreatTimer(planet, ms, 1);
+                    }
                 }
                 
             });
@@ -214,7 +216,11 @@ class RightPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if (e.getActionCommand().equals("New Game")) {
                     System.out.println("New Game pressed");
-                    newGameEvent();   
+                    if(!planet.getIsInvading() && !planet.isActiveThreat()) {
+                        newGameEvent();   
+                    } else {
+                        ms.getMainPanel().getMiddlePanel().doShowMessage("Can't New Game", 3);
+                    }
                 }
                 if (e.getActionCommand().equals("Battle Report")) {
                     System.out.println("Battle Report pressed");
@@ -244,8 +250,13 @@ class RightPanel extends JPanel {
                 }
 
                 if (e.getActionCommand() == "Invade") {
-                    planet.setCurrentThreat(new Battle(planet, Main.createEnemyPlanet(planet), ms.getMainPanel(), ms, 1));
-                    ms.getMainPanel().getMiddlePanel().doInvadeDisplay();
+                    if(planet.getNTroopsNoDefense() > 0 && planet.isActiveThreat() == false) {
+                        planet.setIsInvading(true);
+                        planet.setCurrentThreat(new Battle(planet, Main.createEnemyPlanet(planet), ms.getMainPanel(), ms, 1));
+                        ms.getMainPanel().getMiddlePanel().doInvadeDisplay();
+                    } else {
+                        ms.getMainPanel().getMiddlePanel().doShowMessage("Can't invade", 3);
+                    }
                 }
             }
 
@@ -265,6 +276,7 @@ class RightPanel extends JPanel {
         public void newGameEvent()  {
             try {
                 planet.newGame();
+                ms.repaint();
             } catch (ResourceException e) {
                 e.printStackTrace();
             }

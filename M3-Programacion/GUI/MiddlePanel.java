@@ -35,7 +35,7 @@ public class MiddlePanel extends JPanel{
         private Color threatDisplayColor;
         private int timerCountdown;
         private Font customFontBig, customFont, customFontSmall, customFontBiggest;
-        private String threatDisplayStr, invadeDisplayStr, activeDisplayStr;
+        private String threatDisplayStr, invadeDisplayStr, activeDisplayStr, messageStr;
         MiddlePanel(Planet planet) {
             setLayout(new BorderLayout());
             add(new PaddingPanel(), BorderLayout.NORTH);
@@ -43,6 +43,7 @@ public class MiddlePanel extends JPanel{
             threatDisplayStr = "THREAT DETECTED";
             invadeDisplayStr = "SEARCHING";
             activeDisplayStr = threatDisplayStr;
+            messageStr = "";
             
             try {
                 customFontBiggest = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(68f);
@@ -214,6 +215,17 @@ public class MiddlePanel extends JPanel{
                     }
                 }
             }
+            // drawing the messageStr
+            if(!messageStr.equals("")) {
+                g2d.setColor(new Color(0,0,0,220));
+                g2d.fillRect(0, getHeight()/2-30, getWidth(), 60);
+            }
+            g2d.setFont(customFontBig);
+            g2d.setColor(Color.RED);
+            g2d.drawString(messageStr, getWidth() - messageStr.length() * 56, getHeight()/2 + 20);
+            g2d.setFont(customFontBig);
+
+            
             
         }
 
@@ -275,6 +287,42 @@ public class MiddlePanel extends JPanel{
             }
         }
 
+        class ShowMessage extends TimerTask {
+            private int time;
+            private Timer timer;
+            private String message;
+            private int seconds;
+            ShowMessage(String message, int seconds) {
+                this.message = message;
+                this.seconds = seconds;
+                timer = new Timer();
+                time = 0;
+
+                timer.schedule(this, 0, Time.secInMs);
+
+            }
+            
+            @Override
+            public void run() {
+                time++;
+                
+                messageStr = message;
+                repaint();
+                if(time > seconds) {
+                    messageStr = "";
+                    repaint();
+                    cancel();
+                }
+            }
+
+        }
+
+        public void doShowMessage(String message, int seconds) {
+            if(messageStr.equals("")){
+                new ShowMessage(message, seconds);
+            }
+        }
+
         public void doThreatDisplay() {
             new ThreatDisplayTimer();
         }
@@ -309,9 +357,7 @@ public class MiddlePanel extends JPanel{
                     activeDisplayStr = invadeDisplayStr;
                     nDots = 0;
                 }
-                System.out.println(nDots);
                
-                
                 
                 if(time > Time.countdownBattleTime) {
                     cancel();
