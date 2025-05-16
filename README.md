@@ -1,5 +1,5 @@
 # Proyect PlanetWars AMS-AWS 24-25
-![LOGO](M4-Marcas/img/iconoPW.png)
+![LOGO](assets/iconoPW.png)
 ## Team Members
 
 - Rubén Bellido Navarro
@@ -9,7 +9,7 @@
 
 ## Brief Introduction
 ![GUI-Screenshot](assets/gui_screenshot.png)
-*screenshot of our game's interface*
+*- screenshot of our game's interface*
 
 The objective of this project is to create a game that resembles the game **OGame**.
 
