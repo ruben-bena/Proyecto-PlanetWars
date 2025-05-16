@@ -27,3 +27,9 @@ The GUI is meant to be as interactive as possible, you can upgrade, build, invad
 #### Database
 This game also has connection to an online database, so don't worry about losing your progress once you close the program. **You will be able to load any last sessions you've played!**
 But that's not only what our database is for, every battle's information and result is carefully saved into it, which you will be able to access from the webpage in this project.
+
+## How to install
+1. Download our project from our GitHub page
+2. Open it from your preffered IDE, but we recommend Eclipse IDE.
+3. Run from Main class
+
