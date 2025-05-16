@@ -31,6 +31,7 @@ public class MainScreen extends JFrame {
     public MainPanel getMainPanel() {
         return mainPanel;
     }
+
     
 }
 

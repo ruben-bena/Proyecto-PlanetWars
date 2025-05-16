@@ -384,6 +384,26 @@ public class Planet {
         this.currentThreat = battle;
     }
 
+    public int getNTroops() {
+        int total = 0;
+
+        for(int i = 0; i < army.length; i++) {
+            total += army[i].size();
+        }
+
+        return total;
+    }
+
+    public int getNTroopsNoDefense() {
+        int total = 0;
+
+        for(int i = 0; i < 3; i++) {
+            total += army[i].size();
+        }
+
+        return total;
+    }
+
     public Battle getCurrentThreat() {
         return this.currentThreat;
     }
@@ -438,6 +458,7 @@ public class Planet {
         battleReports = new Battle[5];
         metalMineLvl = 1;
         deuteriumMineLvl = 1;
+        planetName = "Earth";
 
         army = new ArrayList[7];
         for(int i = 0; i < army.length; i++) {
@@ -445,6 +466,7 @@ public class Planet {
         }
 
         generateDefaultArmy();
+        
 
         // Generate the new row in PlanetStatsTable
         System.out.println("Genero la nueva fila en la tabla Planet_stats");
