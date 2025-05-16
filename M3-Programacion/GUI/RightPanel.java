@@ -121,7 +121,7 @@ class RightPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // TODO Auto-generated method stub
-                    if(planet.getNTroops() > 0 && !planet.getIsInvading()) {
+                    if(planet.getNTroops() > 0 && !planet.getIsInvading() && !planet.isActiveThreat()) {
                         new ThreatTimer(planet, ms, 1);
                     } else {
                         ms.getMainPanel().getMiddlePanel().doShowMessage("Can't do that", 2);
@@ -241,6 +241,8 @@ class RightPanel extends JPanel {
                 if (e.getActionCommand().equals("View Threat")) {
                     if (planet.isActiveThreat()) {
                         new ThreatFrame(planet);
+                    } else {
+                        ms.getMainPanel().getMiddlePanel().doShowMessage("Can't do that", 3);
                     }
 
                     System.out.println("Current threat");
@@ -253,9 +255,9 @@ class RightPanel extends JPanel {
                 }
 
                 if (e.getActionCommand() == "Invade") {
-                    if(planet.getNTroopsNoDefense() > 0 && planet.isActiveThreat() == false && !planet.getIsInvading()) {
+                    if(planet.getNTroopsNoDefense() > 0  && !planet.getIsInvading()) {
                         planet.setIsInvading(true);
-                        planet.setCurrentThreat(new Battle(planet, Main.createEnemyPlanet(planet), ms.getMainPanel(), ms, 1));
+                        // planet.setCurrentThreat(new Battle(planet, Main.createEnemyPlanet(planet), ms.getMainPanel(), ms, 1));
                         ms.getMainPanel().getMiddlePanel().doInvadeDisplay();
                     } else {
                         ms.getMainPanel().getMiddlePanel().doShowMessage("Can't do that", 3);

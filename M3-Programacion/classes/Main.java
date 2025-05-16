@@ -35,7 +35,7 @@ public class Main{
 
         // Create Planet
         // TODO: We should take values from Variables interface
-        Planet planet = new Planet(1, 1, 200000, 40000, 3000, 3000);
+        Planet planet = new Planet(1, 1, 200000, 40000, Variables.UPGRADE_BASE_DEFENSE_TECHNOLOGY_DEUTERIUM_COST, Variables.UPGRADE_BASE_ATTACK_TECHNOLOGY_DEUTERIUM_COST);
 
         switch (gameChoice) {
 
@@ -246,7 +246,7 @@ public class Main{
                     }
                 }
 
-            if (enemyPlanet.getMetal() > Variables.METAL_COST_LIGTHHUNTER && enemyPlanet.getDeuterium() > Variables.DEUTERIUM_COST_LIGTHHUNTER) {
+            if (enemyPlanet.getMetal() > Variables.METAL_COST_MISSILELAUNCHER && enemyPlanet.getDeuterium() > Variables.DEUTERIUM_COST_MISSILELAUNCHER) {
                 
                 switch (option) {
                     case 0: // Missile Launchers
