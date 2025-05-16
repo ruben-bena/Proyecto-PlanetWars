@@ -70,7 +70,8 @@ public class ResultFrame extends JFrame implements ActionListener {
         mainPanel.add(resultPanel, BorderLayout.NORTH);
 
         report_text = new JTextArea(activeStringView);
-        // report_text.setFont(new Font("Arial", Font.BOLD, 24));
+        report_text.setEditable(false);
+
         report_text.setFont(customFontSmall);
         scrollPane = new JScrollPane(report_text);
 

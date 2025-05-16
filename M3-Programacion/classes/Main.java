@@ -199,7 +199,7 @@ public class Main{
                     }
                 }
 
-            if (enemyPlanet.getMetal() > Variables.METAL_COST_LIGTHHUNTER && enemyPlanet.getDeuterium() > Variables.DEUTERIUM_COST_LIGTHHUNTER) {
+            if (enemyPlanet.getMetal() > Variables.METAL_COST_MISSILELAUNCHER && enemyPlanet.getDeuterium() > Variables.DEUTERIUM_COST_MISSILELAUNCHER) {
                 
                 switch (option) {
                     case 0: // Missile Launchers
