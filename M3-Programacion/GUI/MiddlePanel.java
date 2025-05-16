@@ -222,7 +222,7 @@ public class MiddlePanel extends JPanel{
             }
             g2d.setFont(customFontBig);
             g2d.setColor(Color.RED);
-            g2d.drawString(messageStr, getWidth() - messageStr.length() * 56, getHeight()/2 + 20);
+            g2d.drawString(messageStr, getWidth() - messageStr.length() * 54, getHeight()/2 + 20);
             g2d.setFont(customFontBig);
 
             

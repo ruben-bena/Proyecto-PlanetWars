@@ -121,8 +121,10 @@ class RightPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // TODO Auto-generated method stub
-                    if(planet.getNTroops() > 0) {
+                    if(planet.getNTroops() > 0 && !planet.getIsInvading()) {
                         new ThreatTimer(planet, ms, 1);
+                    } else {
+                        ms.getMainPanel().getMiddlePanel().doShowMessage("Can't do that", 2);
                     }
                 }
                 
@@ -220,7 +222,7 @@ class RightPanel extends JPanel {
                     if(!planet.getIsInvading() && !planet.isActiveThreat()) {
                         newGameEvent();   
                     } else {
-                        ms.getMainPanel().getMiddlePanel().doShowMessage("Can't New Game", 3);
+                        ms.getMainPanel().getMiddlePanel().doShowMessage("Can't do that", 3);
                     }
                 }
                 if (e.getActionCommand().equals("Battle Report")) {
@@ -251,12 +253,12 @@ class RightPanel extends JPanel {
                 }
 
                 if (e.getActionCommand() == "Invade") {
-                    if(planet.getNTroopsNoDefense() > 0 && planet.isActiveThreat() == false) {
+                    if(planet.getNTroopsNoDefense() > 0 && planet.isActiveThreat() == false && !planet.getIsInvading()) {
                         planet.setIsInvading(true);
                         planet.setCurrentThreat(new Battle(planet, Main.createEnemyPlanet(planet), ms.getMainPanel(), ms, 1));
                         ms.getMainPanel().getMiddlePanel().doInvadeDisplay();
                     } else {
-                        ms.getMainPanel().getMiddlePanel().doShowMessage("Can't invade", 3);
+                        ms.getMainPanel().getMiddlePanel().doShowMessage("Can't do that", 3);
                     }
                 }
             }
