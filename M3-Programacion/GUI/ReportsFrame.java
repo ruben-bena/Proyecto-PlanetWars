@@ -64,7 +64,7 @@ public class ReportsFrame extends JFrame {
             mainPanel.setLayout(new GridLayout(nBattles, 1));
 
             for (int i = 0; i < nBattles; i++) {
-                JButton button = new JButton("Battle N-"+i);
+                JButton button = new JButton("Battle N-"+(planet.getNBattles() - i));
                 button.setBackground(Color.WHITE);
                 int n = i;
                 button.addActionListener(new ActionListener() {

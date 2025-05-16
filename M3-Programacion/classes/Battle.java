@@ -167,8 +167,8 @@ public class Battle {
         // resourcesLosses[0][2] = resourcesLosses[0][0] + 5 * resourcesLosses[0][1];
         // resourcesLosses[1][2] = resourcesLosses[1][0] + 5 * resourcesLosses[1][1];
         
-        resourcesLosses[0][0] = initialCostFleet[0][0];
-        resourcesLosses[0][1] = initialCostFleet[0][1] + planetDrops[1];
+        // resourcesLosses[0][0] = initialCostFleet[0][0];
+        // resourcesLosses[0][1] = initialCostFleet[0][1];
 
         resourcesLosses[0][0] += Variables.METAL_COST_LIGTHHUNTER * planetDrops[0];
         resourcesLosses[0][0] += Variables.METAL_COST_HEAVYHUNTER * planetDrops[1];
@@ -202,11 +202,9 @@ public class Battle {
         resourcesLosses[1][1] += Variables.DEUTERIUM_COST_IONCANNON * enemyDrops[5];
         resourcesLosses[1][1] += Variables.DEUTERIUM_COST_PLASMACANNON * enemyDrops[6];
 
-
-        resourcesLosses[1][0] = initialCostFleet[1][0] + enemyDrops[0];
-        resourcesLosses[1][1] = initialCostFleet[1][1] + enemyDrops[1];
         resourcesLosses[0][2] = resourcesLosses[0][0] + 5 * resourcesLosses[0][1];
         resourcesLosses[1][2] = resourcesLosses[1][0] + 5 * resourcesLosses[1][1];
+
 
     }
 
@@ -596,8 +594,7 @@ public class Battle {
 
             }
             // After the combat is over
-            updateResourceLoses();
-
+            
             battleDevelopment += "\n\n------------------- COMBAT RESULTS -----------------------\n";
             battleDevelopment += "Resources lost by " + planet.getPlanetName() + ": " + resourcesLosses[0][2] + "\n";
             battleDevelopment += "Resources lost by " + enemyPlanet.getPlanetName() +": " + resourcesLosses[1][2] + "\n\n";
@@ -620,14 +617,15 @@ public class Battle {
             }
 
             battleDevelopment += winner + " wins!";
-            // System.out.println(battleDevelopment);
+
         }
             updateDrops();
+            updateResourceLoses();
+
             updateBattleReport();
             System.out.println(battleReport);
             new ResultFrame(this);
-            // System.out.println("Armies after fight (has to remain as in the start)");
-            // printArmies();
+
             return;
         }
 
@@ -659,6 +657,18 @@ public class Battle {
                     battleReport +=  ((MilitaryUnit) armies[1][i].get(0)).getName() + ": " + armies[1][i].size() + " -" + enemyDrops[i] +"\n";
                 }
             }
+
+            battleReport += divider;
+
+            battleReport += "Cost Army " + userPlanet.getPlanetName() + "\n";
+            battleReport += "Metal: " + initialCostFleet[0][0] + "\n";
+            battleReport += "Deuterium: " + initialCostFleet[0][1] + "\n";
+
+            battleReport += divider;
+
+            battleReport += "Cost Army " + enemyPlanet.getPlanetName() + "\n";
+            battleReport += "Metal: " + initialCostFleet[1][0] + "\n";
+            battleReport += "Deuterium: " + initialCostFleet[1][1] + "\n";
 
             battleReport += divider;
 
