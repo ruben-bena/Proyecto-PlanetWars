@@ -1,6 +1,7 @@
 package GUI;
 import classes.GlobalContext;
 import classes.Planet;
+import classes.ResourceException;
 import ddbb.PlanetStatsTable;
 import java.util.ArrayList;
 import javax.swing.JList;
@@ -37,11 +38,14 @@ public class loadGameScreen {
 
         // 
         if (resultado == JOptionPane.OK_OPTION && list.getSelectedValue() != null) {
-            String seleccion = list.getSelectedValue();
-            System.out.println("Seleccionaste: " + seleccion);
+            String selection = list.getSelectedValue();
+            // System.out.println("You selected: " + selection);
 
             // Get the id from the string
-            String[] parts = list.getSelectedValue().split("\\s+"); // divide strings by black spaces
+            // System.out.println(selection);
+            String[] parts = selection.trim().split("\\s+"); // divide strings by white spaces
+            // System.out.println(parts);
+            // System.out.println(parts[0]);
             int planet_id = Integer.parseInt(parts[0]);
 
             // Load the new PlanetStatsTable
@@ -53,7 +57,16 @@ public class loadGameScreen {
 
         } else {
             // if user closes window, then we do the logic of "new game"
-            System.out.println("No seleccionaste nada o cancelaste.");
+            // System.out.println("No seleccionaste nada o cancelaste.");
+            try {
+                planet.newLightHunter(4);
+                planet.newHeavyHunter(2);
+                planet.newIonCannon(3);
+                planet.newArmoredShip(1);
+            } catch (ResourceException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             GlobalContext.planetStatsTable = new PlanetStatsTable(GlobalContext.database, planet);
             GlobalContext.planetStatsTable.insertRow();
         }

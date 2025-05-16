@@ -15,12 +15,12 @@ public class Main{
     public static void main(String[] args) throws ResourceException {
 
         // Establish connection to local vm ddbb
-        String url = "jdbc:oracle:thin:@//localhost:1521/freepdb1"; // Local VM Oracle ddbb
+        String url = "jdbc:oracle:thin:@//192.168.1.42:1521/freepdb1"; // Local VM Oracle ddbb
         String username = "planetWars";
         String pass = "planetWars";
         GlobalContext.database = new Database(url, username, pass);
 
-        // TODO: Que al principio pregunte si quieres una nueva partida, o cargar una partida de la bbdd
+        // Select between new game or load game
         String[] opciones = {"New Game", "Load Game"};
         int gameChoice = JOptionPane.showOptionDialog(
                 null,
@@ -34,19 +34,20 @@ public class Main{
         );
 
         // Create Planet
+        // TODO: We should take values from Variables interface
         Planet planet = new Planet(1, 1, 200000, 40000, 3000, 3000);
-        planet.newLightHunter(4);
-        planet.newHeavyHunter(2);
-        planet.newIonCannon(3);
-        planet.newArmoredShip(1);
 
         switch (gameChoice) {
 
             // new game
             case (0):
-                System.out.println("Has elegido 'New Game'");
+                // System.out.println("Has elegido 'New Game'");
 
                 // Create PlanetStatsTable object with planet info, and inserting it in ddbb
+                planet.newLightHunter(4);
+                planet.newHeavyHunter(2);
+                planet.newIonCannon(3);
+                planet.newArmoredShip(1);
                 GlobalContext.planetStatsTable = new PlanetStatsTable(GlobalContext.database, planet);
                 GlobalContext.planetStatsTable.insertRow();
 
@@ -54,21 +55,14 @@ public class Main{
 
             // load game
             case (1):
-                System.out.println("Has elegido 'Load Game'");
-
-                // TODO: Ventana que permita elegir planeta (se muestra id + nombre) and generates PlanetStatsTable
+                // System.out.println("Has elegido 'Load Game'");
                 new loadGameScreen(GlobalContext.planetStatsTable.generateArrayWithIdAndName(), planet);
 
                 break;
         }
 
-        // New Game
-        
-        // Load Game
-
-        
-
-        // Things to add: The ability to "fix" damaged troops.
+        System.out.println( "Imprimir Planet en Main");
+        System.out.println(planet);
 
         MainScreen ms = new MainScreen(planet);
         ms.getMainPanel().getMiddlePanel().requestFocusInWindow();

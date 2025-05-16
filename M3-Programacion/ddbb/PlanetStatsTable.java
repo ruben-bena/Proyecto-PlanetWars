@@ -160,15 +160,15 @@ public class PlanetStatsTable implements Table {
                     heavy_hunter_remaining = rs.getInt("heavy_hunter_remaining");
                     battleship_remaining = rs.getInt("battleship_remaining");
                     armored_ship_remaining = rs.getInt("armored_ship_remaining");
-                    System.out.println("recovered row for planet_id=" + planet_id);
+                    // System.out.println("recovered row for planet_id=" + planet_id);
                     
                     // refresh planet_id in case it has changed (for example id we loaded another planet)
                     if (this.planet_id != planet_id) {
-                        System.out.println("planet_id before = " + this.planet_id + "planet_id now = " + planet_id);
+                        // System.out.println("planet_id before = " + this.planet_id + "planet_id now = " + planet_id);
                         this.planet_id = planet_id;
                     }
                 } else {
-                    System.out.println("no row with planet_id=" + planet_id + " in the ddbb");
+                    // System.out.println("no row with planet_id=" + planet_id + " in the ddbb");
                 }
             }
         } catch (SQLException e) {
@@ -202,9 +202,9 @@ public class PlanetStatsTable implements Table {
 
             int affectedRows = ps.executeUpdate();
             if (affectedRows > 0) {
-                System.out.println("success modifying the row with planet_id=" + planet_id);
+                // System.out.println("success modifying the row with planet_id=" + planet_id);
             } else {
-                System.out.println("row with planet_id = " + planet_id + " not found. no row has been modified");
+                // System.out.println("row with planet_id = " + planet_id + " not found. no row has been modified");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -214,7 +214,9 @@ public class PlanetStatsTable implements Table {
     public void updateAttributes(Planet planet) {
 
         // Update the attributes
-
+        if (this.name != planet.getPlanetName()) {
+            this.name = planet.getPlanetName();
+        }
         if (this.resource_metal_amount != planet.getMetal()) {
             this.resource_metal_amount = planet.getMetal();
         }
@@ -269,7 +271,7 @@ public class PlanetStatsTable implements Table {
                 int planetId = rs.getInt(1);
                 String planetName = rs.getString(2);
                 String gameName = String.format("%5d %-15s", planetId, planetName);
-                System.out.println(gameName);
+                // System.out.println(gameName);
                 arrayWithAllId.add(gameName);
             }
 
@@ -282,15 +284,37 @@ public class PlanetStatsTable implements Table {
     }
 
     public void updatePlanetWithTable(Planet planet) {
-        // TODO: Inventar algo para darle el coste de subir ataque y defensa
-        planet = new Planet(
-            technology_defense_level,
-            technology_attack_level,
-            resource_metal_amount,
-            resource_deuterion_amount,
-            1000,
-            1000
-        );
+        // Set some attributes
+        planet.setPlanetName(name);
+        planet.setTechnologyDefense(technology_defense_level);
+        planet.setTechnologyAttack(technology_attack_level);
+        planet.setUpgradeDefenseTechnologyDeuteriumCost(planet.calculateUpgradeTechonolgyCost(3000, 10, technology_defense_level));
+        planet.setUpgradeAttackTechnologyDeuteriumCost(planet.calculateUpgradeTechonolgyCost(3000, 10, technology_attack_level));
+        planet.setPlanetName(name);
+        planet.setNBattles(battles_counter);
+
+        // Set the army
+        planet.setMetal(999999999); // More resources than needed for setting the army
+        planet.setDeuterium(999999999);
+        try {
+            planet.newLightHunter(light_hunter_remaining);
+            planet.newHeavyHunter(heavy_hunter_remaining);
+            planet.newBattleShip(battleship_remaining);
+            planet.newArmoredShip(armored_ship_remaining);
+            planet.newMissileLauncher(missile_launcher_remaining);
+            planet.newIonCannon(ion_cannon_remaining);
+            planet.newPlasmaCannon(plasma_cannon_remaining);
+        } catch (ResourceException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        // Set the correct amount of resources
+        planet.setMetal(resource_metal_amount);
+        planet.setDeuterium(resource_deuterion_amount);
+
+        System.out.println( "Imprimir Planet en PlanetStatsTable");
+        System.out.println(planet);
     }
     
     public void setPlanet_id(int planet_id) {

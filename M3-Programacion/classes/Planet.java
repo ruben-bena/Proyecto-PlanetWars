@@ -532,6 +532,21 @@ public class Planet {
         }
     }
 
+    // Calculates what is the price for upgrading a technology at certain level
+    public int calculateUpgradeTechonolgyCost(int baseCost, int percentage, int finalLevel) {
+        int cost = baseCost;
+        for (int i=1 ; i<finalLevel ; i++) {
+            cost += cost * percentage/100;
+        }
+        return cost;
+    }
     
-    
+    public String toString() {
+		return "Planet [technologyDefense=" + technologyDefense + ", technologyAttack=" + technologyAttack + ", metal="
+				+ metal + ", deuterium=" + deuterium + ", upgradeDefenseTechnologyDeuteriumCost="
+				+ upgradeDefenseTechnologyDeuteriumCost + ", upgradeAttackTechnologyDeuteriumCost="
+				+ upgradeAttackTechnologyDeuteriumCost + ", nBattles=" + nBattles + ", upgradeMetalMineLvlMetalCost="
+				+ upgradeMetalMineLvlMetalCost + ", upgradeDeuteriumMineLvlDeuteriumCost="
+				+ upgradeDeuteriumMineLvlDeuteriumCost + ", planetName=" + planetName + "]";
+	}
 }
