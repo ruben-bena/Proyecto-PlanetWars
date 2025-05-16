@@ -15,7 +15,7 @@ public class Main{
     public static void main(String[] args) throws ResourceException {
 
         // Establish connection to local vm ddbb
-        String url = "jdbc:oracle:thin:@//192.168.1.42:1521/freepdb1"; // Local VM Oracle ddbb
+        String url = "jdbc:oracle:thin:@//localhost:1521/freepdb1"; // Local VM Oracle ddbb
         String username = "planetWars";
         String pass = "planetWars";
         GlobalContext.database = new Database(url, username, pass);

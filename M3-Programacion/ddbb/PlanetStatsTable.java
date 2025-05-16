@@ -166,6 +166,7 @@ public class PlanetStatsTable implements Table {
                     if (this.planet_id != planet_id) {
                         // System.out.println("planet_id before = " + this.planet_id + "planet_id now = " + planet_id);
                         this.planet_id = planet_id;
+                        GlobalContext.planet_id = this.planet_id;
                     }
                 } else {
                     // System.out.println("no row with planet_id=" + planet_id + " in the ddbb");
