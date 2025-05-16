@@ -94,6 +94,9 @@ public class Battle {
                 mp.getMiddlePanel().changeScreenToDefaultScene();
                 planet.setCurrentThreat(null);
 
+                System.out.println("Constructor Battle (AMENAZA EXTERNA)");
+                System.out.println(planet);
+
                 // DDBB operations
                 bbddOperations(planet);
 
@@ -143,6 +146,9 @@ public class Battle {
                 mp.getMiddlePanel().changeScreenToDefaultScene();
                 planet.setCurrentThreat(null);
                 planet.setIsInvading(false);
+
+                System.out.println("Constructor Battle (INVASIÓN)");
+                System.out.println(planet);
 
                 // DDBB operations
                 bbddOperations(planet);
