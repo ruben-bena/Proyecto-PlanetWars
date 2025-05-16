@@ -1,12 +1,6 @@
 package classes;
 import GUI.*;
-import ddbb.BattleLogTable;
-import ddbb.BattleStatsTable;
-import ddbb.BattleXmlGenerator;
-import ddbb.BattleHtmlTransformator;
-import ddbb.EnemyArmyTable;
-import ddbb.PlanetBattleArmyTable;
-import ddbb.PlanetBattleDefenseTable;
+import ddbb.*;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -72,6 +66,7 @@ public class Battle {
     private int battleType;
     private Battle thisBattle;
 
+    // Constructor for defending planet
     public Battle(Planet planet, Planet enemyPlanet, MainPanel mp, MainScreen ms) {
         this.planetArmy = planet.getArmy();
         this.enemyArmy = enemyPlanet.getAttackerArmy();
@@ -100,44 +95,7 @@ public class Battle {
                 planet.setCurrentThreat(null);
 
                 // DDBB operations
-                // PlanetStatsTable
-                GlobalContext.planetStatsTable.updateAttributes(planet);
-                // BattleStatsTable
-                GlobalContext.battleStatsTable = new BattleStatsTable(
-                    GlobalContext.database,
-                    GlobalContext.planet_id,
-                    wasteMetalDeuterium[0],
-                    wasteMetalDeuterium[1]
-                );
-                GlobalContext.battleStatsTable.insertRow();
-                // BattleLogTable
-                GlobalContext.battleLogTable = new BattleLogTable(
-                    GlobalContext.database,
-                    GlobalContext.num_battle,
-                    battleDevelopment
-                );
-                GlobalContext.battleLogTable.insertRow();
-                // PlanetBattleDefense
-                GlobalContext.planetBattleDefenseTable = new PlanetBattleDefenseTable(
-                    GlobalContext.database,
-                    GlobalContext.num_battle,
-                    Battle.this // This way we pass the Battle and not the TimerTask
-                );
-                GlobalContext.planetBattleDefenseTable.insertRow();
-                // PlanetBattleArmy
-                GlobalContext.planetBattleArmyTable = new PlanetBattleArmyTable(
-                    GlobalContext.database,
-                    GlobalContext.num_battle,
-                    Battle.this
-                );
-                GlobalContext.planetBattleArmyTable.insertRow();
-                // EnemyArmyTable
-                GlobalContext.enemyArmyTable = new EnemyArmyTable(
-                    GlobalContext.database,
-                    GlobalContext.num_battle,
-                    Battle.this
-                );
-                GlobalContext.enemyArmyTable.insertRow();
+                bbddOperations(planet);
 
                 // Generate battle XML
                 BattleXmlGenerator.generateXml(Battle.this);
@@ -156,6 +114,7 @@ public class Battle {
         
     }
 
+    // Constructor for invading enemy planet
     public Battle(Planet planet, Planet enemyPlanet, MainPanel mp, MainScreen ms, int i) { // int i is only to differentiate the constructors, there's no use for it
         this.planetArmy = enemyPlanet.getArmy();
         this.enemyArmy = planet.getAttackerArmy();
@@ -184,6 +143,16 @@ public class Battle {
                 mp.getMiddlePanel().changeScreenToDefaultScene();
                 planet.setCurrentThreat(null);
                 planet.setIsInvading(false);
+
+                // DDBB operations
+                bbddOperations(planet);
+
+                // Generate battle XML
+                BattleXmlGenerator.generateXml(Battle.this);
+
+                // Transform battle XML to HTML
+                BattleHtmlTransformator.transform(GlobalContext.num_battle);
+
                 // Maybe I should add the threat timer here, so it starts counting after the battle is over
                 new ThreatTimer(planet, ms);
                 
@@ -888,4 +857,45 @@ public class Battle {
         public int[] getWasteMetalDeuterium() {
             return wasteMetalDeuterium;
         }
+
+    public void bbddOperations(Planet planet) {
+        // PlanetStatsTable
+        GlobalContext.planetStatsTable.updateAttributes(planet);
+        // BattleStatsTable
+        GlobalContext.battleStatsTable = new BattleStatsTable(
+            GlobalContext.database,
+            GlobalContext.planet_id,
+            wasteMetalDeuterium[0],
+            wasteMetalDeuterium[1]
+        );
+        GlobalContext.battleStatsTable.insertRow();
+        // BattleLogTable
+        GlobalContext.battleLogTable = new BattleLogTable(
+            GlobalContext.database,
+            GlobalContext.num_battle,
+            battleDevelopment
+        );
+        GlobalContext.battleLogTable.insertRow();
+        // PlanetBattleDefense
+        GlobalContext.planetBattleDefenseTable = new PlanetBattleDefenseTable(
+            GlobalContext.database,
+            GlobalContext.num_battle,
+            Battle.this // This way we pass the Battle and not the TimerTask
+        );
+        GlobalContext.planetBattleDefenseTable.insertRow();
+        // PlanetBattleArmy
+        GlobalContext.planetBattleArmyTable = new PlanetBattleArmyTable(
+            GlobalContext.database,
+            GlobalContext.num_battle,
+            Battle.this
+        );
+        GlobalContext.planetBattleArmyTable.insertRow();
+        // EnemyArmyTable
+        GlobalContext.enemyArmyTable = new EnemyArmyTable(
+            GlobalContext.database,
+            GlobalContext.num_battle,
+            Battle.this
+        );
+        GlobalContext.enemyArmyTable.insertRow();
+    }
 }
