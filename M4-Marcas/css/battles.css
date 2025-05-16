@@ -99,24 +99,114 @@
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 .reporte-batalla h3 {
-    font-size: 1.8em;
+    font-size: 2em;
     color:  #fff;
     margin: 20px 0 15px 0;
     text-align: center;
 }
 
 /* Army comparison */
+/* Container */
 .comparison {
-    background-color: rgba(40, 40, 50, 0.5);
+    background-color: rgba(40, 40, 50);
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 30px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
+/* Table */
+.army-comparison {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 20px 0;
+    font-size: 1.1em;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.army-comparison th, 
+.army-comparison td {
+    padding: 12px 15px;
+    text-align: center;
+    border: 1px solid rgba(15,15,15);
+}
+/* Rounded borders */
+.army-comparison thead tr:first-child th:first-child {
+    border-top-left-radius: 15px;
+}
+.army-comparison thead tr:first-child th:last-child {
+    border-top-right-radius: 15px;
+}
+.army-comparison tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 15px;
+}
+.army-comparison tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 15px;
+}
+/* Header */
+.army-comparison th {
+    color: #fff;
+    font-weight: bold;
+    background-color: #171725;
+}
+/* Body */
+/* Unit type cells*/
+.army-comparison tbody tr:nth-child(even) {
+    background-color: #2e2e3b;
+    transition: background 0.2s;
+}
+.army-comparison tbody tr:nth-child(even):hover {
+    background-color: #39394a;
+}
+.army-comparison tbody tr:nth-child(odd) {
+    background-color: #1f1f2c;
+    transition: background 0.2s;
+}
+.army-comparison tbody tr:nth-child(odd):hover {
+    background-color: #282838;
+}
+/* Planet cells (green) */
+.army-comparison tbody tr:nth-child(even) td:nth-child(2),
+.army-comparison tbody tr:nth-child(even) td:nth-child(3) {
+    background-color: #217a34;
+    transition: background 0.2s;
+}
+.army-comparison tbody tr:nth-child(even):hover td:nth-child(2),
+.army-comparison tbody tr:nth-child(even):hover td:nth-child(3) {
+    background-color: #2bbf3a;
+}
+.army-comparison tbody tr:nth-child(odd) td:nth-child(2),
+.army-comparison tbody tr:nth-child(odd) td:nth-child(3) {
+    background-color: #185c24;
+    transition: background 0.2s;
+}
+.army-comparison tbody tr:nth-child(odd):hover td:nth-child(2),
+.army-comparison tbody tr:nth-child(odd):hover td:nth-child(3) {
+    background-color: #259933;
+}
+/* Enemy cells (red) */
+.army-comparison tbody tr:nth-child(even) td:nth-child(4),
+.army-comparison tbody tr:nth-child(even) td:nth-child(5) {
+    background-color: #a02e2e;
+    transition: background 0.2s;
+}
+.army-comparison tbody tr:nth-child(even):hover td:nth-child(4),
+.army-comparison tbody tr:nth-child(even):hover td:nth-child(5) {
+    background-color: #d13a3a;
+}
+.army-comparison tbody tr:nth-child(odd) td:nth-child(4),
+.army-comparison tbody tr:nth-child(odd) td:nth-child(5) {
+    background-color: #7a2323;
+    transition: background 0.2s;
+}
+.army-comparison tbody tr:nth-child(odd):hover td:nth-child(4),
+.army-comparison tbody tr:nth-child(odd):hover td:nth-child(5) {
+    background-color: #b92d2d;
+}
 
 /* Costs */
 .costs {
-    background-color: rgba(40, 40, 50, 0.5);
+    background-color: rgba(40, 40, 50);
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 30px;
@@ -127,10 +217,20 @@
     justify-content: space-between;
     align-items: center;
 }
+.cost-planet h4 {
+    font-size: 1.5em;
+    color: #008000;
+    margin-bottom: 10px;
+}
+.cost-enemy h4 {
+    font-size: 1.5em;
+    color: #ff0000;
+    margin-bottom: 10px;
+}
 
 /* Losses */
 .losses {
-    background-color: rgba(40, 40, 50, 0.5);
+    background-color: rgba(40, 40, 50);
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 30px;
@@ -141,10 +241,20 @@
     justify-content: space-between;
     align-items: center;
 }
+.losses-planet h4 {
+    font-size: 1.5em;
+    color: #008000;
+    margin-bottom: 10px;
+}
+.losses-enemy h4 {
+    font-size: 1.5em;
+    color: #ff0000;
+    margin-bottom: 10px;
+}
 
 /* Waste */
 .waste {
-    background-color: rgba(40, 40, 50, 0.5);
+    background-color: rgba(40, 40, 50);
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 30px;
@@ -154,7 +264,7 @@
 
 /* Result */
 .result {
-    background-color: rgba(40, 40, 50, 0.5);
+    background-color: rgba(40, 40, 50);
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 30px;
