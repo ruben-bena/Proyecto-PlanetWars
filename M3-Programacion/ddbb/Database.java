@@ -30,9 +30,9 @@ public class Database  {
     public Database(String url, String username, String pass) {
         try {
             Class.forName("oracle.jdbc.OracleDriver");
-            System.out.println("Driver loaded");
+            // System.out.println("Driver loaded");
             conn = DriverManager.getConnection(url, username, pass);
-            System.out.println("Connection established");
+            // System.out.println("Connection established");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

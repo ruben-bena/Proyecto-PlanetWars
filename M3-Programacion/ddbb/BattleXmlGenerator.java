@@ -81,7 +81,10 @@ public class BattleXmlGenerator {
             "light_hunter",
             "heavy_hunter",
             "battle_ship",
-            "armored_ship"
+            "armored_ship",
+            "missile_launcher",
+            "ion_cannon",
+            "plasma_cannon"
         };
         if (tagName.equals("army_enemy")) {
             armyIndex = 1;
@@ -89,10 +92,7 @@ public class BattleXmlGenerator {
                 "light_hunter",
                 "heavy_hunter",
                 "battle_ship",
-                "armored_ship",
-                "missile_launcher",
-                "ion_cannon",
-                "plasma_cannon"
+                "armored_ship"
             };
         }
 
