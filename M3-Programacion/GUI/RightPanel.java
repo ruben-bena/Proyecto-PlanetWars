@@ -240,6 +240,8 @@ class RightPanel extends JPanel {
                 if (e.getActionCommand().equals("View Threat")) {
                     if (planet.isActiveThreat()) {
                         new ThreatFrame(planet);
+                    } else {
+                        ms.getMainPanel().getMiddlePanel().doShowMessage("Can't do that", 3);
                     }
 
                     System.out.println("Current threat");
