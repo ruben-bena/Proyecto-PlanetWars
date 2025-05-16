@@ -11,16 +11,15 @@
                 <table class="army-comparison">
                     <thead>
                         <tr>
-                            <th colspan="3">Planet</th>
-                            <th colspan="3">Enemy</th>
+                            <th rowspan="2">Unit type</th>
+                            <th colspan="2">Planet</th>
+                            <th colspan="2">Enemy</th>
                         </tr>
                         <tr>
-                            <th>Type</th>
                             <th>Units</th>
-                            <th>Drops</th>
-                            <th>Type</th>
+                            <th>Drop</th>
                             <th>Units</th>
-                            <th>Drops</th>
+                            <th>Drop</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -31,38 +30,52 @@
                             
             <div class="costs">
                 <h3>Costs</h3>
-                <div class="cost-planet">
-                    <h4>Planet</h4>
-                    <p>Metal: <xsl:value-of select="format-number(army_planet/total_cost/metal, '#,###')"/></p>
-                    <p>Deuterium: <xsl:value-of select="format-number(army_planet/total_cost/deuterium, '#,###')"/></p>
-                </div>
-                <div class="cost-enemy">
-                    <h4>Enemy</h4>
-                    <p>Metal: <xsl:value-of select="format-number(army_enemy/total_cost/metal, '#,###')"/></p>
-                    <p>Deuterium: <xsl:value-of select="format-number(army_enemy/total_cost/deuterium, '#,###')"/></p>
+                <div class="costs-container">
+                    <div class="cost-planet">
+                        <h4>Planet</h4>
+                        <ul>
+                            <li>Metal: <xsl:value-of select="format-number(army_planet/total_cost/metal, '#,###')"/></li>
+                            <li>Deuterium: <xsl:value-of select="format-number(army_planet/total_cost/deuterium, '#,###')"/></li>
+                        </ul>
+                    </div>
+                    <div class="cost-enemy">
+                        <h4>Enemy</h4>
+                        <ul>
+                            <li>Metal: <xsl:value-of select="format-number(army_enemy/total_cost/metal, '#,###')"/></li>
+                            <li>Deuterium: <xsl:value-of select="format-number(army_enemy/total_cost/deuterium, '#,###')"/></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
                             
             <div class="losses">
                 <h3>Losses</h3>
-                <div class="losses-planet">
-                    <h4>Planet</h4>
-                    <p>Metal: <xsl:value-of select="format-number(army_planet/losses/metal, '#,###')"/></p>
-                    <p>Deuterium: <xsl:value-of select="format-number(army_planet/losses/deuterium, '#,###')"/></p>
-                    <p>Weighted: <xsl:value-of select="format-number(army_planet/losses/weighted, '#,###')"/></p>
-                </div>
-                <div class="losses-enemy">
-                    <h4>Enemy</h4>
-                    <p>Metal: <xsl:value-of select="format-number(army_enemy/losses/metal, '#,###')"/></p>
-                    <p>Deuterium: <xsl:value-of select="format-number(army_enemy/losses/deuterium, '#,###')"/></p>
-                    <p>Weighted: <xsl:value-of select="format-number(army_enemy/losses/weighted, '#,###')"/></p>
+                <div class="losses-container">
+                    <div class="losses-planet">
+                        <h4>Planet</h4>
+                        <ul>
+                            <li>Metal: <xsl:value-of select="format-number(army_planet/losses/metal, '#,###')"/></li>
+                            <li>Deuterium: <xsl:value-of select="format-number(army_planet/losses/deuterium, '#,###')"/></li>
+                            <li>Weighted: <xsl:value-of select="format-number(army_planet/losses/weighted, '#,###')"/></li>
+                        </ul>
+                    </div>
+                    <div class="losses-enemy">
+                        <h4>Enemy</h4>
+                        <ul>
+                            <li>Metal: <xsl:value-of select="format-number(army_enemy/losses/metal, '#,###')"/></li>
+                            <li>Deuterium: <xsl:value-of select="format-number(army_enemy/losses/deuterium, '#,###')"/></li>
+                            <li>Weighted: <xsl:value-of select="format-number(army_enemy/losses/weighted, '#,###')"/></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
                             
             <div class="waste">
                 <h3>Waste Generated</h3>
-                <p>Metal: <xsl:value-of select="format-number(waste_generated/metal, '#,###')"/></p>
-                <p>Deuterium: <xsl:value-of select="format-number(waste_generated/deuterium, '#,###')"/></p>
+                <ul>
+                    <li>Metal: <xsl:value-of select="format-number(waste_generated/metal, '#,###')"/></li>
+                    <li>Deuterium: <xsl:value-of select="format-number(waste_generated/deuterium, '#,###')"/></li>
+                </ul>
             </div>
             
             <div class="result">
@@ -80,6 +93,8 @@
                     </xsl:choose>
                 </p>
             </div>
+            
+            <button class="btn-download" onclick="downloadBattleXML()">Download battle XML</button>
         </div>
     </xsl:template>
     
@@ -89,7 +104,6 @@
             <td>Light Hunter</td>
             <td><xsl:value-of select="army_planet/light_hunter/units"/></td>
             <td><xsl:value-of select="army_planet/light_hunter/drops"/></td>
-            <td>Light Hunter</td>
             <td><xsl:value-of select="army_enemy/light_hunter/units"/></td>
             <td><xsl:value-of select="army_enemy/light_hunter/drops"/></td>
         </tr>
@@ -99,7 +113,6 @@
             <td>Heavy Hunter</td>
             <td><xsl:value-of select="army_planet/heavy_hunter/units"/></td>
             <td><xsl:value-of select="army_planet/heavy_hunter/drops"/></td>
-            <td>Heavy Hunter</td>
             <td><xsl:value-of select="army_enemy/heavy_hunter/units"/></td>
             <td><xsl:value-of select="army_enemy/heavy_hunter/drops"/></td>
         </tr>
@@ -109,7 +122,6 @@
             <td>Battle Ship</td>
             <td><xsl:value-of select="army_planet/battle_ship/units"/></td>
             <td><xsl:value-of select="army_planet/battle_ship/drops"/></td>
-            <td>Battle Ship</td>
             <td><xsl:value-of select="army_enemy/battle_ship/units"/></td>
             <td><xsl:value-of select="army_enemy/battle_ship/drops"/></td>
         </tr>
@@ -119,7 +131,6 @@
             <td>Armored Ship</td>
             <td><xsl:value-of select="army_planet/armored_ship/units"/></td>
             <td><xsl:value-of select="army_planet/armored_ship/drops"/></td>
-            <td>Armored Ship</td>
             <td><xsl:value-of select="army_enemy/armored_ship/units"/></td>
             <td><xsl:value-of select="army_enemy/armored_ship/drops"/></td>
         </tr>
@@ -131,7 +142,6 @@
             <td><xsl:value-of select="army_planet/missile_launcher/drops"/></td>
             <td>-</td>
             <td>-</td>
-            <td>-</td>
         </tr>
         
         <!-- Ion Cannon (Planet only) -->
@@ -141,7 +151,6 @@
             <td><xsl:value-of select="army_planet/ion_cannon/drops"/></td>
             <td>-</td>
             <td>-</td>
-            <td>-</td>
         </tr>
         
         <!-- Plasma Cannon (Planet only) -->
@@ -149,7 +158,6 @@
             <td>Plasma Cannon</td>
             <td><xsl:value-of select="army_planet/plasma_cannon/units"/></td>
             <td><xsl:value-of select="army_planet/plasma_cannon/drops"/></td>
-            <td>-</td>
             <td>-</td>
             <td>-</td>
         </tr>

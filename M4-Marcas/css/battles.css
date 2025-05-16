@@ -23,6 +23,8 @@
     text-align: center;
 }
 
+
+
 /* ================ */
 /* |SEARCH SECTION| */
 /* ================ */
@@ -89,7 +91,6 @@
     width: 100%;
     margin-bottom: 40px;
 }
-
 .reporte-batalla h2 {
     font-size: 2.5em;
     color: #fff;
@@ -97,23 +98,351 @@
     margin-bottom: 30px;
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
-
 .reporte-batalla h3 {
-    font-size: 1.8em;
-    color: #4CAF50;
+    font-size: 2em;
+    color:  #fff;
     margin: 20px 0 15px 0;
     text-align: center;
 }
 
 /* Army comparison */
+/* Container */
+.comparison {
+    background-color: rgba(40, 40, 50);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+/* Table */
+.army-comparison {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 20px 0;
+    font-size: 1.1em;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.army-comparison th, 
+.army-comparison td {
+    padding: 12px 15px;
+    text-align: center;
+    border: 1px solid rgb(65, 65, 65);
+}
+/* Rounded borders */
+.army-comparison thead tr:first-child th:first-child {
+    border-top-left-radius: 15px;
+}
+.army-comparison thead tr:first-child th:last-child {
+    border-top-right-radius: 15px;
+}
+.army-comparison tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 15px;
+}
+.army-comparison tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 15px;
+}
+/* Header */
+.army-comparison th {
+    color: #fff;
+    font-weight: bold;
+    background-color: #171725;
+}
+/* Body */
+/* Unit type cells*/
+.army-comparison tbody tr:nth-child(even) {
+    background-color: #2e2e3b;
+    transition: background 0.2s;
+}
+.army-comparison tbody tr:nth-child(even):hover {
+    background-color: #39394a;
+}
+.army-comparison tbody tr:nth-child(odd) {
+    background-color: #1f1f2c;
+    transition: background 0.2s;
+}
+.army-comparison tbody tr:nth-child(odd):hover {
+    background-color: #282838;
+}
+/* Planet cells (green) */
+.army-comparison tbody tr:nth-child(even) td:nth-child(2),
+.army-comparison tbody tr:nth-child(even) td:nth-child(3) {
+    background-color: #217a34;
+    transition: background 0.2s;
+}
+.army-comparison tbody tr:nth-child(even):hover td:nth-child(2),
+.army-comparison tbody tr:nth-child(even):hover td:nth-child(3) {
+    background-color: #2bbf3a;
+}
+.army-comparison tbody tr:nth-child(odd) td:nth-child(2),
+.army-comparison tbody tr:nth-child(odd) td:nth-child(3) {
+    background-color: #185c24;
+    transition: background 0.2s;
+}
+.army-comparison tbody tr:nth-child(odd):hover td:nth-child(2),
+.army-comparison tbody tr:nth-child(odd):hover td:nth-child(3) {
+    background-color: #259933;
+}
+/* Enemy cells (red) */
+.army-comparison tbody tr:nth-child(even) td:nth-child(4),
+.army-comparison tbody tr:nth-child(even) td:nth-child(5) {
+    background-color: #a02e2e;
+    transition: background 0.2s;
+}
+.army-comparison tbody tr:nth-child(even):hover td:nth-child(4),
+.army-comparison tbody tr:nth-child(even):hover td:nth-child(5) {
+    background-color: #d13a3a;
+}
+.army-comparison tbody tr:nth-child(odd) td:nth-child(4),
+.army-comparison tbody tr:nth-child(odd) td:nth-child(5) {
+    background-color: #7a2323;
+    transition: background 0.2s;
+}
+.army-comparison tbody tr:nth-child(odd):hover td:nth-child(4),
+.army-comparison tbody tr:nth-child(odd):hover td:nth-child(5) {
+    background-color: #b92d2d;
+}
 
 /* Costs */
+/* General container*/
+.costs {
+    background-color: rgba(40, 40, 50);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+/* Boxes container*/
+.costs-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+/* Planet box */
+.cost-planet {
+    flex: 1;
+    background-color: rgba(27, 27, 37);
+    padding: 18px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background 0.2s, box-shadow 0.2s;
+    border: 2px solid #26ac33;
+}
+.cost-planet:hover {
+    background-color: rgba(33,33,43);
+    box-shadow: 0 8px 20px rgba(38, 172, 51, 0.3);
+}
+.cost-planet h4 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #4CAF50;
+}
+.cost-planet ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+.cost-planet li {
+    background: rgba(255,255,255,0.07);
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+}
+.cost-planet li:last-child {
+    margin-bottom: 0;
+}
+.cost-planet li span {
+    font-weight: bold;
+    color: #b6ffb6;
+}
+/* Enemy box */
+.cost-enemy {
+    flex: 1;
+    background-color: rgba(27, 27, 37);
+    padding: 18px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background 0.2s, box-shadow 0.2s;
+    border: 2px solid #d13a3a; /* Borde rojo */
+}
+.cost-enemy:hover {
+    background-color: rgba(33,33,43);
+    box-shadow: 0 8px 20px rgba(209, 58, 58, 0.3);
+}
+.cost-enemy h4 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #f44336;
+}
+.cost-enemy ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+.cost-enemy li {
+    background: rgba(255,255,255,0.07);
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+}
+.cost-enemy li:last-child {
+    margin-bottom: 0;
+}
+.cost-enemy li span {
+    font-weight: bold;
+    color: #ffd6d6;
+}
 
 /* Losses */
+/* General container */
+.losses {
+    background-color: rgba(40, 40, 50);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+/* Boxes container */
+.losses-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+/* Planet losses box */
+.losses-planet {
+    flex: 1;
+    background-color: rgba(27, 27, 37);
+    padding: 18px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background 0.2s, box-shadow 0.2s;
+    border: 2px solid #26ac33;
+}
+.losses-planet:hover {
+    background-color: rgba(33,33,43);
+    box-shadow: 0 8px 20px rgba(38, 172, 51, 0.3);
+}
+.losses-planet h4 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #4CAF50;
+}
+.losses-planet ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+.losses-planet li {
+    background: rgba(255,255,255,0.07);
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+}
+.losses-planet li:last-child {
+    margin-bottom: 0;
+}
+.losses-planet li span {
+    font-weight: bold;
+    color: #b6ffb6;
+}
+/* Enemy losses box */
+.losses-enemy {
+    flex: 1;
+    background-color: rgba(27, 27, 37);
+    padding: 18px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background 0.2s, box-shadow 0.2s;
+    border: 2px solid #d13a3a;
+}
+.losses-enemy:hover {
+    background-color: rgba(33,33,43);
+    box-shadow: 0 8px 20px rgba(209, 58, 58, 0.3);
+}
+.losses-enemy h4 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #f44336;
+}
+.losses-enemy ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+.losses-enemy li {
+    background: rgba(255,255,255,0.07);
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+}
+.losses-enemy li:last-child {
+    margin-bottom: 0;
+}
+.losses-enemy li span {
+    font-weight: bold;
+    color: #ffd6d6;
+}
 
 /* Waste */
+.waste {
+    background-color: rgba(40, 40, 50);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
 
-/* Battle result */
+
+/* Result */
+.result {
+    background-color: rgba(40, 40, 50);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
 
 
 
