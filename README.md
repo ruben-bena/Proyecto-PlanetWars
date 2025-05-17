@@ -26,7 +26,7 @@ Your fleet and defenses will be made of:
 
 Their cost is set according to their stats. **Manage your resources wisely!**
 
-The GUI is meant to be as interactive as possible, you can upgrade your technologies and resource mines, build new ships and defenses, invade other plantes, get invaded, check previous battles, modify your planet's name, and much more. All without needing to use a terminal.
+The GUI is meant to be as interactive as possible, you can upgrade your technologies and resource mines, build new ships and defenses, invade other planets, get invaded, check previous battles, modify your planet's name, and much more. All without needing to use a terminal.
 
 ### Programming
 **This game is entirely made in [Java Swing](https://en.wikipedia.org/wiki/Swing_(Java))**, it's divided in classes for the logic and GUI, some of the most important classes are "Battle", "Planet", "Ship", "Defense", "MainScreen".
