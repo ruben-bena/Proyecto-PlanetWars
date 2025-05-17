@@ -87,6 +87,8 @@ public class Battle {
         announceCombat();
         TimerTask task = new TimerTask() {
             public void run() {
+                updateArmies();
+                initInitialArmies();
                 combat(planet, enemyPlanet, mp, battleType);
                 planet.addBattleReport(thisBattle);
                 planet.setActiveThreat(false);
@@ -124,6 +126,8 @@ public class Battle {
         announceCombat();
         TimerTask task = new TimerTask() {
             public void run() {
+                updateArmies();
+                initInitialArmies();
                 planet.setIsInvading(true);
                 combat(enemyPlanet, planet, mp, battleType);
                 planet.addBattleReport(thisBattle);
@@ -357,6 +361,17 @@ public class Battle {
 
         return result;
     }
+    public void updateArmies() {
+        armies[0] = new ArrayList[7];
+        for(int i = 0; i < planetArmy.length; i++) {
+            armies[0][i] = new ArrayList<>(planetArmy[i]);
+        }
+        armies[1] = new ArrayList[7];
+        for(int i = 0; i < enemyArmy.length; i++) {
+            armies[1][i] = new ArrayList<>(enemyArmy[i]);
+        }
+    }
+
     public void announceCombat() {
         // enemyArmy = Main.createEnemyArmy();
         this.armies = new ArrayList[2][7];

@@ -44,7 +44,7 @@ There was a lot of thought put into making it visually appealing while maintaini
 
 # How to install
 1. Download our project from our GitHub page
-2. Open it from your preferred IDE, but we recommend Eclipse IDE.
+2. Open it in your preferred IDE, but we recommend Eclipse IDE.
 3. Run from Main class
 
 #### Copy and paste this command to clone our project: 
