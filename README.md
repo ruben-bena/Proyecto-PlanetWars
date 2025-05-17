@@ -26,7 +26,7 @@ Your fleet and defenses will be made of:
 
 Their cost is set according to their stats. **Manage your resources wisely!**
 
-The GUI is meant to be as interactive as possible, you can upgrade your technologies and resource mines, build new ships and defenses, invade other plantes, get invaded, check previous battles, modify your planet's name, and much more. All without needing to use a terminal.
+The GUI is meant to be as interactive as possible, you can upgrade your technologies and resource mines, build new ships and defenses, invade other planets, get invaded, check previous battles, modify your planet's name, and much more. All without needing to use a terminal.
 
 ### Programming
 **This game is entirely made in [Java Swing](https://en.wikipedia.org/wiki/Swing_(Java))**, it's divided in classes for the logic and GUI, some of the most important classes are "Battle", "Planet", "Ship", "Defense", "MainScreen".
@@ -43,10 +43,14 @@ Our website built with HTML, CSS and JavaScript offers a bunch of different func
 There was a lot of thought put into making it visually appealing while maintaining peak functionality.
 
 # How to install
-1. Download our project from our GitHub page
-2. Open it from your preferred IDE, but we recommend Eclipse IDE.
+1. Download or clone our project from our GitHub page
+2. Open it in your preferred IDE, but we recommend Eclipse IDE.
 3. Run from Main class
-
 #### Copy and paste this command to clone our project: 
 #### ```git clone https://github.com/ruben-bena/Proyecto-PlanetWars```
+
+### Keep in mind!
+- You will need to be connected to the Internet in order to have access to the database
+
+
 
