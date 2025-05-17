@@ -43,10 +43,14 @@ Our website built with HTML, CSS and JavaScript offers a bunch of different func
 There was a lot of thought put into making it visually appealing while maintaining peak functionality.
 
 # How to install
-1. Download our project from our GitHub page
+1. Download or clone our project from our GitHub page
 2. Open it in your preferred IDE, but we recommend Eclipse IDE.
 3. Run from Main class
-
 #### Copy and paste this command to clone our project: 
 #### ```git clone https://github.com/ruben-bena/Proyecto-PlanetWars```
+
+### Keep in mind!
+- You will need to be connected to the Internet in order to have access to the database
+
+
 
