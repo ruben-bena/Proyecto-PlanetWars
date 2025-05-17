@@ -15,17 +15,14 @@ public class AudioPlayer {
             try {
                 audioStream = AudioSystem.getAudioInputStream(audioFile);
 
-                // Get a sound clip resource
                 Clip clip = AudioSystem.getClip();
                 
-                // Open audio clip and load samples from the audio input stream
                 clip.open(audioStream);
                 
                 volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-                float volume = -30 + volumeValue; // Lower value = quieter; 0.0f is default max
+                float volume = -30 + volumeValue;
                 volumeControl.setValue(volume);
 
-                // Start playing the audio
                 clip.start();
                 if(continuos) {
                     clip.loop(Clip.LOOP_CONTINUOUSLY);
