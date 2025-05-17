@@ -175,6 +175,7 @@ public class LeftPanel extends JPanel implements ActionListener{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
+                        AudioPlayer.buttonSound();
                         planet.upgradeTechnologyAttack();
                     } catch (ResourceException e1) {
                         // TODO Auto-generated catch block
@@ -219,6 +220,7 @@ public class LeftPanel extends JPanel implements ActionListener{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
+                        AudioPlayer.buttonSound();
                         planet.upgradeTechnologyDefense();
                     } catch (ResourceException e1) {
                         // TODO Auto-generated catch block
@@ -278,6 +280,7 @@ public class LeftPanel extends JPanel implements ActionListener{
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    AudioPlayer.buttonSound();
                     planet.upgradeMetalMine();
                 }
                 
@@ -314,6 +317,7 @@ public class LeftPanel extends JPanel implements ActionListener{
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    AudioPlayer.buttonSound();
                     planet.upgradeDeuteriumMine();
                 }
                 

@@ -171,7 +171,7 @@ public class ResultFrame extends JFrame implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
+        AudioPlayer.buttonSound();
         if (e.getActionCommand() == "Accept") {
             dispose();
         } if (e.getActionCommand() == "Switch View") {

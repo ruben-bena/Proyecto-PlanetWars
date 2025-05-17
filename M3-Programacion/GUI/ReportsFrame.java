@@ -70,6 +70,7 @@ public class ReportsFrame extends JFrame {
                 button.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        AudioPlayer.buttonSound();
                         new ResultFrame(planet.getBattleReport(n), n);
                     }
                     

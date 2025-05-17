@@ -17,6 +17,7 @@ public class MainScreen extends JFrame {
         super();
         setTitle("Planet Wars");
         setResizable(false);
+        
 
         icon = new ImageIcon("./assets/iconoPW.png");
         setIconImage(icon.getImage());

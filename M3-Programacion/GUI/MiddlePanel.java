@@ -295,6 +295,7 @@ public class MiddlePanel extends JPanel{
                 this.seconds = seconds;
                 timer = new Timer();
                 time = 0;
+                AudioPlayer.doError();
 
                 timer.schedule(this, 0, Time.secInMs);
 
