@@ -528,6 +528,12 @@ public class Battle {
                     battleDevelopment += attackerStr + " attacks " + defenderStr + "\n" + defendingUnit.getName() + " receives " + attackingUnit.attack() + " dmg.\n\n";
                     defendingUnit.takeDamage(attackingUnit.attack());
 
+                    if (attackingArmy == 0) {
+                        mainPanel.getMiddlePanel().paintCurrentBattleState(this, attackingUnit, defendingUnit);
+                    } else {
+                        mainPanel.getMiddlePanel().paintCurrentBattleState(this, defendingUnit, attackingUnit);
+                    }
+
                     
 
                     // Checking if it's destroyed
