@@ -68,6 +68,7 @@ public class Battle {
     private Planet enemyPlanet;
     private int battleType;
     private Battle thisBattle;
+    private MainScreen ms;
 
     public Battle(Planet planet, Planet enemyPlanet, MainPanel mp, MainScreen ms) {
         this.planetArmy = planet.getArmy();
@@ -77,6 +78,7 @@ public class Battle {
         this.hasCombatStarted = false;
         this.planetArmyPercRemaining = 100;
         this.enemyArmyPercRemaining = 100;
+        this.ms = ms;
         skipBattle = false;
         this.userPlanet = planet;
         this.enemyPlanet = enemyPlanet;
@@ -97,8 +99,8 @@ public class Battle {
                 planet.setNBattles(planet.getNBattles() + 1);
                 mp.getMiddlePanel().changeScreenToDefaultScene();
                 planet.setCurrentThreat(null);
-                // Maybe I should add the threat timer here, so it starts counting after the battle is over
-                new ThreatTimer(planet, ms);
+                
+                
                 
             }
         };
@@ -139,8 +141,8 @@ public class Battle {
                 mp.getMiddlePanel().changeScreenToDefaultScene();
                 planet.setCurrentThreat(null);
                 planet.setIsInvading(false);
-                // Maybe I should add the threat timer here, so it starts counting after the battle is over
-                new ThreatTimer(planet, ms);
+               
+
                 
             }
         };
@@ -620,7 +622,8 @@ public class Battle {
 
             }
             // After the combat is over
-            
+            updateDrops();
+            updateResourceLoses();
             battleDevelopment += "\n\n------------------- COMBAT RESULTS -----------------------\n";
             battleDevelopment += "Resources lost by " + planet.getPlanetName() + ": " + resourcesLosses[0][2] + "\n";
             battleDevelopment += "Resources lost by " + enemyPlanet.getPlanetName() +": " + resourcesLosses[1][2] + "\n\n";
@@ -645,12 +648,12 @@ public class Battle {
             battleDevelopment += winner + " wins!";
 
         }
-            updateDrops();
-            updateResourceLoses();
+            
 
             updateBattleReport();
             System.out.println(battleReport);
             new ResultFrame(this);
+            new ThreatTimer(planet, ms);
 
             return;
         }
