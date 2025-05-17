@@ -89,6 +89,7 @@ public class Battle {
         announceCombat();
         TimerTask task = new TimerTask() {
             public void run() {
+
                 updateArmies();
                 initInitialArmies();
                 combat(planet, enemyPlanet, mp, battleType);

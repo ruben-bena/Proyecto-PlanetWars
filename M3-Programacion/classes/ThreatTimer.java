@@ -26,20 +26,17 @@ public class ThreatTimer extends TimerTask{
 
 
     public void run() {
-                // if (!planet.isActiveThreat() && planet.isElligibleForCombat()) {
-                //     if(planet.getCurrentThreat() != null) {
-                //         if(planet.getCurrentThreat().isHasCombatStarted()) {
-                //             return;
-                //         }
-                //     }
-                if(planet.getCurrentThreat() == null) {
-                    planet.setCurrentThreat(new Battle(planet, Main.createEnemyPlanet(planet), ms.getMainPanel(), ms));
-                    planet.setActiveThreat(true);
-                    ms.getMainPanel().getMiddlePanel().doThreatDisplay();
-                    AudioPlayer.doAlarm();
+                if(planet.getNTroops() > 0) { // The battle only happens if planet has more than 0 troops, otherwise there's a division by 0
+                    if(planet.getCurrentThreat() == null) {
+                        planet.setCurrentThreat(new Battle(planet, Main.createEnemyPlanet(planet), ms.getMainPanel(), ms));
+                        planet.setActiveThreat(true);
+                        ms.getMainPanel().getMiddlePanel().doThreatDisplay();
+                        AudioPlayer.doAlarm();
+                    }
+                } else {
+                    new ThreatTimer(planet, ms);
                 }
 
-                // }
                 
             }
 }
