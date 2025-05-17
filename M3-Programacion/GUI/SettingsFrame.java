@@ -23,22 +23,24 @@ import javax.swing.JTextArea;
 import classes.Planet;
 
 public class SettingsFrame extends JFrame implements ActionListener {
-    private JPanel mainPanel, difficultyPanel, difficultyButtonsPanel, cheatsTextPanel, cheatsPanel, addMetalPanel, addDeuteriumPanel, changeNamePanel;
+    private JPanel mainPanel, difficultyPanel, difficultyButtonsPanel, cheatsTextPanel, cheatsPanel, addMetalPanel, addDeuteriumPanel, changeNamePanel, muteBGMPanel;
     private JLabel difficultyLabel, cheatsTextLabel, metalImageLabel, deuteriumImageLabel;
-    private JButton easyButton, mediumButton, hardButton, addMetalButton, addDeuteriumButton, changeNameButton;
+    private JButton easyButton, mediumButton, hardButton, addMetalButton, addDeuteriumButton, changeNameButton, muteBGMButton;
     private Planet planet;
     private JTextArea metalInputTextArea, deuteriumInputTextArea, changeNameInputTextArea;
     private ImageIcon metalIcon, deuteriumIcon, plusIcon;
     private MiddlePanel mp;
+    private RightPanel rp;
     private Font customFontBiggest, customFontBig, customFont, customFontSmall;
     
-    public SettingsFrame(Planet planet, MiddlePanel mp) {
+    public SettingsFrame(Planet planet, MiddlePanel mp, RightPanel rp) {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
-        setSize(new Dimension(500,400));
+        setSize(new Dimension(500,500));
         setTitle("Settings");
         this.mp = mp;
+        this.rp = rp;
         setLayout(new BorderLayout());
         add(new PaddingPanel(), BorderLayout.WEST);
         add(new PaddingPanel(), BorderLayout.NORTH);
@@ -60,7 +62,7 @@ public class SettingsFrame extends JFrame implements ActionListener {
 
         mainPanel = new JPanel();
         mainPanel.setBackground(Color.WHITE);
-        mainPanel.setLayout(new GridLayout(5,1));
+        mainPanel.setLayout(new GridLayout(6,1));
 
         difficultyPanel = new JPanel();
         difficultyPanel.setLayout(new BorderLayout());
@@ -184,11 +186,23 @@ public class SettingsFrame extends JFrame implements ActionListener {
         cheatsPanel.add(addMetalPanel);
         cheatsPanel.add(addDeuteriumPanel);
 
+
+        muteBGMPanel = new JPanel();
+
+        muteBGMButton = new JButton("Music ON/OFF");
+        muteBGMButton.setFont(customFontSmall);
+        muteBGMPanel.setBackground(Globals.settingsPanelColor);
+        muteBGMButton.setForeground(Globals.settingsButtonFontColor);
+        muteBGMButton.setBackground(Globals.settingsButtonColor);
+        muteBGMPanel.add(muteBGMButton);
+        muteBGMButton.addActionListener(this);
+
         mainPanel.add(difficultyPanel);
         mainPanel.add(difficultyButtonsPanel);
         mainPanel.add(changeNamePanel);
         mainPanel.add(cheatsTextPanel);
         mainPanel.add(cheatsPanel);
+        mainPanel.add(muteBGMPanel);
 
 
 
@@ -203,6 +217,7 @@ public class SettingsFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
+        AudioPlayer.buttonSound();
         System.out.println(e.getActionCommand());
         if(e.getActionCommand() == "Easy") {
             planet.setDifficulty(1);;
@@ -238,6 +253,17 @@ public class SettingsFrame extends JFrame implements ActionListener {
                 changeNameInputTextArea.setText("");
                 mp.repaint();
             }
+        }
+
+        if(e.getActionCommand() == "Music ON/OFF") {
+            if (!rp.getBgmPlayer().isMuted()) {
+                rp.getBgmPlayer().changeVolume(-50);
+                rp.getBgmPlayer().setMuted(true);
+            } else {
+                rp.getBgmPlayer().changeVolume(0);
+                rp.getBgmPlayer().setMuted(false);
+            }
+            
         }
     }
 

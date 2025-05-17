@@ -124,6 +124,7 @@ public class Battle {
         this.battleReport = "";
         thisBattle = this;
         announceCombat();
+        
         TimerTask task = new TimerTask() {
             public void run() {
                 updateArmies();
@@ -571,6 +572,10 @@ public class Battle {
                             enemyArmy[defending_group].remove(defendingUnit);
                         }
 
+                        // Playing explosion sound
+                        if(!isSkipBattle()){
+                            new AudioPlayer("M3-Programacion/GUI/explosion-8bit.wav", 20, false);
+                        }
                         
                     }
 

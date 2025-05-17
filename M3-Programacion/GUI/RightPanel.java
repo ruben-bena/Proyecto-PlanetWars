@@ -35,10 +35,13 @@ class RightPanel extends JPanel {
         private ImageIcon metalIcon, deuteriumIcon;
         private MainScreen ms;
         private Font customFont, customFontSmaller, customFontSmallest;
+        private AudioPlayer bgmPlayer;
 
         RightPanel(Planet planet, MainScreen ms) {
             this.planet = planet;
             this.ms = ms;
+
+            bgmPlayer = AudioPlayer.doBGM();
 
             try {
                 customFont = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(24f);
@@ -121,6 +124,7 @@ class RightPanel extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     // TODO Auto-generated method stub
                     if(planet.getNTroops() > 0 && !planet.getIsInvading() && !planet.isActiveThreat()) {
+                        AudioPlayer.buttonSound();
                         new ThreatTimer(planet, ms, 1);
                     } else {
                         ms.getMainPanel().getMiddlePanel().doShowMessage("Can't do that", 2);
@@ -216,6 +220,8 @@ class RightPanel extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                AudioPlayer.buttonSound();
+
                 if (e.getActionCommand().equals("New Game")) {
                     System.out.println("New Game pressed");
                     if(!planet.getIsInvading() && !planet.isActiveThreat()) {
@@ -239,6 +245,7 @@ class RightPanel extends JPanel {
 
                 if (e.getActionCommand().equals("View Threat")) {
                     if (planet.isActiveThreat()) {
+                        AudioPlayer.buttonSound();
                         new ThreatFrame(planet);
                     } else {
                         ms.getMainPanel().getMiddlePanel().doShowMessage("Can't do that", 3);
@@ -254,9 +261,9 @@ class RightPanel extends JPanel {
                 }
 
                 if (e.getActionCommand() == "Invade") {
-                    if(planet.getNTroopsNoDefense() > 0  && !planet.getIsInvading()) {
+                    if(planet.getNTroopsNoDefense() > 0  && !planet.getIsInvading() && !planet.isActiveThreat()) {
                         planet.setIsInvading(true);
-                        // planet.setCurrentThreat(new Battle(planet, Main.createEnemyPlanet(planet), ms.getMainPanel(), ms, 1));
+                        planet.setCurrentThreat(new Battle(planet, Main.createEnemyPlanet(planet), ms.getMainPanel(), ms, 1));
                         ms.getMainPanel().getMiddlePanel().doInvadeDisplay();
                     } else {
                         ms.getMainPanel().getMiddlePanel().doShowMessage("Can't do that", 3);
@@ -268,6 +275,7 @@ class RightPanel extends JPanel {
         public void fixArmyEvent() {
             if(planet.getCurrentThreat() != null) {
                 if (planet.getCurrentThreat().isHasCombatStarted()) {
+                    ms.getMainPanel().getMiddlePanel().doShowMessage("Can't do that", 3);
                     return;
                 }
             }
@@ -293,7 +301,7 @@ class RightPanel extends JPanel {
         }
     
         public void settingsEvent() {
-            new SettingsFrame(planet, ms.getMainPanel().getMiddlePanel());
+            new SettingsFrame(planet, ms.getMainPanel().getMiddlePanel(), this);
         }
     
         public void exitEvent() {
@@ -336,4 +344,10 @@ class RightPanel extends JPanel {
         
             exitWindow.setVisible(true);
         }
+
+        public AudioPlayer getBgmPlayer() {
+            return bgmPlayer;
+        }
+
+        
     }

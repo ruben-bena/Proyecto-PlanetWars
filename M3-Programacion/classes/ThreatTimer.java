@@ -3,6 +3,7 @@ package classes;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import GUI.AudioPlayer;
 import GUI.MainScreen;
 
 public class ThreatTimer extends TimerTask{
@@ -35,6 +36,7 @@ public class ThreatTimer extends TimerTask{
                     planet.setCurrentThreat(new Battle(planet, Main.createEnemyPlanet(planet), ms.getMainPanel(), ms));
                     planet.setActiveThreat(true);
                     ms.getMainPanel().getMiddlePanel().doThreatDisplay();
+                    AudioPlayer.doAlarm();
                 }
 
                 // }

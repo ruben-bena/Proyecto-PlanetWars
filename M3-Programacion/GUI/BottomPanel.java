@@ -96,6 +96,7 @@ public class BottomPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
+                        AudioPlayer.buttonSound();
                         if(planet.getCurrentThreat() != null) {
                             if (planet.getCurrentThreat().isHasCombatStarted()) {
                                 return;
@@ -158,6 +159,7 @@ public class BottomPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
+                        AudioPlayer.buttonSound();
                         if(planet.getCurrentThreat() != null) {
                             if (planet.getCurrentThreat().isHasCombatStarted()) {
                                 return;
@@ -227,6 +229,7 @@ public class BottomPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
+                        AudioPlayer.buttonSound();
                         if(planet.getCurrentThreat() != null) {
                             if (planet.getCurrentThreat().isHasCombatStarted()) {
                                 return;
@@ -293,6 +296,7 @@ public class BottomPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
+                        AudioPlayer.buttonSound();
                         if(planet.getCurrentThreat() != null) {
                             if (planet.getCurrentThreat().isHasCombatStarted()) {
                                 return;
@@ -358,6 +362,7 @@ public class BottomPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
+                        AudioPlayer.buttonSound();
                         if(planet.getCurrentThreat() != null) {
                             if (planet.getCurrentThreat().isHasCombatStarted()) {
                                 return;
@@ -424,6 +429,7 @@ public class BottomPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
+                        AudioPlayer.buttonSound();
                         if(planet.getCurrentThreat() != null) {
                             if (planet.getCurrentThreat().isHasCombatStarted()) {
                                 return;
@@ -489,6 +495,7 @@ public class BottomPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
+                        AudioPlayer.buttonSound();
                         if(planet.getCurrentThreat() != null) {
                             if (planet.getCurrentThreat().isHasCombatStarted()) {
                                 return;
