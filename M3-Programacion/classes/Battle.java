@@ -596,7 +596,7 @@ public class Battle {
 
                         // Playing explosion sound
                         if(!isSkipBattle()){
-                            new AudioPlayer("M3-Programacion/GUI/explosion-8bit.wav", 20, false);
+                            AudioPlayer.doExplosion();
                         }
                         
                     }

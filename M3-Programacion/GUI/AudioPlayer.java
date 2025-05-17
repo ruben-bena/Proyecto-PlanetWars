@@ -57,6 +57,10 @@ public class AudioPlayer {
         new AudioPlayer("M3-Programacion/GUI/sfx/error.wav", 20, false);
     }
 
+    public static void doExplosion() {
+        new AudioPlayer("M3-Programacion/GUI/sfx/explosion-8bit.wav", 20, false);
+    }
+
     public void changeVolume(int newVolume) {
         volumeControl.setValue(-30 + newVolume);
     }
