@@ -15,9 +15,13 @@ public class Main{
     public static void main(String[] args) throws ResourceException {
 
         // Establish connection to local vm ddbb
-        String url = "jdbc:oracle:thin:@//localhost:1521/freepdb1"; // Local VM Oracle ddbb
-        String username = "planetWars";
-        String pass = "planetWars";
+        // String url = "jdbc:oracle:thin:@//localhost:1521/freepdb1"; // Local VM Oracle ddbb
+        // String username = "planetWars";
+        // String pass = "planetWars";
+        // Oracle Autonomous Database
+        String url = "jdbc:oracle:thin:@(description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.eu-madrid-1.oraclecloud.com))(connect_data=(service_name=g0afc8dfb9e8980_planetwars_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))";
+        String username = "admin";
+        String pass = "PlanetWars12";
         GlobalContext.database = new Database(url, username, pass);
 
         // Select between new game or load game
