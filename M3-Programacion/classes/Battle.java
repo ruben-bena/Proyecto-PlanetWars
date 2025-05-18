@@ -106,7 +106,7 @@ public class Battle {
                 bbddOperations(planet);
 
                 // Generate battle XML
-                BattleXmlGenerator.generateXml(Battle.this);
+                BattleXmlGenerator.generateXml(Battle.this, false);
 
                 // Transform battle XML to HTML
                 BattleHtmlTransformator.transform(GlobalContext.num_battle);
@@ -161,7 +161,7 @@ public class Battle {
                 bbddOperations(planet);
 
                 // Generate battle XML
-                BattleXmlGenerator.generateXml(Battle.this);
+                BattleXmlGenerator.generateXml(Battle.this, true);
 
                 // Transform battle XML to HTML
                 BattleHtmlTransformator.transform(GlobalContext.num_battle);
