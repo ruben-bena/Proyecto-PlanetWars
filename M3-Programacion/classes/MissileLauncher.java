@@ -15,6 +15,8 @@ public class MissileLauncher extends Defense {
         setInitialArmor(armor);
         setBaseDamage(baseDamage);
     }
+
+    
     
     public int attack() {
         return getBaseDamage();

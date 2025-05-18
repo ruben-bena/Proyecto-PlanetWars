@@ -16,7 +16,7 @@ public class BattleXmlGenerator {
     }
 
     // Uses Battle object to generate the xml file
-    public static void generateXml(Battle battleObject) {
+    public static void generateXml(Battle battleObject, boolean isInvasion) {
         try {
             // Creating document
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -28,12 +28,15 @@ public class BattleXmlGenerator {
             battle.setAttribute("id", Integer.toString(GlobalContext.num_battle));
             doc.appendChild(battle);
 
+            // Element invasion
+            addSimpleElement(doc, battle, "invasion", Boolean.toString(isInvasion));
+
             // Element army_planet
-            Element armyPlanet = createArmyElement(doc, "army_planet", battleObject);
+            Element armyPlanet = createArmyElement(doc, "army_planet", battleObject, isInvasion);
             battle.appendChild(armyPlanet);
 
             // Element army_enemy
-            Element armyEnemy = createArmyElement(doc, "army_enemy", battleObject);
+            Element armyEnemy = createArmyElement(doc, "army_enemy", battleObject, isInvasion);
             battle.appendChild(armyEnemy);
 
             // Element waste_generated
@@ -70,21 +73,22 @@ public class BattleXmlGenerator {
     }
 
     // Creates element army_planet or army_enemy
-    private static Element createArmyElement(Document doc, String tagName, Battle battleObject) {
+    private static Element createArmyElement(Document doc, String tagName, Battle battleObject, boolean isInvasion) {
 
         // Element <type_of_army>
         Element army = doc.createElement(tagName);
 
         // Nested elements and index to look for depends of army type
-        int armyIndex = 0;
-        String[] units = {
-            "light_hunter",
-            "heavy_hunter",
-            "battle_ship",
-            "armored_ship"
-        };
+        int armyIndex;
         if (tagName.equals("army_enemy")) {
             armyIndex = 1;
+        } else {
+            armyIndex = 0;
+        }
+
+        String[] units;
+        // if the entity is being invaded...
+        if ((tagName.equals("army_enemy") && isInvasion == true) || (tagName.equals("army_planet") && isInvasion == false)) {
             units = new String[] {
                 "light_hunter",
                 "heavy_hunter",
@@ -93,6 +97,13 @@ public class BattleXmlGenerator {
                 "missile_launcher",
                 "ion_cannon",
                 "plasma_cannon"
+                };
+        } else {
+            units = new String[] {
+                "light_hunter",
+                "heavy_hunter",
+                "battle_ship",
+                "armored_ship"
             };
         }
 

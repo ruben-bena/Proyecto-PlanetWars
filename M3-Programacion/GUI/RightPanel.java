@@ -15,6 +15,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import classes.Battle;
+import classes.Main;
 import classes.Planet;
 import classes.ResourceException;
 import classes.ThreatTimer;
@@ -27,17 +29,20 @@ import java.io.File;
 import java.io.IOException;
 
 class RightPanel extends JPanel {
-        private JPanel mainPanel, imagePanel, buttonsPanel, upperPanel, fixArmyPanel, costFixArmyPanel, costFixArmyAmountPanel;
-        private JButton newGameButton, battleReportButton, settingsButton, exitButton, viewCurrentThreatButton, fixArmyButton, startABattle;
+        private JPanel mainPanel, imagePanel, buttonsPanel, upperPanel, fixArmyPanel, costFixArmyPanel, costFixArmyAmountPanel, invadePanel;
+        private JButton newGameButton, battleReportButton, settingsButton, exitButton, viewCurrentThreatButton, fixArmyButton, startABattle, invadeButton;
         private JLabel metalImageLabel, deuteriumImageLabel, metalCostFixLabel, deuteriumCostFixLabel;
         private Planet planet;
         private ImageIcon metalIcon, deuteriumIcon;
         private MainScreen ms;
         private Font customFont, customFontSmaller, customFontSmallest;
+        private AudioPlayer bgmPlayer;
 
         RightPanel(Planet planet, MainScreen ms) {
             this.planet = planet;
             this.ms = ms;
+
+            bgmPlayer = AudioPlayer.doBGM();
 
             try {
                 customFont = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(24f);
@@ -119,7 +124,12 @@ class RightPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // TODO Auto-generated method stub
-                    new ThreatTimer(planet, ms, 1);
+                    if(planet.getNTroops() > 0 && !planet.getIsInvading() && !planet.isActiveThreat()) {
+                        AudioPlayer.buttonSound();
+                        new ThreatTimer(planet, ms, 1);
+                    } else {
+                        ms.getMainPanel().getMiddlePanel().doShowMessage("Can't do that", 2);
+                    }
                 }
                 
             });
@@ -140,7 +150,14 @@ class RightPanel extends JPanel {
 
             upperPanel.add(viewCurrentThreatButton);
 
-            
+            invadePanel = new JPanel();
+            invadeButton = new JButton("Invade");
+            invadeButton.setFont(customFontSmaller);
+            invadeButton.setBackground(Globals.rightButtonsColor);
+            invadeButton.setForeground(Globals.rightButtonsFontColor);
+            invadeButton.addActionListener(new ButtonEvents());
+            invadePanel.setLayout(new BorderLayout());
+            invadePanel.add(invadeButton);
 
             imagePanel = new JPanel();
             imagePanel.setBackground(Color.BLACK);
@@ -148,7 +165,7 @@ class RightPanel extends JPanel {
             
             mainPanel.add(upperPanel);
 
-            mainPanel.add(imagePanel);
+            mainPanel.add(invadePanel);
             // buttonsPanel
             // TODO: Add button that pauses the game (optional)
             buttonsPanel = new JPanel();
@@ -204,9 +221,15 @@ class RightPanel extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                AudioPlayer.buttonSound();
+
                 if (e.getActionCommand().equals("New Game")) {
                     System.out.println("New Game pressed");
-                    newGameEvent();   
+                    if(!planet.getIsInvading() && !planet.isActiveThreat()) {
+                        newGameEvent();   
+                    } else {
+                        ms.getMainPanel().getMiddlePanel().doShowMessage("Can't do that", 3);
+                    }
                 }
                 if (e.getActionCommand().equals("Battle Report")) {
                     System.out.println("Battle Report pressed");
@@ -223,8 +246,12 @@ class RightPanel extends JPanel {
 
                 if (e.getActionCommand().equals("View Threat")) {
                     if (planet.isActiveThreat()) {
+                        AudioPlayer.buttonSound();
                         new ThreatFrame(planet);
+                    } else {
+                        ms.getMainPanel().getMiddlePanel().doShowMessage("Can't do that", 3);
                     }
+
                     System.out.println("Current threat");
                 }
 
@@ -233,12 +260,23 @@ class RightPanel extends JPanel {
                     System.out.println("Fix Army pressed");
                     
                 }
+
+                if (e.getActionCommand() == "Invade") {
+                    if(planet.getNTroopsNoDefense() > 0  && !planet.getIsInvading() && !planet.isActiveThreat()) {
+                        planet.setIsInvading(true);
+                        planet.setCurrentThreat(new Battle(planet, Main.createEnemyPlanet(planet), ms.getMainPanel(), ms, 1));
+                        ms.getMainPanel().getMiddlePanel().doInvadeDisplay();
+                    } else {
+                        ms.getMainPanel().getMiddlePanel().doShowMessage("Can't do that", 3);
+                    }
+                }
             }
 
         }
         public void fixArmyEvent() {
             if(planet.getCurrentThreat() != null) {
                 if (planet.getCurrentThreat().isHasCombatStarted()) {
+                    ms.getMainPanel().getMiddlePanel().doShowMessage("Can't do that", 3);
                     return;
                 }
             }
@@ -251,6 +289,7 @@ class RightPanel extends JPanel {
         public void newGameEvent()  {
             try {
                 planet.newGame();
+                ms.repaint();
             } catch (ResourceException e) {
                 e.printStackTrace();
             }
@@ -263,7 +302,7 @@ class RightPanel extends JPanel {
         }
     
         public void settingsEvent() {
-            new SettingsFrame(planet, ms.getMainPanel().getMiddlePanel());
+            new SettingsFrame(planet, ms.getMainPanel().getMiddlePanel(), this);
         }
     
         public void exitEvent() {
@@ -306,4 +345,10 @@ class RightPanel extends JPanel {
         
             exitWindow.setVisible(true);
         }
+
+        public AudioPlayer getBgmPlayer() {
+            return bgmPlayer;
+        }
+
+        
     }

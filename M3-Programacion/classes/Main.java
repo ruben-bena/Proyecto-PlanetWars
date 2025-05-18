@@ -15,35 +15,58 @@ public class Main{
     public static void main(String[] args) throws ResourceException {
 
         // Establish connection to local vm ddbb
-        String url = "jdbc:oracle:thin:@//localhost:1521/freepdb1"; // Local VM Oracle ddbb
-        String username = "planetWars";
-        String pass = "planetWars";
+        // String url = "jdbc:oracle:thin:@//localhost:1521/freepdb1"; // Local VM Oracle ddbb
+        // String username = "planetWars";
+        // String pass = "planetWars";
+        // Oracle Autonomous Database
+        String url = "jdbc:oracle:thin:@(description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.eu-madrid-1.oraclecloud.com))(connect_data=(service_name=g0afc8dfb9e8980_planetwars_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))";
+        String username = "admin";
+        String pass = "PlanetWars12";
         GlobalContext.database = new Database(url, username, pass);
 
-        // TODO: Que al principio pregunte si quieres una nueva partida, o cargar una partida de la bbdd
-        // String[] opciones = {"Nueva Partida", "Cargar Partida"};
-        // int eleccion = JOptionPane.showOptionDialog(
-        //         null,
-        //         "What do you prefer?",
-        //         "Inicio del juego",
-        //         JOptionPane.DEFAULT_OPTION,
-        //         JOptionPane.QUESTION_MESSAGE,
-        //         null,
-        //         opciones,
-        //         opciones[0]
-        // );
+        // Select between new game or load game
+        String[] opciones = {"New Game", "Load Game"};
+        int gameChoice = JOptionPane.showOptionDialog(
+                null,
+                "What do you prefer?",
+                "Booting the game",
+                JOptionPane.DEFAULT_OPTION, // this is ignored because we have our own options to choose from
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                opciones,
+                opciones[0] // this is the default option
+        );
 
-        Planet planet = new Planet(1, 1, 200000, 40000, 3000, 3000);
-        planet.newLightHunter(4);
-        planet.newHeavyHunter(2);
-        planet.newIonCannon(3);
-        planet.newArmoredShip(1);
+        // Create Planet
+        // TODO: We should take values from Variables interface
+        Planet planet = new Planet(1, 1, 200000, 40000, Variables.UPGRADE_BASE_DEFENSE_TECHNOLOGY_DEUTERIUM_COST, Variables.UPGRADE_BASE_ATTACK_TECHNOLOGY_DEUTERIUM_COST);
 
-        // Create PlanetStatsTable object with planet info, and inserting it in ddbb
-        GlobalContext.planetStatsTable = new PlanetStatsTable(GlobalContext.database, planet);
-        GlobalContext.planetStatsTable.insertRow();
+        switch (gameChoice) {
 
-        // Things to add: The ability to "fix" damaged troops.
+            // new game
+            case (0):
+                // System.out.println("Has elegido 'New Game'");
+
+                // Create PlanetStatsTable object with planet info, and inserting it in ddbb
+                planet.newLightHunter(4);
+                planet.newHeavyHunter(2);
+                planet.newIonCannon(3);
+                planet.newArmoredShip(1);
+                GlobalContext.planetStatsTable = new PlanetStatsTable(GlobalContext.database, planet);
+                GlobalContext.planetStatsTable.insertRow();
+
+                break;
+
+            // load game
+            case (1):
+                // System.out.println("Has elegido 'Load Game'");
+                new loadGameScreen(GlobalContext.planetStatsTable.generateArrayWithIdAndName(), planet);
+
+                break;
+        }
+
+        System.out.println( "Imprimir Planet en Main");
+        System.out.println(planet);
 
         MainScreen ms = new MainScreen(planet);
         ms.getMainPanel().getMiddlePanel().requestFocusInWindow();
@@ -183,7 +206,79 @@ public class Main{
         planet.newGame();
         
     }
+    public static Planet createEnemyPlanet(Planet userPlanet) {
+        Planet enemyPlanet = new Planet(1,1,userPlanet.getMetal(), userPlanet.getDeuterium(), 3000,3000);
+        ArrayList<MilitaryUnit>[] enemyArmy = createEnemyArmy(userPlanet);
+        // ArrayList<MilitaryUnit>[] enemyDefense = createEnemyDefense(enemyPlanet);
+        enemyPlanet.setArmy(enemyArmy);
+        enemyPlanet.setPlanetName("Evil Earth");
+        createEnemyDefense(enemyPlanet);
 
+        
+
+        return enemyPlanet;
+    }
+    public static void createEnemyDefense(Planet enemyPlanet) {
+        //array with length 3
+        ArrayList<MilitaryUnit>[] defenseArmy = new ArrayList[3];
+
+        // init the army array
+        for (int i = 0; i < defenseArmy.length; i++) {
+            defenseArmy[i] = new ArrayList<MilitaryUnit>();
+        }
+        int option = -1;
+        while(enemyPlanet.getMetal() > Variables.METAL_COST_MISSILELAUNCHER && enemyPlanet.getDeuterium() > Variables.DEUTERIUM_COST_MISSILELAUNCHER) {
+            int[] array = new int[3];
+
+                array[0] = 55;
+                array[1] = 25;
+                array[2] = 20;
+
+                int randomNumber = (int) (Math.random() * 100);
+
+                for(int i = 0; i < array.length; i++) {
+                    int sum = array[0];
+                    int j = i;
+                    while (j > 0 && i != 0) {
+                        sum += array[j];
+                        j--;
+                    }
+
+                    if(sum > randomNumber) {
+                        option = i;
+                        break;
+                    }
+                }
+
+            if (enemyPlanet.getMetal() > Variables.METAL_COST_MISSILELAUNCHER && enemyPlanet.getDeuterium() > Variables.DEUTERIUM_COST_MISSILELAUNCHER) {
+                
+                switch (option) {
+                    case 0: // Missile Launchers
+                        enemyPlanet.getArmy()[4].add(new MissileLauncher(Variables.ARMOR_MISSILELAUNCHER, Variables.BASE_DAMAGE_MISSILELAUNCHER));
+                        enemyPlanet.setMetal(enemyPlanet.getMetal() - Variables.METAL_COST_MISSILELAUNCHER);
+                        enemyPlanet.setDeuterium(enemyPlanet.getDeuterium() - Variables.DEUTERIUM_COST_MISSILELAUNCHER);
+                        break;
+
+                    case 1: // Ion Cannons
+                        enemyPlanet.getArmy()[5].add(new MissileLauncher(Variables.ARMOR_IONCANNON, Variables.BASE_DAMAGE_IONCANNON));
+                        enemyPlanet.setMetal(enemyPlanet.getMetal() - Variables.METAL_COST_IONCANNON);
+                        enemyPlanet.setDeuterium(enemyPlanet.getDeuterium() - Variables.DEUTERIUM_COST_IONCANNON);
+                        break;
+
+                    case 2: // Plasma Cannons
+                        enemyPlanet.getArmy()[6].add(new MissileLauncher(Variables.ARMOR_PLASMACANNON, Variables.BASE_DAMAGE_PLASMACANNON));
+                        enemyPlanet.setMetal(enemyPlanet.getMetal() - Variables.METAL_COST_PLASMACANNON);
+                        enemyPlanet.setDeuterium(enemyPlanet.getDeuterium() - Variables.DEUTERIUM_COST_PLASMACANNON);
+                        break;
+                    
+                    default:
+                        System.out.println("Error: Option = " + option);
+                        break;
+                }
+            }
+        }
+
+    }
     public static ArrayList<MilitaryUnit>[] createEnemyArmy(Planet planet) {
         ArrayList<MilitaryUnit>[] army = new ArrayList[7];
         // Enemy doesn't have defenses so the army array won't go past index 3.

@@ -27,8 +27,10 @@ public class ResultFrame extends JFrame implements ActionListener {
     private JTextArea report_text;
     private JLabel resultLabel;
     private JScrollPane scrollPane;
-    private JButton acceptButton;
+    private JButton acceptButton, switchViewButton;
     private Font customFontBiggest, customFontBig, customFont, customFontSmall;
+    private String activeStringView;
+    private Battle battle;
     public ResultFrame(Battle battle) {
         setSize(new Dimension(1000,700));
         mainPanel = new JPanel();
@@ -39,6 +41,8 @@ public class ResultFrame extends JFrame implements ActionListener {
         add(new PaddingPanel(), BorderLayout.NORTH);
         add(new PaddingPanel(), BorderLayout.SOUTH);
         add(new PaddingPanel(), BorderLayout.EAST);
+        activeStringView = battle.getBattleDevelopment();
+        this.battle = battle;
 
         try {
                 customFontBiggest = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(68f);
@@ -51,7 +55,7 @@ public class ResultFrame extends JFrame implements ActionListener {
             }
 
 
-        if (battle.getWinner() == 0) {
+        if (battle.getWinner() == 0 && battle.getBattleType() == 0|| (battle.getWinner() == 1 && battle.getBattleType() == 1)) {
             resultLabel = new JLabel("You won!");
         } else {
             resultLabel = new JLabel("You lost...");
@@ -65,8 +69,9 @@ public class ResultFrame extends JFrame implements ActionListener {
 
         mainPanel.add(resultPanel, BorderLayout.NORTH);
 
-        report_text = new JTextArea(battle.getBattleDevelopment());
-        // report_text.setFont(new Font("Arial", Font.BOLD, 24));
+        report_text = new JTextArea(activeStringView);
+        report_text.setEditable(false);
+
         report_text.setFont(customFontSmall);
         scrollPane = new JScrollPane(report_text);
 
@@ -78,10 +83,17 @@ public class ResultFrame extends JFrame implements ActionListener {
         acceptButton.setFont(customFont);
         acceptButton.setPreferredSize(new Dimension(200,50));
         acceptButton.setBackground(Color.WHITE);
+
+        switchViewButton = new JButton("Switch View");
+        switchViewButton.addActionListener(this);
+        switchViewButton.setFont(customFont);
+        switchViewButton.setPreferredSize(new Dimension(200,50));
+        switchViewButton.setBackground(Color.WHITE);
         
         buttonPanel = new JPanel();
         buttonPanel.add(acceptButton);
         buttonPanel.setBackground(Color.BLACK);
+        buttonPanel.add(switchViewButton);
 
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
         add(mainPanel);
@@ -90,7 +102,7 @@ public class ResultFrame extends JFrame implements ActionListener {
 
     }
 
-    public ResultFrame(String battleDevelopment, int battleN) {
+    public ResultFrame(Battle battle, int battleN) {
         setSize(new Dimension(1000,700));
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
@@ -100,6 +112,10 @@ public class ResultFrame extends JFrame implements ActionListener {
         add(new PaddingPanel(), BorderLayout.NORTH);
         add(new PaddingPanel(), BorderLayout.SOUTH);
         add(new PaddingPanel(), BorderLayout.EAST);
+        this.battle = battle;
+
+        // activeStringView = battleDevelopment;
+        activeStringView = battle.getBattleDevelopment();
 
         try {
             customFontBiggest = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(68f);
@@ -111,7 +127,7 @@ public class ResultFrame extends JFrame implements ActionListener {
             e.printStackTrace();
         }
 
-        resultLabel = new JLabel("Battle nº" + battleN);
+        resultLabel = new JLabel("Report");
         // resultLabel.setFont(new Font("Arial", Font.BOLD, 96));
         resultLabel.setFont(customFontBiggest);
         resultPanel = new JPanel();
@@ -121,7 +137,8 @@ public class ResultFrame extends JFrame implements ActionListener {
 
         mainPanel.add(resultPanel, BorderLayout.NORTH);
 
-        report_text = new JTextArea(battleDevelopment);
+        report_text = new JTextArea(activeStringView);
+        report_text.setEditable(false);
         // report_text.setFont(new Font("Arial", Font.BOLD, 24));
         report_text.setFont(customFont);
         scrollPane = new JScrollPane(report_text);
@@ -135,9 +152,16 @@ public class ResultFrame extends JFrame implements ActionListener {
         acceptButton.setPreferredSize(new Dimension(200,50));
         acceptButton.setBackground(Color.WHITE);
         
+        switchViewButton = new JButton("Switch View");
+        switchViewButton.addActionListener(this);
+        switchViewButton.setFont(customFont);
+        switchViewButton.setPreferredSize(new Dimension(200,50));
+        switchViewButton.setBackground(Color.WHITE);
+
         buttonPanel = new JPanel();
         buttonPanel.add(acceptButton);
         buttonPanel.setBackground(Color.BLACK);
+        buttonPanel.add(switchViewButton);
 
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
         add(mainPanel);
@@ -147,9 +171,15 @@ public class ResultFrame extends JFrame implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
+        AudioPlayer.buttonSound();
         if (e.getActionCommand() == "Accept") {
             dispose();
+        } if (e.getActionCommand() == "Switch View") {
+            if(report_text.getText().equals(battle.getBattleDevelopment())) {
+                report_text.setText(battle.getBattleReport());
+            } else {
+                report_text.setText(battle.getBattleDevelopment());
+            }
         }
     }
 

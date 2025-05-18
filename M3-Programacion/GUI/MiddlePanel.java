@@ -35,15 +35,19 @@ public class MiddlePanel extends JPanel{
         private Color threatDisplayColor;
         private int timerCountdown;
         private Font customFontBig, customFont, customFontSmall, customFontBiggest;
+        private String threatDisplayStr, invadeDisplayStr, activeDisplayStr, messageStr;
         MiddlePanel(Planet planet) {
             setLayout(new BorderLayout());
             add(new PaddingPanel(), BorderLayout.NORTH);
             setFocusable(true);
-
+            threatDisplayStr = "THREAT DETECTED";
+            invadeDisplayStr = "SEARCHING";
+            activeDisplayStr = threatDisplayStr;
+            messageStr = "";
             
             try {
                 customFontBiggest = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(68f);
-                customFontBig = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(40f);
+                customFontBig = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(48f);
                 customFont = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(32f);
                 customFontSmall = Font.createFont(Font.TRUETYPE_FONT, new File(Globals.customFont)).deriveFont(18f);
             } catch (FontFormatException | IOException e) {
@@ -89,24 +93,37 @@ public class MiddlePanel extends JPanel{
 
             g2d = (Graphics2D) g;
             g2d.drawImage(activeImage.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH), 0, 0, this);
-            System.out.println("Width = " + getWidth() + " Height = " + getHeight());
+            // System.out.println("Width = " + getWidth() + " Height = " + getHeight());
 
             
             if(activeImage.equals(earthImage)) {
+                g2d.setColor(Color.BLACK);
+                // g2d.fillRect(getWidth()/2 - 250, 0, 500, 150);
                 g2d.setFont(customFontBig);
                 g2d.setColor(threatDisplayColor);
-                g2d.drawString(planet.getPlanetName(), getWidth() / 2 - (planet.getPlanetName().length() * 10), 50);
+                // g2d.drawString(planet.getPlanetName(), getWidth() / 2 - (planet.getPlanetName().length() * 10), 50);
+                g2d.drawString(planet.getPlanetName(), 50, 75);
             }
 
-            if(planet.getCurrentThreat() != null) {
+            
 
+            if(planet.getCurrentThreat() != null) {
                 // if combat hasn't started but there is a fight incoming
-                if(!planet.getCurrentThreat().isHasCombatStarted()) {
+                if(!planet.getCurrentThreat().isHasCombatStarted() || planet.getIsInvading() && battle.getBattleType() == 0) {
+                    g2d.setColor(Color.BLACK);
                     g2d.setFont(customFontBig);
                     g2d.setColor(threatDisplayColor);
-                    g2d.drawString("THREAT DETECTED", getWidth() / 2 - 150, 100);
-                    g2d.drawString(String.valueOf(timerCountdown), getWidth() / 2, 160);
+                    if(activeDisplayStr.equals(threatDisplayStr)) {
+                        g2d.drawString(activeDisplayStr, getWidth() / 2 - (activeDisplayStr.length() * 13), 75);
+                        g2d.drawString(String.valueOf(timerCountdown), getWidth() / 2, 160);
+                    } else {
+                        g2d.setFont(customFont);
+                        g2d.drawString(activeDisplayStr, 50, 150);
+                        g2d.drawString(String.valueOf(timerCountdown), 50, 200);
+                    }
                 }
+
+                
 
                 // if combat has started
                 if(planet.getCurrentThreat().isHasCombatStarted()) {
@@ -185,8 +202,28 @@ public class MiddlePanel extends JPanel{
                     g2d.setFont(new Font("Arial", 3, 96));
                     g2d.drawString("VS", getWidth()/2-48, getHeight()/2+48);
 
+                    // Painting the names of the planets
+                    g2d.setFont(customFontBig);
+                    if(battle.getBattleType() == 0) {
+                        g2d.drawString(battle.getUserPlanet().getPlanetName(), 50, getHeight()-410 - 20);
+                        g2d.drawString(battle.getEnemyPlanet().getPlanetName(), getWidth() -320, 450);
+                    } else {
+                        g2d.drawString(battle.getEnemyPlanet().getPlanetName(), 50, getHeight()-410 - 20);
+                        g2d.drawString(battle.getUserPlanet().getPlanetName(), getWidth() -320, 450);
+                    }
                 }
             }
+            // drawing the messageStr
+            if(!messageStr.equals("")) {
+                g2d.setColor(new Color(0,0,0,220));
+                g2d.fillRect(0, getHeight()/2-30, getWidth(), 60);
+            }
+            g2d.setFont(customFontBig);
+            g2d.setColor(Color.RED);
+            g2d.drawString(messageStr, getWidth() - messageStr.length() * 54, getHeight()/2 + 20);
+            g2d.setFont(customFontBig);
+
+            
             
         }
 
@@ -217,6 +254,7 @@ public class MiddlePanel extends JPanel{
             private int time;
             private Timer timer;
             public ThreatDisplayTimer() {
+                activeDisplayStr = threatDisplayStr;
                 time = 0;
                 timer = new Timer();
 
@@ -238,6 +276,7 @@ public class MiddlePanel extends JPanel{
                 
                 if(time > Time.countdownBattleTime) {
                     cancel();
+                    threatDisplayColor = Color.WHITE;
                     timerCountdown = Time.secondsCountdownBattle;
                 }
 
@@ -246,7 +285,90 @@ public class MiddlePanel extends JPanel{
             }
         }
 
+        class ShowMessage extends TimerTask {
+            private int time;
+            private Timer timer;
+            private String message;
+            private int seconds;
+            ShowMessage(String message, int seconds) {
+                this.message = message;
+                this.seconds = seconds;
+                timer = new Timer();
+                time = 0;
+                AudioPlayer.doError();
+
+                timer.schedule(this, 0, Time.secInMs);
+
+            }
+            
+            @Override
+            public void run() {
+                time++;
+                
+                messageStr = message;
+                repaint();
+                if(time > seconds) {
+                    messageStr = "";
+                    repaint();
+                    cancel();
+                }
+            }
+
+        }
+
+        public void doShowMessage(String message, int seconds) {
+            if(messageStr.equals("")){
+                new ShowMessage(message, seconds);
+            }
+        }
+
         public void doThreatDisplay() {
             new ThreatDisplayTimer();
+        }
+
+        class InvadeDisplayTimer extends TimerTask {
+            private int time;
+            private Timer timer;
+            private int nDots = 0;
+            public InvadeDisplayTimer() {
+                activeDisplayStr = invadeDisplayStr;
+                time = 0;
+                timer = new Timer();
+
+                timer.schedule(this, 0, Time.secInMs);
+
+            }
+
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                time = time + Time.secInMs;
+                timerCountdown--;
+                
+                if (nDots <= 3) {
+                    invadeDisplayStr += ".";
+                    activeDisplayStr = invadeDisplayStr;
+                    nDots++;
+                }
+
+                if(nDots >= 4) {
+                    invadeDisplayStr = "SEARCHING";
+                    activeDisplayStr = invadeDisplayStr;
+                    nDots = 0;
+                }
+               
+                
+                if(time > Time.countdownBattleTime) {
+                    cancel();
+                    timerCountdown = Time.secondsCountdownBattle;
+                }
+
+                repaint();
+
+            }
+        }
+
+        public void doInvadeDisplay() {
+            new InvadeDisplayTimer();
         }
     }
