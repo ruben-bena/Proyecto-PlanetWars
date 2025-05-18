@@ -397,7 +397,7 @@ public class Planet {
     public int getNTroopsNoDefense() {
         int total = 0;
 
-        for(int i = 0; i < 3; i++) {
+        for(int i = 0; i < 4; i++) {
             total += army[i].size();
         }
 

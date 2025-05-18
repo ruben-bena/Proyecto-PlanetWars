@@ -55,7 +55,7 @@ public class ResultFrame extends JFrame implements ActionListener {
             }
 
 
-        if (battle.getWinner() == 0 || (battle.getWinner() == 1 && battle.getBattleType() == 1)) {
+        if (battle.getWinner() == 0 && battle.getBattleType() == 0|| (battle.getWinner() == 1 && battle.getBattleType() == 1)) {
             resultLabel = new JLabel("You won!");
         } else {
             resultLabel = new JLabel("You lost...");
