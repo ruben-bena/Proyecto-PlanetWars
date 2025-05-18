@@ -629,20 +629,20 @@ public class Battle {
             battleDevelopment += "Resources lost by " + planet.getPlanetName() + ": " + resourcesLosses[0][2] + "\n";
             battleDevelopment += "Resources lost by " + enemyPlanet.getPlanetName() +": " + resourcesLosses[1][2] + "\n\n";
 
-            if (getWinner() == 0) {
+            if (getWinner() == 0 && battleType == 0) {
                 winner = planet.getPlanetName();
                 battleDevelopment += planet.getPlanetName() + " collects " + wasteMetalDeuterium[0] + " metal and " + wasteMetalDeuterium[1] + " deuterium\n\n";
                 planet.setMetal(planet.getMetal() + wasteMetalDeuterium[0]);
                 planet.setDeuterium(planet.getDeuterium() + wasteMetalDeuterium[1]);
             } else {
-                if(battleType == 1) {
-                    winner = enemyPlanet.getPlanetName();
+                if(battleType == 1 && getWinner() == 1) {
+                    winner = planet.getPlanetName();
                     battleDevelopment += enemyPlanet.getPlanetName() + " collects " + wasteMetalDeuterium[0] + " metal and " + wasteMetalDeuterium[1] + " deuterium\n\n";
                     enemyPlanet.setMetal(enemyPlanet.getMetal() + wasteMetalDeuterium[0]);
                     enemyPlanet.setDeuterium(enemyPlanet.getDeuterium() + wasteMetalDeuterium[1]);
                 }
                 else {
-                    winner = planet.getPlanetName();
+                    winner = enemyPlanet.getPlanetName();
                 }
             }
 
