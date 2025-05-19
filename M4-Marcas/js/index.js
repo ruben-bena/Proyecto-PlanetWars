@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const img = document.createElement('img');
         img.src = src;
         img.className = 'slider-image' + (idx === 0 ? ' active' : '');
-        img.alt = `Imagen ${idx+1}`;
+        img.alt = `Image ${idx+1}`;
         sliderImagesContainer.appendChild(img);
 
         // Create dot elements

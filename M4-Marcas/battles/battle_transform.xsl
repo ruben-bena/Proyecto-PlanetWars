@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- XSLT stylesheet for transforming battle XML data into HTML battle reports -->
+
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+    <!-- Output configuration -->
     <xsl:output method="html" indent="yes"/>
     
+    <!-- Main template for battle report -->
     <xsl:template match="/battle">
+        <!-- Battle report container -->
         <div class="reporte-batalla">
             <h2>BATTLE #<xsl:value-of select="@id"/> STATISTICS</h2>
 
+            <!-- Battle type section -->
             <div class="type-battle">
                 <xsl:attribute name="class">
                     <xsl:choose>
@@ -22,6 +28,7 @@
                 </p>
             </div>
 
+            <!-- Army comparison section -->
             <div class="comparison">
                 <h3>Army Comparison</h3>
                 <table class="army-comparison">
@@ -39,14 +46,17 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <!-- Generate unit rows using template -->
                         <xsl:call-template name="generateUnitRows"/>
                     </tbody>
                 </table>
             </div>
                             
+            <!-- Costs section -->
             <div class="costs">
                 <h3>Costs</h3>
                 <div class="costs-container">
+                    <!-- Planet costs -->
                     <div class="cost-planet">
                         <h4>Planet</h4>
                         <ul>
@@ -54,6 +64,7 @@
                             <li>Deuterium: <xsl:value-of select="format-number(army_planet/total_cost/deuterium, '#,###')"/></li>
                         </ul>
                     </div>
+                    <!-- Enemy costs -->
                     <div class="cost-enemy">
                         <h4>Enemy</h4>
                         <ul>
@@ -64,9 +75,11 @@
                 </div>
             </div>
                             
+            <!-- Losses section -->
             <div class="losses">
                 <h3>Losses</h3>
                 <div class="losses-container">
+                    <!-- Planet losses -->
                     <div class="losses-planet">
                         <h4>Planet</h4>
                         <ul>
@@ -75,6 +88,7 @@
                             <li>Weighted: <xsl:value-of select="format-number(army_planet/losses/weighted, '#,###')"/></li>
                         </ul>
                     </div>
+                    <!-- Enemy losses -->
                     <div class="losses-enemy">
                         <h4>Enemy</h4>
                         <ul>
@@ -86,6 +100,7 @@
                 </div>
             </div>
                             
+            <!-- Waste generated section -->
             <div class="waste">
                 <h3>Waste Generated</h3>
                 <ul>
@@ -94,6 +109,7 @@
                 </ul>
             </div>
             
+            <!-- Result section -->
             <div class="result">
                 <xsl:attribute name="class">
                     <xsl:choose>
@@ -110,10 +126,12 @@
                 </p>
             </div>
             
+            <!-- Download button -->
             <button class="btn-download" onclick="downloadBattleXML()">Download battle XML</button>
         </div>
     </xsl:template>
     
+    <!-- Template to generate unit rows for the army comparison table -->
     <xsl:template name="generateUnitRows">
         <tr>
             <td>Light Hunter</td>
