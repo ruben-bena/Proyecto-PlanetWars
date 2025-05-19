@@ -2,27 +2,34 @@
 
 <html lang="en">
     <head>
+        <!-- Document configuration -->
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+        <!-- Title and icon -->
         <title>Planet Wars - Batallas</title>
         <link rel="icon" href="img/iconoPW.ico" type="image/ico">
 
+        <!-- CSS -->        
         <link rel="stylesheet" href="css/base.css">
         <link rel="stylesheet" href="css/battles.css">
 
+        <!-- JavaScript -->
         <script src="js/base.js"></script>
         <script src="js/battles.js"></script>
     </head>
 
     <body>
+        <!-- Header -->
         <header class="sticky-header">
+            <!-- Toggle menu button(mobile) -->
             <div class="menu-toggle">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
             
+            <!-- Menu -->
             <nav>
                 <ul class="menu">
                     <li class="menu-icon-container">
@@ -35,10 +42,13 @@
                 </ul>
             </nav>
         </header>
-
+        
+        <!-- Main content -->
         <main class="main-content">
+            <!-- Title-->
             <h1>Reporte de Batallas</h1>
 
+            <!-- Battle search -->
             <section class="buscar-batalla">
                 <h2>Buscar batalla</h2>
                 <form id="form-buscar-batalla">
@@ -48,11 +58,13 @@
                 </form>
             </section>
 
+            <!-- Battle result -->
             <section class="resultado-batalla" id="resultado-batalla">
                 <!-- The battle content is inserted by battles.js -->
             </section>
         </main>
 
+        <!-- Footer -->
         <footer class="site-footer">
             <b>
                 ©Copyright 2025 - Todos los derechos reservados

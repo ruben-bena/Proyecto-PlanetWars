@@ -347,3 +347,199 @@ html {
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
+
+
+
+/* =================== */
+/* |RESPONSIVE DESIGN| */
+/* =================== */
+/* 768px width */
+@media (max-width: 768px) {
+    /* Title section styles for tablets */
+    .title h1 {
+        font-size: 4em;
+    }
+    .title .subtitle {
+        font-size: 1.2em;
+        margin-bottom: 30px;
+    }
+    /* Button styles for tablets */
+    .t-button {
+        font-size: 2em;
+        padding: 15px 20px;
+    }
+    /* Features section padding for tablets */
+    .features {
+        padding: 20px 5px;
+    }
+    /* Feature grid gap and padding for tablets */
+    .feature-grid {
+        gap: 15px;
+        padding: 10px;
+    }
+    /* Feature card padding for tablets */
+    .feature-card {
+        padding: 15px;
+    }
+    /* Feature icon size for tablets */
+    .feature-icon {
+        font-size: 2em;
+    }
+    /* Game gallery padding for tablets */
+    .game-gallery {
+        padding: 5px 5px;
+    }
+    /* Slider buttons outer padding for tablets */
+    .slider-btns-outer {
+        padding: 10px 10px;
+        margin-top: 5%;
+        padding-bottom: 20px;
+    }
+    /* Slider min height for tablets */
+    .slider {
+        min-height: 180px;
+    }
+    /* Slider button size for tablets */
+    .slider-btn {
+        font-size: 1.2em;
+        height: 60%;
+        width: 30px;
+    }
+    /* Slider dot size for tablets */
+    .slider-dot {
+        width: 10px;
+        height: 10px;
+    }
+    /* CTA section padding for tablets */
+    .cta-section {
+        padding: 20px 5px;
+    }
+    /* CTA image width for tablets */
+    .cta-image {
+        width: 60%;
+        height: auto;
+    }
+    /* Primary CTA button styles for tablets */
+    .cta-button.primary {
+        font-size: 1.5em;
+        padding: 20px 10px;
+    }
+    /* Secondary CTA button styles for tablets */
+    .cta-button.secondary {
+        font-size: 1em;
+        padding: 10px 10px;
+        width: 80%;
+        max-width: 200px;
+    }
+}
+
+/* 480px width */
+@media (max-width: 480px) {
+    /* Title section min height and padding for mobile */
+    .title {
+        min-height: 40vh;
+        padding: 10px;
+    }
+    /* Title font size and margin for mobile */
+    .title h1 {
+        font-size: 2.2em;
+        margin: 10px 0 5px 0;
+    }
+    /* Subtitle font size and margin for mobile */
+    .title .subtitle {
+        font-size: 1em;
+        margin-bottom: 15px;
+        max-width: 95vw;
+    }
+    /* Button styles for mobile */
+    .t-button {
+        font-size: 1.1em;
+        padding: 10px 10px;
+        margin-top: 10px;
+    }
+    /* Features section min height and padding for mobile */
+    .features {
+        min-height: 60vh;
+        padding: 10px 2px;
+    }
+    /* Feature grid columns and gap for mobile */
+    .feature-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 2px;
+    }
+    /* Feature card padding for mobile */
+    .feature-card {
+        padding: 8px;
+    }
+    /* Feature icon size and margin for mobile */
+    .feature-icon {
+        font-size: 1.3em;
+        margin-bottom: 10px;
+    }
+    /* Game gallery min height and padding for mobile */
+    .game-gallery {
+        min-height: 40vh;
+        padding: 2px 2px;
+        margin-bottom: 10px;
+    }
+    /* Slider buttons outer padding for mobile */
+    .slider-btns-outer {
+        padding: 2px 2px;
+        margin-top: 2%;
+        padding-bottom: 10px;
+    }
+    /* Slider min height and aspect ratio for mobile */
+    .slider {
+        min-height: 100px;
+        aspect-ratio: 16/10;
+    }
+    /* Slider button size for mobile */
+    .slider-btn {
+        font-size: 1em;
+        height: 40%;
+        width: 22px;
+    }
+    /* Slider dot size and margin for mobile */
+    .slider-dot {
+        width: 8px;
+        height: 8px;
+        margin: 0 2px;
+    }
+    /* CTA section min height and padding for mobile */
+    .cta-section {
+        min-height: 40vh;
+        padding: 10px 2px;
+    }
+    /* CTA container gap for mobile */
+    .cta-container {
+        gap: 15px;
+    }
+    /* CTA image width for mobile */
+    .cta-image {
+        width: 90%;
+        height: auto;
+    }
+    /* CTA buttons gap and max width for mobile */
+    .cta-buttons {
+        gap: 10px;
+        max-width: 100vw;
+    }
+    /* Secondary buttons gap for mobile */
+    .secondary-buttons {
+        gap: 8px;
+    }
+    /* Primary CTA button styles for mobile */
+    .cta-button.primary {
+        font-size: 1em;
+        padding: 10px 2px;
+        gap: 8px;
+    }
+    /* Secondary CTA button styles for mobile */
+    .cta-button.secondary {
+        font-size: 0.8em;
+        padding: 5px 2px;
+        width: 95%;
+        max-width: 120px;
+    }
+}

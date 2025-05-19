@@ -5,7 +5,23 @@
     <xsl:template match="/battle">
         <div class="reporte-batalla">
             <h2>BATTLE #<xsl:value-of select="@id"/> STATISTICS</h2>
-            
+
+            <div class="type-battle">
+                <xsl:attribute name="class">
+                    <xsl:choose>
+                        <xsl:when test="invasion = 'true'">type-battle invasion</xsl:when>
+                        <xsl:otherwise>type-battle external-menace</xsl:otherwise>
+                    </xsl:choose>
+                </xsl:attribute>
+                <h3>Type of battle</h3>
+                <p> 
+                    <xsl:choose>
+                        <xsl:when test="invasion = 'true'">Invasion ⚔️</xsl:when>
+                        <xsl:otherwise>External menace 🛡️</xsl:otherwise>
+                    </xsl:choose>
+                </p>
+            </div>
+
             <div class="comparison">
                 <h3>Army Comparison</h3>
                 <table class="army-comparison">
@@ -88,8 +104,8 @@
                 <h3>Winner</h3>
                 <p>
                     <xsl:choose>
-                        <xsl:when test="winner = 'planet'">Planet</xsl:when>
-                        <xsl:otherwise>Enemy</xsl:otherwise>
+                        <xsl:when test="winner = 'planet'">Planet 🌍</xsl:when>
+                        <xsl:otherwise>Enemy 👽</xsl:otherwise>
                     </xsl:choose>
                 </p>
             </div>
@@ -99,7 +115,6 @@
     </xsl:template>
     
     <xsl:template name="generateUnitRows">
-        <!-- Light Hunter -->
         <tr>
             <td>Light Hunter</td>
             <td><xsl:value-of select="army_planet/light_hunter/units"/></td>
@@ -108,7 +123,6 @@
             <td><xsl:value-of select="army_enemy/light_hunter/drops"/></td>
         </tr>
         
-        <!-- Heavy Hunter -->
         <tr>
             <td>Heavy Hunter</td>
             <td><xsl:value-of select="army_planet/heavy_hunter/units"/></td>
@@ -117,7 +131,6 @@
             <td><xsl:value-of select="army_enemy/heavy_hunter/drops"/></td>
         </tr>
         
-        <!-- Battle Ship -->
         <tr>
             <td>Battle Ship</td>
             <td><xsl:value-of select="army_planet/battle_ship/units"/></td>
@@ -126,7 +139,6 @@
             <td><xsl:value-of select="army_enemy/battle_ship/drops"/></td>
         </tr>
         
-        <!-- Armored Ship -->
         <tr>
             <td>Armored Ship</td>
             <td><xsl:value-of select="army_planet/armored_ship/units"/></td>
@@ -135,31 +147,88 @@
             <td><xsl:value-of select="army_enemy/armored_ship/drops"/></td>
         </tr>
         
-        <!-- Missile Launcher (Planet only) -->
         <tr>
             <td>Missile Launcher</td>
-            <td><xsl:value-of select="army_planet/missile_launcher/units"/></td>
-            <td><xsl:value-of select="army_planet/missile_launcher/drops"/></td>
-            <td>-</td>
-            <td>-</td>
+            <td>
+                <xsl:choose>
+                    <xsl:when test="invasion = 'true'">-</xsl:when>
+                    <xsl:otherwise><xsl:value-of select="army_planet/missile_launcher/units"/></xsl:otherwise>
+                </xsl:choose>
+            </td>
+            <td>
+                <xsl:choose>
+                    <xsl:when test="invasion = 'true'">-</xsl:when>
+                    <xsl:otherwise><xsl:value-of select="army_planet/missile_launcher/drops"/></xsl:otherwise>
+                </xsl:choose>
+            </td>
+            <td>
+                <xsl:choose>
+                    <xsl:when test="invasion = 'true'"><xsl:value-of select="army_enemy/missile_launcher/units"/></xsl:when>
+                    <xsl:otherwise>-</xsl:otherwise>
+                </xsl:choose>
+            </td>
+            <td>
+                <xsl:choose>
+                    <xsl:when test="invasion = 'true'"><xsl:value-of select="army_enemy/missile_launcher/drops"/></xsl:when>
+                    <xsl:otherwise>-</xsl:otherwise>
+                </xsl:choose>
+            </td>
         </tr>
         
-        <!-- Ion Cannon (Planet only) -->
         <tr>
             <td>Ion Cannon</td>
-            <td><xsl:value-of select="army_planet/ion_cannon/units"/></td>
-            <td><xsl:value-of select="army_planet/ion_cannon/drops"/></td>
-            <td>-</td>
-            <td>-</td>
+            <td>
+                <xsl:choose>
+                    <xsl:when test="invasion = 'true'">-</xsl:when>
+                    <xsl:otherwise><xsl:value-of select="army_planet/ion_cannon/units"/></xsl:otherwise>
+                </xsl:choose>
+            </td>
+            <td>
+                <xsl:choose>
+                    <xsl:when test="invasion = 'true'">-</xsl:when>
+                    <xsl:otherwise><xsl:value-of select="army_planet/ion_cannon/drops"/></xsl:otherwise>
+                </xsl:choose>
+            </td>
+            <td>
+                <xsl:choose>
+                    <xsl:when test="invasion = 'true'"><xsl:value-of select="army_enemy/ion_cannon/units"/></xsl:when>
+                    <xsl:otherwise>-</xsl:otherwise>
+                </xsl:choose>
+            </td>
+            <td>
+                <xsl:choose>
+                    <xsl:when test="invasion = 'true'"><xsl:value-of select="army_enemy/ion_cannon/drops"/></xsl:when>
+                    <xsl:otherwise>-</xsl:otherwise>
+                </xsl:choose>
+            </td>
         </tr>
         
-        <!-- Plasma Cannon (Planet only) -->
         <tr>
             <td>Plasma Cannon</td>
-            <td><xsl:value-of select="army_planet/plasma_cannon/units"/></td>
-            <td><xsl:value-of select="army_planet/plasma_cannon/drops"/></td>
-            <td>-</td>
-            <td>-</td>
+            <td>
+                <xsl:choose>
+                    <xsl:when test="invasion = 'true'">-</xsl:when>
+                    <xsl:otherwise><xsl:value-of select="army_planet/plasma_cannon/units"/></xsl:otherwise>
+                </xsl:choose>
+            </td>
+            <td>
+                <xsl:choose>
+                    <xsl:when test="invasion = 'true'">-</xsl:when>
+                    <xsl:otherwise><xsl:value-of select="army_planet/plasma_cannon/drops"/></xsl:otherwise>
+                </xsl:choose>
+            </td>
+            <td>
+                <xsl:choose>
+                    <xsl:when test="invasion = 'true'"><xsl:value-of select="army_enemy/plasma_cannon/units"/></xsl:when>
+                    <xsl:otherwise>-</xsl:otherwise>
+                </xsl:choose>
+            </td>
+            <td>
+                <xsl:choose>
+                    <xsl:when test="invasion = 'true'"><xsl:value-of select="army_enemy/plasma_cannon/drops"/></xsl:when>
+                    <xsl:otherwise>-</xsl:otherwise>
+                </xsl:choose>
+            </td>
         </tr>
     </xsl:template>
 </xsl:stylesheet>

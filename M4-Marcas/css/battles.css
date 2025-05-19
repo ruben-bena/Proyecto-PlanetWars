@@ -105,6 +105,58 @@
     text-align: center;
 }
 
+/* Battle type */
+/* Container */
+.type-battle {
+    padding: 18px 40px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.18);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;
+    min-width: 180px;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 25px;
+    transition: background 0.2s, box-shadow 0.2s;
+}
+/* Text */
+.type-battle h3 {
+    font-size: 2.3em;
+    margin-bottom: 5px;
+}
+.type-battle p {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 0;
+}
+/* External Menace */
+.type-battle.external-menace {
+    background-color: #1a2340;
+    border: 2px solid #3a7bd5;
+}
+.type-battle.external-menace:hover {
+    background-color: #22305a;
+    box-shadow: 0 8px 20px rgba(58, 123, 213, 0.25);
+}
+.type-battle.external-menace p {
+    color: #b6d6ff;
+}
+/* Invasion */
+.type-battle.invasion {
+    background-color: #3a1616;
+    border: 2px solid #d13a3a;
+}
+.type-battle.invasion:hover {
+    background-color: #491818;
+    box-shadow: 0 8px 20px rgba(209, 58, 58, 0.25);
+}
+.type-battle.invasion p {
+    color: #ffd6d6;
+}
+
 /* Army comparison */
 /* Container */
 .comparison {
@@ -564,4 +616,131 @@
 .error p {
     font-size: 1.2em;
     color: #ff9999;
+}
+
+
+
+/* =================== */
+/* |RESPONSIVE STYLES| */
+/* =================== */
+/* 768px width */
+/* Responsive styles for tablets and small screens */
+@media (max-width: 768px) {
+    /* Main content padding and width adjustment */
+    .main-content {
+        padding: 20px 5px;
+        max-width: 100%;
+    }
+    /* Responsive padding, border, and width for main sections */
+    .buscar-batalla,
+    .reporte-batalla,
+    .comparison,
+    .costs,
+    .losses,
+    .waste,
+    .result {
+        padding: 16px 8px;
+        border-radius: 10px;
+        margin-bottom: 25px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    /* Stack cost and losses containers vertically */
+    .costs-container,
+    .losses-container {
+        flex-direction: column;
+        gap: 12px;
+    }
+    /* Full width for cost and losses boxes */
+    .cost-planet,
+    .cost-enemy,
+    .losses-planet,
+    .losses-enemy {
+        width: 100%;
+        min-width: unset;
+        max-width: unset;
+        padding: 12px 8px;
+    }
+    /* Smaller padding and font size for army comparison table */
+    .army-comparison th,
+    .army-comparison td {
+        padding: 8px 6px;
+        font-size: 0.95em;
+    }
+    .army-comparison {
+        font-size: 0.95em;
+    }
+    /* Responsive result box padding */
+    .result {
+        padding: 12px 10px;
+        min-width: unset;
+    }
+    /* Smaller download button for tablets */
+    .btn-download {
+        font-size: 2em;
+        padding: 12px 10px;
+        margin-top: 18px;
+    }
+    /* Waste section margin adjustment */
+    .waste {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+
+/* 480px width */
+/* Responsive styles for mobile phones */
+@media (max-width: 480px) {
+    /* Smaller title font and margin for mobile */
+    .main-content h1 {
+        font-size: 2em;
+        margin: 18px 0;
+    }
+    /* Reduced padding and border radius for main sections */
+    .buscar-batalla,
+    .reporte-batalla,
+    .comparison,
+    .costs,
+    .losses,
+    .waste,
+    .result {
+        padding: 8px 2px;
+        border-radius: 7px;
+        margin-bottom: 15px;
+    }
+    /* Smaller padding and font size for army comparison table */
+    .army-comparison th,
+    .army-comparison td {
+        padding: 4px 2px;
+        font-size: 0.85em;
+    }
+    .army-comparison {
+        font-size: 0.85em;
+    }
+    /* Smaller font for cost and losses box titles */
+    .cost-planet h4,
+    .cost-enemy h4,
+    .losses-planet h4,
+    .losses-enemy h4 {
+        font-size: 1.1em;
+    }
+    /* Smaller download button for mobile */
+    .btn-download {
+        font-size: 1.2em;
+        padding: 8px 4px;
+        margin-top: 10px;
+    }
+    /* Smaller result title and text for mobile */
+    .result h3 {
+        font-size: 1.5em;
+    }
+    .result p {
+        font-size: 1.1em;
+    }
+    /* Waste section margin and padding adjustment for mobile */
+    .waste {
+        margin-left: 2px;
+        margin-right: 2px;
+        padding: 6px;
+    }
 }

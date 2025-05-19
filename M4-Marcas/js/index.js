@@ -4,12 +4,11 @@
 document.addEventListener("DOMContentLoaded", function() {
     // Image list 
     const images = [
-        "img/index/placeholder-1.png",
-        "img/index/placeholder-1.png",
-        "img/index/placeholder-1.png",
-        "img/index/placeholder-1.png",
-        "img/index/placeholder-1.png",
-        "img/index/placeholder-1.png",
+        "img/index/screenshot1.png",
+        "img/index/screenshot2.png",
+        "img/index/screenshot3.png",
+        "img/index/screenshot4.png",
+        "img/index/screenshot5.png",
     ];
 
     // Select the slider elements
