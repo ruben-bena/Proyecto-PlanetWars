@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 resultadoBatalla.innerHTML = `
                     <div class="error">
                         <h3>Error</h3>
-                        <p>No se encontró la batalla #${numero}</p>
+                        <p>Battle #${numero} not found</p>
                     </div>
                 `;
             }
