@@ -1,25 +1,43 @@
-/* ======= */
-/* |TEAM|  */
-/* ======= */
-/* Team section container */
+/* ============= */
+/* |MAIN TITLES| */
+/* ============= */
+h1 {
+    font-size: 4em;
+    margin: 30px 0 25px 0;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(255,255,255,0.5);
+    line-height: 1.2;
+    font-weight: bold;
+}
+
+
+
+/* ============== */
+/* |TEAM SECTION| */
+/* ============== */
+/* Main team container */
 .equipo {
     background-color: rgba(30, 30, 40, 0.7);
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     text-align: center;
-    padding: 30px;
-    margin: 20px 0;
-    margin-bottom: 40px;
+    padding: 28px 24px;
+    margin: 20px auto 40px auto;
+    max-width: 900px;
+    box-sizing: border-box;
 }
 
-/* Team members grid */
+/* Team members container */
 .miembros-equipo {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 40px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
     margin: 0 auto;
-    max-width: 1200px;
 }
 
 /* Individual member card */
@@ -34,14 +52,13 @@
     transition: all 0.3s ease;
 }
 
-/* Member card hover effect */
 .miembro:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 20px rgba(0,0,0,0.5);
     background: rgba(50, 50, 70, 0.95);
 }
 
-/* Member photo */
+/* Member image */
 .miembro img {
     width: 140px;
     height: 140px;
@@ -68,75 +85,115 @@
 
 
 
+/* ========================= */
+/* |PROJECT HISTORY SECTION| */
+/* ========================= */
+/* Project history container */
+.historia-proyecto {
+    background-color: rgba(30, 30, 40, 0.85);
+    border-radius: 15px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+    margin: 30px auto;
+    padding: 28px 24px;
+    max-width: 900px;
+    transition: background 0.2s;
+}
+
+/* Members section title */
+.titulo-miembros, .historia-proyecto h2 {
+    color: #fff;
+    font-size: 2em;
+    margin-bottom: 18px;
+    text-shadow: 0 0 8px #222;
+    text-align: center;
+}
+
+/* Project history content */
+.contenido-historia p {
+    color: #e0e0e0;
+    font-size: 1.15em;
+    line-height: 1.6;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+
+
 /* =================== */
 /* |RESPONSIVE DESIGN| */
 /* =================== */
-/* 768px width */
-@media screen and (max-width: 768px) {
-    /* Reduce gap and padding for team grid */
+/* Tablets: up to 768px */
+@media (max-width: 768px) {
+    .main-content h1, .title, h1 {
+        font-size: 2.5em;
+        margin: 20px 0 18px 0;
+    }
+    .equipo, .historia-proyecto {
+        padding: 18px 8px;
+        max-width: 98%;
+    }
     .miembros-equipo {
-        gap: 20px;
-        padding: 0 15px;
+        gap: 24px;
     }
-
-    /* Smaller member card */
     .miembro {
-        width: 230px;
-        height: 230px;
-        padding: 15px;
+        width: 180px;
+        height: 220px;
+        padding: 12px;
     }
-
-    /* Smaller member photo */
     .miembro img {
-        width: 120px;
-        height: 120px;
+        width: 90px;
+        height: 90px;
     }
-
-    /* Smaller member name */
     .miembro h3 {
         font-size: 16px;
     }
-
-    /* Smaller member description */
     .miembro p {
         font-size: 13px;
     }
+    .titulo-miembros, .historia-proyecto h2 {
+        font-size: 1.3em;
+    }
+    .contenido-historia p {
+        font-size: 1em;
+    }
 }
 
-/* 480px width */
-@media screen and (max-width: 480px) {
-    /* Smaller team section padding and margin */
-    .equipo {
-        padding: 20px;
+/* Mobiles: up to 480px */
+@media (max-width: 480px) {
+    .main-content h1, .title, h1 {
+        font-size: 1.5em;
+        margin: 14px 0 10px 0;
+    }
+    .equipo, .historia-proyecto {
+        padding: 8px 2px;
+        max-width: 100%;
         margin: 10px 0;
     }
-
-    /* Reduce gap for team grid */
     .miembros-equipo {
-        gap: 15px;
+        flex-direction: column;
+        gap: 14px;
     }
-
-    /* Full width member card for mobile */
     .miembro {
-        width: 100%;
-        max-width: 280px;
+        width: 95%;
+        max-width: 260px;
         height: auto;
-        min-height: 200px;
+        padding: 8px;
+        margin: 0 auto;
     }
-
-    /* Smaller member photo */
     .miembro img {
-        width: 100px;
-        height: 100px;
+        width: 70px;
+        height: 70px;
     }
-
-    /* Smaller member name */
     .miembro h3 {
-        font-size: 15px;
+        font-size: 14px;
     }
-
-    /* Smaller member description */
     .miembro p {
         font-size: 12px;
+    }
+    .titulo-miembros, .historia-proyecto h2 {
+        font-size: 1em;
+    }
+    .contenido-historia p {
+        font-size: 0.95em;
     }
 }
