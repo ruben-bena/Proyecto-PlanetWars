@@ -1,0 +1,545 @@
+/* ============= */
+/* |SCROLL SNAP| */
+/* ============= */
+html {
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+}
+
+
+
+/* ======= */
+/* |TITLE| */
+/* ======= */
+/* Title section */
+.title {
+    min-height: 60vh;
+    scroll-snap-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Title text */
+.title h1 {
+    font-size: 10em;
+    margin: 30px 0 10px 0;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    line-height: 1.2;
+}
+.title .subtitle {
+    font-size: 1.8em;
+    margin: 0 0 50px 0;
+    color: #ccc;
+    max-width: 700px;
+}
+
+/* Title button */
+.t-button {
+    display: inline-block;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 4em;
+    padding: 20px 30px;
+    transition: all 0.3s ease;
+    margin-top: 30px;
+}
+.t-button:hover {
+    background-color: #45a049;
+    box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+    transform: translateY(-5px);
+}
+
+
+
+/* ========== */
+/* |FEATURES| */
+/* ========== */
+/* features section */
+.features {
+    min-height: 100vh;
+    scroll-snap-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.feature-grid {
+    margin-top: 10%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 20px;
+    width: 100%;
+}
+
+.feature-card {
+    background-color: rgba(30, 30, 40, 0.7);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    background-color: rgba(40, 40, 50, 0.9);
+}
+
+.feature-icon {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+.feature-card h3 {
+    font-size: 1.5em;
+    margin: 0 0 15px 0;
+    color: #fff;
+}
+
+.feature-card p {
+    color: #ccc;
+    line-height: 1.6;
+    margin: 0;
+}
+
+
+
+/* ============= */
+/* |SCREENSHOTS| */
+/* ============= */
+/* screenshots section */
+.game-gallery {
+    min-height: 100vh;
+    scroll-snap-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+    margin: 10px auto;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+/* General container*/
+.slider-btns-outer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 10.5%;
+    position: relative;
+    padding: 20px 60px;
+    background-color: rgba(30, 30, 40, 0.7);
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    padding-bottom: 50px;
+    width: 100%;
+}
+
+/* image container*/
+.slider {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    border-radius: 10px;
+    background: rgba(40, 40, 60, 0.9);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    aspect-ratio: 16/9;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+}
+
+/* images */
+.slider-images {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.77, 0, 0.18, 1);
+}
+.slider-image {
+    min-width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+.slider-image.active {
+    display: block;
+}
+
+/* Slider buttons*/
+.slider-btn {
+    position: absolute;
+    top: 3%;   
+    bottom: 0;
+    transform: none;
+    background-color: rgba(40, 40, 50, 0.9);
+    color: white;
+    border: 2px solid #4CAF50;
+    font-size: 1.8em;
+    padding: 0;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 2;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 89.5%;
+    width: 40px;
+}
+.slider-btn:hover {
+    background-color: rgba(50, 50, 60, 0.95);
+    transform:  scale(1.03);
+    box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+}
+.slider-btn-left {
+    left: 10px;
+}
+.slider-btn-right {
+    right: 10px;
+}
+
+/* slider dots */
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    padding: 10px 0;
+    z-index: 2;
+    flex-wrap: wrap;
+}
+.slider-dot {
+    width: 13px;
+    height: 13px;
+    margin: 0 5px;
+    background: rgba(255, 255, 255, 0.4);
+    border: 2px solid #4CAF50;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.slider-dot:hover {
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(1.2);
+}
+.slider-dot.active {
+    background: #4CAF50;
+    transform: scale(1.2);
+}
+
+
+
+/* ============= */
+/* |CTA SECTION| */
+/* ============= */
+/* CTA section */
+.cta-section {
+    min-height: 80vh;
+    scroll-snap-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+
+.cta-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+}
+
+.cta-image {
+    width: 30%;
+    height: 30%;;
+}
+
+/* Buttons*/
+.cta-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+}
+
+.secondary-buttons {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    justify-content: center;
+}
+
+.cta-button {
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cta-button.primary {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 2.5em;
+    padding: 40px 60px;
+    gap: 20px;
+    width: 100%;
+}
+
+.cta-button.primary:hover {
+    background-color: #45a049;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+}
+
+.cta-button.secondary {
+    background-color: rgba(40, 40, 50, 0.9);
+    color: white;
+    border: 3px solid #4CAF50;
+    font-size: 1.5em;
+    padding: 20px 40px;
+    width: 50%;
+    max-width: 300px;
+}
+
+.cta-button.secondary:hover {
+    background-color: rgba(50, 50, 60, 0.95);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+
+
+/* =================== */
+/* |RESPONSIVE DESIGN| */
+/* =================== */
+/* 768px width */
+@media (max-width: 768px) {
+    /* Title section styles for tablets */
+    .title h1 {
+        font-size: 4em;
+    }
+    .title .subtitle {
+        font-size: 1.2em;
+        margin-bottom: 30px;
+    }
+    /* Button styles for tablets */
+    .t-button {
+        font-size: 2em;
+        padding: 15px 20px;
+    }
+    /* Features section padding for tablets */
+    .features {
+        padding: 20px 5px;
+    }
+    /* Feature grid gap and padding for tablets */
+    .feature-grid {
+        gap: 15px;
+        padding: 10px;
+    }
+    /* Feature card padding for tablets */
+    .feature-card {
+        padding: 15px;
+    }
+    /* Feature icon size for tablets */
+    .feature-icon {
+        font-size: 2em;
+    }
+    /* Game gallery padding for tablets */
+    .game-gallery {
+        padding: 5px 5px;
+    }
+    /* Slider buttons outer padding for tablets */
+    .slider-btns-outer {
+        padding: 10px 10px;
+        margin-top: 5%;
+        padding-bottom: 20px;
+    }
+    /* Slider min height for tablets */
+    .slider {
+        min-height: 180px;
+    }
+    /* Slider button size for tablets */
+    .slider-btn {
+        font-size: 1.2em;
+        height: 60%;
+        width: 30px;
+    }
+    /* Slider dot size for tablets */
+    .slider-dot {
+        width: 10px;
+        height: 10px;
+    }
+    /* CTA section padding for tablets */
+    .cta-section {
+        padding: 20px 5px;
+    }
+    /* CTA image width for tablets */
+    .cta-image {
+        width: 60%;
+        height: auto;
+    }
+    /* Primary CTA button styles for tablets */
+    .cta-button.primary {
+        font-size: 1.5em;
+        padding: 20px 10px;
+    }
+    /* Secondary CTA button styles for tablets */
+    .cta-button.secondary {
+        font-size: 1em;
+        padding: 10px 10px;
+        width: 80%;
+        max-width: 200px;
+    }
+}
+
+/* 480px width */
+@media (max-width: 480px) {
+    /* Title section min height and padding for mobile */
+    .title {
+        min-height: 40vh;
+        padding: 10px;
+    }
+    /* Title font size and margin for mobile */
+    .title h1 {
+        font-size: 2.2em;
+        margin: 10px 0 5px 0;
+    }
+    /* Subtitle font size and margin for mobile */
+    .title .subtitle {
+        font-size: 1em;
+        margin-bottom: 15px;
+        max-width: 95vw;
+    }
+    /* Button styles for mobile */
+    .t-button {
+        font-size: 1.1em;
+        padding: 10px 10px;
+        margin-top: 10px;
+    }
+    /* Features section min height and padding for mobile */
+    .features {
+        min-height: 60vh;
+        padding: 10px 2px;
+    }
+    /* Feature grid columns and gap for mobile */
+    .feature-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 2px;
+    }
+    /* Feature card padding for mobile */
+    .feature-card {
+        padding: 8px;
+    }
+    /* Feature icon size and margin for mobile */
+    .feature-icon {
+        font-size: 1.3em;
+        margin-bottom: 10px;
+    }
+    /* Game gallery min height and padding for mobile */
+    .game-gallery {
+        min-height: 40vh;
+        padding: 2px 2px;
+        margin-bottom: 10px;
+    }
+    /* Slider buttons outer padding for mobile */
+    .slider-btns-outer {
+        padding: 2px 2px;
+        margin-top: 2%;
+        padding-bottom: 10px;
+    }
+    /* Slider min height and aspect ratio for mobile */
+    .slider {
+        min-height: 100px;
+        aspect-ratio: 16/10;
+    }
+    /* Slider button size for mobile */
+    .slider-btn {
+        font-size: 1em;
+        height: 40%;
+        width: 22px;
+    }
+    /* Slider dot size and margin for mobile */
+    .slider-dot {
+        width: 8px;
+        height: 8px;
+        margin: 0 2px;
+    }
+    /* CTA section min height and padding for mobile */
+    .cta-section {
+        min-height: 40vh;
+        padding: 10px 2px;
+    }
+    /* CTA container gap for mobile */
+    .cta-container {
+        gap: 15px;
+    }
+    /* CTA image width for mobile */
+    .cta-image {
+        width: 90%;
+        height: auto;
+    }
+    /* CTA buttons gap and max width for mobile */
+    .cta-buttons {
+        gap: 10px;
+        max-width: 100vw;
+    }
+    /* Secondary buttons gap for mobile */
+    .secondary-buttons {
+        gap: 8px;
+    }
+    /* Primary CTA button styles for mobile */
+    .cta-button.primary {
+        font-size: 1em;
+        padding: 10px 2px;
+        gap: 8px;
+    }
+    /* Secondary CTA button styles for mobile */
+    .cta-button.secondary {
+        font-size: 0.8em;
+        padding: 5px 2px;
+        width: 95%;
+        max-width: 120px;
+    }
+}

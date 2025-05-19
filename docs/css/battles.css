@@ -1,0 +1,748 @@
+/* ============= */
+/* |BASE STYLES| */
+/* ============= */
+.main-content {
+    min-height: 100vh;
+    scroll-snap-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+/* Title */
+.main-content h1 {
+    font-size: 4em;
+    margin: 30px 0;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    text-align: center;
+}
+
+
+
+/* ================ */
+/* |SEARCH SECTION| */
+/* ================ */
+/* Section */
+.buscar-batalla {
+    background-color: rgba(30, 30, 40, 0.7);
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Form */
+#form-buscar-batalla {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+}
+#form-buscar-batalla label {
+    font-size: 1.2em;
+    color: #ccc;
+}
+#form-buscar-batalla input {
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 2px solid #4CAF50;
+    background-color: rgba(40, 40, 50, 0.9);
+    color: white;
+    font-size: 1em;
+    min-width: 200px;
+}
+
+/* Form Button*/
+#form-buscar-batalla button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+#form-buscar-batalla button:hover {
+    background-color: #45a049;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+}
+
+
+
+/* =============== */
+/* |BATTLE REPORT| */
+/* =============== */
+/* Battle report container */
+.reporte-batalla {
+    background-color: rgba(30, 30, 40, 0.7);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    margin-bottom: 40px;
+}
+.reporte-batalla h2 {
+    font-size: 2.5em;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+.reporte-batalla h3 {
+    font-size: 2em;
+    color:  #fff;
+    margin: 20px 0 15px 0;
+    text-align: center;
+}
+
+/* Battle type */
+/* Container */
+.type-battle {
+    padding: 18px 40px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.18);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;
+    min-width: 180px;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 25px;
+    transition: background 0.2s, box-shadow 0.2s;
+}
+/* Text */
+.type-battle h3 {
+    font-size: 2.3em;
+    margin-bottom: 5px;
+}
+.type-battle p {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 0;
+}
+/* External Menace */
+.type-battle.external-menace {
+    background-color: #1a2340;
+    border: 2px solid #3a7bd5;
+}
+.type-battle.external-menace:hover {
+    background-color: #22305a;
+    box-shadow: 0 8px 20px rgba(58, 123, 213, 0.25);
+}
+.type-battle.external-menace p {
+    color: #b6d6ff;
+}
+/* Invasion */
+.type-battle.invasion {
+    background-color: #3a1616;
+    border: 2px solid #d13a3a;
+}
+.type-battle.invasion:hover {
+    background-color: #491818;
+    box-shadow: 0 8px 20px rgba(209, 58, 58, 0.25);
+}
+.type-battle.invasion p {
+    color: #ffd6d6;
+}
+
+/* Army comparison */
+/* Container */
+.comparison {
+    background-color: rgba(40, 40, 50);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+/* Table */
+.army-comparison {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 20px 0;
+    font-size: 1.1em;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.army-comparison th, 
+.army-comparison td {
+    padding: 12px 15px;
+    text-align: center;
+    border: 1px solid rgb(65, 65, 65);
+}
+/* Rounded borders */
+.army-comparison thead tr:first-child th:first-child {
+    border-top-left-radius: 15px;
+}
+.army-comparison thead tr:first-child th:last-child {
+    border-top-right-radius: 15px;
+}
+.army-comparison tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 15px;
+}
+.army-comparison tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 15px;
+}
+/* Header */
+.army-comparison th {
+    color: #fff;
+    font-weight: bold;
+    background-color: #171725;
+}
+/* Body */
+/* Unit type cells*/
+.army-comparison tbody tr:nth-child(even) {
+    background-color: #2e2e3b;
+    transition: background 0.2s;
+}
+.army-comparison tbody tr:nth-child(even):hover {
+    background-color: #39394a;
+}
+.army-comparison tbody tr:nth-child(odd) {
+    background-color: #1f1f2c;
+    transition: background 0.2s;
+}
+.army-comparison tbody tr:nth-child(odd):hover {
+    background-color: #282838;
+}
+/* Planet cells (green) */
+.army-comparison tbody tr:nth-child(even) td:nth-child(2),
+.army-comparison tbody tr:nth-child(even) td:nth-child(3) {
+    background-color: #217a34;
+    transition: background 0.2s;
+}
+.army-comparison tbody tr:nth-child(even):hover td:nth-child(2),
+.army-comparison tbody tr:nth-child(even):hover td:nth-child(3) {
+    background-color: #2bbf3a;
+}
+.army-comparison tbody tr:nth-child(odd) td:nth-child(2),
+.army-comparison tbody tr:nth-child(odd) td:nth-child(3) {
+    background-color: #185c24;
+    transition: background 0.2s;
+}
+.army-comparison tbody tr:nth-child(odd):hover td:nth-child(2),
+.army-comparison tbody tr:nth-child(odd):hover td:nth-child(3) {
+    background-color: #259933;
+}
+/* Enemy cells (red) */
+.army-comparison tbody tr:nth-child(even) td:nth-child(4),
+.army-comparison tbody tr:nth-child(even) td:nth-child(5) {
+    background-color: #a02e2e;
+    transition: background 0.2s;
+}
+.army-comparison tbody tr:nth-child(even):hover td:nth-child(4),
+.army-comparison tbody tr:nth-child(even):hover td:nth-child(5) {
+    background-color: #d13a3a;
+}
+.army-comparison tbody tr:nth-child(odd) td:nth-child(4),
+.army-comparison tbody tr:nth-child(odd) td:nth-child(5) {
+    background-color: #7a2323;
+    transition: background 0.2s;
+}
+.army-comparison tbody tr:nth-child(odd):hover td:nth-child(4),
+.army-comparison tbody tr:nth-child(odd):hover td:nth-child(5) {
+    background-color: #b92d2d;
+}
+
+/* Costs */
+/* General container*/
+.costs {
+    background-color: rgba(40, 40, 50);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+/* Boxes container*/
+.costs-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+/* Planet box */
+.cost-planet {
+    flex: 1;
+    background-color: rgba(27, 27, 37);
+    padding: 18px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background 0.2s, box-shadow 0.2s;
+    border: 2px solid #26ac33;
+}
+.cost-planet:hover {
+    background-color: rgba(33,33,43);
+    box-shadow: 0 8px 20px rgba(38, 172, 51, 0.3);
+}
+.cost-planet h4 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #4CAF50;
+}
+.cost-planet ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+.cost-planet li {
+    background: rgba(255,255,255,0.07);
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+}
+.cost-planet li:last-child {
+    margin-bottom: 0;
+}
+.cost-planet li span {
+    font-weight: bold;
+    color: #b6ffb6;
+}
+/* Enemy box */
+.cost-enemy {
+    flex: 1;
+    background-color: rgba(27, 27, 37);
+    padding: 18px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background 0.2s, box-shadow 0.2s;
+    border: 2px solid #d13a3a; /* Borde rojo */
+}
+.cost-enemy:hover {
+    background-color: rgba(33,33,43);
+    box-shadow: 0 8px 20px rgba(209, 58, 58, 0.3);
+}
+.cost-enemy h4 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #f44336;
+}
+.cost-enemy ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+.cost-enemy li {
+    background: rgba(255,255,255,0.07);
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+}
+.cost-enemy li:last-child {
+    margin-bottom: 0;
+}
+.cost-enemy li span {
+    font-weight: bold;
+    color: #ffd6d6;
+}
+
+/* Losses */
+/* General container */
+.losses {
+    background-color: rgba(40, 40, 50);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+/* Boxes container */
+.losses-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+/* Planet losses box */
+.losses-planet {
+    flex: 1;
+    background-color: rgba(27, 27, 37);
+    padding: 18px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background 0.2s, box-shadow 0.2s;
+    border: 2px solid #26ac33;
+}
+.losses-planet:hover {
+    background-color: rgba(33,33,43);
+    box-shadow: 0 8px 20px rgba(38, 172, 51, 0.3);
+}
+.losses-planet h4 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #4CAF50;
+}
+.losses-planet ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+.losses-planet li {
+    background: rgba(255,255,255,0.07);
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+}
+.losses-planet li:last-child {
+    margin-bottom: 0;
+}
+.losses-planet li span {
+    font-weight: bold;
+    color: #b6ffb6;
+}
+/* Enemy losses box */
+.losses-enemy {
+    flex: 1;
+    background-color: rgba(27, 27, 37);
+    padding: 18px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background 0.2s, box-shadow 0.2s;
+    border: 2px solid #d13a3a;
+}
+.losses-enemy:hover {
+    background-color: rgba(33,33,43);
+    box-shadow: 0 8px 20px rgba(209, 58, 58, 0.3);
+}
+.losses-enemy h4 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #f44336;
+}
+.losses-enemy ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+.losses-enemy li {
+    background: rgba(255,255,255,0.07);
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+}
+.losses-enemy li:last-child {
+    margin-bottom: 0;
+}
+.losses-enemy li span {
+    font-weight: bold;
+    color: #ffd6d6;
+}
+
+/* Waste */
+.waste {
+    background-color: rgba(40, 40, 50);
+    padding: 14px;
+    border-radius: 7px;
+    margin-bottom: 30px;
+    margin-left: 70px;
+    margin-right: 70px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid #4CAF50;
+    transition: background 0.2s, box-shadow 0.2s;
+}
+.waste ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+.waste li {
+    background: rgba(255,255,255,0.07);
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.waste li:last-child {
+    margin-bottom: 0;
+}
+.waste li span {
+    font-weight: bold;
+    color: #b6ffb6;
+}
+.waste:hover {
+    background-color: rgba(46, 46, 56);
+    box-shadow: 0 8px 20px rgba(38, 172, 51, 0.3);
+}
+
+/* Result */
+/* Container */
+.result {
+    padding: 20px 50px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background 0.2s, box-shadow 0.2s;
+    width: fit-content;
+    min-width: 220px;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+/* Victory */
+.result.victory {
+    background-color: #17351e; 
+    border: 2px solid #26ac33;
+}
+.result.victory:hover {
+    background-color: #1b4b25;
+    box-shadow: 0 8px 20px rgba(38, 172, 51, 0.3);
+}
+.result.victory h3 {
+    font-size: 3em;
+    margin-bottom: 5px;
+}
+.result.victory p {
+    color: #b6ffb6;
+    font-weight: bold;
+    font-size: 2.3em;
+    margin: 0;
+}
+/* Defeat */
+.result.defeat {
+    background-color: #3a1616; 
+    border: 2px solid #d13a3a;
+}
+.result.defeat:hover {
+    background-color: #491818;
+    box-shadow: 0 8px 20px rgba(209, 58, 58, 0.3);
+}
+.result.defeat h3 {
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+.result.defeat p {
+    color: #ffd6d6;
+    font-weight: bold;
+    font-size: 2.3em;
+    margin: 0;
+}
+
+/* Download button */
+.btn-download{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 4em;
+    padding: 20px 30px;
+    transition: all 0.3s ease;
+    margin-top: 30px;
+    border: none;
+    cursor: pointer;
+}
+.btn-download:hover {
+    background-color: #45a049;
+    box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+    transform: translateY(-5px);
+}
+
+/* =============== */
+/* |ERROR MESSAGE| */
+/* =============== */
+.error {
+    background-color: rgba(244, 67, 54, 0.2);
+    border: 2px solid #f44336;
+    color: #f44336;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    margin-top: 30px;
+}
+.error h3 {
+    font-size: 2em;
+    margin-bottom: 15px;
+}
+.error p {
+    font-size: 1.2em;
+    color: #ff9999;
+}
+
+
+
+/* =================== */
+/* |RESPONSIVE STYLES| */
+/* =================== */
+/* 768px width */
+/* Responsive styles for tablets and small screens */
+@media (max-width: 768px) {
+    /* Main content padding and width adjustment */
+    .main-content {
+        padding: 20px 5px;
+        max-width: 100%;
+    }
+    /* Responsive padding, border, and width for main sections */
+    .buscar-batalla,
+    .reporte-batalla,
+    .comparison,
+    .costs,
+    .losses,
+    .waste,
+    .result {
+        padding: 16px 8px;
+        border-radius: 10px;
+        margin-bottom: 25px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    /* Stack cost and losses containers vertically */
+    .costs-container,
+    .losses-container {
+        flex-direction: column;
+        gap: 12px;
+    }
+    /* Full width for cost and losses boxes */
+    .cost-planet,
+    .cost-enemy,
+    .losses-planet,
+    .losses-enemy {
+        width: 100%;
+        min-width: unset;
+        max-width: unset;
+        padding: 12px 8px;
+    }
+    /* Smaller padding and font size for army comparison table */
+    .army-comparison th,
+    .army-comparison td {
+        padding: 8px 6px;
+        font-size: 0.95em;
+    }
+    .army-comparison {
+        font-size: 0.95em;
+    }
+    /* Responsive result box padding */
+    .result {
+        padding: 12px 10px;
+        min-width: unset;
+    }
+    /* Smaller download button for tablets */
+    .btn-download {
+        font-size: 2em;
+        padding: 12px 10px;
+        margin-top: 18px;
+    }
+    /* Waste section margin adjustment */
+    .waste {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+
+/* 480px width */
+/* Responsive styles for mobile phones */
+@media (max-width: 480px) {
+    /* Smaller title font and margin for mobile */
+    .main-content h1 {
+        font-size: 2em;
+        margin: 18px 0;
+    }
+    /* Reduced padding and border radius for main sections */
+    .buscar-batalla,
+    .reporte-batalla,
+    .comparison,
+    .costs,
+    .losses,
+    .waste,
+    .result {
+        padding: 8px 2px;
+        border-radius: 7px;
+        margin-bottom: 15px;
+    }
+    /* Smaller padding and font size for army comparison table */
+    .army-comparison th,
+    .army-comparison td {
+        padding: 4px 2px;
+        font-size: 0.85em;
+    }
+    .army-comparison {
+        font-size: 0.85em;
+    }
+    /* Smaller font for cost and losses box titles */
+    .cost-planet h4,
+    .cost-enemy h4,
+    .losses-planet h4,
+    .losses-enemy h4 {
+        font-size: 1.1em;
+    }
+    /* Smaller download button for mobile */
+    .btn-download {
+        font-size: 1.2em;
+        padding: 8px 4px;
+        margin-top: 10px;
+    }
+    /* Smaller result title and text for mobile */
+    .result h3 {
+        font-size: 1.5em;
+    }
+    .result p {
+        font-size: 1.1em;
+    }
+    /* Waste section margin and padding adjustment for mobile */
+    .waste {
+        margin-left: 2px;
+        margin-right: 2px;
+        padding: 6px;
+    }
+}

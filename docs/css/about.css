@@ -1,0 +1,199 @@
+/* ============= */
+/* |MAIN TITLES| */
+/* ============= */
+h1 {
+    font-size: 4em;
+    margin: 30px 0 25px 0;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(255,255,255,0.5);
+    line-height: 1.2;
+    font-weight: bold;
+}
+
+
+
+/* ============== */
+/* |TEAM SECTION| */
+/* ============== */
+/* Main team container */
+.equipo {
+    background-color: rgba(30, 30, 40, 0.7);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    text-align: center;
+    padding: 28px 24px;
+    margin: 20px auto 40px auto;
+    max-width: 900px;
+    box-sizing: border-box;
+}
+
+/* Team members container */
+.miembros-equipo {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+/* Individual member card */
+.miembro {
+    width: 270px;
+    height: 270px;
+    text-align: center;
+    padding: 20px;
+    background: rgba(40, 40, 60, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+
+.miembro:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    background: rgba(50, 50, 70, 0.95);
+}
+
+/* Member image */
+.miembro img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 4px solid #4CAF50;
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+}
+
+/* Member name */
+.miembro h3 {
+    margin: 10px 0 5px;
+    color: white;
+    font-size: 18px;
+}
+
+/* Member description */
+.miembro p {
+    color: #ccc;
+    font-size: 14px;
+    margin: 0;
+}
+
+
+
+/* ========================= */
+/* |PROJECT HISTORY SECTION| */
+/* ========================= */
+/* Project history container */
+.historia-proyecto {
+    background-color: rgba(30, 30, 40, 0.85);
+    border-radius: 15px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+    margin: 30px auto;
+    padding: 28px 24px;
+    max-width: 900px;
+    transition: background 0.2s;
+}
+
+/* Members section title */
+.titulo-miembros, .historia-proyecto h2 {
+    color: #fff;
+    font-size: 2em;
+    margin-bottom: 18px;
+    text-shadow: 0 0 8px #222;
+    text-align: center;
+}
+
+/* Project history content */
+.contenido-historia p {
+    color: #e0e0e0;
+    font-size: 1.15em;
+    line-height: 1.6;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+
+
+/* =================== */
+/* |RESPONSIVE DESIGN| */
+/* =================== */
+/* Tablets: up to 768px */
+@media (max-width: 768px) {
+    .main-content h1, .title, h1 {
+        font-size: 2.5em;
+        margin: 20px 0 18px 0;
+    }
+    .equipo, .historia-proyecto {
+        padding: 18px 8px;
+        max-width: 98%;
+    }
+    .miembros-equipo {
+        gap: 24px;
+    }
+    .miembro {
+        width: 180px;
+        height: 220px;
+        padding: 12px;
+    }
+    .miembro img {
+        width: 90px;
+        height: 90px;
+    }
+    .miembro h3 {
+        font-size: 16px;
+    }
+    .miembro p {
+        font-size: 13px;
+    }
+    .titulo-miembros, .historia-proyecto h2 {
+        font-size: 1.3em;
+    }
+    .contenido-historia p {
+        font-size: 1em;
+    }
+}
+
+/* Mobiles: up to 480px */
+@media (max-width: 480px) {
+    .main-content h1, .title, h1 {
+        font-size: 1.5em;
+        margin: 14px 0 10px 0;
+    }
+    .equipo, .historia-proyecto {
+        padding: 8px 2px;
+        max-width: 100%;
+        margin: 10px 0;
+    }
+    .miembros-equipo {
+        flex-direction: column;
+        gap: 14px;
+    }
+    .miembro {
+        width: 95%;
+        max-width: 260px;
+        height: auto;
+        padding: 8px;
+        margin: 0 auto;
+    }
+    .miembro img {
+        width: 70px;
+        height: 70px;
+    }
+    .miembro h3 {
+        font-size: 14px;
+    }
+    .miembro p {
+        font-size: 12px;
+    }
+    .titulo-miembros, .historia-proyecto h2 {
+        font-size: 1em;
+    }
+    .contenido-historia p {
+        font-size: 0.95em;
+    }
+}
